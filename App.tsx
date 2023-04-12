@@ -27,7 +27,6 @@ import {
 
 type SectionProps = PropsWithChildren<{
   title: string;
-  // title: string;
 }>;
 
 function Section({children, title}: SectionProps): JSX.Element {
