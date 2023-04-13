@@ -1,5 +1,15 @@
 export enum colors {
   primary = '#dccddc',
-  backGround = '#f2f2f2',
-  white = '#fff',
+  secondary = '#f2f2f2',
+  primaryTint = '#dccddc',
+  secondaryTint = '#f2f2f2',
+  gradient = '#dccddc',
+  success = '#f2f2f2',
+  warning = '#dccddc',
+  error = '#f2f2f2',
+  info = '#dccddc',
+  neutral = '#f2f2f2',
+  background = '#dccddc',
+  text = '#f2f2f2',
+  normal = '#f2f2f2',
 }
