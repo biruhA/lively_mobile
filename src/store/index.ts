@@ -1,9 +1,47 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {counterReducer} from './features';
-// ...
+import {
+  authReducer,
+  browseReducer,
+  dealsReducer,
+  filterReducer,
+  productReducer,
+  searchReducer,
+  storeReducer,
+} from './features';
+import {
+  authApi,
+  browseApi,
+  dealsApi,
+  filterApi,
+  productApi,
+  storeApi,
+} from './services';
 
 export const store = configureStore({
-  reducer: {counter: counterReducer},
+  reducer: {
+    auth: authReducer,
+    product: productReducer,
+    store: storeReducer,
+    filter: filterReducer,
+    search: searchReducer,
+    deals: dealsReducer,
+    browse: browseReducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
+    [storeApi.reducerPath]: storeApi.reducer,
+    [filterApi.reducerPath]: filterApi.reducer,
+    [dealsApi.reducerPath]: dealsApi.reducer,
+    [browseApi.reducerPath]: browseApi.reducer,
+  },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      productApi.middleware,
+      storeApi.middleware,
+      filterApi.middleware,
+      dealsApi.middleware,
+      browseApi.middleware,
+    ),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

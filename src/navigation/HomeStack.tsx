@@ -1,0 +1,70 @@
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
+import {ScreenNames} from '../constants';
+import {
+  ArticleDetailScreen,
+  ClaimDiscount,
+  EventDetailScreen,
+  HomeScreen,
+  ProductDetailScreen,
+  SearchScreen,
+  SeeAllArticlesScreen,
+  SeeAllDealsScreen,
+  SeeAllPopularArticlesScreen,
+  SeeAllProductsScreen,
+  SeeAllTrendingArticlesScreen,
+} from '../screens';
+import {HomeStackParamList} from '../constants/HomeStackParamList';
+import {DiscountScreen, DiscountDetailScreen} from '../screens/';
+import {StoresScreen} from '../screens/StoresScreen';
+
+//TODO change AuthStackParamList
+const Stack = createStackNavigator<HomeStackParamList>();
+
+export const HomeStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
+      <Stack.Screen name={ScreenNames.Search} component={SearchScreen} />
+      <Stack.Screen name={ScreenNames.Discount} component={DiscountScreen} />
+      <Stack.Screen
+        name={ScreenNames.DiscountDetail}
+        component={DiscountDetailScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.ClaimDiscount}
+        component={ClaimDiscount}
+      />
+      <Stack.Screen
+        name={ScreenNames.SeeAllDeals}
+        component={SeeAllDealsScreen}
+      />
+
+      <Stack.Screen
+        name={ScreenNames.SeeAllProductsScreen}
+        component={SeeAllProductsScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.ProductDetailScreen}
+        component={ProductDetailScreen}
+      />
+      <Stack.Screen name={ScreenNames.StoresScreen} component={StoresScreen} />
+      <Stack.Screen
+        name={ScreenNames.EventDetail}
+        component={EventDetailScreen}
+      />
+
+      <Stack.Screen
+        name={ScreenNames.SeeAllTrendingArticles}
+        component={SeeAllTrendingArticlesScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.ArticleDetail}
+        component={ArticleDetailScreen}
+      />
+    </Stack.Navigator>
+  );
+};

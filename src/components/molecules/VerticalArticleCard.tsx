@@ -1,0 +1,98 @@
+import {TouchableOpacity, StyleSheet} from 'react-native';
+import React from 'react';
+import {Box, Text, Image, Stack, HStack, Divider} from 'native-base';
+import {fonts} from '../../theme/fonts';
+import {HeartIcon} from '../atoms';
+import {colors} from '../../theme/colors';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNames} from '../../constants';
+import {useAppDispatch} from '../../store/hooks';
+import {setProductId} from '../../store/features/productSlice';
+import {setSelectedArticleId} from '../../store/features/browseSlice';
+
+interface Props {
+  id: string;
+  title: string;
+  readTime: string;
+  catagoure: string;
+  imageUrl: string;
+  mainStyle?: object;
+  navTo?: string;
+}
+
+export function VerticalArticleCard({
+  id,
+  title,
+  readTime,
+  catagoure,
+  imageUrl,
+  navTo,
+  mainStyle,
+}: Props): JSX.Element {
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+
+  return (
+    <Stack
+      my={1}
+      ml={1}
+      mr={3}
+      bg="white"
+      rounded={'md'}
+      style={[styles.main, mainStyle]}>
+      <TouchableOpacity
+        onPress={() => {
+          dispatch(setSelectedArticleId(id));
+          if (navTo) {
+            navigation.navigate(navTo);
+            return;
+          }
+          navigation.navigate(ScreenNames.ProductDetailScreen);
+        }}>
+        <Stack h={200}>
+          <Image
+            source={{
+              uri: imageUrl,
+            }}
+            alt="Alternate Text"
+            w={'100%'}
+            h={120}
+            bg={'amber.100'}
+            resizeMode={'cover'}
+          />
+          <Stack px={2} py={1} justifyContent={'space-between'} h={82}>
+            <Text w={150} pt={2} pb={1} style={fonts.body1} numberOfLines={2}>
+              {title}
+            </Text>
+            <HStack pt={1}>
+              <Text fontWeight={'semibold'} style={styles.amount}>
+                {readTime}
+              </Text>
+              <Divider thickness="1" mx="2" h={4} orientation={'vertical'} />
+              <Text
+                fontWeight={'semibold'}
+                style={{...styles.amount, color: colors.primary}}>
+                {catagoure}
+              </Text>
+            </HStack>
+          </Stack>
+        </Stack>
+      </TouchableOpacity>
+    </Stack>
+  );
+}
+
+const styles = StyleSheet.create({
+  main: {
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
+  },
+  amount: {
+    ...fonts.caption,
+    color: colors.pureBlack,
+    fontSize: 12,
+  },
+});

@@ -1,0 +1,126 @@
+import React from 'react';
+import {FlatList} from 'react-native';
+import {HStack, Image, Spinner, Stack, Text, useDisclose} from 'native-base';
+import placeBackground from '../../assets/images/place-background.png';
+import {fonts} from '../../theme/fonts';
+import {colors} from '../../theme/colors';
+import phone from '../../assets/images/phone.png';
+import location from '../../assets/images/location.png';
+import telegram from '../../assets/images/telegram.png';
+import whatsup from '../../assets/images/whatsup.png';
+import facebook from '../../assets/images/facebook.png';
+import website from '../../assets/images/website.png';
+import {GradientButtonSmall} from '../atoms';
+import {LoginSheet} from '../organisms';
+import {useAppSelector} from '../../store/hooks';
+import {useStoreDetailByIdQuery} from '../../store/services';
+
+export function StoreSheetBody2() {
+  const {isOpen, onOpen, onClose} = useDisclose();
+  const {selectedStoreId} = useAppSelector(state => state.store);
+  const {selectedProduct} = useAppSelector(state => state.product);
+  const {data, isLoading} = useStoreDetailByIdQuery(selectedStoreId);
+
+  if (isLoading) {
+    return <Spinner py={'90%'} size="large" color="red" />;
+  }
+
+  return (
+    <Stack bg={colors.pureWhite} w={'100%'} px={2} space={2}>
+      <Stack>
+        <Text style={fonts.heading6}>{selectedProduct?.title?.english}</Text>
+        <Text style={fonts.body1}>You can find the product in this store</Text>
+      </Stack>
+      <Image
+        source={placeBackground}
+        alt="Alternate Text"
+        w={'100%'}
+        h={120}
+        resizeMode={'contain'}
+      />
+      <HStack alignItems={'flex-start'}>
+        <Image
+          position={'absolute'}
+          borderRadius={8}
+          top={-20}
+          left={5}
+          bg={'white'}
+          source={{
+            uri: data?.data?.store_logo?.url,
+          }}
+          alt="Alternate Text"
+          w={65}
+          h={60}
+          resizeMode={'contain'}
+        />
+        <Stack ml={100}>
+          <Text style={fonts.subtitle1} numberOfLines={2}>
+            {data?.data?.store_name?.english}
+          </Text>
+          <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
+        </Stack>
+      </HStack>
+      <Stack>
+        <ContactAddress />
+      </Stack>
+      <Stack space={1}>
+        <Text style={[fonts.subtitle2, {color: 'black'}]}>
+          Secure This Item
+        </Text>
+        <Text style={[fonts.body2, {color: colors.lightgreyText}]}>
+          Reserve Now and Guarantee its Availability for 24 Hours
+        </Text>
+      </Stack>
+      <GradientButtonSmall
+        mainStyle={{
+          borderRadius: 8,
+          width: '100%',
+          marginTop: 5,
+        }}
+        containerStyle={{paddingVertical: 13}}
+        text="Reserve"
+        onPress={onOpen}
+      />
+      <LoginSheet isOpen={isOpen} onClose={onClose} />
+    </Stack>
+  );
+}
+
+const Data = [
+  {id: 1, url: phone, name: 'Phone Number'},
+  {id: 2, url: location, name: 'Location'},
+  {id: 3, url: telegram, name: 'Telegram'},
+  {id: 4, url: whatsup, name: 'WhatsApp'},
+  {id: 5, url: facebook, name: 'Facebook'},
+  {id: 6, url: website, name: 'Website'},
+];
+
+function ContactAddress() {
+  return (
+    <Stack borderWidth={1} borderColor={colors.border} p={2} borderRadius={8}>
+      <Text style={[fonts.subtitle2, {color: 'black', paddingBottom: 5}]}>
+        Contact Address
+      </Text>
+      <FlatList
+        data={Data}
+        renderItem={({item}) => (
+          <HStack
+            py={2}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+            borderBottomWidth={1}
+            borderBottomColor={colors.border}>
+            <Text style={fonts.body1}>{item?.name}</Text>
+            <Image
+              source={item?.url}
+              alt="phone"
+              boxSize={7}
+              borderRadius={6}
+            />
+          </HStack>
+        )}
+        keyExtractor={item => item.id}
+      />
+    </Stack>
+  );
+}
