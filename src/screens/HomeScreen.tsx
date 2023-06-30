@@ -16,7 +16,7 @@ import {
 } from '../components/organisms';
 import {Prescription, SearchBar, SearchBox} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {Deals} from '../components/organisms/Deals';
 import {useCurrentLocation} from '../hooks';
 import search from '../assets/icons/search.png';

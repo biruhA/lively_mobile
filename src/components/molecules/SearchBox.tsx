@@ -1,4 +1,4 @@
-import {TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Text, HStack, Image, Stack} from 'native-base';
@@ -15,7 +15,6 @@ interface Props {
 
 export function SearchBox({mainStyle, onCamPress}: Props) {
   const navigation = useNavigation();
-  // px={4} py={3}
   return (
     <Stack bg={'white'} style={[mainStyle]}>
       <TouchableOpacity onPress={() => navigation.navigate(ScreenNames.Search)}>
@@ -26,7 +25,7 @@ export function SearchBox({mainStyle, onCamPress}: Props) {
           py={3}
           rounded={40}>
           <Image source={search} alt="search" size="24px" ml={4} />
-          <Text style={[fonts.body1, {fontSize: 14, color: '#0000003B'}]}>
+          <Text style={[fonts.body1, styles.ellipsis]}>
             Search for a products, articles, Pharmacies
           </Text>
           <TouchableOpacity onPress={onCamPress}>
@@ -42,3 +41,14 @@ export function SearchBox({mainStyle, onCamPress}: Props) {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  ellipsis: {
+    width: '70%',
+    color: '#0000003B',
+    fontSize: 14,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+  },
+});

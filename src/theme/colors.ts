@@ -18,4 +18,5 @@ export enum colors {
   lightgreyText = '#b4b4b4',
   border = '#F5F5F5',
   NormalText = '#262424',
+  pagesBackeground = '#f6fbfb',
 }

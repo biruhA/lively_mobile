@@ -18,6 +18,8 @@ import {BrowseScreen, PlaceScreen, SettingsScreen} from '../screens';
 import {ShopStack} from './ShopStack';
 import {HomeStack} from './HomeStack';
 import {BrowseStack} from './BrowseStack';
+import {Platform} from 'react-native';
+import {colors} from '../theme/colors';
 
 const Tab = createBottomTabNavigator<MainBottomParamList>();
 
@@ -26,7 +28,10 @@ export const MainBottomTab = () => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {height: 75},
+        tabBarStyle: {
+          height: Platform.OS === 'ios' ? 55 : 75,
+          borderTopColor: colors.pureWhite,
+        },
       }}>
       <Tab.Screen
         name={ScreenNames.Home}

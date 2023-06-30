@@ -46,6 +46,7 @@ export * from './ArticleUploadImage';
 export * from './CarouselBrowseItem';
 export * from './CarouselBrowseBottomItem';
 export * from './ColorList';
+export * from './settingItems';
 export * from './CollectionCard';
 export * from './DiscountCard';
 export * from './SearchBox';

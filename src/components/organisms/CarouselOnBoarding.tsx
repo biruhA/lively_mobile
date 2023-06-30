@@ -89,7 +89,7 @@ export class CarouselOnBoarding extends Component {
         alignItems={this.state.index === 2 ? 'flex-start' : 'center'}
         px={2}>
         <Pagination
-          dotsLength={DATA.length}
+          dotsLength={DATA?.length}
           activeDotIndex={this.state.index}
           dotStyle={styles.paginationDot}
           inactiveDotStyle={styles.paginationInactive}

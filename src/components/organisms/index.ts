@@ -36,6 +36,7 @@ export * from './LatestArticles';
 export * from './CarouselBrowse';
 export * from './CarouselBrowseBottom';
 export * from './SearchTags';
+export * from './SettingsScreenHeader';
 export * from './MedicineSections';
 export * from './DiscountStoreCard';
 export * from './Carousel1Centered';
