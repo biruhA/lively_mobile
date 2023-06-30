@@ -7,7 +7,12 @@ export const fonts = {
   heading2: {fontFamily: 'Poppins-Bold', fontSize: 40, color: 'black'},
   heading3: {fontFamily: 'Poppins-Bold', fontSize: 28, color: 'black'},
   heading4: {fontFamily: 'Poppins-Bold', fontSize: 28, color: 'black'},
-  heading5: {fontFamily: 'Poppins-Bold', fontSize: 24, color: 'black'},
+  heading5: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    color: 'black',
+    lineHeight: 30,
+  },
   heading6: {fontFamily: 'Poppins-Bold', fontSize: 20, color: 'black'},
   subtitle1: {fontFamily: 'Poppins-Medium', fontSize: 18, color: 'black'},
   subtitle2: {

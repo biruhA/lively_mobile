@@ -99,7 +99,7 @@ export function AdditionalInformationScreen() {
           Additional Information
         </Text>
         <Text style={fonts.body1}>
-          You can create an account by filling the information below
+          You can create an account by filling the informationbelow
         </Text>
       </Stack>
 

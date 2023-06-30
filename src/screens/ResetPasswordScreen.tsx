@@ -4,7 +4,12 @@ import {useForm, Controller} from 'react-hook-form';
 import {HStack, Image, Input, Stack, Text, useToast} from 'native-base';
 import rightArrow from '../assets/icons/right-arrow.png';
 import passwordVisible from '../assets/icons/password-visible.png';
-import {GoBack, GradientButton, LoginBackGround} from '../components/atoms';
+import {
+  GoBack,
+  GradientButton,
+  LoginBackGround,
+  PasswordIcon,
+} from '../components/atoms';
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import {ScreenNames} from '../constants';
@@ -69,7 +74,7 @@ export function ResetPasswordScreen() {
       bg={colors.pureWhite}
       justifyContent={'flex-start'}>
       <GoBack label="Forgot Password" />
-      <Stack pt={24}>
+      <Stack pt={24} space={1}>
         <Text style={fonts.heading4} pt={3}>
           Forgot Password
         </Text>
@@ -95,17 +100,13 @@ export function ResetPasswordScreen() {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              size={'lg'}
               borderRadius={5}
               placeholder="New Password"
               type={show ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={() => setShow(!show)}>
-                  <Image
-                    alt="newPassword"
-                    source={passwordVisible}
-                    boxSize={5}
-                    mr="2"
-                  />
+                  <PasswordIcon isActive={show} setIsActive={setShow} />
                 </Pressable>
               }
               onBlur={onBlur}
@@ -142,11 +143,9 @@ export function ResetPasswordScreen() {
               type={showCofirm ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={() => setShowCofirm(!showCofirm)}>
-                  <Image
-                    alt="confirmNewPassword"
-                    source={passwordVisible}
-                    boxSize={5}
-                    mr="2"
+                  <PasswordIcon
+                    isActive={showCofirm}
+                    setIsActive={setShowCofirm}
                   />
                 </Pressable>
               }

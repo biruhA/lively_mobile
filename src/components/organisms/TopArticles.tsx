@@ -13,40 +13,13 @@ interface Props {
   readTime: string;
 }
 
-const Data: Props[] = [
-  {
-    id: 1,
-    header: 'Cultivating Spiritual Wellness in Everyday Life',
-    group: 'Spiritual Wellness',
-    readTime: '10 min',
-  },
-  {
-    id: 2,
-    header: 'Cultivating Spiritual Wellness in Everyday Life',
-    group: 'Spiritual Wellness',
-    readTime: '10 min',
-  },
-  {
-    id: 3,
-    header: 'Cultivating Spiritual Wellness in Everyday Life',
-    group: 'Spiritual Wellness',
-    readTime: '10 min',
-  },
-  {
-    id: 4,
-    header: 'Cultivating Spiritual Wellness in Everyday Life',
-    group: 'Spiritual Wellness',
-    readTime: '10 min',
-  },
-];
-
 export function TopArticles() {
   const {data, isLoading} = useTrendingArticlesQuery();
 
   return (
-    <Stack pt={4}>
+    <Stack p={4} bg={'white'} space={2}>
       <SectionHeader
-        label="Top Articles"
+        label="Trending Articles"
         navTo={ScreenNames.SeeAllTrendingArticles}
       />
       {isLoading ? (

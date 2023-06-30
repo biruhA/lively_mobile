@@ -1,27 +1,59 @@
 import {View, Text, ScrollView} from 'react-native';
-import React from 'react';
-import {Stack} from 'native-base';
-import {IconOnlyHeader} from '../components/molecules';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
+import {Button, Center, Spinner, Stack, useDisclose} from 'native-base';
+import {DiscountDescription, IconOnlyHeader} from '../components/molecules';
 import share from '../assets/icons/share.png';
 import heart from '../assets/icons/heart.png';
-import {DiscountDetail, ProductCarousel} from '../components/organisms';
+import {
+  DiscountDetail,
+  DiscountStoreCard,
+  ProductCarousel,
+} from '../components/organisms';
 import {colors} from '../theme/colors';
 import {GradientButton} from '../components/atoms';
-import {useNavigation} from '@react-navigation/native';
-import {ScreenNames} from '../constants';
+import {LoginSheetState, ScreenNames} from '../constants';
+import {useAppSelector} from '../store/hooks';
+import {useProductVariantDetailQuery} from '../store/services';
+import {LoginSheet} from '../components/sheets';
 
 export function DiscountDetailScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const {userLocation} = useAppSelector(state => state.search);
+  const {data, isLoading} = useProductVariantDetailQuery({
+    id: route?.params?.id,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+  });
+  const {isOpen, onOpen, onClose} = useDisclose();
+  const {token} = useAppSelector(state => state.auth);
+  const [state, setState] = useState(
+    token ? LoginSheetState.LoggedIn : LoginSheetState.notLoggedIn,
+  );
+
+  useEffect(() => {
+    if (state === LoginSheetState.LoggedIn) {
+      onClose();
+      navigation.navigate(ScreenNames.ClaimDiscount);
+    }
+  }, [state]);
+
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
 
   return (
     <Stack flex={1} bg={colors.pureWhite} pt={4} pb={2} px={2}>
       <Stack px={5}>
         <IconOnlyHeader
-          iconL={share}
-          iconR={heart}
-          onPressL={() => {
-            console.log('cat');
-          }}
+          iconL={heart}
+          iconR={share}
+          onPressL={() => {}}
           onPressR={() => {}}
         />
       </Stack>
@@ -29,20 +61,35 @@ export function DiscountDetailScreen() {
         <ProductCarousel
           images={[
             {
-              url: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1655153111-41fYY4Q1KL._SL500_.jpg?crop=0.944xw:1xh;center,top&resize=980:*',
-            },
-            {
-              url: 'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1655153111-41fYY4Q1KL._SL500_.jpg?crop=0.944xw:1xh;center,top&resize=980:*',
+              url: data?.data?.product_variant?.product_image?.url,
             },
           ]}
         />
-        <DiscountDetail />
-        {/* <DiscountDescription /> */}
+        <DiscountDetail
+          data={data?.data?.product_variant}
+          price={data?.data?.price}
+          discount={data?.data?.discount}
+          current_price={data?.data?.current_price}
+          brand={data?.data?.brand?.name?.english}
+          left={data?.data?.left.toString()}
+        />
+        <DiscountStoreCard
+          imageUrl={data?.data?.store?.store_logo?.url}
+          name={`${data?.data?.store?.store_name?.english} ${data?.data?.store?.store_branch_name?.english}`}
+          distance={data?.data?.store?.distance}
+          rating={data?.data?.store?.rating}
+        />
+        <DiscountDescription data={data?.data?.product_variant} />
       </ScrollView>
+
       <GradientButton
+        mainStyle={{postion: 'absolute', bottom: 0}}
         text="Claim Discount"
-        onPress={() => navigation.navigate(ScreenNames.ClaimDiscount)}
+        onPress={() => {
+          onOpen();
+        }}
       />
+      <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />
     </Stack>
   );
 }

@@ -3,7 +3,7 @@ import {Actionsheet, Stack} from 'native-base';
 import {StoreSheetBody1, StoreSheetBody2} from '../molecules';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
-import {LoginSheet} from './LoginSheet';
+import {LoginSheetBody} from './LoginSheetBody';
 
 export enum storeSheetState {
   notLoggedIn = 'notLoggedIn',
@@ -32,7 +32,7 @@ export function StoreSheet({isOpen, onClose}: Props) {
             <StoreSheetBody1 onPress={onPress} />
           )}
           {state === storeSheetState.LoggingIn && (
-            <LoginSheet setState={setState} />
+            <LoginSheetBody setState={setState} />
           )}
           {state === storeSheetState.LoggedIn && <StoreSheetBody2 />}
         </Actionsheet.Content>

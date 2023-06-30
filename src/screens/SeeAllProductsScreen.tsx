@@ -110,7 +110,7 @@ export function SeeAllProductsScreen() {
           keyExtractor={(item: Props) => item.id}
         />
       )}
-      <FilterSheet isOpen={isOpen} onClose={onClose} />
+      <FilterSheet isOpen={isOpen} onClose={onClose} setData={setData} />
     </Stack>
   );
 }

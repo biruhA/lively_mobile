@@ -104,12 +104,12 @@ export function ForgotPasswordScreen() {
       bg={'white'}
       justifyContent={'flex-start'}>
       <GoBack label="Forgot Password" />
-      <Stack pt={24}>
+      <Stack pt={24} space={1}>
         <Text style={fonts.heading4} pt={3}>
           Forgot Password
         </Text>
         <Text style={fonts.body1}>
-          You can create an account by filling the information below
+          You can create an account by filling the informationbelow
         </Text>
       </Stack>
 
@@ -133,13 +133,13 @@ export function ForgotPasswordScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Stack alignItems="center">
               <InputGroup w={'100%'}>
-                <InputLeftAddon children={'+251'} />
                 <Input
-                  w={'87%'}
+                  w={'100%'}
+                  size={'lg'}
                   InputRightElement={
                     <Image
                       alt={'phone number'}
-                      source={mail}
+                      source={require('../assets/icons/phone.png')}
                       boxSize={5}
                       mr="2"
                     />

@@ -13,7 +13,7 @@ export enum colors {
   bodyText = '#636363',
   background = '#ffffff',
   pureBlack = '#181818',
-  pureWhite = '#ffffff',
+  pureWhite = '#f6fbfb',
   greyText = '#7A7A7A',
   lightgreyText = '#b4b4b4',
   border = '#F5F5F5',

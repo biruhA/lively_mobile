@@ -68,7 +68,7 @@ export class CarouselBrowse extends Component {
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    marginTop: 20,
+    marginTop: 0,
   },
   itemContainer: {
     width: ITEM_WIDTH,

@@ -27,6 +27,20 @@ export const dealsApi = createApi({
         url: 'square-discount-banners',
       }),
     }),
+    discountBannerDetail: build.query({
+      query: id => ({
+        url: `discount-banner-detail/${id}`,
+      }),
+    }),
+    productVariantDetail: build.query({
+      query: ({id, latitude, longitude}) => ({
+        url: `product-variant-detail/${id}`,
+        params: {
+          latitude,
+          longitude,
+        },
+      }),
+    }),
   }),
 });
 
@@ -35,4 +49,6 @@ export const {
   useAllDealsQuery,
   useLandscapeDiscountBannersQuery,
   useSquareDiscountBannersQuery,
+  useDiscountBannerDetailQuery,
+  useProductVariantDetailQuery,
 } = dealsApi;

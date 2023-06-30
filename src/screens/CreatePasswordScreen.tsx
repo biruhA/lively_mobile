@@ -12,7 +12,12 @@ import {
 } from 'native-base';
 import mail from '../assets/icons/mail.png';
 import passwordVisible from '../assets/icons/password-visible.png';
-import {GoBack, GradientButton, LoginBackGround} from '../components/atoms';
+import {
+  GoBack,
+  GradientButton,
+  LoginBackGround,
+  PasswordIcon,
+} from '../components/atoms';
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import {ScreenNames} from '../constants';
@@ -63,7 +68,8 @@ export function CreatePasswordScreen() {
           Create a password
         </Text>
         <Text style={fonts.body1}>
-          You can create an account by filling the information below
+          Set a password that you can use to log back in to your account at
+          anytime.
         </Text>
       </Stack>
 
@@ -86,17 +92,13 @@ export function CreatePasswordScreen() {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              size={'lg'}
               borderRadius={5}
               placeholder="Password"
               type={show ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={() => setShow(!show)}>
-                  <Image
-                    alt="password"
-                    source={passwordVisible}
-                    boxSize={5}
-                    mr="2"
-                  />
+                  <PasswordIcon isActive={show} setIsActive={setShow} />
                 </Pressable>
               }
               onBlur={onBlur}
@@ -127,16 +129,15 @@ export function CreatePasswordScreen() {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              size={'lg'}
               borderRadius={5}
               placeholder="Confirm Password"
               type={showCofirm ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={() => setShowCofirm(!showCofirm)}>
-                  <Image
-                    alt="confirmPassword"
-                    source={passwordVisible}
-                    boxSize={5}
-                    mr="2"
+                  <PasswordIcon
+                    isActive={showCofirm}
+                    setIsActive={setShowCofirm}
                   />
                 </Pressable>
               }

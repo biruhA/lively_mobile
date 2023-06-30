@@ -8,16 +8,10 @@ import {RichEditor} from 'react-native-pell-rich-editor';
 import {RichText} from './RichText';
 
 interface Props {
-  id?: string;
-  label: string;
-  value: string;
+  data: any;
 }
 
-export function DiscountDescription() {
-  const {selectedProduct, selectedProductVariantIndex} = useAppSelector(
-    state => state.product,
-  );
-
+export function DiscountDescription({data}) {
   function Item({label, value}: Props) {
     return (
       <HStack justifyContent={'space-between'}>
@@ -36,16 +30,13 @@ export function DiscountDescription() {
   return (
     <Stack bg={colors.pureWhite} p={4} space={2} mt={2}>
       <Text style={fonts.subtitle1}>Product Description</Text>
-      <RichText text={selectedProduct?.description?.english} />
+      <RichText text={data?.product?.description?.english} />
       <Stack>
         <Text style={fonts.subtitle1} pt={4}>
           Additional information
         </Text>
         <FlatList
-          data={
-            selectedProduct?.variants[selectedProductVariantIndex]
-              ?.additional_information
-          }
+          data={data?.additional_information}
           renderItem={({item}) => <Item label={item.key} value={item.value} />}
           keyExtractor={item => item.key}
         />

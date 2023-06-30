@@ -17,7 +17,7 @@ export function ProductList({label, url}: Props) {
   const {data, isLoading} = useProductListQuery(url);
 
   return (
-    <Stack>
+    <Stack bg={'white'} px={4} py={3} space={2}>
       <SectionHeader
         id={data?.data?.id}
         label={label}

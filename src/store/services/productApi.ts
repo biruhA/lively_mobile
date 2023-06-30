@@ -7,6 +7,16 @@ export const productApi = createApi({
   reducerPath: 'productApi',
   baseQuery: authUrl,
   endpoints: build => ({
+    collections: build.query({
+      query: () => ({
+        url: 'collections',
+      }),
+    }),
+    collectionDetail: build.query({
+      query: id => ({
+        url: `collection-detail/${id}`,
+      }),
+    }),
     productList: build.query({
       query: url => ({
         url,
@@ -66,6 +76,8 @@ export const productApi = createApi({
 });
 
 export const {
+  useCollectionsQuery,
+  useCollectionDetailQuery,
   useProductListQuery,
   useCategoriesQuery,
   useProductCategoriesQuery,

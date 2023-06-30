@@ -110,12 +110,13 @@ export function CreateAccountScreen() {
       justifyContent={'flex-start'}>
       <SignUpStepper step={1} />
 
-      <Stack pt={24}>
+      <Stack pt={24} space={1}>
         <Text style={fonts.heading4} pt={3}>
           Create an account
         </Text>
         <Text style={fonts.body1}>
-          You can create an account by filling the information below
+          Tell us your name and phone number so we can begin setting up your
+          account.
         </Text>
       </Stack>
 
@@ -130,6 +131,7 @@ export function CreateAccountScreen() {
               render={({field: {onChange, onBlur, value}}) => (
                 <Input
                   w={'100%'}
+                  size={'lg'}
                   borderRadius={5}
                   placeholder="First Name"
                   onBlur={onBlur}
@@ -152,6 +154,7 @@ export function CreateAccountScreen() {
               render={({field: {onChange, onBlur, value}}) => (
                 <Input
                   w={'100%'}
+                  size={'lg'}
                   borderRadius={5}
                   placeholder="Last Name"
                   onBlur={onBlur}
@@ -176,13 +179,13 @@ export function CreateAccountScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Stack alignItems="center">
               <InputGroup w={'100%'}>
-                <InputLeftAddon children={'+251'} />
                 <Input
-                  w={'87%'}
+                  w={'100%'}
+                  size={'lg'}
                   InputRightElement={
                     <Image
                       alt={'phone number'}
-                      source={mail}
+                      source={require('../assets/icons/phone.png')}
                       boxSize={5}
                       mr="2"
                     />
@@ -233,12 +236,12 @@ const styles = StyleSheet.create({
   mainStyle: {marginTop: 15},
   forgot: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '700',
     color: colors.primary,
   },
   notRegistered: {
     fontSize: 16,
-    fontWeight: '500',
-    color: colors.pureBlack,
+    fontWeight: '400',
+    color: colors.lightgreyText,
   },
 });

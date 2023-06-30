@@ -16,7 +16,11 @@ import {
 } from 'native-base';
 import mail from '../assets/icons/mail.png';
 import passwordVisible from '../assets/icons/password-visible.png';
-import {GradientButton, LoginBackGround} from '../components/atoms';
+import {
+  GradientButton,
+  LoginBackGround,
+  PasswordIcon,
+} from '../components/atoms';
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import {useNavigation} from '@react-navigation/native';
@@ -119,13 +123,13 @@ export function WelcomeBackScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Stack alignItems="center">
               <InputGroup w={'100%'}>
-                <InputLeftAddon children={'+251'} />
                 <Input
-                  w={'87%'}
+                  w={'100%'}
+                  size={'lg'}
                   InputRightElement={
                     <Image
                       alt={'phone number'}
-                      source={mail}
+                      source={require('../assets/icons/phone.png')}
                       boxSize={5}
                       mr="2"
                     />
@@ -160,16 +164,12 @@ export function WelcomeBackScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Input
               borderRadius={5}
+              size={'lg'}
               placeholder="Password"
               type={show ? 'text' : 'password'}
               InputRightElement={
                 <Pressable onPress={() => setShow(!show)}>
-                  <Image
-                    alt="password"
-                    source={passwordVisible}
-                    boxSize={5}
-                    mr="2"
-                  />
+                  <PasswordIcon isActive={show} setIsActive={setShow} />
                 </Pressable>
               }
               onBlur={onBlur}
@@ -189,14 +189,19 @@ export function WelcomeBackScreen() {
           title="Submit"
           text="Login"
           onPress={handleSubmit(onSubmit)}
-          // disabled={!isValid}
           mainStyle={styles.mainStyle}
           isLoading={result?.isLoading}
         />
         <Stack space={8} pt={2}>
           <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <Checkbox value="one" size={'sm'} onChange={setRememberMe}>
-              Remember me
+            <Checkbox
+              colorScheme={'green'}
+              value="one"
+              size={'sm'}
+              onChange={setRememberMe}>
+              <Text color={colors.lightgreyText} fontSize={16}>
+                Remember me
+              </Text>
             </Checkbox>
             <TouchableOpacity
               onPress={() => navigation.navigate(ScreenNames.ForgotPassword)}>
@@ -230,12 +235,12 @@ const styles = StyleSheet.create({
   mainStyle: {marginTop: 15},
   forgot: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '700',
     color: colors.primary,
   },
   notRegistered: {
     fontSize: 16,
-    fontWeight: '500',
-    color: colors.pureBlack,
+    fontWeight: '400',
+    color: colors.lightgreyText,
   },
 });

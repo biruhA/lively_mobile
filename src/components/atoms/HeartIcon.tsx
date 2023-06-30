@@ -7,16 +7,18 @@ import activeHeart from '../../assets/icons/active_heart.png';
 export function HeartIcon() {
   const [isActive, setIsActive] = useState(false);
   return (
-    <TouchableOpacity onPress={() => setIsActive(prev => !prev)}>
+    <TouchableOpacity
+      onPress={() => setIsActive(prev => !prev)}
+      style={{padding: 10}}>
       {!isActive ? <InactiveImage /> : <ActiveImage />}
     </TouchableOpacity>
   );
 }
 
 function ActiveImage() {
-  return <Image source={activeHeart} alt="Alternate Text" boxSize={4} />;
+  return <Image source={activeHeart} alt="Alternate Text" boxSize={3.5} />;
 }
 
 function InactiveImage() {
-  return <Image source={heart} alt="Alternate Text" boxSize={4} />;
+  return <Image source={heart} alt="Alternate Text" boxSize={3.5} />;
 }

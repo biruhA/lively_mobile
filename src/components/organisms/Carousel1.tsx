@@ -3,6 +3,7 @@ import {View, Dimensions, StyleSheet} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../theme/colors';
 import {Image, Text} from 'native-base';
+import {CarouselImage} from '../atoms';
 
 const WIDTH = Dimensions.get('window').width;
 const SLIDER_WIDTH = Math.round(WIDTH * 0.92);
@@ -25,19 +26,7 @@ export class Carousel1 extends Component {
   }
 
   _renderItem({item}) {
-    return (
-      <View style={styles.itemContainer}>
-        <Image
-          source={{
-            uri: item?.banner_image?.url,
-          }}
-          alt="Alternate Text"
-          w={'100%'}
-          h={170}
-          resizeMode={'cover'}
-        />
-      </View>
-    );
+    return <CarouselImage item={item} />;
   }
 
   get pagination() {
@@ -84,7 +73,6 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'dodgerblue',
     borderRadius: 8,
     overflow: 'hidden',
   },

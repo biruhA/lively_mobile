@@ -9,7 +9,7 @@ import {useAppDispatch} from '../../store/hooks';
 import {setStoreId} from '../../store/features/storeSlice';
 
 interface Props {
-  is: string;
+  id: string;
   store: string;
   distance: string;
   rating: string;

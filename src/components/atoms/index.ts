@@ -10,3 +10,5 @@ export * from './GradientButtonSmall';
 export * from './TouchableIcon';
 export * from './ListEmptyComponent';
 export * from './FilterGoBack';
+export * from './CarouselImage';
+export * from './PasswordIcon';

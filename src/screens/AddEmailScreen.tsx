@@ -76,11 +76,17 @@ export function AddEmailScreen() {
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              size={'lg'}
               borderRadius={5}
               placeholder="Email"
               keyboardType="email-address"
               InputRightElement={
-                <Image alt="email" source={mail} boxSize={5} mr="2" />
+                <Image
+                  alt="email"
+                  source={require('../assets/icons/phone.png')}
+                  boxSize={5}
+                  mr="2"
+                />
               }
               onBlur={onBlur}
               onChangeText={onChange}
@@ -106,7 +112,7 @@ export function AddEmailScreen() {
             <Text
               style={[
                 fonts.subtitle2,
-                {color: colors.primary, fontWeight: '600'},
+                {color: colors.primary, fontWeight: '700'},
               ]}>
               Or skip
             </Text>

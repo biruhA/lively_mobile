@@ -10,9 +10,10 @@ interface Props {
   id: string;
   image: string;
   label: any;
+  isLocal?: boolean;
 }
 
-export function CatalogueCard({id, image, label}: Props) {
+export function CatalogueCard({id, image, label, isLocal = false}: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -20,10 +21,14 @@ export function CatalogueCard({id, image, label}: Props) {
     <TouchableOpacity
       onPress={() => {
         dispatch(setCategoryId(id));
-        navigation.navigate(ScreenNames.SeeAllProductsScreen, {label});
+        if (!isLocal) {
+          navigation.navigate(ScreenNames.SeeAllProductsScreen, {label});
+        } else {
+          navigation.navigate(ScreenNames.Medicines);
+        }
       }}>
       <Stack px={4} alignItems={'center'}>
-        <Image source={{uri: image}} alt="img" boxSize={81} />
+        <Image source={isLocal ? image : {uri: image}} alt="img" boxSize={81} />
         <Text>{label}</Text>
       </Stack>
     </TouchableOpacity>

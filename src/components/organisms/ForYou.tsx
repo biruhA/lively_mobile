@@ -1,7 +1,9 @@
 import {FlatList} from 'react-native';
 import React from 'react';
-import {Stack} from 'native-base';
+import {Spinner, Stack} from 'native-base';
 import {ForYouCard, SectionHeader} from '../molecules';
+import {ScreenNames} from '../../constants';
+import {useCollectionsQuery} from '../../store/services';
 
 interface Props {
   id: string;
@@ -9,41 +11,31 @@ interface Props {
   list: string;
 }
 
-const Data: Props[] = [
-  {
-    id: '1',
-    name: 'Konjo Collection',
-    list: 'Facial Cleanser, Acne Cleanser, Acne',
-  },
-  {
-    id: '2',
-    name: 'Konjo Collection',
-    list: 'Facial Cleanser, Acne Cleanser, Acne',
-  },
-  {
-    id: '3',
-    name: 'Konjo Collection',
-    list: 'Facial Cleanser, Acne Cleanser, Acne',
-  },
-  {
-    id: '4',
-    name: 'Konjo Collection',
-    list: 'Facial Cleanser, Acne Cleanser, Acne',
-  },
-];
-
 export function ForYou() {
+  const {data, isLoading} = useCollectionsQuery();
   return (
-    <Stack>
-      <SectionHeader label="Collections Just For You" navTo="Articles" />
-      <FlatList
-        horizontal={true}
-        data={Data}
-        renderItem={({item}) => (
-          <ForYouCard name={item.name} list={item.list} />
-        )}
-        keyExtractor={(item: Props) => item.id}
+    <Stack bg={'white'} p={4} space={2}>
+      <SectionHeader
+        label="Collections Just For You"
+        navTo={ScreenNames.SeeAllCollection}
       />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <FlatList
+          horizontal={true}
+          data={data?.data}
+          renderItem={({item}) => (
+            <ForYouCard
+              id={item.id}
+              name={item.title?.english}
+              imageUrl={item?.collection_image?.url}
+              list={item.description?.english}
+            />
+          )}
+          keyExtractor={(item: Props) => item.id}
+        />
+      )}
     </Stack>
   );
 }

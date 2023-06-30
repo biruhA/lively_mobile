@@ -1,4 +1,5 @@
 import {View} from 'react-native';
+import {useRoute} from '@react-navigation/native';
 import React from 'react';
 import {HStack, Image, Stack, Text} from 'native-base';
 import {fonts} from '../../theme/fonts';
@@ -7,111 +8,79 @@ import {GradientButton, GradientButtonSmall} from '../atoms';
 import smile from '../../assets/icons/smile_yellow.png';
 import location from '../../assets/icons/location_regular.png';
 import {DiscountDescription, ProductDescription} from '../molecules';
+import {
+  useDiscountBannerDetailQuery,
+  useProductVariantDetailQuery,
+} from '../../store/services';
+import {useAppSelector} from '../../store/hooks';
 
-export function DiscountDetail() {
+export function DiscountDetail({
+  data,
+  price,
+  discount,
+  current_price,
+  brand,
+  left,
+}) {
   return (
     <Stack space={2}>
-      <Text fontSize={16} fontWeight={700}>
+      <Text fontSize={16} fontWeight={700} mt={4}>
+        {data?.product?.title?.english}
         Royal Moroccan Nourishing Mask Treatment for Thin & Fine Hair
       </Text>
-      <Stack borderWidth={2} borderColor={'#f5f5f5'} p={3} borderRadius={8}>
-        <HStack space={3}>
-          <Text style={[fonts.subtitle2, {color: colors.lightgreyText}]}>
-            360 Birr
-          </Text>
-          <Text style={[fonts.subtitle2, {color: '#FF0000'}]}>60% Off</Text>
-        </HStack>
-        <Text pt={3} style={[fonts.heading6, {color: '#00BA63'}]}>
-          350 Birr
-        </Text>
-      </Stack>
-      <HStack
-        space={2}
-        borderWidth={2}
-        borderColor={'#f5f5f5'}
-        p={3}
-        borderRadius={8}>
-        <Text pt={1} style={fonts.heading6}>
-          From
-        </Text>
-        <Text pt={1} style={[fonts.heading6, {color: '#00BA63'}]}>
-          Jun 23-Jul 15 2023
-        </Text>
-      </HStack>
-      <HStack
+      <Stack
         space={8}
         borderWidth={2}
         borderColor={'#f5f5f5'}
         p={3}
         borderRadius={8}>
+        <Detial
+          price={price}
+          discount={discount}
+          current_price={current_price}
+          lef={left}
+        />
         <Stack space={1}>
-          <Text ml={2}>Variation</Text>
-          <GradientButtonSmall variant="flat" text="50ml" onPress={() => {}} />
-        </Stack>
-        <Stack space={1}>
-          <Text>Brand</Text>
-          <Image
-            source={{
-              uri: 'https://media-cdn.tripadvisor.com/media/photo-s/11/74/e4/15/menara-logo.jpg',
-            }}
-            alt="brand"
-            w={20}
-            h={10}
-            borderRadius={8}
-            resizeMode="contain"
+          <Text fontWeight={'semibold'} fontSize={16}>
+            Selected Size: {data?.value?.english}
+          </Text>
+          <GradientButtonSmall
+            mainStyle={{alignSelf: 'flex-start', marginHorizontal: 0}}
+            variant="flat"
+            text={data?.value?.english}
+            onPress={() => {}}
           />
         </Stack>
-      </HStack>
-      <StoreCard />
+        <Stack space={1}>
+          <Text fontSize={16}>Brand: </Text>
+          <Text underline fontWeight={'semibold'} fontSize={16}>
+            {brand}
+          </Text>
+        </Stack>
+      </Stack>
     </Stack>
   );
 }
 
-function StoreCard() {
+function Detial({price, discount, current_price, left}) {
   return (
-    <Stack
-      borderWidth={2}
-      borderColor={'#f5f5f5'}
-      p={3}
-      borderRadius={8}
-      space={1}>
-      <Text style={fonts.body1}>Store</Text>
-      <HStack space={4}>
-        <Image
-          source={{
-            uri: 'https://media-cdn.tripadvisor.com/media/photo-s/11/74/e4/15/menara-logo.jpg',
-          }}
-          alt="brand"
-          w={20}
-          h={16}
-          borderRadius={8}
-          resizeMode="contain"
-        />
-        <Stack space={1}>
-          <Text pt={1} style={fonts.heading6}>
-            SAS Pharmacy
+    <HStack justifyContent={'space-between'}>
+      <Stack>
+        <HStack space={3}>
+          <Text style={[fonts.subtitle2, {color: colors.lightgreyText}]}>
+            {price} Birr
           </Text>
-          <HStack space={1}>
-            <Image
-              source={location}
-              alt="brand"
-              boxSize={4}
-              resizeMode="contain"
-            />
-            <Text style={fonts.button2}>4.3 Km Away</Text>
-          </HStack>
-          <HStack alignItems={'center'} space={1}>
-            <Image
-              source={smile}
-              alt="brand"
-              boxSize={4}
-              resizeMode="contain"
-            />
-            <Text style={(fonts.button2, {color: '#F8981F'})}>4.8</Text>
-            <Text style={fonts.button2}>5 User Reviews</Text>
-          </HStack>
-        </Stack>
-      </HStack>
-    </Stack>
+          <Text style={[fonts.subtitle2, {color: '#FF0000'}]}>
+            {discount}% Off
+          </Text>
+        </HStack>
+        <Text pt={3} style={[fonts.heading6, {color: '#00BA63'}]}>
+          {current_price} Birr
+        </Text>
+      </Stack>
+      <Text pt={3} style={{color: '#FFB800'}}>
+        {left} Days left
+      </Text>
+    </HStack>
   );
 }

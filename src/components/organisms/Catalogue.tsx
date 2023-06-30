@@ -1,7 +1,7 @@
 import {View, FlatList} from 'react-native';
 import React from 'react';
 import {CatalogueCard} from '../molecules';
-import {Center, Text, Stack} from 'native-base';
+import {Center, Text, Stack, HStack} from 'native-base';
 import {
   useCategoriesQuery,
   useProductCategoriesQuery,
@@ -13,34 +13,33 @@ export function Catalogue() {
   const {data, isLoading} = useProductCategoriesQuery();
 
   return (
-    <Stack pt={4}>
-      {/* <CatalogueCard
-        image={require('../../assets/images/medicinal.png')}
-        label={'Medicinal'}
-      /> */}
+    <HStack pt={4} bg={'white'} px={4} py={4}>
       {isLoading ? (
         <CatalogueSkeleton />
       ) : (
         <FlatList
           horizontal={true}
-          data={data?.data}
-          ListEmptyComponent={() => {
+          ListHeaderComponent={() => {
             return (
-              <Center ml={50}>
-                <Text style={fonts.caption}>No catagories</Text>
-              </Center>
+              <CatalogueCard
+                image={require('../../assets/images/medicinal.png')}
+                label={'Medicinal'}
+                isLocal={true}
+              />
             );
           }}
+          data={data?.data}
           renderItem={({item}) => (
             <CatalogueCard
               id={item?.id}
               image={item?.category_image?.url}
               label={item?.name?.english}
+              isLocal={item?.isLocal}
             />
           )}
           keyExtractor={(item: Props) => item.id}
         />
       )}
-    </Stack>
+    </HStack>
   );
 }

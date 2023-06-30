@@ -3,7 +3,7 @@ import {HStack, Image, Stack, Text, useDisclose} from 'native-base';
 import placeBackground from '../../assets/images/place-background.png';
 import {fonts} from '../../theme/fonts';
 import {GradientButtonSmall} from '../atoms';
-import {LoginSheet} from '../organisms';
+import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
 
@@ -55,7 +55,7 @@ export function StoreSheetBody1({onPress}: any) {
           onPress();
         }}
       />
-      <LoginSheet isOpen={isOpen} onClose={onClose} />
+      <LoginSheetBody isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }

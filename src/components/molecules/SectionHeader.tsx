@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text} from 'react-native';
-import {Button, HStack} from 'native-base';
+import {TouchableOpacity} from 'react-native';
+import {Text, Button, HStack} from 'native-base';
 import {colors} from '../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
 import {fonts} from '../../theme/fonts';
@@ -25,13 +25,9 @@ export function SectionHeader({id, label, navTo}: Props): JSX.Element {
   return (
     <HStack alignItems={'center'} justifyContent={'space-between'} pt={2}>
       <Text style={fonts.subtitle1}>{label}</Text>
-      <Button
-        variant={'ghost'}
-        size={'sm'}
-        color={colors.caption}
-        onPress={onPressHandler}>
-        See All
-      </Button>
+      <TouchableOpacity onPress={onPressHandler}>
+        <Text color={colors.lightgreyText}> See All</Text>
+      </TouchableOpacity>
     </HStack>
   );
 }

@@ -84,11 +84,15 @@ export function VerticalArticleCard({
 
 const styles = StyleSheet.create({
   main: {
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
+    shadowColor: 'rgba(25, 38, 32, 0.3)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 4,
+    overflow: 'hidden',
   },
   amount: {
     ...fonts.caption,

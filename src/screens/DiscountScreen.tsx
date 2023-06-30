@@ -1,10 +1,12 @@
 import {FlatList, SafeAreaView, StatusBar} from 'react-native';
 import React from 'react';
-import {Image, Text, Stack} from 'native-base';
+import {Image, Text, Stack, Spinner} from 'native-base';
 import {colors} from '../theme/colors';
-import {ListEmptyComponent} from '../components/atoms';
-import {ProductCard} from '../components/molecules';
+import {GoBack, ListEmptyComponent} from '../components/atoms';
+import {DiscountCard, ProductCard} from '../components/molecules';
 import {ScreenNames} from '../constants';
+import {useDiscountBannerDetailQuery} from '../store/services';
+import {useRoute} from '@react-navigation/native';
 
 const Data = [
   {
@@ -30,41 +32,47 @@ const Data = [
 ];
 
 export function DiscountScreen() {
+  const route = useRoute();
+  const {data, isLoading} = useDiscountBannerDetailQuery(route?.params?.id);
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <Stack flex={1} bg={colors.pureWhite}>
-        {/* <StatusBar hidden /> */}
-        <Image
-          source={{
-            uri: 'https://images.ctfassets.net/3shtzlb7cz90/3a4AGnC7Txy9LEuyMk2i9i/dc2f8e406bb7a670a375068bbff37541/PROJ024724-P_G-Pampers-Hero-Banner-3-1600x880-v0.01.jpg?fm=webp&q=70&w=800&h=440',
-          }}
-          alt="headings"
-          w={'100%'}
-          h={175}
-          resizeMode="cover"
-        />
+    <Stack flex={1} bg={colors.pureWhite}>
+      <Stack py={3} px={4}>
+        <GoBack label="Deals" />
+      </Stack>
+      <Image
+        source={{
+          uri: data?.data?.banner_image?.url,
+        }}
+        alt="headings"
+        w={'100%'}
+        h={175}
+        resizeMode="cover"
+      />
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <FlatList
           style={{marginTop: 4}}
           numColumns={2}
-          data={Data}
+          data={data?.data?.store_products}
           ListEmptyComponent={() => {
             return <ListEmptyComponent />;
           }}
           renderItem={({item}) => (
-            <ProductCard
-              navTo={ScreenNames.DiscountDetail}
-              imageUrl={
-                'https://images.ctfassets.net/3shtzlb7cz90/3a4AGnC7Txy9LEuyMk2i9i/dc2f8e406bb7a670a375068bbff37541/PROJ024724-P_G-Pampers-Hero-Banner-3-1600x880-v0.01.jpg?fm=webp&q=70&w=800&h=440'
-              }
-              item={item?.label}
-              volume={item?.label}
-              amount={item?.label}
+            <DiscountCard
+              id={item?.id}
+              title={item?.product_variant?.product?.title?.english}
+              imageUrl={item?.product_variant?.product_image?.url}
+              value={item?.product_variant?.value?.english}
+              disount={''}
+              price={item?.price}
               mainStyle={{width: '47%', marginBottom: 12}}
             />
           )}
           keyExtractor={(item: Props) => item.id}
         />
-      </Stack>
-    </SafeAreaView>
+      )}
+    </Stack>
   );
 }

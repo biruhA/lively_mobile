@@ -4,6 +4,7 @@ import {
   browseReducer,
   dealsReducer,
   filterReducer,
+  medicineReducer,
   productReducer,
   searchReducer,
   storeReducer,
@@ -13,6 +14,7 @@ import {
   browseApi,
   dealsApi,
   filterApi,
+  medicineApi,
   productApi,
   storeApi,
 } from './services';
@@ -26,12 +28,14 @@ export const store = configureStore({
     search: searchReducer,
     deals: dealsReducer,
     browse: browseReducer,
+    medicine: medicineReducer,
     [authApi.reducerPath]: authApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [storeApi.reducerPath]: storeApi.reducer,
     [filterApi.reducerPath]: filterApi.reducer,
     [dealsApi.reducerPath]: dealsApi.reducer,
     [browseApi.reducerPath]: browseApi.reducer,
+    [medicineApi.reducerPath]: medicineApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -41,6 +45,7 @@ export const store = configureStore({
       filterApi.middleware,
       dealsApi.middleware,
       browseApi.middleware,
+      medicineApi.middleware,
     ),
 });
 

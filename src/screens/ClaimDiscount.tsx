@@ -8,7 +8,7 @@ import download from '../assets/icons/download.png';
 
 export function ClaimDiscount() {
   return (
-    <>
+    <Stack>
       <Stack px={5} pt={4} pb={7} mb={4} bg={colors.pureWhite}>
         <GoBack label="" />
       </Stack>
@@ -70,6 +70,6 @@ export function ClaimDiscount() {
           </HStack>
         </Stack>
       </Stack>
-    </>
+    </Stack>
   );
 }

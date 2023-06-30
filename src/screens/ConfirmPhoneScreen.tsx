@@ -136,6 +136,7 @@ export function ConfirmPhoneScreen() {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'2xl'}
                 maxLength={1}
                 autoFocus={true}
                 returnKeyType="next"
@@ -164,6 +165,7 @@ export function ConfirmPhoneScreen() {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'2xl'}
                 returnKeyType="next"
                 onSubmitEditing={() => ref_input3.current.focus()}
                 ref={ref_input2}
@@ -191,6 +193,7 @@ export function ConfirmPhoneScreen() {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'2xl'}
                 returnKeyType="next"
                 onSubmitEditing={() => ref_input4.current.focus()}
                 ref={ref_input3}
@@ -218,6 +221,7 @@ export function ConfirmPhoneScreen() {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'2xl'}
                 returnKeyType="next"
                 onSubmitEditing={() => ref_input5.current.focus()}
                 ref={ref_input4}
@@ -245,6 +249,7 @@ export function ConfirmPhoneScreen() {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'2xl'}
                 ref={ref_input5}
                 keyboardType="number-pad"
                 w={'13%'}

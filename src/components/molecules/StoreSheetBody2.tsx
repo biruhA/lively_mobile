@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, Linking, Platform, TouchableOpacity} from 'react-native';
 import {HStack, Image, Spinner, Stack, Text, useDisclose} from 'native-base';
 import placeBackground from '../../assets/images/place-background.png';
 import {fonts} from '../../theme/fonts';
@@ -11,7 +11,7 @@ import whatsup from '../../assets/images/whatsup.png';
 import facebook from '../../assets/images/facebook.png';
 import website from '../../assets/images/website.png';
 import {GradientButtonSmall} from '../atoms';
-import {LoginSheet} from '../organisms';
+import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
 import {useStoreDetailByIdQuery} from '../../store/services';
 
@@ -28,7 +28,9 @@ export function StoreSheetBody2() {
   return (
     <Stack bg={colors.pureWhite} w={'100%'} px={2} space={2}>
       <Stack>
-        <Text style={fonts.heading6}>{selectedProduct?.title?.english}</Text>
+        <Text style={fonts.heading6} pt={1}>
+          {selectedProduct?.title?.english}
+        </Text>
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
       <Image
@@ -81,7 +83,7 @@ export function StoreSheetBody2() {
         text="Reserve"
         onPress={onOpen}
       />
-      <LoginSheet isOpen={isOpen} onClose={onClose} />
+      <LoginSheetBody isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }
@@ -111,16 +113,70 @@ function ContactAddress() {
             borderBottomWidth={1}
             borderBottomColor={colors.border}>
             <Text style={fonts.body1}>{item?.name}</Text>
-            <Image
-              source={item?.url}
-              alt="phone"
-              boxSize={7}
-              borderRadius={6}
-            />
+            <TouchableOpacity onPress={() => onPress(item?.name)}>
+              <Image
+                source={item?.url}
+                alt="phone"
+                boxSize={7}
+                borderRadius={6}
+              />
+            </TouchableOpacity>
           </HStack>
         )}
         keyExtractor={item => item.id}
       />
     </Stack>
   );
+}
+
+function onPress(item) {
+  switch (item) {
+    case 'Phone Number':
+      let phoneNumber = '';
+
+      if (Platform.OS === 'android') {
+        phoneNumber = 'tel:${1234567890}';
+      } else {
+        phoneNumber = 'telprompt:${1234567890}';
+      }
+
+      Linking.openURL(phoneNumber);
+      break;
+    case 'Location':
+      const lat = 37.484847;
+      const lon = -122.148386;
+      const url = Platform.select({
+        ios: 'maps:' + lat + ',' + lon,
+        android: 'geo:' + lat + ',' + lon,
+      });
+
+      Linking.openURL(url);
+      break;
+    case 'Telegram':
+      const url2 = 'tg://+251921429029';
+      Linking.openURL(url2).catch(err =>
+        console.error('An error occurred', err),
+      );
+      break;
+    case 'WhatsApp':
+      const url3 = `whatsapp://send?text=${'message'}&phone=${+251921429029}`;
+      Linking.openURL(url3).catch(err =>
+        console.error('An error occurred', err),
+      );
+      break;
+    case 'Facebook':
+      const url4 = 'fb://+251921429029';
+      Linking.openURL(url4).catch(err =>
+        console.error('An error occurred', err),
+      );
+      break;
+    case 'Website':
+      const url5 = 'https://www.google.com';
+      Linking.openURL(url5).catch(err =>
+        console.error('An error occurred', err),
+      );
+      break;
+    default:
+      break;
+  }
 }

@@ -13,6 +13,7 @@ export function LoginBackGround() {
       height={267}
       source={login}
       alt="login"
+      opacity={0.7}
     />
   );
 }

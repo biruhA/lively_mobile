@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Actionsheet, Center, Divider, Spinner, Stack, Text} from 'native-base';
 import {FilterBodyBrand} from './FilterBodyBrand';
 import {FilterBodyDiscount} from './FilterBodyDiscount';
@@ -17,6 +17,7 @@ import {reset} from '../../store/features/filterSlice';
 interface Props {
   isOpen: any;
   onClose: any;
+  setData: any;
 }
 
 export enum bodyTypes {
@@ -27,7 +28,7 @@ export enum bodyTypes {
   distance = 'distance',
 }
 
-export function FilterSheet({isOpen, onClose}: Props) {
+export function FilterSheet({isOpen, onClose, setData}: Props) {
   const [selectedBody, setSelectedBody] = useState(bodyTypes.menu);
   const {selectedCategoryId} = useAppSelector(state => state.product);
   const {data, isLoading} = useFilterCountQuery(selectedCategoryId);
@@ -48,7 +49,12 @@ export function FilterSheet({isOpen, onClose}: Props) {
     });
   }
 
-  console.log('🚀 ~ file: FilterSheet.tsx:35 ~ FilterSheet ~ result:', result);
+  useEffect(() => {
+    console.log('🚀 ~ file: FilterSheet.tsx:56 ~ useEffect ~ result:', result);
+    if (result.isSuccess) {
+      setData(result?.data);
+    }
+  }, [result]);
 
   return (
     <Stack bg={colors.pureWhite}>
