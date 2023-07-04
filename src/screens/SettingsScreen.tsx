@@ -9,18 +9,31 @@ import {
   HStack,
   ChevronRightIcon,
   View,
+  useDisclose,
   Badge,
+  Button,
+  Actionsheet,
+  Box,
 } from 'native-base';
 import {SettingsScreenHeader} from '../components/organisms';
 import {SettingItems} from '../components/molecules';
 import {colors} from '../theme/colors';
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import faq from '../assets/icons/settingIcons/FAQ.png';
-import help from '../assets/icons/settingIcons/Help.png';
+import about from '../assets/icons/settingIcons/faq.png';
+import faq from '../assets/icons/settingIcons/faq2.png';
+import help from '../assets/icons/settingIcons/help.png';
 import lively_logo from '../assets/images/lively_logo.png';
+import lang from '../assets/icons/settingIcons/lang.png';
+import edit from '../assets/icons/pencil-edit.png';
+import terms_and_cond from '../assets/icons/settingIcons/terms-conditions.png';
+import logout from '../assets/icons/settingIcons/logout.png';
+import {ScreenNames} from '../constants';
+import {fonts} from '../theme/fonts';
 
 export function SettingsScreen() {
+  const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   return (
     <Stack
@@ -57,23 +70,34 @@ export function SettingsScreen() {
                     uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
                   }}
                 />
-                <Badge
-                  bg={colors.primary}
-                  alignSelf={'flex-start'}
-                  marginLeft={'30%'}
-                  borderRadius={10}
-                  height={7}
-                  colorScheme={colors.pureWhite}>
-                  <HStack style={styles.editButton}>
-                    <Icon name="pencil" size={15} color={colors.pureWhite} />
-                    <Text style={styles.editText}>Edit</Text>
-                  </HStack>
-                </Badge>
+
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(ScreenNames.EditProfileScreen)
+                  }>
+                  <Badge
+                    bg={colors.primary}
+                    alignSelf={'flex-start'}
+                    marginLeft={'40%'}
+                    borderRadius={10}
+                    height={7}
+                    colorScheme={colors.pureWhite}>
+                    <HStack style={styles.editButton}>
+                      <Icon name="pencil" size={15} color={colors.pureWhite} />
+                      <Text style={styles.editText}>Edit</Text>
+                    </HStack>
+                  </Badge>
+                </TouchableOpacity>
               </HStack>
 
-              <Text style={styles.userFullnameText}>
-                Mr. Anduamlak Temesgen A.
-              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate(ScreenNames.ProfileDetailScreen)
+                }>
+                <Text style={styles.userFullnameText}>
+                  Mr. Anduamlak Temesgen A.
+                </Text>
+              </TouchableOpacity>
               <Text style={styles.userInfoText}>anduamlakt77@gmail.com</Text>
               <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
                 <View>
@@ -96,28 +120,17 @@ export function SettingsScreen() {
           py={4}
           space={4}>
           <>
-            <HStack
-              justifyContent="space-between"
-              alignItems="center"
-              w="100%"
-              bg={colors.pureWhite}
-              maxW="350">
-              <HStack space={2}>
-                <Image source={faq} alt="Alternate Text" size="24px" />
-                <Text fontSize="md">Lang</Text>
-              </HStack>
-              <HStack>
-                <Text fontSize="md">EN</Text>
-                <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
-              </HStack>
-            </HStack>
+            <LanguagesList />
           </>
 
-          <SettingItems item_icon={faq} title="Your Reviews" />
-          <SettingItems item_icon={faq} title="Terms & Conditions" />
-          <SettingItems item_icon={help} title="Help" />
-          <SettingItems item_icon={help} title="FAQ" />
-
+          {/* <SettingItems item_icon={faq} title="Your Reviews" /> */}
+          <SettingItems item_icon={terms_and_cond} title="Terms & Conditions" />
+          <TouchableOpacity
+            onPress={() => navigation.navigate(ScreenNames.HelpScreen)}>
+            <SettingItems item_icon={help} title="Help" />
+          </TouchableOpacity>
+          <SettingItems item_icon={faq} title="FAQ" />
+          <SettingItems item_icon={about} title="About" />
           <>
             <HStack
               justifyContent="space-between"
@@ -126,7 +139,7 @@ export function SettingsScreen() {
               bg={colors.pureWhite}
               maxW="350">
               <HStack space={2}>
-                <Image source={faq} alt="Alternate Text" size="24px" />
+                <Image source={logout} alt="Alternate Text" size="24px" />
                 <Text fontSize="md">Logout</Text>
               </HStack>
             </HStack>
@@ -135,8 +148,10 @@ export function SettingsScreen() {
 
         <Center paddingTop={20}>
           <HStack space={2}>
-            <Image source={lively_logo} alt="Alternate Text" size="44px" />
-            <Text paddingTop={3}>LIVELY</Text>
+            <Avatar bg="cyan.500" size="40px" source={lively_logo} />
+            <Text color={colors.pureBlack} paddingTop={2}>
+              LIVELY
+            </Text>
           </HStack>
           <Text color={colors.greyText}>© Powered by Unravel Technologies</Text>
         </Center>
@@ -163,3 +178,96 @@ const styles = StyleSheet.create({
     padding: 2,
   },
 });
+
+function LanguagesList() {
+  const {isOpen, onOpen, onClose} = useDisclose();
+  return (
+    <Center>
+      <HStack
+        justifyContent="space-between"
+        alignItems="center"
+        w="100%"
+        bg={colors.pureWhite}
+        maxW="350">
+        <HStack space={2}>
+          <Image source={lang} alt="Alternate Text" size="24px" />
+          <Text fontSize="md">Lang</Text>
+        </HStack>
+        <TouchableOpacity onPress={onOpen}>
+          <HStack>
+            <Text fontSize={14}>EN</Text>
+            <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
+          </HStack>
+        </TouchableOpacity>
+      </HStack>
+
+      <Actionsheet
+        isOpen={isOpen}
+        onClose={onClose}
+        size="full"
+        hideDragIndicator={true}>
+        <Actionsheet.Content>
+          <Box w="100%" h={30} px={4}>
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              w="100%"
+              bg={colors.pureWhite}
+              maxW="350">
+              <HStack space={2}>
+                <Text fontSize="md" style={fonts.heading6}>
+                  Language
+                </Text>
+              </HStack>
+              <TouchableOpacity onPress={onClose}>
+                <HStack
+                  shadow={2}
+                  bg={colors.pureWhite}
+                  alignSelf={'flex-start'}
+                  borderRadius={15}
+                  borderColor={colors.error}
+                  width={30}
+                  height={30}
+                  colorScheme={colors.pureWhite}>
+                  <Text fontSize={20} paddingLeft={2}>
+                    X
+                  </Text>
+                </HStack>
+              </TouchableOpacity>
+            </HStack>
+          </Box>
+
+          <ScrollView style={{width: '96%'}}>
+            <Box w="100%" h={60} justifyContent="center">
+              <TouchableOpacity>
+                <Badge
+                  bg={colors.unselected}
+                  alignSelf={'flex-start'}
+                  borderRadius={8}
+                  width="100%"
+                  height={35}
+                  colorScheme={colors.pureWhite}>
+                  <Text color={colors.primary}>አማርኛ</Text>
+                </Badge>
+              </TouchableOpacity>
+            </Box>
+
+            <Box w="100%" h={60}>
+              <TouchableOpacity>
+                <Badge
+                  bg={colors.unselected}
+                  alignSelf={'flex-start'}
+                  borderRadius={8}
+                  width="100%"
+                  height={35}
+                  colorScheme={colors.pureWhite}>
+                  <Text color={colors.primary}>English</Text>
+                </Badge>
+              </TouchableOpacity>
+            </Box>
+          </ScrollView>
+        </Actionsheet.Content>
+      </Actionsheet>
+    </Center>
+  );
+}

@@ -15,7 +15,14 @@ export enum ScreenNames {
   DiscountDetail = 'DiscountDetail',
   ClaimDiscount = 'ClaimDiscount',
   SeeAllDeals = 'SeeAllDeals',
+  // Settings
   Settings = 'Settings',
+  ProfileDetailScreen = 'ProfileDetailScreen',
+  EditProfileScreen = 'EditProfileScreen',
+  PasswordResetScreen = 'PasswordResetScreen',
+  PhoneConfirmationScreen = 'PhoneConfirmationScreen',
+  HelpScreen = 'HelpScreen',
+
   SeeAllCollection = 'SeeAllCollection',
   CollectionDetail = 'CollectionDetail',
   Medicines = 'Medicines',

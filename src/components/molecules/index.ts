@@ -47,6 +47,7 @@ export * from './CarouselBrowseItem';
 export * from './CarouselBrowseBottomItem';
 export * from './ColorList';
 export * from './settingItems';
+export * from './ProfileScreensHeader';
 export * from './CollectionCard';
 export * from './DiscountCard';
 export * from './SearchBox';
