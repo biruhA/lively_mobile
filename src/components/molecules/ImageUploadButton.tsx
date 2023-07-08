@@ -18,39 +18,6 @@ export function ImageUploadButton({onClose}) {
     }
   }, [res]);
 
-  //   const requestCameraPermission = async () => {
-  //     if (Platform.OS === 'ios') return true;
-  //     try {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.CAMERA,
-  //         {
-  //           title: 'App Camera Permission',
-  //           message: 'App needs access to your camera ',
-  //           buttonNeutral: 'Ask Me Later',
-  //           buttonNegative: 'Cancel',
-  //           buttonPositive: 'OK',
-  //         },
-  //       );
-  //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //         const granted = await PermissionsAndroid.request(
-  //           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-  //           {
-  //             title: 'App Storage Permission',
-  //             message: 'App needs access to your Storage ',
-  //             buttonNeutral: 'Ask Me Later',
-  //             buttonNegative: 'Cancel',
-  //             buttonPositive: 'OK',
-  //           },
-  //         );
-  //         return !!granted;
-  //       } else {
-  //         return false;
-  //       }
-  //     } catch (err) {
-  //       return false;
-  //     }
-  //   };
-
   let options = {
     title: 'You can choose one image',
     maxWidth: 256,
@@ -62,13 +29,27 @@ export function ImageUploadButton({onClose}) {
 
   async function takeImage() {
     const result = await launchCamera(options);
-    const formData = new FormData('image', result?.assets[0]);
+    const formData = new FormData('image', {
+      name: result?.assets[0]?.fileName,
+      type: result?.assets[0]?.type,
+      uri:
+        Platform.OS === 'ios'
+          ? result?.assets[0]?.uri.replace('file://', '')
+          : result?.assets[0]?.uri,
+    });
     uploadPrescription(formData);
   }
 
   async function selectImage() {
     const result = await launchImageLibrary(options);
-    const formData = new FormData('image', result?.assets[0]);
+    const formData = new FormData('image', {
+      name: result?.assets[0]?.fileName,
+      type: result?.assets[0]?.type,
+      uri:
+        Platform.OS === 'ios'
+          ? result?.assets[0]?.uri.replace('file://', '')
+          : result?.assets[0]?.uri,
+    });
     uploadPrescription(formData);
   }
 

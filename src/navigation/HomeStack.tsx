@@ -11,6 +11,7 @@ import {
   EventDetailScreen,
   HomeScreen,
   MedicinePerscriptionScreen,
+  NotificationDiscountScreen,
   NotificationScreen,
   ProductDetailScreen,
   SearchScreen,
@@ -130,6 +131,10 @@ export const HomeStack = () => {
         component={PhoneConfirmationScreen}
       />
       <Stack.Screen name={ScreenNames.HelpScreen} component={HelpScreen} />
+      <Stack.Screen
+        name={ScreenNames.NotificationDiscount}
+        component={NotificationDiscountScreen}
+      />
     </Stack.Navigator>
   );
 };

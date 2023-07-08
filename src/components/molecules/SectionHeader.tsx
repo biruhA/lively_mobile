@@ -24,7 +24,9 @@ export function SectionHeader({id, label, navTo}: Props): JSX.Element {
 
   return (
     <HStack alignItems={'center'} justifyContent={'space-between'} pt={2}>
-      <Text style={fonts.subtitle1}>{label}</Text>
+      <Text style={[fonts.subtitle1, {color: 'black', fontWeight: '900'}]}>
+        {label}
+      </Text>
       <TouchableOpacity onPress={onPressHandler}>
         <Text color={colors.lightgreyText}> See All</Text>
       </TouchableOpacity>

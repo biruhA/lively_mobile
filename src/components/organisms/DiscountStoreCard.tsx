@@ -2,21 +2,19 @@ import {View} from 'react-native';
 import React from 'react';
 import {HStack, Image, Stack, Text} from 'native-base';
 import {fonts} from '../../theme/fonts';
+import FastImage from 'react-native-fast-image';
 
 export function DiscountStoreCard({imageUrl, name, distance, rating}) {
   return (
     <Stack p={3} space={1}>
       <Text style={fonts.body1}>Store</Text>
       <HStack space={4}>
-        <Image
+        <FastImage
+          style={{width: 80, height: 60}}
           source={{
             uri: imageUrl,
           }}
-          alt="brand"
-          w={20}
-          h={16}
-          borderRadius={8}
-          resizeMode="contain"
+          resizeMode={'contain'}
         />
         <Stack space={1}>
           <Text pt={1} style={fonts.heading6}>
@@ -39,7 +37,7 @@ export function DiscountStoreCard({imageUrl, name, distance, rating}) {
               resizeMode="contain"
             />
             <Text style={(fonts.button2, {color: '#F8981F'})}>{rating}</Text>
-            <Text style={fonts.button2}>5 User Reviews</Text>
+            <Text style={fonts.button2}>User Reviews</Text>
           </HStack>
         </Stack>
       </HStack>

@@ -1,36 +1,21 @@
 import {FlatList} from 'react-native';
-import React from 'react';
-import {Image, Pressable, Stack, Text} from 'native-base';
+import React, {useState, useEffect} from 'react';
+import {Center, Image, Pressable, Spinner, Stack, Text} from 'native-base';
 import {colors} from '../theme/colors';
-import {CatalogList, IconOnlyHeader} from '../components/molecules';
+import {
+  CatalogList,
+  IconOnlyHeader,
+  MedicineSubCategory,
+} from '../components/molecules';
 import {ListEmptyComponent} from '../components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
-import {useGetMedicinesByDiseaseQuery} from '../store/services';
+import {
+  useGetMedicinesByDiseaseQuery,
+  useGetMedicinesBySymptomQuery,
+  useGetSymptomsQuery,
+} from '../store/services';
 import {useAppSelector} from '../store/hooks';
-
-const Data = [
-  {
-    id: '1',
-    label: 'Pharmacies',
-    icon: null,
-  },
-  {
-    id: '2',
-    label: 'Sores',
-    icon: null,
-  },
-  {
-    id: '3',
-    label: 'Clinics',
-    icon: null,
-  },
-  {
-    id: '4',
-    label: 'MakeUp',
-    icon: null,
-  },
-];
 
 interface Props {
   id: string;
@@ -40,12 +25,31 @@ interface Props {
 }
 
 export function SeeAllDrugsScreen() {
-  const {selectedDiseaseId} = useAppSelector(state => state.medicine);
-  const {data, isLoading} = useGetMedicinesByDiseaseQuery(selectedDiseaseId);
-  console.log(
-    '🚀 ~ file: SeeAllDrugsScreen.tsx:46 ~ SeeAllDrugsScreen ~ data:',
-    data?.data?.medicines,
+  const {selectedDiseaseId, selectedSymptomId} = useAppSelector(
+    state => state.medicine,
   );
+
+  const {data, isLoading} = useGetMedicinesByDiseaseQuery(selectedDiseaseId);
+
+  const getMedicinesBySymptom =
+    useGetMedicinesBySymptomQuery(selectedSymptomId);
+  const [Data, setData] = useState([]);
+
+  useEffect(() => {
+    if (selectedSymptomId) {
+      setData(getMedicinesBySymptom?.data?.data);
+    } else {
+      setData(data?.data?.medicines);
+    }
+  }, [selectedDiseaseId, selectedSymptomId, data, getMedicinesBySymptom]);
+
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
 
   return (
     <Stack
@@ -63,23 +67,34 @@ export function SeeAllDrugsScreen() {
         }}
         onPressR={() => {}}
       />
-      <CatalogList Data={Data} />
+      {isLoading ? (
+        <Center>
+          <Spinner />
+        </Center>
+      ) : (
+        <MedicineSubCategory />
+      )}
       <FlatList
         style={{marginTop: 4}}
         numColumns={2}
-        data={data?.data?.medicines}
+        data={Data}
         ListEmptyComponent={() => {
           return <ListEmptyComponent />;
         }}
-        renderItem={({item}) => <Card />}
+        renderItem={({item}) => (
+          <Card
+            imageUrl={item?.medicine_image?.url}
+            name={item?.name}
+            size={'30-90'}
+          />
+        )}
         keyExtractor={(item: Props) => item.id}
       />
-      {/* <FilterSheet isOpen={isOpen} onClose={onClose} setData={setData} /> */}
     </Stack>
   );
 }
 
-function Card() {
+function Card({imageUrl, name, size}) {
   const navigation = useNavigation();
   return (
     <Pressable
@@ -94,7 +109,7 @@ function Card() {
       <Image
         alignSelf={'flex-end'}
         source={{
-          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyY-0cJsK52fsQPnfIXhFnNrLij-YujWCHVw&usqp=CAU',
+          uri: imageUrl,
         }}
         h={99}
         w={'100%'}
@@ -103,10 +118,10 @@ function Card() {
       />
       <Stack p={2}>
         <Text fontSize={14} color={'black'} fontWeight={'semibold'}>
-          Sulfasalazine (Sulfasalazine) 500mg Tablet
+          {name}
         </Text>
         <Text fontSize={14} color={'black'} fontWeight={'semibold'}>
-          30-90 Tablet
+          {size} Tablet
         </Text>
       </Stack>
     </Pressable>

@@ -14,57 +14,6 @@ interface Props {
   rating: string;
 }
 
-const Data: Props[] = [
-  {
-    id: '1',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '2',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '3',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '4',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '1e',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '2e',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '3e',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-  {
-    id: '4e',
-    store: 'SAS Pharmacy',
-    distance: '4.3 Km',
-    rating: '4.8',
-  },
-];
-
 export function RecommendedStoresSection() {
   const {selectedProduct, selectedProductVariantIndex} = useAppSelector(
     state => state.product,

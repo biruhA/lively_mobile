@@ -16,7 +16,7 @@ import {
 } from '../components/organisms';
 import {Prescription, SearchBar, SearchBox} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {ScrollView, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {Deals} from '../components/organisms/Deals';
 import {useCurrentLocation} from '../hooks';
 import search from '../assets/icons/search.png';
@@ -42,61 +42,69 @@ export function HomeScreen() {
 
   return (
     <Stack bg={colors.pureWhite} flex={1}>
-      <ScrollView>
-        <Stack space={3}>
-          <HomeScreenHeader />
-          <SearchBox mainStyle={{paddingHorizontal: 16, paddingVertical: 12}} />
-          <Stack bg={'white'} pb={7} px={4}>
-            {landscapeDiscountBanners?.isLoading ? (
-              <CarouselBrowseSkeleton />
-            ) : (
-              <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
-            )}
-          </Stack>
-          <Catalogue />
-          <Prescription />
-          <ProductList label="For Woman" url="for-her" />
-          <ProductList label="For Men" url="for-him" />
-          <ForYou />
-          <TopArticles />
-          <Stack bg={'white'} pb={7} px={4} py={4}>
-            {isLoading ? (
-              <CarouselBrowseSkeleton />
-            ) : (
-              <Stack space={1}>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Regular',
-                    fontWeight: '700',
-                    fontSize: 18,
-                  }}>
-                  Upcoming Events
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: 'Poppins-Regular',
-                    fontWeight: '400',
-                    fontSize: 14,
-                    color: '#AFAFAF',
-                  }}>
-                  Swipe left to change cards
-                </Text>
-                <CarouselBrowse Data={data?.data} />
+      <FlatList
+        data={[{}]}
+        renderItem={({item}) => {
+          return (
+            <Stack space={3}>
+              <HomeScreenHeader />
+              <SearchBox
+                mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
+              />
+              <Stack bg={'white'} pb={7} px={4}>
+                {landscapeDiscountBanners?.isLoading ? (
+                  <CarouselBrowseSkeleton />
+                ) : (
+                  <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
+                )}
               </Stack>
-            )}
-          </Stack>
-          <ProductList label="For Mom & Baby" url="mom-and-baby" />
-          <ProductList label="For your Home Care" url="home-care" />
-          <Stack bg={'white'} pb={7} px={4}>
-            {isLoading ? (
-              <CarouselBrowseSkeleton />
-            ) : (
-              <Carousel2 Data={squareDiscountBanners?.data?.data} />
-            )}
-          </Stack>
-          <ProductList label="Food & Drinks" url="foods-and-drinks" />
-        </Stack>
-      </ScrollView>
+              <Catalogue />
+              <Prescription />
+              <ProductList label="For Woman" url="for-her" />
+              <ProductList label="For Men" url="for-him" />
+              <ForYou />
+              <TopArticles />
+              <Stack bg={'white'} pb={7} px={4} py={4}>
+                {isLoading ? (
+                  <CarouselBrowseSkeleton />
+                ) : (
+                  <Stack space={1}>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontWeight: '700',
+                        fontSize: 18,
+                      }}>
+                      Upcoming Events
+                    </Text>
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontWeight: '400',
+                        fontSize: 14,
+                        color: '#AFAFAF',
+                      }}>
+                      Swipe left to change cards
+                    </Text>
+                    <CarouselBrowse Data={data?.data} />
+                  </Stack>
+                )}
+              </Stack>
+              <ProductList label="For Mom & Baby" url="mom-and-baby" />
+              <ProductList label="For your Home Care" url="home-care" />
+              <Stack bg={'white'} pb={7} px={4}>
+                {isLoading ? (
+                  <CarouselBrowseSkeleton />
+                ) : (
+                  <Carousel2 Data={squareDiscountBanners?.data?.data} />
+                )}
+              </Stack>
+              <ProductList label="Food & Drinks" url="foods-and-drinks" />
+            </Stack>
+          );
+        }}
+        keyExtractor={item => item.id}
+      />
     </Stack>
   );
 }

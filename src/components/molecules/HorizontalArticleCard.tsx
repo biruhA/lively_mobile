@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -71,15 +72,11 @@ export function HorizontalArticleCard({
               </Text>
             </HStack>
           </Stack>
-          <Image
+          <FastImage
+            style={{width: 100, height: 85, margin: 8}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            w={100}
-            h={85}
-            m={2}
-            bg={'amber.100'}
             resizeMode={'cover'}
           />
         </HStack>
@@ -90,11 +87,15 @@ export function HorizontalArticleCard({
 
 const styles = StyleSheet.create({
   main: {
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
+    shadowColor: 'rgba(25, 38, 32, 0.3)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 4,
+    overflow: 'hidden',
   },
   amount: {
     ...fonts.caption,

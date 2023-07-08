@@ -9,6 +9,7 @@ import {ScreenNames} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
 import {setSelectedArticleId} from '../../store/features/browseSlice';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -29,6 +30,7 @@ export function VerticalArticleCard({
   navTo,
   mainStyle,
 }: Props): JSX.Element {
+  console.log('🚀 ~ file: VerticalArticleCard.tsx:33 ~ title:', title);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
@@ -50,14 +52,11 @@ export function VerticalArticleCard({
           navigation.navigate(ScreenNames.ProductDetailScreen);
         }}>
         <Stack h={200}>
-          <Image
+          <FastImage
+            style={{width: '100%', height: 120}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            w={'100%'}
-            h={120}
-            bg={'amber.100'}
             resizeMode={'cover'}
           />
           <Stack px={2} py={1} justifyContent={'space-between'} h={82}>

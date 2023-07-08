@@ -27,7 +27,7 @@ export function MedicinesScreen() {
         <Stack space={4}>
           <GoBack label="Medicines" />
           <SearchBox onCamPress={onOpen} />
-          <OrderWithPrescription />
+          <OrderWithPrescription onCamPress={onOpen} />
           <FlatList
             horizontal={true}
             data={getDiseases?.data?.data}

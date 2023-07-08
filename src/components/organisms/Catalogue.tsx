@@ -19,6 +19,7 @@ export function Catalogue() {
       ) : (
         <FlatList
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
           ListHeaderComponent={() => {
             return (
               <CatalogueCard

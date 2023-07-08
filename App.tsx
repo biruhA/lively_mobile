@@ -32,7 +32,7 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.main}>
-      <StatusBar barStyle={'dark-content'} backgroundColor={colors.pureWhite} />
+      <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
       <RealmProvider>
         <Provider store={store}>
           <NativeBaseProvider>

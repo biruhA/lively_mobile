@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {setSelectedEventId} from '../../store/features/browseSlice';
 import {useDispatch} from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 const WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(WIDTH * 0.9);
@@ -40,13 +41,11 @@ export function CarouselBrowseItem({item}: Props) {
           right: 15,
         }}
       />
-      <Image
+      <FastImage
+        style={{width: '100%', height: '100%'}}
         source={{
           uri: item?.cover_image?.url,
         }}
-        alt="Alternate Text"
-        w={'100%'}
-        h={'100%'}
         resizeMode={'cover'}
       />
       <Stack position={'absolute'} w={'100%'} bottom={0} py={2}>

@@ -1,12 +1,27 @@
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import React from 'react';
-import {Text, Avatar, HStack, Stack, Box} from 'native-base';
+import {Text, Avatar, HStack, Stack, Box, Center, Spinner} from 'native-base';
 import {colors} from '../theme/colors';
-import {GoBack} from '../components/atoms';
+import {GoBack, ListEmptyComponent} from '../components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
+import {useNotificationsQuery} from '../store/services';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {fonts} from '../theme/fonts';
+import {setSelectedNotificationId} from '../store/features/medicineSlice';
 
 export function NotificationScreen() {
+  const {token} = useAppSelector(state => state.auth);
+  const {data, isLoading} = useNotificationsQuery(token);
+
+  if (isLoading) {
+    return (
+      <Center>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <Stack flex={1} bg={colors.pureWhite}>
       <Stack bg={'white'} p={4}>
@@ -21,7 +36,7 @@ export function NotificationScreen() {
               fontWeight: '700',
               color: colors.primary,
             }}>
-            1 new
+            {data?.data?.length} new
           </Text>
           <Text
             style={{
@@ -30,26 +45,66 @@ export function NotificationScreen() {
               fontWeight: '700',
               color: colors.greyText,
             }}>
-            {' '}
             Notification
           </Text>
         </HStack>
-        <NotificationCard />
-        <NotificationCard />
+        <FlatList
+          data={data?.data}
+          ListEmptyComponent={<ListEmptyComponent />}
+          renderItem={({item}) => (
+            <NotificationCard
+              id={item?.data?.id}
+              title={item?.data?.title}
+              message={item?.data?.message}
+              time={item?.createdAt}
+              medicineImages={item?.data?.medicine_images}
+            />
+          )}
+          keyExtractor={item => item.id}
+        />
       </Stack>
     </Stack>
   );
 }
 
-const NotificationCard = () => {
+const NotificationCard = ({id, title, message, time, medicineImages}) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
+  let dateValue = new Date(time).toDateString().split(' ');
+  let timeValue = new Date(time).toLocaleTimeString().split(':');
+
   return (
-    <Stack bg={'white'} px={2} py={2} shadow={0} rounded={'lg'} space={3}>
+    <Stack
+      bg={'white'}
+      px={2}
+      py={2}
+      shadow={0}
+      rounded={'lg'}
+      space={3}
+      mb={3}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate(ScreenNames.MedicinePerscription);
+          dispatch(setSelectedNotificationId(id));
+          if (title === 'Discount Claimed!') {
+            navigation.navigate(ScreenNames.NotificationDiscount);
+          } else if (title === 'Your prescription has been verified!') {
+            navigation.navigate(ScreenNames.MedicinePerscription);
+          }
         }}>
-        <AvatarGroup />
+        <HStack alignItems={'center'} justifyContent={'space-between'} pb={2}>
+          <Stack>
+            {medicineImages && <AvatarGroup medicineImages={medicineImages} />}
+          </Stack>
+          <HStack space={1}>
+            <Text style={fonts.caption}>
+              {timeValue[0]}:{timeValue[1]}
+            </Text>
+            <Text style={[fonts.caption, styles.ellipse]}>.</Text>
+            <Text style={fonts.caption}>
+              {dateValue[1]} {dateValue[2]}/{dateValue[3]}
+            </Text>
+          </HStack>
+        </HStack>
         <Text
           style={{
             fontFamily: 'Poppins-Regular',
@@ -57,7 +112,7 @@ const NotificationCard = () => {
             fontWeight: '700',
             color: colors.primary,
           }}>
-          Your prescription has been verified!
+          {title}
         </Text>
         <Text
           style={{
@@ -69,15 +124,14 @@ const NotificationCard = () => {
             padding: 8,
             borderRadius: 5,
           }}>
-          Hello Kidist, please check the list of medications and where to find
-          them at a pharmacy near you.
+          {message}
         </Text>
       </TouchableOpacity>
     </Stack>
   );
 };
 
-function AvatarGroup() {
+function AvatarGroup({medicineImages}) {
   return (
     <Stack alignItems="flex-start" px={4}>
       <Avatar.Group
@@ -85,63 +139,28 @@ function AvatarGroup() {
           size: 'sm',
         }}
         max={4}>
-        <Avatar
-          bg="green.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-          }}>
-          AJ
-        </Avatar>
-        <Avatar
-          bg="cyan.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-          }}>
-          TE
-        </Avatar>
-        <Avatar
-          bg="indigo.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-          }}>
-          JB
-        </Avatar>
-        <Avatar
-          bg="amber.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-          }}>
-          TS
-        </Avatar>
-        <Avatar
-          bg="green.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-          }}>
-          AJ
-        </Avatar>
-        <Avatar
-          bg="cyan.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-          }}>
-          TE
-        </Avatar>
-        <Avatar
-          bg="indigo.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-          }}>
-          JB
-        </Avatar>
-        <Avatar
-          bg="amber.500"
-          source={{
-            uri: 'https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-          }}>
-          TS
-        </Avatar>
+        {medicineImages?.map(item => {
+          return (
+            <Avatar
+              bg="green.500"
+              source={{
+                uri: item?.url,
+              }}>
+              AJ
+            </Avatar>
+          );
+        })}
       </Avatar.Group>
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  ellipse: {
+    width: 3,
+    height: 3,
+    backgroundColor: '#909090',
+    borderRadius: 200,
+    alignSelf: 'center',
+  },
+});

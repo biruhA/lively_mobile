@@ -17,9 +17,14 @@ import {useStoreDetailByIdQuery} from '../../store/services';
 
 export function StoreSheetBody2() {
   const {isOpen, onOpen, onClose} = useDisclose();
+  const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
   const {selectedProduct} = useAppSelector(state => state.product);
-  const {data, isLoading} = useStoreDetailByIdQuery(selectedStoreId);
+  const {data, isLoading} = useStoreDetailByIdQuery({
+    id: selectedStoreId,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+  });
 
   if (isLoading) {
     return <Spinner py={'90%'} size="large" color="red" />;
@@ -63,7 +68,7 @@ export function StoreSheetBody2() {
         </Stack>
       </HStack>
       <Stack>
-        <ContactAddress />
+        <ContactAddress data={data?.data?.contactAddress} />
       </Stack>
       <Stack space={1}>
         <Text style={[fonts.subtitle2, {color: 'black'}]}>
@@ -97,7 +102,11 @@ const Data = [
   {id: 6, url: website, name: 'Website'},
 ];
 
-function ContactAddress() {
+function ContactAddress({data}) {
+  console.log(
+    '🚀 ~ file: StoreSheetBody2.tsx:110 ~ ContactAddress ~ data:',
+    data,
+  );
   return (
     <Stack borderWidth={1} borderColor={colors.border} p={2} borderRadius={8}>
       <Text style={[fonts.subtitle2, {color: 'black', paddingBottom: 5}]}>
@@ -113,7 +122,7 @@ function ContactAddress() {
             borderBottomWidth={1}
             borderBottomColor={colors.border}>
             <Text style={fonts.body1}>{item?.name}</Text>
-            <TouchableOpacity onPress={() => onPress(item?.name)}>
+            <TouchableOpacity onPress={() => onPress(item?.name, data)}>
               <Image
                 source={item?.url}
                 alt="phone"
@@ -129,7 +138,7 @@ function ContactAddress() {
   );
 }
 
-function onPress(item) {
+function onPress(item, data) {
   switch (item) {
     case 'Phone Number':
       let phoneNumber = '';
@@ -137,14 +146,14 @@ function onPress(item) {
       if (Platform.OS === 'android') {
         phoneNumber = 'tel:${1234567890}';
       } else {
-        phoneNumber = 'telprompt:${1234567890}';
+        phoneNumber = 'telprompt:${data?.phone}';
       }
 
       Linking.openURL(phoneNumber);
       break;
     case 'Location':
-      const lat = 37.484847;
-      const lon = -122.148386;
+      const lat = data?.location?.latitude;
+      const lon = data?.location?.longitude;
       const url = Platform.select({
         ios: 'maps:' + lat + ',' + lon,
         android: 'geo:' + lat + ',' + lon,
@@ -153,25 +162,29 @@ function onPress(item) {
       Linking.openURL(url);
       break;
     case 'Telegram':
-      const url2 = 'tg://+251921429029';
+      const url2 = data?.telegram;
+      // const url2 = 'tg://+251921429029';
       Linking.openURL(url2).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'WhatsApp':
-      const url3 = `whatsapp://send?text=${'message'}&phone=${+251921429029}`;
+      const url3 = data?.whatsApp;
+      // const url3 = `whatsapp://send?text=${'message'}&phone=${+251921429029}`;
       Linking.openURL(url3).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'Facebook':
-      const url4 = 'fb://+251921429029';
+      const url4 = data?.facebook;
+      // const url4 = 'fb://+251921429029';
       Linking.openURL(url4).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'Website':
-      const url5 = 'https://www.google.com';
+      const url5 = data?.website;
+      // const url5 = 'https://www.google.com';
       Linking.openURL(url5).catch(err =>
         console.error('An error occurred', err),
       );

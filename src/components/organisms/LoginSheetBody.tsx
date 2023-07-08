@@ -84,8 +84,6 @@ export function LoginSheetBody({setState}: Props) {
   };
   return (
     <Stack bg={colors.pureWhite}>
-      {/* <Actionsheet isOpen={isOpen} onClose={onClose}> */}
-      {/* <Actionsheet.Content> */}
       <Stack h={'95%'} px={4} space={4} bg={'white'} justifyContent={'center'}>
         <Stack space={2}>
           <Text style={fonts.heading4} pt={3}>
@@ -176,7 +174,6 @@ export function LoginSheetBody({setState}: Props) {
             title="Submit"
             text="Login"
             onPress={handleSubmit(onSubmit)}
-            // disabled={!isValid}
             mainStyle={styles.mainStyle}
             isLoading={result?.isLoading}
           />
@@ -202,8 +199,6 @@ export function LoginSheetBody({setState}: Props) {
           </Stack>
         </Stack>
       </Stack>
-      {/* </Actionsheet.Content> */}
-      {/* </Actionsheet> */}
     </Stack>
   );
 }

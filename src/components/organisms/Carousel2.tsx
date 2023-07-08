@@ -3,6 +3,7 @@ import {View, Dimensions, StyleSheet} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../theme/colors';
 import {Image, Text} from 'native-base';
+import FastImage from 'react-native-fast-image';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -27,12 +28,11 @@ export class Carousel2 extends Component {
   _renderItem({item}) {
     return (
       <View style={styles.itemContainer}>
-        <Image
+        <FastImage
+          style={{width: '100%', height: '100%'}}
           source={{
             uri: item?.banner_image?.url,
           }}
-          alt="Alternate Text"
-          boxSize={'100%'}
           resizeMode={'cover'}
         />
       </View>

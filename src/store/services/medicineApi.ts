@@ -59,15 +59,60 @@ export const medicineApi = createApi({
         },
       }),
     }),
-    uploadPrescription: build.mutation({
-      query: image => ({
-        url: 'upload-prescription',
-        method: 'POST',
-        body: {
-          image,
+    getSymptoms: build.query({
+      query: id => ({
+        url: `get-symptoms/${id}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    getMedicinesBySymptom: build.query({
+      query: id => ({
+        url: `get-medicines-by-symptom/${id}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    notifications: build.query({
+      query: token => ({
+        url: 'notifications',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    medicineNotificationDetail: build.query({
+      query: ({id, token}) => ({
+        url: `medicine-notification-detail/${id}`,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    getClaimedDetail: build.query({
+      query: ({id, token, longitude, latitude}) => ({
+        url: `get-claimed-detail/${id}`,
+        params: {
+          longitude,
+          latitude,
         },
         headers: {
           'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    uploadPrescription: build.mutation({
+      query: formData => ({
+        url: 'upload-prescription',
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
         },
       }),
     }),
@@ -75,11 +120,16 @@ export const medicineApi = createApi({
 });
 
 export const {
+  useGetMedicinesBySymptomQuery,
+  useMedicineNotificationDetailQuery,
+  useNotificationsQuery,
   useGetMedicineNotificationQuery,
   useGetDiseasesQuery,
   useGetAllMedicinesQuery,
   useMedicineDetailQuery,
   useMedicineStoresQuery,
   useGetMedicinesByDiseaseQuery,
+  useGetSymptomsQuery,
+  useGetClaimedDetailQuery,
   useUploadPrescriptionMutation,
 } = medicineApi;

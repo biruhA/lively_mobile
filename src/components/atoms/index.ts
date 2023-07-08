@@ -12,3 +12,4 @@ export * from './ListEmptyComponent';
 export * from './FilterGoBack';
 export * from './CarouselImage';
 export * from './PasswordIcon';
+export * from './QRImage';

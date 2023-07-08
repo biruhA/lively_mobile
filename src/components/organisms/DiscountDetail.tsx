@@ -38,7 +38,7 @@ export function DiscountDetail({
           price={price}
           discount={discount}
           current_price={current_price}
-          lef={left}
+          left={left}
         />
         <Stack space={1}>
           <Text fontWeight={'semibold'} fontSize={16}>

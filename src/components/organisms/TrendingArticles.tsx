@@ -1,4 +1,4 @@
-import {FlatList} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import React from 'react';
 import {Stack} from 'native-base';
 import {ProductCard, SectionHeader, VerticalArticleCard} from '../molecules';
@@ -16,7 +16,7 @@ interface Props {
 export function TrendingArticles() {
   const {data, isLoading} = useTrendingArticlesQuery();
   return (
-    <Stack>
+    <Stack bg={'white'} p={4}>
       <SectionHeader
         label="Trending Articles"
         navTo={ScreenNames.SeeAllTrendingArticles}
@@ -43,3 +43,17 @@ export function TrendingArticles() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  main: {
+    shadowColor: 'rgba(25, 38, 32, 0.3)',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 4,
+    overflow: 'hidden',
+  },
+});

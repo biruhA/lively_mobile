@@ -16,7 +16,7 @@ interface Props {
 export function PopularArticles() {
   const {data, isLoading} = usePopularArticlesQuery();
   return (
-    <Stack mt={6}>
+    <Stack p={4} bg={'white'}>
       <SectionHeader
         label="Popular Articles"
         navTo={ScreenNames.SeeAllPopularArticles}

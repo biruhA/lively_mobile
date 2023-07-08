@@ -7,7 +7,9 @@ export function Prescription() {
   return (
     <Stack bg={'white'} p={4}>
       <Stack bg={'#E9F4EF'} rounded={'lg'} p={4} h={125}>
-        <Text style={fonts.body1}>Order drugs with Prescription</Text>
+        <Text style={[fonts.body1, {color: 'black'}]}>
+          Order drugs with Prescription
+        </Text>
         <Text style={fonts.caption} w={'75%'}>
           Upload your prescription & we will show you the medicines
         </Text>

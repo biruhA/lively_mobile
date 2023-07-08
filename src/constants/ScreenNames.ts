@@ -32,6 +32,7 @@ export enum ScreenNames {
   PharmacyDetail = 'PharmacyDetail',
   Notification = 'Notification',
   MedicinePerscription = 'MedicinePerscription',
+  NotificationDiscount = 'NotificationDiscount',
   //Browse
   SeeAllTrendingArticles = 'SeeAllTrendingArticles',
   SeeAllPopularArticles = 'SeeAllPopularArticles',

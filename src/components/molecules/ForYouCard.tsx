@@ -5,6 +5,7 @@ import {colors} from '../../theme/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -30,14 +31,11 @@ export function ForYouCard({id, name, imageUrl, list}: Props): JSX.Element {
           navigation.navigate(ScreenNames.CollectionDetail, {id});
         }}>
         <Stack>
-          <Image
+          <FastImage
+            style={{width: 328, height: 170}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            rounded={'md'}
-            w={328}
-            h={170}
             resizeMode={'cover'}
           />
           <Box position={'absolute'} w={'100%'} bottom={0}>

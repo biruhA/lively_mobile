@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -53,13 +54,11 @@ export function ProductCard({
           <Box position={'absolute'} zIndex={1} top={0} right={0}>
             <HeartIcon />
           </Box>
-          <Image
+          <FastImage
+            style={{width: '100%', height: 95}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            w={'100%'}
-            h={95}
             resizeMode={'cover'}
           />
           <Stack px={2} h={'50%'} justifyContent={'space-between'}>

@@ -37,3 +37,4 @@ export * from './SeeAllDrugsScreen';
 export * from './DrugStoresScreen';
 export * from './NotificationScreen';
 export * from './MedicinePerscriptionScreen';
+export * from './NotificationDiscountScreen';

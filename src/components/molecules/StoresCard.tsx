@@ -3,6 +3,7 @@ import React from 'react';
 import {Text, Image, Stack, Divider, HStack} from 'native-base';
 import {fonts} from '../../theme/fonts';
 import smile_face from '../../assets/icons/smile_face.png';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   store: string;
@@ -31,11 +32,11 @@ export function StoresCard({
       overflow={'hidden'}>
       <TouchableOpacity>
         <HStack px={3} py={4} space={3} alignItems={'center'}>
-          <Image
-            source={{uri: imageUrl}}
-            alt="Alternate Text"
-            w={81}
-            h={74}
+          <FastImage
+            style={{width: 81, height: 74}}
+            source={{
+              uri: imageUrl,
+            }}
             resizeMode={'cover'}
           />
           <Stack space={2}>

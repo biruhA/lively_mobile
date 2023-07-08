@@ -13,38 +13,11 @@ interface Props {
   amount: string;
 }
 
-const Data: Props[] = [
-  {
-    id: '1',
-    item: 'Macadamia Straight wear',
-    volume: '1000ml',
-    amount: '200 Birr',
-  },
-  {
-    id: '2',
-    item: 'Macadamia Straight wear',
-    volume: '1000ml',
-    amount: '200 Birr',
-  },
-  {
-    id: '3',
-    item: 'Macadamia Straight wear',
-    volume: '1000ml',
-    amount: '200 Birr',
-  },
-  {
-    id: '4',
-    item: 'Macadamia Straight wear',
-    volume: '1000ml',
-    amount: '200 Birr',
-  },
-];
-
 export function LatestArticles() {
   const {data, isLoading} = useLatestArticlesQuery();
 
   return (
-    <Stack>
+    <Stack p={4} bg={'white'}>
       <SectionHeader
         label="Latest Articles"
         navTo={ScreenNames.SeeAllProductsScreen}

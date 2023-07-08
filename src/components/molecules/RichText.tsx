@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, ScrollView} from 'react-native';
 import {RichEditor, RichToolbar} from 'react-native-pell-rich-editor';
 
 interface Props {
@@ -9,14 +9,17 @@ export const RichText = ({text}: Props) => {
   const richText = useRef();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <RichEditor
         ref={richText}
+        usecontainer={true}
+        androidHardwareAccelerationDisabled={true}
         initialContentHTML={text}
         editable={false}
+        disabled={false}
         style={styles.editor}
       />
-    </View>
+    </ScrollView>
   );
 };
 

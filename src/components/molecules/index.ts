@@ -54,3 +54,4 @@ export * from './SearchBox';
 export * from './OrderWithPrescription';
 export * from './PharmacyCardLarge';
 export * from './ImageUploadButton';
+export * from './MedicineSubCategory';

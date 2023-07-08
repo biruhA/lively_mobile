@@ -7,53 +7,29 @@ import {DiscountCard, ProductCard} from '../components/molecules';
 import {ScreenNames} from '../constants';
 import {useDiscountBannerDetailQuery} from '../store/services';
 import {useRoute} from '@react-navigation/native';
-
-const Data = [
-  {
-    id: '1',
-    label: 'Pharmacies',
-    icon: null,
-  },
-  {
-    id: '2',
-    label: 'Sores',
-    icon: null,
-  },
-  {
-    id: '3',
-    label: 'Clinics',
-    icon: null,
-  },
-  {
-    id: '4',
-    label: 'MakeUp',
-    icon: null,
-  },
-];
+import FastImage from 'react-native-fast-image';
 
 export function DiscountScreen() {
   const route = useRoute();
   const {data, isLoading} = useDiscountBannerDetailQuery(route?.params?.id);
 
   return (
-    <Stack flex={1} bg={colors.pureWhite}>
+    <Stack flex={1} bg={'colors.pureWhite'}>
       <Stack py={3} px={4}>
         <GoBack label="Deals" />
       </Stack>
-      <Image
+      <FastImage
+        style={{width: '100%', height: 175}}
         source={{
           uri: data?.data?.banner_image?.url,
         }}
-        alt="headings"
-        w={'100%'}
-        h={175}
-        resizeMode="cover"
+        resizeMode={'cover'}
       />
       {isLoading ? (
         <Spinner />
       ) : (
         <FlatList
-          style={{marginTop: 4}}
+          style={{marginTop: 4, marginHorizontal: 8}}
           numColumns={2}
           data={data?.data?.store_products}
           ListEmptyComponent={() => {
@@ -68,6 +44,7 @@ export function DiscountScreen() {
               disount={''}
               price={item?.price}
               mainStyle={{width: '47%', marginBottom: 12}}
+              promo_code={data?.data?.promo_code}
             />
           )}
           keyExtractor={(item: Props) => item.id}

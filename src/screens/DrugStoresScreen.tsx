@@ -55,14 +55,12 @@ export function DrugStoresScreen() {
         data={data?.data?.data}
         renderItem={({item}) => (
           <PharmacyCardLarge
-            id={'1'}
-            store={'SAS Pharmacy'}
-            distance={'12'}
-            rating={'52'}
-            imageUrl={
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyY-0cJsK52fsQPnfIXhFnNrLij-YujWCHVw&usqp=CAU'
-            }
-            price={'120'}
+            id={item?.id}
+            store={`${item?.store_name?.english} ${item?.store_branch_name?.english}`}
+            distance={item?.distance}
+            rating={item?.rating}
+            imageUrl={item?.store_logo?.url}
+            price={item?.price}
             discountAmount={null}
             discountPresent={null}
           />

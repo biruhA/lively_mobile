@@ -1,5 +1,5 @@
-import {View, Text, ScrollView} from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import {View, Text, ScrollView, FlatList} from 'react-native';
+import {useIsFocused, useRoute, useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {Button, Center, Spinner, Stack, useDisclose} from 'native-base';
 import {DiscountDescription, IconOnlyHeader} from '../components/molecules';
@@ -26,16 +26,22 @@ export function DiscountDetailScreen() {
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
   });
+
+  console.log(
+    '🚀 ~ file: DiscountDetailScreen.tsx:29 ~ DiscountDetailScreen ~ data:',
+    data,
+  );
+
   const {isOpen, onOpen, onClose} = useDisclose();
   const {token} = useAppSelector(state => state.auth);
-  const [state, setState] = useState(
-    token ? LoginSheetState.LoggedIn : LoginSheetState.notLoggedIn,
-  );
+  const [state, setState] = useState(LoginSheetState.notLoggedIn);
 
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
       onClose();
-      navigation.navigate(ScreenNames.ClaimDiscount);
+      navigation.navigate(ScreenNames.ClaimDiscount, {
+        promo_code: route?.params?.promo_code,
+      });
     }
   }, [state]);
 
@@ -57,36 +63,47 @@ export function DiscountDetailScreen() {
           onPressR={() => {}}
         />
       </Stack>
-      <ScrollView style={{paddingHorizontal: 8}}>
-        <ProductCarousel
-          images={[
-            {
-              url: data?.data?.product_variant?.product_image?.url,
-            },
-          ]}
-        />
-        <DiscountDetail
-          data={data?.data?.product_variant}
-          price={data?.data?.price}
-          discount={data?.data?.discount}
-          current_price={data?.data?.current_price}
-          brand={data?.data?.brand?.name?.english}
-          left={data?.data?.left.toString()}
-        />
-        <DiscountStoreCard
-          imageUrl={data?.data?.store?.store_logo?.url}
-          name={`${data?.data?.store?.store_name?.english} ${data?.data?.store?.store_branch_name?.english}`}
-          distance={data?.data?.store?.distance}
-          rating={data?.data?.store?.rating}
-        />
-        <DiscountDescription data={data?.data?.product_variant} />
-      </ScrollView>
-
+      <FlatList
+        data={[{}]}
+        style={{paddingHorizontal: 8}}
+        renderItem={({item}) => {
+          return (
+            <>
+              <ProductCarousel
+                images={[
+                  {
+                    url: data?.data?.product_variant?.product_image?.url,
+                  },
+                ]}
+              />
+              <DiscountDetail
+                data={data?.data?.product_variant}
+                price={data?.data?.price}
+                discount={data?.data?.discount}
+                current_price={data?.data?.current_price}
+                brand={data?.data?.brand?.name?.english}
+                left={data?.data?.left.toString()}
+              />
+              <DiscountStoreCard
+                imageUrl={data?.data?.store?.store_logo?.url}
+                name={`${data?.data?.store?.store_name?.english} ${data?.data?.store?.store_branch_name?.english}`}
+                distance={data?.data?.store?.distance}
+                rating={data?.data?.store?.rating}
+              />
+              <DiscountDescription data={data?.data?.product_variant} />
+            </>
+          );
+        }}
+      />
       <GradientButton
         mainStyle={{postion: 'absolute', bottom: 0}}
         text="Claim Discount"
         onPress={() => {
-          onOpen();
+          if (token) {
+            setState(LoginSheetState.LoggedIn);
+          } else {
+            onOpen();
+          }
         }}
       />
       <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />

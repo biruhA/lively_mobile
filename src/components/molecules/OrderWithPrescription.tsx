@@ -4,7 +4,7 @@ import {fonts} from '../../theme/fonts';
 import rx_card from '../../assets/images/rx_card.png';
 import {GradientButtonSmall} from '../atoms';
 
-export function OrderWithPrescription() {
+export function OrderWithPrescription({onCamPress}) {
   return (
     <Stack bg={'#E9F4EF'} rounded={'lg'} px={4} pb={2} pt={4} space={2}>
       <Text style={[fonts.body1, {color: 'black'}]}>
@@ -15,7 +15,7 @@ export function OrderWithPrescription() {
       </Text>
       <GradientButtonSmall
         text={'Upload now'}
-        onPress={() => onPress(item?.id)}
+        onPress={onCamPress}
         mainStyle={{
           alignSelf: 'flex-start',
           marginHorizontal: 0,

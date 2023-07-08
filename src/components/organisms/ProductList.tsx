@@ -28,6 +28,7 @@ export function ProductList({label, url}: Props) {
       ) : (
         <FlatList
           horizontal={true}
+          showsHorizontalScrollIndicator={false}
           data={data?.data?.products}
           ListEmptyComponent={<ListEmptyComponent />}
           renderItem={({item}) => (

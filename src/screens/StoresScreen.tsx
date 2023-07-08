@@ -24,6 +24,7 @@ export function StoresScreen() {
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
   });
+  console.log('🚀 ~ file: StoresScreen.tsx:27 ~ StoresScreen ~ data:', data);
 
   return (
     <Stack bg={colors.pureWhite} flex={1} px={4} py={2} space={3}>

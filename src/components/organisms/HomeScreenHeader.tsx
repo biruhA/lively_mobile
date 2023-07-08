@@ -11,7 +11,7 @@ import {useAppSelector} from '../../store/hooks';
 import {LoginSheet} from '../sheets';
 
 export function HomeScreenHeader() {
-  const {token} = useAppSelector(state => state.auth);
+  const {token, user} = useAppSelector(state => state.auth);
 
   const {isOpen, onClose, onOpen} = useDisclose();
   const [state, setState] = useState();
@@ -24,6 +24,7 @@ export function HomeScreenHeader() {
   }, [state]);
 
   const navigation = useNavigation();
+
   return (
     <>
       <HStack
@@ -32,7 +33,7 @@ export function HomeScreenHeader() {
         alignItems={'center'}
         justifyContent={'space-between'}
         py={4}>
-        <Text style={fonts.subtitle1}>HI Gebremariam 👋</Text>
+        <Text style={fonts.subtitle1}>HI {token ? user?.name : ''} 👋</Text>
         <HStack alignItems={'center'} space={5}>
           <TouchableIcon
             image={require('../../assets/icons/language.png')}
@@ -51,7 +52,7 @@ export function HomeScreenHeader() {
             }}
           />
           <TouchableIcon
-            image={require('../../assets/icons/heart.png')}
+            image={require('../../assets/icons/heart-bold.png')}
             boxSize={5}
             onPress={() => {}}
           />

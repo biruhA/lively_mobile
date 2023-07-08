@@ -8,6 +8,7 @@ import {ScreenNames} from '../../constants';
 import {setSelectedEventId} from '../../store/features/browseSlice';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
+import FastImage from 'react-native-fast-image';
 
 const WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(WIDTH * 0.9);
@@ -24,13 +25,11 @@ export function CarouselBrowseBottomItem({item}) {
         navigation.navigate(ScreenNames.ArticleDetail);
       }}
       style={styles.itemContainer}>
-      <Image
+      <FastImage
+        style={{width: '100%', height: '100%'}}
         source={{
           uri: item?.cover_image?.url,
         }}
-        alt="Alternate Text"
-        w={'100%'}
-        h={'100%'}
         resizeMode={'cover'}
       />
       <Stack position={'absolute'} bottom={0} left={0} right={0} p={4}>

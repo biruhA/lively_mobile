@@ -25,8 +25,12 @@ export const storeApi = createApi({
       }),
     }),
     storeDetailById: build.query({
-      query: id => ({
+      query: ({id, latitude, longitude}) => ({
         url: `store-detail/${id}`,
+        params: {
+          latitude,
+          longitude,
+        },
       }),
     }),
   }),

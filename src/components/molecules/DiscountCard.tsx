@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -27,9 +28,12 @@ export function DiscountCard({
   disount,
   price,
   mainStyle,
+  promo_code,
 }: Props): JSX.Element {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
+
+  console.log('🚀 ~ file: DiscountCard.tsx:33 ~ promo_code:', promo_code);
 
   return (
     <Stack
@@ -44,20 +48,18 @@ export function DiscountCard({
       <TouchableOpacity
         onPress={() => {
           dispatch(setProductId(id));
-          navigation.navigate(ScreenNames.DiscountDetail, {id});
+          navigation.navigate(ScreenNames.DiscountDetail, {id, promo_code});
         }}>
         <Stack>
           <Box position={'absolute'} zIndex={1} right={0}>
             <HeartIcon />
           </Box>
-          <Image
+          <FastImage
+            style={{width: '100%', height: 95}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            w={'100%'}
-            h={95}
-            resizeMode={'contain'}
+            resizeMode={'cover'}
           />
           <Text pt={2} pb={1} style={fonts.body1} numberOfLines={2}>
             {title}

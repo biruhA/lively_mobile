@@ -11,26 +11,18 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {setSelectedcategory} from '../../store/features/browseSlice';
 
-interface Props {
-  Data: any;
-}
-
-export function SimpleArticleList({Data}: Props) {
+export function SimpleArticleList() {
   const {data, isLoading} = useArticleCategoriesQuery();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   const onPress = item => {
-    console.log(
-      '🚀 ~ file: SimpleArticleList.tsx:24 ~ onPress ~ item:',
-      item?.name?.english,
-    );
     dispatch(setSelectedcategory(item));
     navigation.navigate(ScreenNames.SeeAllArticles);
   };
 
   return (
-    <Stack>
+    <Stack p={4}>
       {isLoading ? (
         <SimpleArticle />
       ) : (

@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
 import {useDispatch} from 'react-redux';
 import {setPromoCode} from '../../store/features/dealsSlice';
+import FastImage from 'react-native-fast-image';
 
 const WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(WIDTH * 0.9);
@@ -29,13 +30,11 @@ export function CarouselImage({item, variant = 'md'}) {
         dispatch(setPromoCode(item?.promo_code));
         navigation.navigate(ScreenNames.Discount, {id: item.id});
       }}>
-      <Image
+      <FastImage
+        style={{width: '100%', height: 170}}
         source={{
           uri: item?.banner_image?.url,
         }}
-        alt="Alternate Text"
-        w={'100%'}
-        h={170}
         resizeMode={'cover'}
       />
     </Pressable>

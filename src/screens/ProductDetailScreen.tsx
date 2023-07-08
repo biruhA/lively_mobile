@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native';
+import {ScrollView, FlatList} from 'react-native';
 import React from 'react';
 import {ProductCarousel} from '../components/organisms';
 import {Box, HStack, Image, Spinner, Stack, Text} from 'native-base';
@@ -40,12 +40,20 @@ export function ProductDetailScreen() {
       {isLoading ? (
         <Spinner flex={1} size={'lg'} accessibilityLabel="Loading posts" />
       ) : (
-        <ScrollView>
-          <ProductCarousel images={selectedProduct?.product_images} />
-          <BrandSection />
-          {/* <RecommendedStoresSection /> */}
-          <ProductDescription />
-        </ScrollView>
+        <FlatList
+          data={[{}]}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => {
+            return (
+              <>
+                <ProductCarousel images={selectedProduct?.product_images} />
+                <BrandSection />
+                {/* <RecommendedStoresSection /> */}
+                <ProductDescription />
+              </>
+            );
+          }}
+        />
       )}
       <Stack px={2} pt={3}>
         <GradientButton
