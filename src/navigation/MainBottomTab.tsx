@@ -18,6 +18,7 @@ import {BrowseScreen, PlaceScreen, SettingsScreen} from '../screens';
 import {ShopStack} from './ShopStack';
 import {HomeStack} from './HomeStack';
 import {BrowseStack} from './BrowseStack';
+import {SettingsStack} from './SettingsStack';
 import {Platform} from 'react-native';
 import {colors} from '../theme/colors';
 
@@ -61,6 +62,7 @@ export const MainBottomTab = () => {
           ),
         })}
       />
+
       {/* <Tab.Screen
         name={ScreenNames.ShopStack}
         component={ShopStack}
@@ -92,7 +94,7 @@ export const MainBottomTab = () => {
       />
       <Tab.Screen
         name={ScreenNames.Settings}
-        component={SettingsScreen}
+        component={SettingsStack}
         options={({navigation}: any) => ({
           tabBarButton: () => (
             <CustomBarButton

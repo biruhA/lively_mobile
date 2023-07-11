@@ -23,12 +23,12 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
-import help from '../assets/icons/settingIcons/Help.png';
+import help from '../assets/icons/settingIcons/help.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
 import edit from '../assets/icons/pencil-edit.png';
 import terms_and_cond from '../assets/icons/settingIcons/terms-conditions.png';
-import logout from '../assets/icons/settingIcons/Logout.png';
+import logout from '../assets/icons/settingIcons/logout.png';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
 
@@ -90,14 +90,10 @@ export function SettingsScreen() {
                 </TouchableOpacity>
               </HStack>
 
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(ScreenNames.ProfileDetailScreen)
-                }>
-                <Text style={styles.userFullnameText}>
-                  Mr. Anduamlak Temesgen A.
-                </Text>
-              </TouchableOpacity>
+              <Text style={styles.userFullnameText}>
+                Mr. Anduamlak Temesgen A.
+              </Text>
+
               <Text style={styles.userInfoText}>anduamlakt77@gmail.com</Text>
               <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
                 <View>

@@ -40,7 +40,7 @@ interface Form {
 export function LoginSheetBody({setState}: Props) {
   const [show, setShow] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const navigation = useNavigation();
+
   const [login, result] = useLoginMutation();
   const toast = useToast();
   const {token} = useAppSelector(state => state.auth);
@@ -182,19 +182,9 @@ export function LoginSheetBody({setState}: Props) {
               <Checkbox value="one" size={'sm'} onChange={setRememberMe}>
                 Remember me
               </Checkbox>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(ScreenNames.ForgotPassword)}>
-                <Text style={styles.forgot}>Forgot Password?</Text>
-              </TouchableOpacity>
             </HStack>
             <HStack justifyContent={'center'}>
               <Text style={styles.notRegistered}>Not Registered Yet? </Text>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.push(ScreenNames.CreateAccount);
-                }}>
-                <Text style={styles.forgot}>Create an Account</Text>
-              </TouchableOpacity>
             </HStack>
           </Stack>
         </Stack>

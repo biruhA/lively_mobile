@@ -48,10 +48,8 @@ export function HelpScreen() {
   };
   return (
     <Stack
-      px={'16px'}
       bg={colors.pureWhite}
       h={'full'}
-      pb={2}
       style={{backgroundColor: colors.pagesBackeground}}>
       <View w={'full'}>
         <ProfileScreensHeader
@@ -67,51 +65,52 @@ export function HelpScreen() {
           borderRadius={12}
           shadow={'0.5'}
           mx={1}
+          px={4}
+          py={4}
           space={2}>
-          <VStack
-            space={2}
-            alignItems={{
-              base: 'center',
-              md: 'flex-start',
-            }}>
-            <HStack space={2}>
-              <VStack w="100%">
-                <FormControl.Label>Subject</FormControl.Label>
-                <TextInput
-                  editable
-                  placeholder="Write your subject"
-                  // onChangeText={text => onChangeText(text)}
-                  // value={value}
-                  style={styles.subjectInput}
-                />
-              </VStack>
-            </HStack>
-            <HStack space={2}>
-              <VStack w="100%">
-                <FormControl.Label>Your Message</FormControl.Label>
-                <TextInput
-                  editable
-                  multiline
-                  numberOfLines={10}
-                  maxLength={40}
-                  placeholder="Write your message here"
-                  // onChangeText={text => onChangeText(text)}
-                  // value={value}
-                  style={styles.input}
-                />
-              </VStack>
-            </HStack>
-          </VStack>
+          <Center>
+            <VStack
+              space={2}
+              alignItems={{
+                base: 'center',
+                md: 'flex-start',
+              }}>
+              <HStack space={2}>
+                <VStack w="100%">
+                  <FormControl.Label>Subject</FormControl.Label>
+                  <TextInput
+                    editable
+                    placeholder="Write your subject"
+                    // onChangeText={text => onChangeText(text)}
+                    // value={value}
+                    style={styles.subjectInput}
+                  />
+                </VStack>
+              </HStack>
+              <HStack space={2}>
+                <VStack w="100%">
+                  <FormControl.Label>Your Message</FormControl.Label>
+                  <TextInput
+                    editable
+                    multiline
+                    numberOfLines={10}
+                    maxLength={40}
+                    placeholder="Write your message here"
+                    // onChangeText={text => onChangeText(text)}
+                    // value={value}
+                    style={styles.input}
+                  />
+                </VStack>
+              </HStack>
+            </VStack>
+            <GradientButton
+              title="Submit"
+              text="Submit"
+              onPress={onSubmit()}
+              mainStyle={styles.mainStyle}
+            />
+          </Center>
         </Stack>
-
-        <Center>
-          <GradientButton
-            title="Submit"
-            text="Submit"
-            onPress={onSubmit()}
-            mainStyle={styles.mainStyle}
-          />
-        </Center>
       </ScrollView>
     </Stack>
   );

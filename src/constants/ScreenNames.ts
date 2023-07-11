@@ -17,7 +17,6 @@ export enum ScreenNames {
   SeeAllDeals = 'SeeAllDeals',
   // Settings
   Settings = 'Settings',
-  ProfileDetailScreen = 'ProfileDetailScreen',
   EditProfileScreen = 'EditProfileScreen',
   PasswordResetScreen = 'PasswordResetScreen',
   PhoneConfirmationScreen = 'PhoneConfirmationScreen',

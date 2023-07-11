@@ -24,7 +24,6 @@ export * from './EventDetailScreen';
 export * from './SeeAllPopularArticlesScreen';
 export * from './SeeAllArticlesScreen';
 export * from './SettingsScreen';
-export * from './ProfileDetailScreen';
 export * from './EditProfileScreen';
 export * from './PasswordResetScreen';
 export * from './PhoneConfirmationScreen';

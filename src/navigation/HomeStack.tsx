@@ -21,11 +21,6 @@ import {
   SeeAllPopularArticlesScreen,
   SeeAllProductsScreen,
   SeeAllTrendingArticlesScreen,
-  ProfileDetailScreen,
-  EditProfileScreen,
-  PasswordResetScreen,
-  PhoneConfirmationScreen,
-  HelpScreen,
 } from '../screens';
 import {HomeStackParamList} from '../constants/HomeStackParamList';
 import {DiscountScreen, DiscountDetailScreen} from '../screens/';
@@ -113,27 +108,6 @@ export const HomeStack = () => {
       <Stack.Screen
         name={ScreenNames.MedicinePerscription}
         component={MedicinePerscriptionScreen}
-      />
-      <Stack.Screen
-        name={ScreenNames.ProfileDetailScreen}
-        component={ProfileDetailScreen}
-      />
-      <Stack.Screen
-        name={ScreenNames.EditProfileScreen}
-        component={EditProfileScreen}
-      />
-      <Stack.Screen
-        name={ScreenNames.PasswordResetScreen}
-        component={PasswordResetScreen}
-      />
-      <Stack.Screen
-        name={ScreenNames.PhoneConfirmationScreen}
-        component={PhoneConfirmationScreen}
-      />
-      <Stack.Screen name={ScreenNames.HelpScreen} component={HelpScreen} />
-      <Stack.Screen
-        name={ScreenNames.NotificationDiscount}
-        component={NotificationDiscountScreen}
       />
     </Stack.Navigator>
   );
