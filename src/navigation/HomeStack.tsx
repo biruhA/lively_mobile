@@ -5,6 +5,8 @@ import {
   ArticleDetailScreen,
   ClaimDiscount,
   CollectionDetailScreen,
+  CheckoutScreen,
+  CollectionScreen,
   DrugDetailScreen,
   DrugStoresScreen,
   EventDetailScreen,
@@ -76,6 +78,10 @@ export const HomeStack = () => {
       <Stack.Screen
         name={ScreenNames.CollectionDetail}
         component={CollectionDetailScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.CheckoutScreen}
+        component={CheckoutScreen}
       />
       <Stack.Screen name={ScreenNames.Medicines} component={MedicinesScreen} />
       <Stack.Screen

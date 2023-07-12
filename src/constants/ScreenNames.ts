@@ -24,6 +24,7 @@ export enum ScreenNames {
 
   SeeAllCollection = 'SeeAllCollection',
   CollectionDetail = 'CollectionDetail',
+  CheckoutScreen = 'CheckoutScreen',
   Medicines = 'Medicines',
   DrugDetail = 'DrugDetail',
   SeeAllDrugs = 'SeeAllDrugs',

@@ -1,21 +1,22 @@
-import {FlatList, ScrollView, View} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Stack, Text, Image, VStack} from 'native-base';
 import {colors} from '../theme/colors';
 import {IconOnlyHeader} from '../components/molecules';
 import {fonts} from '../theme/fonts';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useCollectionDetailQuery} from '../store/services';
-import {StyleSheet} from 'react-native';
 import {GradientButton} from '../components/atoms';
+import {ScreenNames} from '../constants';
 
 export function CollectionDetailScreen() {
   const route = useRoute();
+  const navigation = useNavigation();
   const {data, isLoading} = useCollectionDetailQuery(route?.params?.id);
-  console.log(
-    '🚀 ~ file: CollectionDetailScreen.tsx:16 ~ CollectionDetailScreen ~ data:',
-    data?.data,
-  );
+
+  function onBuyPress() {
+    navigation.navigate(ScreenNames.CheckoutScreen);
+  }
 
   return (
     <Stack flex={1} bg={colors.pureWhite}>
@@ -95,7 +96,7 @@ export function CollectionDetailScreen() {
         </Stack>
       </ScrollView>
       <Stack p={2} bg={'white'}>
-        <GradientButton text="Buy Now" onPress={() => {}} />
+        <GradientButton text="Buy Now" onPress={onBuyPress} />
       </Stack>
     </Stack>
   );
