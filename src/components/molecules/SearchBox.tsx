@@ -25,7 +25,7 @@ export function SearchBox({mainStyle, onCamPress}: Props) {
           py={3}
           rounded={40}>
           <Image source={search} alt="search" size="24px" ml={4} />
-          <Text style={[fonts.body1, styles.ellipsis]}>
+          <Text style={[fonts.body1, styles.ellipsis]} noOfLines={1}>
             Search for a products, articles, Pharmacies
           </Text>
           <TouchableOpacity onPress={onCamPress}>

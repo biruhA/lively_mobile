@@ -16,10 +16,10 @@ import {
   useToast,
 } from 'native-base';
 import {GradientButtonSmall} from '../atoms';
-import {StoreSheetBody1, StoreSheetBody2} from '../molecules';
+import {StoreSheetBody1} from '../molecules';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
-import {useNavigation} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 import {LoginSheetState, ScreenNames} from '../../constants';
 import mail from '../../assets/icons/mail.png';
 import passwordVisible from '../../assets/icons/password-visible.png';

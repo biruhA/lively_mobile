@@ -52,4 +52,7 @@ export enum ScreenNames {
   SeeAllProductsScreen = 'SeeAllProductsScreen',
   ProductDetailScreen = 'ProductDetailScreen',
   StoresScreen = 'StoresScreen',
+  // Place
+  PlaceDetails = 'PlaceDetails',
+  PlacePharmacyDetail = 'PlacePharmacyDetail',
 }

@@ -13,3 +13,5 @@ export * from './FilterGoBack';
 export * from './CarouselImage';
 export * from './PasswordIcon';
 export * from './QRImage';
+export * from './ButtonTabs';
+export * from './CarouselImage2';

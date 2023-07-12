@@ -15,6 +15,7 @@ export enum colors {
   pureBlack = '#181818',
   pureWhite = '#f6fbfb',
   greyText = '#7A7A7A',
+  grey = '#808080',
   lightgreyText = '#b4b4b4',
   border = '#F5F5F5',
   NormalText = '#262424',

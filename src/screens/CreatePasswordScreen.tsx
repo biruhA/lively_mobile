@@ -85,10 +85,6 @@ export function CreatePasswordScreen() {
               value: 8,
               message: 'Password min length is 8',
             },
-            maxLength: {
-              value: 8,
-              message: 'Password max length is 8',
-            },
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
@@ -119,10 +115,6 @@ export function CreatePasswordScreen() {
             minLength: {
               value: 8,
               message: 'Password min length is 8',
-            },
-            maxLength: {
-              value: 8,
-              message: 'Password max length is 8',
             },
             validate: value =>
               value === getValues('password') || 'The passwords do not match',

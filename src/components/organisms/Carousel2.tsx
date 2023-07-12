@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {View, Dimensions, StyleSheet} from 'react-native';
 import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../theme/colors';
-import {Image, Text} from 'native-base';
+import {Image, Pressable, Text} from 'native-base';
 import FastImage from 'react-native-fast-image';
+import {CarouselImage2} from '../atoms';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
 // const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
@@ -26,17 +27,7 @@ export class Carousel2 extends Component {
   }
 
   _renderItem({item}) {
-    return (
-      <View style={styles.itemContainer}>
-        <FastImage
-          style={{width: '100%', height: '100%'}}
-          source={{
-            uri: item?.banner_image?.url,
-          }}
-          resizeMode={'cover'}
-        />
-      </View>
-    );
+    return <CarouselImage2 item={item} />;
   }
 
   get pagination() {

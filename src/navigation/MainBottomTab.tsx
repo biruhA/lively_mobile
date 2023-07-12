@@ -19,6 +19,7 @@ import {ShopStack} from './ShopStack';
 import {HomeStack} from './HomeStack';
 import {BrowseStack} from './BrowseStack';
 import {SettingsStack} from './SettingsStack';
+import {PlaceStack} from './PlaceStack';
 import {Platform} from 'react-native';
 import {colors} from '../theme/colors';
 
@@ -80,7 +81,7 @@ export const MainBottomTab = () => {
       /> */}
       <Tab.Screen
         name={ScreenNames.Place}
-        component={PlaceScreen}
+        component={PlaceStack}
         options={({navigation}: any) => ({
           tabBarButton: () => (
             <CustomBarButton

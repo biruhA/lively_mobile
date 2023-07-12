@@ -14,7 +14,7 @@ export function SettingsScreenHeader() {
       py={4}
       style={{backgroundColor: colors.pureWhite}}>
       <HStack alignItems={'center'} space={2}>
-        <Text style={fonts.subtitle1}>Settings</Text>
+        <Text style={fonts.subtitle2}>Settings</Text>
       </HStack>
       <HStack alignItems={'center'} space={5}>
         <Image source={bell} alt="Alternate Text" size="20px" />

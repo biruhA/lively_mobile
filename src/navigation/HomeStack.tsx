@@ -5,7 +5,6 @@ import {
   ArticleDetailScreen,
   ClaimDiscount,
   CollectionDetailScreen,
-  CollectionScreen,
   DrugDetailScreen,
   DrugStoresScreen,
   EventDetailScreen,
@@ -14,11 +13,11 @@ import {
   NotificationDiscountScreen,
   NotificationScreen,
   ProductDetailScreen,
+  PlaceDetails,
+  PlacePharmacyDetail,
   SearchScreen,
-  SeeAllArticlesScreen,
   SeeAllDealsScreen,
   SeeAllDrugsScreen,
-  SeeAllPopularArticlesScreen,
   SeeAllProductsScreen,
   SeeAllTrendingArticlesScreen,
 } from '../screens';
@@ -49,7 +48,6 @@ export const HomeStack = () => {
         name={ScreenNames.SeeAllDeals}
         component={SeeAllDealsScreen}
       />
-
       <Stack.Screen
         name={ScreenNames.SeeAllProductsScreen}
         component={SeeAllProductsScreen}
@@ -63,7 +61,6 @@ export const HomeStack = () => {
         name={ScreenNames.EventDetail}
         component={EventDetailScreen}
       />
-
       <Stack.Screen
         name={ScreenNames.SeeAllTrendingArticles}
         component={SeeAllTrendingArticlesScreen}

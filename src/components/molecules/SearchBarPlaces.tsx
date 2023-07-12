@@ -16,32 +16,13 @@ interface Props {
   hasCamera?: boolean;
   placeholder: 'Search for a products, articles, Pharmacies';
 }
-export function SearchBar({hasCamera = false, placeholder}: Props) {
+export function SearchBarPlaces({hasCamera = false, placeholder}: Props) {
   const dispatch = useAppDispatch();
-  const [Search, result] = useSearchMutation();
-  const {searchedText, userLocation, selectedFilter} = useAppSelector(
-    state => state.search,
-  );
-  const debouncedText = useDebounce(searchedText, 500);
+  const {searchedText} = useAppSelector(state => state.search);
 
   function handleTextChange(newText) {
     dispatch(setSearchedText(newText));
   }
-
-  useEffect(() => {
-    if (debouncedText) {
-      console.log(
-        '🚀 ~ file: SearchBar.tsx:31 ~ useEffect ~ debouncedText:',
-        debouncedText,
-      );
-      Search({
-        type: filterLabel[selectedFilter],
-        search: debouncedText,
-        lat: userLocation?.lat,
-        lon: userLocation?.lon,
-      });
-    }
-  }, [debouncedText, selectedFilter]);
 
   return (
     <Input

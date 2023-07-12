@@ -26,15 +26,14 @@ export function DiscountDetailScreen() {
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
   });
+  const {isOpen, onOpen, onClose} = useDisclose();
+  const {token} = useAppSelector(state => state.auth);
+  const [state, setState] = useState(LoginSheetState.notLoggedIn);
 
   console.log(
     '🚀 ~ file: DiscountDetailScreen.tsx:29 ~ DiscountDetailScreen ~ data:',
     data,
   );
-
-  const {isOpen, onOpen, onClose} = useDisclose();
-  const {token} = useAppSelector(state => state.auth);
-  const [state, setState] = useState(LoginSheetState.notLoggedIn);
 
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
@@ -88,7 +87,7 @@ export function DiscountDetailScreen() {
                 imageUrl={data?.data?.store?.store_logo?.url}
                 name={`${data?.data?.store?.store_name?.english} ${data?.data?.store?.store_branch_name?.english}`}
                 distance={data?.data?.store?.distance}
-                rating={data?.data?.store?.rating}
+                rating={data?.data?.store?.rating?.average}
               />
               <DiscountDescription data={data?.data?.product_variant} />
             </>

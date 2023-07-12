@@ -1,75 +1,98 @@
-import {ScrollView, FlatList} from 'react-native';
-import React from 'react';
-import {Stack} from 'native-base';
+import {TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Center, HStack, Spinner, Stack, Text} from 'native-base';
 import {colors} from '../theme/colors';
 import {
-  BrowseHeader,
-  CatalogList,
-  IconOnlyHeader,
   PlacesHeader,
-  StoresCardLarge,
+  PlacesPharmacyCard,
+  SearchBar,
+  SearchBarPlaces,
 } from '../components/molecules';
 import {Carousel1} from '../components/organisms';
-
-interface Props {
-  id?: string;
-  label: string;
-  value: string;
-}
-
-const DATA = [
-  {
-    id: '1',
-    label: 'SAS Pharmacy',
-    value: '4.3 Km',
-  },
-  {
-    id: '2',
-    label: 'SAS Pharmacy',
-    value: '4.3 Km',
-  },
-  {
-    id: '3',
-    label: 'SAS Pharmacy',
-    value: '4.3 Km',
-  },
-  {
-    id: '4',
-    label: 'SAS Pharmacy',
-    value: '4.3 Km',
-  },
-  {
-    id: '5',
-    label: 'SAS Pharmacy',
-    value: '4.3 Km',
-  },
-];
+import pharmacy from '../assets/icons/pharmacy.png';
+import store from '../assets/icons/store.png';
+import {ButtonTabs} from '../components/atoms';
+import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkeleton';
+import {useBannersQuery, useRecommendedStoresMutation} from '../store/services';
+import {useAppSelector} from '../store/hooks';
+import {fonts} from '../theme/fonts';
+import {useDebounce} from '../hooks';
+import {ScreenNames} from '../constants';
+import {useNavigation} from '@react-navigation/native';
 
 export function PlaceScreen() {
+  const Banners = useBannersQuery();
+  const {searchedText, userLocation} = useAppSelector(state => state.search);
+  const [RecommendedStores, result] = useRecommendedStoresMutation();
+  const [isPharmacySelected, setIsPharmacySelected] = useState(true);
+  const navigation = useNavigation();
+
+  const debouncedText = useDebounce(searchedText, 500);
+  console.log(
+    '🚀 ~ file: PlaceScreen.tsx:27 ~ PlaceScreen ~ result:',
+    result?.data?.data?.data,
+  );
+
+  useEffect(() => {
+    RecommendedStores({
+      latitude: userLocation?.lat,
+      longitude: userLocation?.lon,
+      is_pharmacy: isPharmacySelected,
+      search: debouncedText,
+    });
+  }, [debouncedText, isPharmacySelected]);
+
   return (
-    <Stack px={'16px'} bg={colors.pureWhite} h={'full'} pb={2}>
-      <ScrollView>
-        <PlacesHeader />
-        <Carousel1 />
-        <Stack py={6} />
-        <CatalogList />
-        <Stack py={2} />
-        <FlatList
-          data={DATA}
-          renderItem={({item}) => (
-            <StoresCardLarge
-              id="1"
-              store={item.label}
-              distance={item.value}
-              rating="4.8"
-              imageUrl="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-              price="200"
-              discountPresent="200"
-              discountAmount="200"
+    <Stack bg={colors.pureWhite} h={'full'} pb={2}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Stack space={4}>
+          <PlacesHeader />
+          <Stack bg={'white'} px={4} pb={Banners?.isLoading ? 0 : 8}>
+            {Banners?.isLoading ? (
+              <CarouselBrowseSkeleton />
+            ) : (
+              <Carousel1 Data={Banners?.data?.data} />
+            )}
+          </Stack>
+          <Stack bg={'white'} p={4} space={4}>
+            <SearchBarPlaces placeholder="Search for places" />
+            <ButtonTabs
+              buttonOneIcon={pharmacy}
+              buttonOneTitle="Pharmacies"
+              buttonTwoIcon={store}
+              buttonTwoTitle="Store"
+              isPharmacySelected={isPharmacySelected}
+              setIsPharmacySelected={setIsPharmacySelected}
             />
-          )}
-          keyExtractor={item => item.id}
-        />
+            {result?.isLoading ? (
+              <Center flex={1} py={8}>
+                <Spinner />
+              </Center>
+            ) : (
+              <FlatList
+                data={result?.data?.data?.data}
+                ListEmptyComponent={() => {
+                  return (
+                    <Center flex={1} py={8}>
+                      <Text styles={fonts.caption}>No Places</Text>
+                    </Center>
+                  );
+                }}
+                renderItem={({item}) => (
+                  <PlacesPharmacyCard
+                    id={item?.id}
+                    store={item.store_name?.english}
+                    distance={item?.distance}
+                    rating={item?.rating?.average}
+                    imageUrl={item.store_logo?.url}
+                    isOpenNow={item?.is_open}
+                  />
+                )}
+                keyExtractor={item => item.id}
+              />
+            )}
+          </Stack>
+        </Stack>
       </ScrollView>
     </Stack>
   );

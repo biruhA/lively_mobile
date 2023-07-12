@@ -7,6 +7,8 @@ export * from './CreatePasswordScreen';
 export * from './ForgotPasswordScreen';
 export * from './HomeScreen';
 export * from './PlaceScreen';
+export * from './PlaceDetails';
+export * from './PlacePharmacyDetail';
 export * from './ShopScreen';
 export * from './WelcomeBackScreen';
 export * from './ResetPasswordScreen';

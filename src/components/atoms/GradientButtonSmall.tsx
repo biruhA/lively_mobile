@@ -50,13 +50,21 @@ export const GradientButtonSmall = ({
               ? [colors.unselected, colors.unselected]
               : [colors.gradient1, colors.gradient2]
           }>
-          <Text style={disabled ? styles.txtDisabled : styles.txt}>{text}</Text>
+          <HStack alignItems={'center'} justifyContent={'center'} space={2}>
+            {icon && <Image source={icon} alt="icon" boxSize={5} />}
+            <Text style={disabled ? styles.txtDisabled : styles.txt}>
+              {text}
+            </Text>
+          </HStack>
         </LinearGradient>
       ) : (
         <HStack
           style={
             variant === 'flat' ? styles.notActiveFlat : styles.notActiveRounded
-          }>
+          }
+          alignItems={'center'}
+          justifyContent={'center'}
+          space={2}>
           {icon && <Image source={icon} alt="icon" boxSize={5} />}
           <Text style={fonts.button1}>{text}</Text>
         </HStack>

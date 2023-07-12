@@ -55,3 +55,6 @@ export * from './OrderWithPrescription';
 export * from './PharmacyCardLarge';
 export * from './ImageUploadButton';
 export * from './MedicineSubCategory';
+export * from './PlaceDetailsHeader';
+export * from './PlacesPharmacyCard';
+export * from './SearchBarPlaces';
