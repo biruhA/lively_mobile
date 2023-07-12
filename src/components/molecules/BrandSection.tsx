@@ -11,7 +11,7 @@ export function BrandSection() {
   const [color, setColor] = useState();
 
   return (
-    <Stack py={5} px={4} bg={colors.pureWhite} my={2} space={1}>
+    <Stack p={4} my={2} space={1}>
       <Text style={fonts.subtitle1}>{selectedProduct?.title?.english}</Text>
       <HStack py={2} justifyContent={'flex-start'} space={1}>
         {selectedProduct?.variant_type !== 'Color' ? (

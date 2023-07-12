@@ -26,7 +26,7 @@ export function RecommendedStoresSection() {
   });
 
   return (
-    <Stack bg={'#EEF6F6'} px={4} py={4}>
+    <Stack p={4}>
       <Text style={fonts.subtitle1}>Recommended Stores</Text>
       <ScrollView
         horizontal
@@ -46,7 +46,7 @@ export function RecommendedStoresSection() {
               <StoresCard
                 store={item?.store_name?.english}
                 distance={item?.distance}
-                rating={item?.rating}
+                rating={item?.rating?.average}
                 price={item?.price}
                 imageUrl={item?.store_logo?.url}
               />

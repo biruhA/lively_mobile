@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     height: ITEM_HEIGHT,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.pureWhite,
     borderRadius: 8,
     overflow: 'hidden',
   },

@@ -24,8 +24,8 @@ export function ProductDetailScreen() {
   const {isLoading} = useProductDetailByIdQuery(selectedProductId);
 
   return (
-    <Stack flex={1} bg={'#fbfbfb'}>
-      <Stack bg={colors.pureWhite} px={5}>
+    <Stack flex={1} bg={colors.pureWhite}>
+      <Stack bg={'white'} px={4}>
         <IconOnlyHeader
           iconL={require('../assets/icons/heart-bold.png')}
           iconR={require('../assets/icons/share.png')}
@@ -45,12 +45,16 @@ export function ProductDetailScreen() {
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (
-              <>
-                <ProductCarousel images={selectedProduct?.product_images} />
-                <BrandSection />
-                {/* <RecommendedStoresSection /> */}
+              <Stack space={2}>
+                <Stack bg={'white'}>
+                  <ProductCarousel images={selectedProduct?.product_images} />
+                </Stack>
+                <Stack bg={'white'}>
+                  <BrandSection />
+                </Stack>
+                <RecommendedStoresSection />
                 <ProductDescription />
-              </>
+              </Stack>
             );
           }}
         />
