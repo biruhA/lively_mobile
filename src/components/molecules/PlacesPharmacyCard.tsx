@@ -37,7 +37,7 @@ export function PlacesPharmacyCard({
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
       onClose();
-      navigation.navigate(ScreenNames.PlaceDetails);
+      navigation.navigate(ScreenNames.PlaceDetails, {id});
     }
   }, [state]);
 
@@ -56,7 +56,7 @@ export function PlacesPharmacyCard({
             alt="Alternate Text"
             w={104}
             h={87}
-            resizeMode={'cover'}
+            resizeMode={'contain'}
           />
           <Stack space={1}>
             <Text style={fonts.subtitle1} numberOfLines={2}>
@@ -80,7 +80,7 @@ export function PlacesPharmacyCard({
               <Text style={fonts.caption} numberOfLines={1}>
                 {distance} Away
               </Text>
-              <Divider
+              {/* <Divider
                 bg={'#E6E6E6'}
                 thickness="1"
                 mx="1"
@@ -92,7 +92,7 @@ export function PlacesPharmacyCard({
               </Text>
               <Text style={fonts.caption} numberOfLines={1}>
                 rating
-              </Text>
+              </Text> */}
             </HStack>
           </Stack>
         </HStack>

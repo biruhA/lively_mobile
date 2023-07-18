@@ -89,7 +89,9 @@ export function WelcomeBackScreen() {
       dispatch(rememberMe());
     }
     offlineSaveUser();
-    navigation.navigate(ScreenNames.MainBottomTab);
+    if (token) {
+      navigation.navigate(ScreenNames.MainBottomTab);
+    }
   }, [result, token]);
 
   const onSubmit = (data: Form) => {
@@ -123,8 +125,9 @@ export function WelcomeBackScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Stack alignItems="center">
               <InputGroup w={'100%'}>
+                <InputLeftAddon children={'+251'} />
                 <Input
-                  w={'100%'}
+                  w={'87%'}
                   size={'lg'}
                   InputRightElement={
                     <Image
@@ -140,6 +143,7 @@ export function WelcomeBackScreen() {
                   onChangeText={onChange}
                   value={value}
                   borderRadius={5}
+                  maxLength={9}
                 />
               </InputGroup>
             </Stack>

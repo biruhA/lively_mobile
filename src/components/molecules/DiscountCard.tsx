@@ -33,8 +33,6 @@ export function DiscountCard({
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
-  console.log('🚀 ~ file: DiscountCard.tsx:33 ~ promo_code:', promo_code);
-
   return (
     <Stack
       my={1}

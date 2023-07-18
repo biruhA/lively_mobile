@@ -28,10 +28,6 @@ export function DrugStoresScreen() {
     longitude: userLocation?.lon,
     latitude: userLocation?.lat,
   });
-  console.log(
-    '🚀 ~ file: DrugStoresScreen.tsx:26 ~ DrugStoresScreen ~ data:',
-    data?.data?.data,
-  );
 
   if (isLoading) {
     return (
@@ -58,7 +54,7 @@ export function DrugStoresScreen() {
             id={item?.id}
             store={`${item?.store_name?.english} ${item?.store_branch_name?.english}`}
             distance={item?.distance}
-            rating={item?.rating}
+            rating={item?.rating?.average}
             imageUrl={item?.store_logo?.url}
             price={item?.price}
             discountAmount={null}

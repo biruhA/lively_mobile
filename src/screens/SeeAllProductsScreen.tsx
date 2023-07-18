@@ -62,6 +62,10 @@ export function SeeAllProductsScreen() {
   );
 
   const [DATA, setData] = useState(data?.data?.products);
+  console.log(
+    '🚀 ~ file: SeeAllProductsScreen.tsx:65 ~ SeeAllProductsScreen ~ DATA:',
+    DATA,
+  );
 
   useEffect(() => {
     if (selectedSubCategoryId !== '') {
@@ -69,7 +73,7 @@ export function SeeAllProductsScreen() {
     } else {
       setData(data?.data?.products);
     }
-  }, [selectedSubCategoryId]);
+  }, [selectedSubCategoryId, isLoading, ProductBySubCategory]);
 
   return (
     <Stack

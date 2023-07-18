@@ -29,6 +29,7 @@ export function ImageUploadButton({onClose}) {
 
   async function takeImage() {
     const result = await launchCamera(options);
+
     const formData = new FormData('image', {
       name: result?.assets[0]?.fileName,
       type: result?.assets[0]?.type,
@@ -37,6 +38,7 @@ export function ImageUploadButton({onClose}) {
           ? result?.assets[0]?.uri.replace('file://', '')
           : result?.assets[0]?.uri,
     });
+
     uploadPrescription(formData);
   }
 

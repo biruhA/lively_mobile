@@ -59,7 +59,7 @@ export function ProductCard({
             source={{
               uri: imageUrl,
             }}
-            resizeMode={'cover'}
+            resizeMode={'contain'}
           />
           <Stack px={2} h={'50%'} justifyContent={'space-between'}>
             <Text pt={2} pb={1} style={fonts.body1} numberOfLines={2}>

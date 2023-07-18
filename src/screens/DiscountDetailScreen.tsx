@@ -30,11 +30,6 @@ export function DiscountDetailScreen() {
   const {token} = useAppSelector(state => state.auth);
   const [state, setState] = useState(LoginSheetState.notLoggedIn);
 
-  console.log(
-    '🚀 ~ file: DiscountDetailScreen.tsx:29 ~ DiscountDetailScreen ~ data:',
-    data,
-  );
-
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
       onClose();

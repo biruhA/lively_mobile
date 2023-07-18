@@ -13,15 +13,13 @@ import download from '../assets/icons/download.png';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 import CameraRoll, {useCameraRoll} from '@react-native-camera-roll/camera-roll';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 export function ClaimDiscount() {
   const route = useRoute();
+  const navigation = useNavigation();
   const [productQRref, setProductQRref] = useState();
   const [photos, getPhotos, save] = useCameraRoll();
-  console.log(
-    '🚀 ~ file: ClaimDiscount.tsx:21 ~ ClaimDiscount ~ photos:',
-    photos,
-  );
 
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
@@ -90,11 +88,10 @@ export function ClaimDiscount() {
   }
 
   return (
-    <Stack>
-      <Stack px={5} pt={4} pb={7} mb={4} bg={colors.pureWhite}>
+    <Stack space={4}>
+      <Stack p={4} bg={colors.pureWhite}>
         <GoBack label="" />
       </Stack>
-      <Example />
       <Stack py={4} px={5}>
         <Stack
           alignItems={'center'}
@@ -116,11 +113,12 @@ export function ClaimDiscount() {
               resizeMode="contain"
             />
           </Pressable>
-
-          <QRImage
-            value={JSON.stringify(route?.params?.promo_code)}
-            getRef={c => setProductQRref(c)}
-          />
+          <Stack p={4}>
+            <QRImage
+              value={JSON.stringify(route?.params?.promo_code)}
+              getRef={c => setProductQRref(c)}
+            />
+          </Stack>
 
           <Stack>
             <Text style={fonts.heading5} textAlign={'center'} pt={2}>
@@ -134,18 +132,45 @@ export function ClaimDiscount() {
             You are reserved this item for 24 hours, so collect your item with
             in the time!
           </Text>
-          <Stack bg={'#F4F4F4B2'} borderRadius={5} px={41} py={21}>
+          <HStack
+            bg={'#F4F4F4B2'}
+            borderRadius={5}
+            px={30}
+            w={'75%'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            space={4}>
             <Text pt={2} style={fonts.heading5}>
               {route?.params?.promo_code}
             </Text>
-          </Stack>
+            <TouchableOpacity
+              onPress={() => {
+                Clipboard.setString(`${route?.params?.promo_code}`);
+              }}>
+              <Image
+                source={require('../assets/icons/copy-to.png')}
+                boxSize={5}
+                alt="copy to"
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          </HStack>
           <Text style={fonts.body1} textAlign={'center'}>
             You are reserved this item for 24 hours, so collect your item with
             in the time!
           </Text>
-          <HStack pb={5}>
-            <GradientButtonSmall isActive={false} text="Share" variant="flat" />
-            <GradientButtonSmall text="Go to store" variant="flat" />
+          <HStack pb={5} pt={2}>
+            <GradientButtonSmall
+              isActive={false}
+              text="Share"
+              variant="flat"
+              mainStyle={{width: '40%'}}
+            />
+            <GradientButtonSmall
+              text="Go to store"
+              variant="flat"
+              mainStyle={{width: '40%'}}
+            />
           </HStack>
         </Stack>
       </Stack>

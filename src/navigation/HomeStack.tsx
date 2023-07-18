@@ -23,7 +23,6 @@ import {
   SeeAllProductsScreen,
   SeeAllTrendingArticlesScreen,
 } from '../screens';
-import {HomeStackParamList} from '../constants/HomeStackParamList';
 import {DiscountScreen, DiscountDetailScreen} from '../screens/';
 import {StoresScreen} from '../screens/StoresScreen';
 import {SeeAllCollectionScreen} from '../screens/SeeAllCollectionScreen';
@@ -31,7 +30,7 @@ import {MedicinesScreen} from '../screens/MedicinesScreen';
 import {PharmacyDetailScreen} from '../screens/PharmacyDetailScreen';
 
 //TODO change AuthStackParamList
-const Stack = createStackNavigator<HomeStackParamList>();
+const Stack = createStackNavigator<any>();
 
 export const HomeStack = () => {
   return (

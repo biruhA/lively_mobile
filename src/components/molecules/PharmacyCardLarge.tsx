@@ -7,9 +7,11 @@ import {colors} from '../../theme/colors';
 import {StoreSheet} from '../organisms';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
+import {useDispatch} from 'react-redux';
+import {setStoreId} from '../../store/features/storeSlice';
 
 interface Props {
-  is: string;
+  id: string;
   store: string;
   distance: string;
   rating: string;
@@ -30,11 +32,13 @@ export function PharmacyCardLarge({
   discountAmount,
 }: Props): JSX.Element {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   return (
     <Stack shadow={0} my={2} mx={1} bg="white" rounded={'md'}>
       <TouchableOpacity
         onPress={() => {
+          dispatch(setStoreId(id));
           navigation.navigate(ScreenNames.PharmacyDetail);
         }}>
         <HStack px={2} py={1} space={3} alignItems={'center'}>

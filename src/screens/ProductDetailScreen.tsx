@@ -41,7 +41,7 @@ export function ProductDetailScreen() {
         <Spinner flex={1} size={'lg'} accessibilityLabel="Loading posts" />
       ) : (
         <FlatList
-          data={[{}]}
+          data={[{id: '1'}]}
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (

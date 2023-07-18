@@ -6,7 +6,7 @@ export function QRImage({value, getRef}) {
   return (
     <QRCode
       value={value}
-      size={250}
+      size={200}
       color="black"
       backgroundColor="white"
       getRef={getRef}

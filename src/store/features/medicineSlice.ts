@@ -36,9 +36,7 @@ export const medicineSlice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(
       medicineApi.endpoints.getMedicineNotification.matchFulfilled,
-      (state, action) => {
-        console.log('🚀 ~ file: medicineSlice.ts:25 ~ action:', action.payload);
-      },
+      (state, action) => {},
     );
   },
 });

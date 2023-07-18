@@ -10,20 +10,18 @@ interface Props {
 
 export function EventGlassmorphisem({item}: Props) {
   return (
-    <>
-      <BlurView
-        style={styles.absolute}
-        blurType="light"
-        blurAmount={10}
-        reducedTransparencyFallbackColor="white"
-      />
+    <BlurView
+      style={styles.absolute}
+      blurType="light"
+      blurAmount={20}
+      overlayColor={'#00000008'}>
       <HStack
-        px={2}
+        p={2}
         space={2}
         justifyContent={'space-between'}
         alignItems={'flex-start'}>
         <Stack w={'75%'} justifyContent={'space-between'} space={2}>
-          <Text fontSize={16} fontWeight={'700'} color={'white'}>
+          <Text fontSize={16} noOfLines={1} fontWeight={'700'} color={'white'}>
             {item?.title?.english}
           </Text>
           <Text noOfLines={1} style={[fonts.button2, {color: 'white'}]}>
@@ -36,7 +34,11 @@ export function EventGlassmorphisem({item}: Props) {
               boxSize={5}
               resizeMode="contain"
             />
-            <Text fontSize={14} fontWeight={'700'} color={'white'}>
+            <Text
+              fontSize={14}
+              noOfLines={1}
+              fontWeight={'700'}
+              color={'white'}>
               {item?.location?.english}
             </Text>
           </HStack>
@@ -51,7 +53,7 @@ export function EventGlassmorphisem({item}: Props) {
           year={item?.start_date.split('-')[0]}
         />
       </HStack>
-    </>
+    </BlurView>
   );
 }
 
@@ -83,12 +85,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   absolute: {
+    width: '100%',
     position: 'absolute',
-    top: 0,
     left: 0,
     bottom: 0,
     right: 0,
-    opacity: 0.5,
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
 });

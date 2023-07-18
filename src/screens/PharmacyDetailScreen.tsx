@@ -1,6 +1,6 @@
 import {FlatList, ScrollView} from 'react-native';
 import React from 'react';
-import {HStack, Image, Stack, Text} from 'native-base';
+import {HStack, Image, Spinner, Stack, Text} from 'native-base';
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import {GoBack, GradientButtonSmall} from '../components/atoms';
@@ -11,8 +11,27 @@ import whatsup from '../assets/images/whatsup.png';
 import facebook from '../assets/images/facebook.png';
 import website from '../assets/images/website.png';
 import {PharmacyCardLarge} from '../components/molecules';
+import {useAppSelector} from '../store/hooks';
+import {useStoreDetailByIdQuery} from '../store/services';
 
 export function PharmacyDetailScreen() {
+  const {userLocation} = useAppSelector(state => state.search);
+  const {selectedStoreId} = useAppSelector(state => state.store);
+  const {data, isLoading} = useStoreDetailByIdQuery({
+    id: selectedStoreId,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+  });
+
+  console.log(
+    '🚀 ~ file: PharmacyDetailScreen.tsx:25 ~ PharmacyDetailScreen ~ data:',
+    data?.data,
+  );
+
+  if (isLoading) {
+    return <Spinner py={'90%'} size="large" color="red" />;
+  }
+
   return (
     <Stack flex={1} bg={colors.pureWhite} w={'100%'} px={4} space={2}>
       <ScrollView>

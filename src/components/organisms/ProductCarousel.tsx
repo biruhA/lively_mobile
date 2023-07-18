@@ -28,7 +28,7 @@ export class ProductCarousel extends Component {
           source={{
             uri: item?.url,
           }}
-          resizeMode={'cover'}
+          resizeMode={'contain'}
         />
       </View>
     );

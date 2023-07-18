@@ -1,4 +1,4 @@
-import {Linking, Platform, ScrollView} from 'react-native';
+import {FlatList, Linking, Platform, ScrollView} from 'react-native';
 import React from 'react';
 import {
   AspectRatio,
@@ -14,9 +14,17 @@ import {
   Badge,
 } from 'native-base';
 import {colors} from '../theme/colors';
-import {PlaceDetailsHeader, SearchBar} from '../components/molecules';
-import {ButtonTabs, GradientButtonSmall} from '../components/atoms';
-import {useNavigation} from '@react-navigation/native';
+import {
+  PlaceDetailsHeader,
+  ProductCard,
+  SearchBar,
+} from '../components/molecules';
+import {
+  ButtonTabs,
+  GradientButtonSmall,
+  ListEmptyComponent,
+} from '../components/atoms';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import faceHappy from '../assets/icons/system-uicons-face-happy.png';
@@ -31,15 +39,21 @@ const imageUrl =
   'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg';
 
 export function PlaceDetails() {
+  const route = useRoute();
   const navigation = useNavigation();
   const {userLocation} = useAppSelector(state => state.search);
   const {token} = useAppSelector(state => state.auth);
   const {data, isLoading} = usePlaceDetailQuery({
-    id: '999d0ba8-2c7b-4361-8403-71e88dc7a4aa',
+    id: route?.params?.id,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
     token,
   });
+
+  console.log(
+    '🚀 ~ file: PlaceDetails.tsx:43 ~ PlaceDetails ~ data:',
+    data?.data,
+  );
 
   function onPressHandler() {
     navigation.navigate(navTo, {label});
@@ -87,7 +101,7 @@ export function PlaceDetails() {
           </HStack>
           <Stack style={{marginLeft: '30%', paddingTop: 5}}>
             <Heading size="md" color={'black'}>
-              SAS Pharmacy
+              {data?.data?.name?.english}
             </Heading>
             <HStack space={1}>
               <Image source={location} alt="Alternate Text" boxSize={4} />
@@ -135,9 +149,24 @@ export function PlaceDetails() {
             </HStack>
           </Stack>
 
-          <Center py={24}>
-            <Text style={fonts.caption}>No products yet</Text>
-          </Center>
+          <FlatList
+            style={{marginTop: 4}}
+            numColumns={2}
+            data={data?.data?.products?.data}
+            ListEmptyComponent={() => {
+              return <ListEmptyComponent />;
+            }}
+            renderItem={({item}) => (
+              <ProductCard
+                imageUrl={item?.product_images?.[0]?.url}
+                item={item.title?.english}
+                volume={item.additional_information?.Weight}
+                amount={item.from}
+                mainStyle={{width: '47%', marginBottom: 12}}
+              />
+            )}
+            keyExtractor={(item: Props) => item.id}
+          />
           {/* <Stack
           my={1}
           mr={3}

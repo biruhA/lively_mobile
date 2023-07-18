@@ -8,6 +8,7 @@ import {ScreenNames} from '../../constants';
 import {setSelectedEventId} from '../../store/features/browseSlice';
 import {useDispatch} from 'react-redux';
 import FastImage from 'react-native-fast-image';
+import {BlurView} from '@react-native-community/blur';
 
 const WIDTH = Dimensions.get('window').width;
 const ITEM_WIDTH = Math.round(WIDTH * 0.9);
