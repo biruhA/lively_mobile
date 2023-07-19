@@ -2,43 +2,20 @@ import React, {useState} from 'react';
 import {
   Stack,
   Text,
-  Avatar,
   Center,
-  VStack,
-  Image,
   HStack,
   ChevronRightIcon,
   View,
   useDisclose,
   Badge,
-  Button,
   Actionsheet,
   Box,
-  Input,
-  FormControl,
-  WarningOutlineIcon,
+  Divider,
 } from 'native-base';
-import {useNavigation} from '@react-navigation/native';
-import {SettingsScreenHeader} from '../components/organisms';
-import {ProfileScreensHeader, SettingItems} from '../components/molecules';
+import {ProfileScreensHeader} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import about from '../assets/icons/settingIcons/faq.png';
-import faq from '../assets/icons/settingIcons/faq2.png';
-import help from '../assets/icons/settingIcons/help.png';
-import lively_logo from '../assets/images/lively_logo.png';
-import lang from '../assets/icons/settingIcons/lang.png';
-import edit from '../assets/icons/pencil-edit.png';
-import terms_and_cond from '../assets/icons/settingIcons/terms-conditions.png';
-import logout from '../assets/icons/settingIcons/logout.png';
+import {ScrollView, TouchableOpacity} from 'react-native';
 import {ScreenNames} from '../constants';
-import {GoBack, GradientButton} from '../components/atoms';
 import {fonts} from '../theme/fonts';
 
 export function PrivacyScreen() {
@@ -48,27 +25,23 @@ export function PrivacyScreen() {
     console.log('====================================');
   };
   return (
-    <Stack
-      bg={colors.pureWhite}
-      h={'full'}
-      style={{backgroundColor: colors.pagesBackeground}}>
-      <View w={'full'}>
+    <Stack bg={'#ffffff'} h={'full'} py={1}>
+      <View w={'full'} h={10}>
         <ProfileScreensHeader
           navigationTo={ScreenNames.Settings}
           screenName="Privacy"
         />
       </View>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#E3EBEB'}} alignItems={'center'}>
         <Stack py={3} />
         <Stack
-          my={2}
           bg={colors.pureWhite}
           borderRadius={12}
           shadow={'0.5'}
           mx={1}
           px={4}
           py={4}
-          space={2}>
+          space={4}>
           <HStack
             justifyContent="space-between"
             alignItems="center"
@@ -83,6 +56,7 @@ export function PrivacyScreen() {
               </HStack>
             </TouchableOpacity>
           </HStack>
+          <Divider bg={'#E6E6E6'} thickness="1" />
           <>
             <DeleteAccount />
           </>
@@ -91,37 +65,6 @@ export function PrivacyScreen() {
     </Stack>
   );
 }
-
-const styles = StyleSheet.create({
-  mainStyle: {marginTop: 15},
-  editText: {
-    fontSize: 14,
-    color: colors.pureWhite,
-    paddingLeft: 5,
-  },
-  userInfoText: {
-    color: colors.greyText,
-    margin: -5,
-  },
-  userFullnameText: {
-    color: colors.pureBlack,
-    margin: -5,
-  },
-  editButton: {
-    padding: 2,
-  },
-  subjectInput: {
-    borderWidth: 1,
-    padding: 10,
-    borderColor: '#B4B4B4',
-  },
-  input: {
-    height: 200,
-    borderWidth: 1,
-    padding: 10,
-    borderColor: '#B4B4B4',
-  },
-});
 
 function DeleteAccount() {
   const {isOpen, onOpen, onClose} = useDisclose();

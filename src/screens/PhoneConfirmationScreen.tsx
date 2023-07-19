@@ -72,23 +72,20 @@ export function PhoneConfirmationScreen() {
   }, [otp]);
 
   return (
-    <Stack
-      bg={colors.pureWhite}
-      h={'full'}
-      style={{backgroundColor: colors.pagesBackeground}}>
-      <View w={'full'}>
+    <Stack bg={'#ffffff'} h={'full'} py={1}>
+      <View w={'full'} h={10}>
         <ProfileScreensHeader
           navigationTo={ScreenNames.Settings}
           screenName="Password Reset"
         />
       </View>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#E3EBEB'}} alignItems={'center'}>
         <Stack
           my={'40%'}
-          margin={4}
           bg="white"
+          mx={1.8}
           rounded={'md'}
-          padding={2}
+          padding={4}
           overflow={'hidden'}>
           <VStack>
             <Text style={fonts.heading5}>Confirm your phone</Text>

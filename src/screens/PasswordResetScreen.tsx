@@ -82,20 +82,17 @@ export function PasswordResetScreen() {
   }, [otp]);
 
   return (
-    <Stack
-      bg={colors.pureWhite}
-      h={'full'}
-      style={{backgroundColor: colors.pagesBackeground}}>
-      <View w={'full'}>
+    <Stack bg={'#ffffff'} h={'full'} py={1}>
+      <View w={'full'} h={10}>
         <ProfileScreensHeader
           navigationTo={ScreenNames.Settings}
           screenName="Password Reset"
         />
       </View>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#E3EBEB'}}>
         <Stack
           my={'40%'}
-          margin={4}
+          mx={3}
           bg="white"
           rounded={'md'}
           padding={2}

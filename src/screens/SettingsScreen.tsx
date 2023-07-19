@@ -11,7 +11,6 @@ import {
   View,
   useDisclose,
   Badge,
-  Button,
   Actionsheet,
   Box,
 } from 'native-base';
@@ -27,8 +26,6 @@ import help from '../assets/icons/settingIcons/help.png';
 import privacy from '../assets/icons/settingIcons/privacy.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
-import edit from '../assets/icons/pencil-edit.png';
-import terms_and_cond from '../assets/icons/settingIcons/terms-conditions.png';
 import logout from '../assets/icons/settingIcons/logout.png';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
@@ -37,12 +34,7 @@ export function SettingsScreen() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   return (
-    <Stack
-      px={'16px'}
-      bg={colors.pureWhite}
-      h={'full'}
-      pb={2}
-      style={{backgroundColor: colors.pagesBackeground}}>
+    <Stack style={{backgroundColor: '#E3EBEB'}} h={'full'}>
       <View w={'full'}>
         <SettingsScreenHeader />
       </View>
@@ -52,7 +44,7 @@ export function SettingsScreen() {
           bg={colors.pureWhite}
           borderRadius={12}
           shadow={'0.5'}
-          mx={1}
+          mx={3}
           px={4}
           py={4}
           space={2}>
@@ -112,7 +104,7 @@ export function SettingsScreen() {
           bg={colors.pureWhite}
           borderRadius={12}
           shadow={'0.5'}
-          mx={1}
+          mx={3}
           px={4}
           py={4}
           space={4}>
@@ -120,7 +112,6 @@ export function SettingsScreen() {
             <LanguagesList />
           </>
 
-          {/* <SettingItems item_icon={faq} title="Your Reviews" /> */}
           <TouchableOpacity
             onPress={() => navigation.navigate(ScreenNames.PrivacyScreen)}>
             <SettingItems item_icon={privacy} title="Privacy" />

@@ -76,7 +76,7 @@ export function ResetPasswordScreen() {
       <GoBack label="Forgot Password" />
       <Stack pt={24} space={1}>
         <Text style={fonts.heading4} pt={3}>
-          Forgot Password
+          Forgot Passwordd
         </Text>
         <Text style={fonts.body1}>use strong password</Text>
       </Stack>

@@ -12,7 +12,8 @@ export function SettingsScreenHeader() {
       alignItems={'center'}
       justifyContent={'space-between'}
       py={4}
-      style={{backgroundColor: colors.pureWhite}}>
+      px={4}
+      style={{backgroundColor: '#ffffff'}}>
       <HStack alignItems={'center'} space={2}>
         <Text style={fonts.subtitle2}>Settings</Text>
       </HStack>

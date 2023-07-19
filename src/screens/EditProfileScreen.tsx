@@ -40,18 +40,15 @@ export function EditProfileScreen() {
   };
 
   return (
-    <Stack
-      bg={colors.pureWhite}
-      h={'full'}
-      style={{backgroundColor: colors.pagesBackeground}}>
-      <View w={'full'}>
+    <Stack bg={'#ffffff'} h={'full'} py={1}>
+      <View w={'full'} h={10}>
         <ProfileScreensHeader
           navigationTo={ScreenNames.Settings}
           screenName="Edit Profile"
         />
       </View>
-      <ScrollView>
-        <Stack bg={colors.pureWhite} borderRadius={12} py={6}>
+      <ScrollView style={{backgroundColor: '#E3EBEB'}} alignItems={'center'}>
+        <Stack bg={colors.pureWhite} borderRadius={12} py={6} mx={5} my={3}>
           <VStack
             space={2}
             alignItems={{
@@ -116,7 +113,7 @@ export function EditProfileScreen() {
           bg={colors.pureWhite}
           borderRadius={12}
           shadow={'0.5'}
-          mx={1}
+          mx={5}
           px={4}
           py={4}
           space={2}>
@@ -160,7 +157,7 @@ export function EditProfileScreen() {
           bg={colors.pureWhite}
           borderRadius={12}
           shadow={'0.5'}
-          mx={1}
+          mx={5}
           px={4}
           py={4}
           space={2}>
