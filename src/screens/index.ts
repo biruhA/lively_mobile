@@ -40,3 +40,4 @@ export * from './NotificationScreen';
 export * from './MedicinePerscriptionScreen';
 export * from './NotificationDiscountScreen';
 export * from './CheckoutScreen';
+export * from './PrivacyScreen';

@@ -7,6 +7,7 @@ import {
   HelpScreen,
   PasswordResetScreen,
   PhoneConfirmationScreen,
+  PrivacyScreen,
 } from '../screens';
 import {HomeStackParamList} from '../constants/HomeStackParamList';
 
@@ -32,6 +33,10 @@ export const SettingsStack = () => {
       <Stack.Screen
         name={ScreenNames.PhoneConfirmationScreen}
         component={PhoneConfirmationScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.PrivacyScreen}
+        component={PrivacyScreen}
       />
     </Stack.Navigator>
   );

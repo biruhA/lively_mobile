@@ -9,7 +9,7 @@ export function ProfileScreensHeader({navigationTo, screenName}: any) {
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate(navigationTo)}>
-      <HStack alignItems={'flex-start'} space={3}>
+      <HStack alignItems={'flex-start'} space={3} px={4} py={1}>
         <Image source={leftArrow} alt="leftArrow" w={2} h={5} />
         <Text style={fonts.subtitle2}>{screenName}</Text>
       </HStack>

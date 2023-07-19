@@ -21,6 +21,7 @@ export enum ScreenNames {
   PasswordResetScreen = 'PasswordResetScreen',
   PhoneConfirmationScreen = 'PhoneConfirmationScreen',
   HelpScreen = 'HelpScreen',
+  PrivacyScreen = 'PrivacyScreen',
 
   SeeAllCollection = 'SeeAllCollection',
   CollectionDetail = 'CollectionDetail',

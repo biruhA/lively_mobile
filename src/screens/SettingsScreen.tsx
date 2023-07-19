@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
 import help from '../assets/icons/settingIcons/help.png';
+import privacy from '../assets/icons/settingIcons/privacy.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
 import edit from '../assets/icons/pencil-edit.png';
@@ -120,7 +121,11 @@ export function SettingsScreen() {
           </>
 
           {/* <SettingItems item_icon={faq} title="Your Reviews" /> */}
-          <SettingItems item_icon={terms_and_cond} title="Terms & Conditions" />
+          <TouchableOpacity
+            onPress={() => navigation.navigate(ScreenNames.PrivacyScreen)}>
+            <SettingItems item_icon={privacy} title="Privacy" />
+          </TouchableOpacity>
+
           <TouchableOpacity
             onPress={() => navigation.navigate(ScreenNames.HelpScreen)}>
             <SettingItems item_icon={help} title="Help" />
