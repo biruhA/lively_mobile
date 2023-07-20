@@ -18,8 +18,7 @@ export enum ScreenNames {
   // Settings
   Settings = 'Settings',
   EditProfileScreen = 'EditProfileScreen',
-  PasswordResetScreen = 'PasswordResetScreen',
-  PhoneConfirmationScreen = 'PhoneConfirmationScreen',
+  ChangePasswordScreen = 'ChangePasswordScreen',
   HelpScreen = 'HelpScreen',
   PrivacyScreen = 'PrivacyScreen',
 

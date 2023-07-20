@@ -35,6 +35,7 @@ import faq from '../assets/icons/settingIcons/faq2.png';
 import help from '../assets/icons/settingIcons/help.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
+import success from '../assets/icons/settingIcons/success.png';
 import edit from '../assets/icons/pencil-edit.png';
 import terms_and_cond from '../assets/icons/settingIcons/terms-conditions.png';
 import logout from '../assets/icons/settingIcons/logout.png';
@@ -44,7 +45,7 @@ import {useAppSelector} from '../store/hooks';
 import {useNavigation} from '@react-navigation/native';
 import {useCreateNewPasswordMutation} from '../store/services';
 
-export function PasswordResetScreen() {
+export function ChangePasswordScreen() {
   const {verificationPhoneNumber, otp} = useAppSelector(state => state.auth);
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
@@ -108,15 +109,34 @@ export function PasswordResetScreen() {
               rules={{
                 required: {
                   value: true,
-                  message: 'Confirmed Password is required',
+                  message: 'Old Password is required',
                 },
-                minLength: {
-                  value: 8,
-                  message: 'Password min length is 8',
-                },
-                maxLength: {
-                  value: 8,
-                  message: 'Password max length is 8',
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Input
+                  size={'lg'}
+                  borderRadius={5}
+                  placeholder="Old Password"
+                  type={show ? 'text' : 'password'}
+                  InputRightElement={
+                    <Pressable onPress={() => setShow(!show)}>
+                      <PasswordIcon isActive={show} setIsActive={setShow} />
+                    </Pressable>
+                  }
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+              name="newPassword"
+            />
+
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'New Password is required',
                 },
               }}
               render={({field: {onChange, onBlur, value}}) => (
@@ -137,21 +157,12 @@ export function PasswordResetScreen() {
               )}
               name="newPassword"
             />
-
             <Controller
               control={control}
               rules={{
                 required: {
                   value: true,
-                  message: 'Confirmed Password is required',
-                },
-                minLength: {
-                  value: 8,
-                  message: 'Password min length is 8',
-                },
-                maxLength: {
-                  value: 8,
-                  message: 'Password max length is 8',
+                  message: 'Confirme Password is required',
                 },
                 validate: value =>
                   value === getValues('newPassword') ||
@@ -159,8 +170,9 @@ export function PasswordResetScreen() {
               }}
               render={({field: {onChange, onBlur, value}}) => (
                 <Input
+                  size={'lg'}
                   borderRadius={5}
-                  placeholder="Confirmed New Password"
+                  placeholder="Confirme New Password"
                   type={showCofirm ? 'text' : 'password'}
                   InputRightElement={
                     <Pressable onPress={() => setShowCofirm(!showCofirm)}>
@@ -179,12 +191,9 @@ export function PasswordResetScreen() {
             />
           </Stack>
 
-          <GradientButton
-            onPress={handleNext()}
-            title="Submit"
-            text="Continue"
-            mainStyle={styles.mainStyle}
-          />
+          <>
+            <LanguagesList />
+          </>
         </Stack>
       </ScrollView>
     </Stack>
@@ -210,3 +219,65 @@ const styles = StyleSheet.create({
     padding: 2,
   },
 });
+
+function LanguagesList() {
+  const {isOpen, onOpen, onClose} = useDisclose();
+  return (
+    <Center>
+      <HStack
+        justifyContent="space-between"
+        alignItems="center"
+        w="100%"
+        bg={colors.pureWhite}
+        maxW="350">
+        <GradientButton
+          onPress={onOpen}
+          title="Submit"
+          text="Continue"
+          mainStyle={styles.mainStyle}
+        />
+      </HStack>
+
+      <Actionsheet isOpen={isOpen} onClose={onClose} hideDragIndicator={true}>
+        <Actionsheet.Content>
+          <Box w="100%" justifyContent="center" py={3}>
+            <HStack
+              w="90%"
+              bg={colors.pureWhite}
+              paddingLeft={8}
+              justifyContent="center">
+              <Image
+                source={success}
+                alt="Alternate Text"
+                size="200px"
+                w={284}
+                h={203}
+              />
+            </HStack>
+
+            <Center>
+              <Text
+                fontSize="md"
+                style={fonts.heading6}
+                w={'80%'}
+                textAlign={'center'}
+                fontWeight={'bold'}
+                noOfLines={2}
+                px={2}
+                py={6}>
+                You’re successfully changed your password
+              </Text>
+            </Center>
+
+            <GradientButton
+              onPress={onOpen}
+              title="Go to Home"
+              text="Go to Home"
+              mainStyle={styles.mainStyle}
+            />
+          </Box>
+        </Actionsheet.Content>
+      </Actionsheet>
+    </Center>
+  );
+}

@@ -5,8 +5,7 @@ import {
   SettingsScreen,
   EditProfileScreen,
   HelpScreen,
-  PasswordResetScreen,
-  PhoneConfirmationScreen,
+  ChangePasswordScreen,
   PrivacyScreen,
 } from '../screens';
 import {HomeStackParamList} from '../constants/HomeStackParamList';
@@ -27,13 +26,10 @@ export const SettingsStack = () => {
       />
       <Stack.Screen name={ScreenNames.HelpScreen} component={HelpScreen} />
       <Stack.Screen
-        name={ScreenNames.PasswordResetScreen}
-        component={PasswordResetScreen}
+        name={ScreenNames.ChangePasswordScreen}
+        component={ChangePasswordScreen}
       />
-      <Stack.Screen
-        name={ScreenNames.PhoneConfirmationScreen}
-        component={PhoneConfirmationScreen}
-      />
+
       <Stack.Screen
         name={ScreenNames.PrivacyScreen}
         component={PrivacyScreen}

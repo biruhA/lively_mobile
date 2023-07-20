@@ -173,7 +173,7 @@ export function EditProfileScreen() {
                 <VStack w="100%">
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate(ScreenNames.PhoneConfirmationScreen);
+                      navigation.navigate(ScreenNames.ChangePasswordScreen);
                     }}>
                     <Badge
                       bg={colors.unselected}
@@ -182,7 +182,7 @@ export function EditProfileScreen() {
                       width="100%"
                       height={35}
                       colorScheme={colors.pureWhite}>
-                      <Text color={colors.primary}>Reset Password</Text>
+                      <Text color={colors.primary}>Change Password</Text>
                     </Badge>
                   </TouchableOpacity>
                 </VStack>
