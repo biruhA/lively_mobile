@@ -77,7 +77,7 @@ export function PlaceScreen() {
                 renderItem={({item}) => (
                   <PlacesPharmacyCard
                     id={item?.id}
-                    store={item.store_name?.english}
+                    store={`${item.store_name?.english} ${item?.store_branch_name?.english}`}
                     distance={item?.distance}
                     rating={item?.rating?.average}
                     imageUrl={item.store_logo?.url}

@@ -12,9 +12,9 @@ import {LoginSheet} from '../sheets';
 
 export function HomeScreenHeader() {
   const {token, user} = useAppSelector(state => state.auth);
-
+  const navigation = useNavigation();
   const {isOpen, onClose, onOpen} = useDisclose();
-  const [state, setState] = useState();
+  const [state, setState] = useState(LoginSheetState.notLoggedIn);
 
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
@@ -22,8 +22,6 @@ export function HomeScreenHeader() {
       navigation.navigate(ScreenNames.Notification);
     }
   }, [state]);
-
-  const navigation = useNavigation();
 
   return (
     <>
@@ -46,7 +44,6 @@ export function HomeScreenHeader() {
             onPress={() => {
               if (token) {
                 navigation.navigate(ScreenNames.Notification);
-                return;
               }
               onOpen();
             }}

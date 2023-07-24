@@ -107,12 +107,14 @@ export const medicineApi = createApi({
       }),
     }),
     uploadPrescription: build.mutation({
-      query: formData => ({
+      query: ({formData, token}) => ({
         url: 'upload-prescription',
         method: 'POST',
         body: formData,
         headers: {
+          accept: 'application/json',
           'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${token}`,
         },
       }),
     }),

@@ -61,18 +61,11 @@ export function ForgotPasswordScreen() {
     startOtpListener(message => {
       const otp = /(\d{5})/g.exec(message)[1];
       dispatch(setOtp(otp));
-      navigation.navigate(ScreenNames.ConfirmPhone, {
-        prev: ScreenNames.ForgotPassword,
-      });
     });
     return () => removeListener();
   }, []);
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: ForgotPasswordScreen.tsx:58 ~ useEffect ~ result:',
-      result,
-    );
     if (result?.isUninitialized) {
       return;
     }
@@ -86,6 +79,9 @@ export function ForgotPasswordScreen() {
       return;
     }
     dispatch(setToken(result?.data?.data?.token));
+    navigation.navigate(ScreenNames.ConfirmPhone, {
+      prev: ScreenNames.ForgotPassword,
+    });
   }, [result]);
 
   const onSubmit = data => {

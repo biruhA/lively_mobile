@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Button, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {
+  Pressable,
   CheckIcon,
+  ChevronDownIcon,
   HStack,
   Icon,
   Image,
@@ -21,16 +23,20 @@ import {ScreenNames} from '../constants';
 import {SignUpStepper} from '../components/molecules';
 import {useNavigation} from '@react-navigation/native';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
-import {setDob, setGender} from '../store/features/authSlice';
+import {
+  SetDob,
+  SetGender,
+  setDob,
+  setGender,
+} from '../store/features/authSlice';
 import {useFinishRegisterMutation} from '../store/services';
 import DatePicker from 'react-native-date-picker';
 
 export function AdditionalInformationScreen() {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [FinishRegister, result] = useFinishRegisterMutation();
-  const {password, email, token} = useAppSelector(state => state.auth);
-  const toast = useToast();
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
 
   const {
     control,
@@ -49,40 +55,10 @@ export function AdditionalInformationScreen() {
   minDateForUnder18.setFullYear(minDateForUnder18.getFullYear() - 18);
 
   const onSubmit = data => {
-    console.log(
-      '🚀 ~ file: AdditionalInformationScreen.tsx:24 ~ AdditionalInformationScreen:',
-      new Date(data?.Dof).toISOString().split('T')[0],
-    );
-
-    FinishRegister({
-      password: password,
-      confirm_password: password,
-      email: email,
-      gender: data?.gender,
-      dob: new Date(data?.Dof).toISOString().split('T')[0],
-      token: token,
-    });
+    dispatch(SetDob(data?.Dof?.toISOString().split('T')[0]));
+    dispatch(SetGender(data?.gender));
+    navigation.navigate(ScreenNames.AddEmail);
   };
-
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: AdditionalInformationScreen.tsx:68 ~ useEffect ~ result:',
-      result,
-    );
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
-      });
-      return;
-    }
-    navigation.navigate(ScreenNames.MainBottomTab);
-  }, [result]);
 
   return (
     <Stack
@@ -102,8 +78,23 @@ export function AdditionalInformationScreen() {
           You can create an account by filling the informationbelow
         </Text>
       </Stack>
-
       <Stack space={3}>
+        <Pressable
+          py={2}
+          rounded={'sm'}
+          borderWidth={1}
+          borderColor={'#B4B4B4aa'}
+          onPress={() => {
+            setOpen(true);
+          }}>
+          <HStack px={3} justifyContent={'space-between'} alignItems={'center'}>
+            <Text fontSize={13}>
+              Birth Date: {date.toISOString().split('T')[0]}
+            </Text>
+            <ChevronDownIcon size={6} />
+          </HStack>
+        </Pressable>
+
         <Controller
           name="Dof"
           control={control}
@@ -112,8 +103,17 @@ export function AdditionalInformationScreen() {
           }}
           render={({field: {onChange, value}}) => (
             <DatePicker
-              date={value}
-              onDateChange={onChange}
+              modal
+              open={open}
+              date={date}
+              onConfirm={date => {
+                setOpen(false);
+                setDate(date ? date : new Date());
+                onChange(date ? date : new Date());
+              }}
+              onCancel={() => {
+                setOpen(false);
+              }}
               theme="auto"
               mode="date"
               maximumDate={minDateForUnder18}

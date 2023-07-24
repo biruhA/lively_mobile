@@ -17,6 +17,7 @@ export const authApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+          accept: 'application/json',
         },
       }),
     }),
@@ -31,6 +32,7 @@ export const authApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+          accept: 'application/json',
         },
       }),
     }),
@@ -44,6 +46,7 @@ export const authApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+          accept: 'application/json',
         },
       }),
     }),
@@ -56,6 +59,7 @@ export const authApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+          accept: 'application/json',
         },
       }),
     }),
@@ -71,6 +75,19 @@ export const authApi = createApi({
           dob,
         },
         headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
+    deleteAccount: build.mutation({
+      query: token => ({
+        url: 'delete-account',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
           authorization: `Bearer ${token}`,
         },
       }),
@@ -85,6 +102,7 @@ export const authApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+          accept: 'application/json',
         },
       }),
     }),
@@ -98,6 +116,51 @@ export const authApi = createApi({
         },
         headers: {
           authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
+    updateProfile: build.mutation({
+      query: ({name, email, gender, token}) => ({
+        url: 'update-profile',
+        method: 'POST',
+        body: {
+          name,
+          email,
+          gender,
+        },
+        headers: {
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
+    changePassword: build.mutation({
+      query: ({
+        current_password,
+        new_password,
+        confirm_new_password,
+        token,
+      }) => ({
+        url: 'change-password',
+        method: 'POST',
+        body: {
+          current_password,
+          new_password,
+          confirm_new_password,
+        },
+        headers: {
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
+    profile: build.query({
+      query: token => ({
+        url: 'profile',
+        headers: {
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
         },
       }),
     }),
@@ -106,10 +169,14 @@ export const authApi = createApi({
 
 export const {
   useLoginMutation,
+  useChangePasswordMutation,
   useRegisterMutation,
   useVerifyOtpMutation,
   useResendOtpMutation,
   useFinishRegisterMutation,
   useResetPasswordMutation,
+  useDeleteAccountMutation,
+  useUpdateProfileMutation,
   useCreateNewPasswordMutation,
+  useProfileQuery,
 } = authApi;

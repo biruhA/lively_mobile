@@ -52,7 +52,7 @@ export function PlaceDetails() {
 
   console.log(
     '🚀 ~ file: PlaceDetails.tsx:43 ~ PlaceDetails ~ data:',
-    data?.data,
+    data?.data?.products?.data,
   );
 
   function onPressHandler() {

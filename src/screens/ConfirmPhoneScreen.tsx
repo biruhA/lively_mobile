@@ -80,10 +80,6 @@ export function ConfirmPhoneScreen() {
   }, [resultResendOtp]);
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: ConfirmPhoneScreen.tsx:77 ~ useEffect ~ result:',
-      result,
-    );
     if (result?.isUninitialized) {
       return;
     }

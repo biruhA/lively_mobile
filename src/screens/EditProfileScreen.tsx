@@ -14,6 +14,9 @@ import {
   Input,
   FormControl,
   ChevronDownIcon,
+  Select,
+  Spinner,
+  useToast,
 } from 'native-base';
 import {useNavigation} from '@react-navigation/native';
 import {ProfileScreensHeader} from '../components/molecules';
@@ -22,15 +25,33 @@ import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
+import {useAppSelector} from '../store/hooks';
+import {useProfileQuery, useUpdateProfileMutation} from '../store/services';
 
 export function EditProfileScreen() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
 
+  const {token} = useAppSelector(state => state.auth);
+  const {data, isLoading} = useProfileQuery(token);
+
+  const [firstName, setFirstName] = useState(data?.data?.name?.split(' ')[0]);
+  const [lastName, setLastName] = useState(data?.data?.name?.split(' ')[1]);
+  const [gender, setGender] = useState(data?.data?.gender);
+  const [email, setEmail] = useState(data?.data?.email);
+  const [UpdateProfile, result] = useUpdateProfileMutation();
+  const toast = useToast();
+
   const handleSave = () => {
-    console.log('====================================');
-    console.log('save button clicked');
-    console.log('====================================');
+    UpdateProfile({
+      name: firstName + lastName,
+      email,
+      gender,
+      token,
+    });
+    toast.show({
+      description: 'Profile updated successfully',
+    });
   };
 
   const handleResetPAssword = () => {
@@ -39,9 +60,17 @@ export function EditProfileScreen() {
     console.log('====================================');
   };
 
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
-    <Stack bg={'#ffffff'} h={'full'} py={1}>
-      <View w={'full'} h={10}>
+    <Stack bg={'white'} flex={1}>
+      <View py={2}>
         <ProfileScreensHeader
           navigationTo={ScreenNames.Settings}
           screenName="Edit Profile"
@@ -60,7 +89,7 @@ export function EditProfileScreen() {
                 bg="cyan.500"
                 size="lg"
                 source={{
-                  uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+                  uri: data?.data?.profile_photo_url,
                 }}
               />
 
@@ -80,9 +109,7 @@ export function EditProfileScreen() {
                 </Badge>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={{paddingLeft: 70}}
-                onPress={handleSave()}>
+              <TouchableOpacity style={{paddingLeft: 70}} onPress={handleSave}>
                 <Badge
                   bg={colors.primary}
                   alignSelf={'flex-start'}
@@ -97,11 +124,13 @@ export function EditProfileScreen() {
               </TouchableOpacity>
             </HStack>
 
-            <Text style={styles.userInfoText}>anduamlakt77@gmail.com</Text>
+            <Text style={styles.userInfoText}>{data?.data?.email}</Text>
             <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
               <View>
                 <Text style={styles.userInfoText}>
-                  {isVisible ? '+251 911581886' : ' +251 *******86'}
+                  {isVisible
+                    ? `+${data?.data?.phone}`
+                    : `+251 *******${data?.data?.phone.substring(10, 12)}`}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -128,27 +157,43 @@ export function EditProfileScreen() {
             <HStack space={2}>
               <VStack w="50%">
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="outline" value="Anduamlak" />
+                <Input
+                  variant="outline"
+                  value={firstName}
+                  onChangeText={text => setFirstName(text)}
+                />
               </VStack>
 
               <VStack w="50%">
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="outline" value="Temesgen" />
+                <Input
+                  variant="outline"
+                  value={lastName}
+                  onChangeText={text => setLastName(text)}
+                />
               </VStack>
             </HStack>
 
-            <HStack space={2} alignSelf={'flex-start'}>
-              <VStack w="42%">
-                <GendersList />
-              </VStack>
-            </HStack>
+            <VStack w="50%" alignSelf={'flex-start'}>
+              <Select
+                placeholder="Gender"
+                selectedValue={gender}
+                onValueChange={(itemValue: string) => {
+                  setGender(itemValue);
+                }}>
+                <Select.Item label="Male" value="Male" />
+                <Select.Item label="Female" value="Female" />
+              </Select>
+            </VStack>
 
-            <HStack space={2}>
-              <VStack w="100%">
-                <FormControl.Label>Email</FormControl.Label>
-                <Input variant="outline" value="anduamlakt77@gmail.com" />
-              </VStack>
-            </HStack>
+            <VStack w="100%">
+              <FormControl.Label>Email</FormControl.Label>
+              <Input
+                variant="outline"
+                value={email}
+                onChangeText={text => setEmail(text)}
+              />
+            </VStack>
           </VStack>
         </Stack>
 
@@ -213,99 +258,3 @@ const styles = StyleSheet.create({
     padding: 1,
   },
 });
-
-function GendersList() {
-  const {isOpen, onOpen, onClose} = useDisclose();
-  const [gender, setGender] = useState('Select');
-
-  const onGenderSelect = data => {
-    setGender(data);
-  };
-  return (
-    <>
-      <FormControl.Label> Gender </FormControl.Label>
-      <HStack
-        borderColor={colors.greyText}
-        borderRadius={4}
-        borderWidth={1}
-        bg={colors.pureWhite}>
-        <TouchableOpacity onPress={onOpen}>
-          <HStack space={10} paddingRight={2} paddingLeft={1}>
-            <Text fontSize="md">{gender}</Text>
-            <ChevronDownIcon size="5" mt="1" />
-          </HStack>
-        </TouchableOpacity>
-      </HStack>
-
-      <Actionsheet
-        isOpen={isOpen}
-        onClose={onClose}
-        size="full"
-        hideDragIndicator={true}>
-        <Actionsheet.Content>
-          <Box w="100%" h={30} px={4}>
-            <HStack
-              justifyContent="space-between"
-              alignItems="center"
-              w="100%"
-              bg={colors.pureWhite}
-              maxW="350">
-              <HStack space={2}>
-                <Text fontSize="md" style={fonts.heading6}>
-                  Gender
-                </Text>
-              </HStack>
-              <TouchableOpacity onPress={onClose}>
-                <HStack
-                  shadow={2}
-                  bg={colors.pureWhite}
-                  alignSelf={'flex-start'}
-                  borderRadius={15}
-                  borderColor={colors.error}
-                  width={30}
-                  height={30}
-                  colorScheme={colors.pureWhite}>
-                  <Text fontSize={20} paddingLeft={2}>
-                    X
-                  </Text>
-                </HStack>
-              </TouchableOpacity>
-            </HStack>
-          </Box>
-
-          <ScrollView style={{width: '96%'}}>
-            <Box w="100%" h={60} justifyContent="center">
-              {/* <TouchableOpacity onPress={setGender('Female')}> */}
-              <TouchableOpacity>
-                <Badge
-                  bg={colors.unselected}
-                  alignSelf={'flex-start'}
-                  borderRadius={8}
-                  width="100%"
-                  height={35}
-                  colorScheme={colors.pureWhite}>
-                  <Text color={colors.primary}>Female</Text>
-                </Badge>
-              </TouchableOpacity>
-            </Box>
-
-            <Box w="100%" h={60}>
-              {/* <TouchableOpacity onPress={setGender('Male')}> */}
-              <TouchableOpacity>
-                <Badge
-                  bg={colors.unselected}
-                  alignSelf={'flex-start'}
-                  borderRadius={8}
-                  width="100%"
-                  height={35}
-                  colorScheme={colors.pureWhite}>
-                  <Text color={colors.primary}>Male</Text>
-                </Badge>
-              </TouchableOpacity>
-            </Box>
-          </ScrollView>
-        </Actionsheet.Content>
-      </Actionsheet>
-    </>
-  );
-}

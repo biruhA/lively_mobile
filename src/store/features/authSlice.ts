@@ -49,6 +49,12 @@ export const authSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    SetDob: (state, action: PayloadAction<any>) => {
+      state.dob = action.payload;
+    },
+    SetGender: (state, action: PayloadAction<string>) => {
+      state.gender = action.payload;
+    },
     setOtp: (state, action: PayloadAction<string>) => {
       state.otp = action.payload;
     },
@@ -64,6 +70,11 @@ export const authSlice = createSlice({
       storeProtectedData('user', state.user);
       storeProtectedData('token', state.token);
       storeProtectedData('isLoggedIn', true);
+    },
+    deleteUser: state => {
+      storeProtectedData('user', {});
+      storeProtectedData('token', '');
+      storeProtectedData('isLoggedIn', false);
     },
   },
   extraReducers: builder => {
@@ -88,6 +99,9 @@ export const {
   setEmail,
   setAuthData,
   setToken,
+  SetDob,
+  SetGender,
+  deleteUser,
 } = authSlice.actions;
 
 export default authSlice.reducer;

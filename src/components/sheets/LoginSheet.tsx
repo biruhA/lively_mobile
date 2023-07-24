@@ -16,7 +16,7 @@ export function LoginSheet({isOpen, onClose, setState}: Props) {
     <Stack bg={colors.pureWhite}>
       <Actionsheet isOpen={isOpen} onClose={onClose}>
         <Actionsheet.Content>
-          <LoginSheetBody setState={setState} />
+          <LoginSheetBody setState={setState} onClose={onClose} />
         </Actionsheet.Content>
       </Actionsheet>
     </Stack>

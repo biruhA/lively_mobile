@@ -62,7 +62,7 @@ export function CreateAccountScreen() {
       .catch(console.log);
 
     startOtpListener(message => {
-      const otp = /(\d{5})/g.exec(message)[1];
+      const otp = /(\d{5})/g.exec(message)?.[1];
       dispatch(setOtp(otp));
     });
     return () => removeListener();

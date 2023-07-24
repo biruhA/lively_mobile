@@ -51,7 +51,7 @@ export function CreatePasswordScreen() {
 
   const onSubmit = data => {
     dispatch(setPassword(data?.password));
-    navigation.navigate(ScreenNames.AddEmail);
+    navigation.navigate(ScreenNames.AdditionalInformation);
   };
   return (
     <Stack

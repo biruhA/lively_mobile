@@ -71,7 +71,7 @@ export function ResetPasswordScreen() {
       px={4}
       py={12}
       space={8}
-      bg={colors.pureWhite}
+      bg={'white'}
       justifyContent={'flex-start'}>
       <GoBack label="Forgot Password" />
       <Stack pt={24} space={1}>
@@ -92,10 +92,6 @@ export function ResetPasswordScreen() {
             minLength: {
               value: 8,
               message: 'Password min length is 8',
-            },
-            maxLength: {
-              value: 8,
-              message: 'Password max length is 8',
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
@@ -128,16 +124,13 @@ export function ResetPasswordScreen() {
               value: 8,
               message: 'Password min length is 8',
             },
-            maxLength: {
-              value: 8,
-              message: 'Password max length is 8',
-            },
             validate: value =>
               value === getValues('newPassword') ||
               'The passwords do not match',
           }}
           render={({field: {onChange, onBlur, value}}) => (
             <Input
+              size={'lg'}
               borderRadius={5}
               placeholder="Confirmed New Password"
               type={showCofirm ? 'text' : 'password'}

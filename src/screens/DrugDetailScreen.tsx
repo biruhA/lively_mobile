@@ -1,8 +1,21 @@
 import {View} from 'react-native';
 import React from 'react';
-import {Center, HStack, ScrollView, Spinner, Stack, Text} from 'native-base';
+import {
+  Center,
+  HStack,
+  ScrollView,
+  Spinner,
+  Stack,
+  Text,
+  useDisclose,
+} from 'native-base';
 import {colors} from '../theme/colors';
-import {Carousel1, Carousel1Centered, Carousel2} from '../components/organisms';
+import {
+  Carousel1,
+  Carousel1Centered,
+  Carousel2,
+  StoreSheet,
+} from '../components/organisms';
 import {fonts} from '../theme/fonts';
 import {IconOnlyHeader} from '../components/molecules';
 import share from '../assets/icons/share.png';
@@ -17,6 +30,7 @@ export function DrugDetailScreen() {
   const navigation = useNavigation();
   const {selectedMedicineId} = useAppSelector(state => state.medicine);
   const {data, isLoading} = useMedicineDetailQuery(selectedMedicineId);
+  const {isOpen, onOpen, onClose} = useDisclose();
 
   if (isLoading) {
     return (
@@ -64,13 +78,17 @@ export function DrugDetailScreen() {
         w={'100%'}
         alignItems={'center'}
         bg={'white'}>
-        <GradientButton
-          text="Visit All stores"
-          onPress={() => {
-            navigation.navigate(ScreenNames.DrugStores);
-          }}
-        />
+        {data?.data?.has_store && (
+          <GradientButton
+            text="Visit All stores"
+            onPress={() => {
+              onOpen();
+              // navigation.navigate(ScreenNames.DrugStores);
+            }}
+          />
+        )}
       </Stack>
+      <StoreSheet isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }

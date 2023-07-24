@@ -13,6 +13,7 @@ import {
   Badge,
   Actionsheet,
   Box,
+  Spinner,
 } from 'native-base';
 import {SettingsScreenHeader} from '../components/organisms';
 import {SettingItems} from '../components/molecules';
@@ -22,17 +23,30 @@ import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
-import help from '../assets/icons/settingIcons/help.png';
+import help from '../assets/icons/settingIcons/Help.png';
 import privacy from '../assets/icons/settingIcons/privacy.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
-import logout from '../assets/icons/settingIcons/logout.png';
+import logout from '../assets/icons/settingIcons/Logout.png';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
+import {useProfileQuery} from '../store/services';
+import {useAppSelector} from '../store/hooks';
 
 export function SettingsScreen() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
+  const {token} = useAppSelector(state => state.auth);
+  const {data, isLoading} = useProfileQuery(token);
+
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <Stack style={{backgroundColor: '#E3EBEB'}} h={'full'}>
       <View w={'full'}>
@@ -60,10 +74,9 @@ export function SettingsScreen() {
                   bg="cyan.500"
                   size="lg"
                   source={{
-                    uri: 'https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+                    uri: data?.data?.profile_photo_url,
                   }}
                 />
-
                 <TouchableOpacity
                   onPress={() =>
                     navigation.navigate(ScreenNames.EditProfileScreen)
@@ -83,15 +96,15 @@ export function SettingsScreen() {
                 </TouchableOpacity>
               </HStack>
 
-              <Text style={styles.userFullnameText}>
-                Mr. Anduamlak Temesgen A.
-              </Text>
+              <Text style={styles.userFullnameText}>{data?.data?.name}</Text>
 
-              <Text style={styles.userInfoText}>anduamlakt77@gmail.com</Text>
+              <Text style={styles.userInfoText}>{data?.data?.email}</Text>
               <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
                 <View>
                   <Text style={styles.userInfoText}>
-                    {isVisible ? '+251 911581886' : ' +251 *******86'}
+                    {isVisible
+                      ? `+${data?.data?.phone}`
+                      : `+251 *******${data?.data?.phone.substring(10, 12)}`}
                   </Text>
                 </View>
               </TouchableOpacity>

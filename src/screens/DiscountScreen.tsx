@@ -15,22 +15,23 @@ export function DiscountScreen() {
 
   return (
     <Stack flex={1} bg={'colors.pureWhite'}>
-      <Stack py={3} px={4}>
+      <Stack p={4} bg={'white'}>
         <GoBack label="Deals" />
       </Stack>
       <FastImage
-        style={{width: '100%', height: 175}}
+        style={{width: '100%', height: 175, backgroundColor: 'white'}}
         source={{
           uri: data?.data?.banner_image?.url,
         }}
-        resizeMode={'cover'}
+        resizeMode={'contain'}
       />
       {isLoading ? (
         <Spinner />
       ) : (
         <FlatList
-          style={{marginTop: 4, marginHorizontal: 8}}
+          style={{paddingTop: 16, marginHorizontal: 8}}
           numColumns={2}
+          contentContainerStyle={{paddingBottom: 8}}
           data={data?.data?.store_products}
           ListEmptyComponent={() => {
             return <ListEmptyComponent />;

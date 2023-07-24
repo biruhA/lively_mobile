@@ -6,7 +6,7 @@ import smileYellow from '../../assets/icons/smile_yellow.png';
 import location from '../../assets/icons/location.png';
 import {colors} from '../../theme/colors';
 import {StoreSheet} from '../organisms';
-import {useAppDispatch} from '../../store/hooks';
+import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {setStoreId} from '../../store/features/storeSlice';
 import {LoginSheetState, ScreenNames} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
@@ -31,8 +31,9 @@ export function PlacesPharmacyCard({
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const [state, setState] = useState();
+  const [state, setState] = useState(LoginSheetState.notLoggedIn);
   const {isOpen, onOpen, onClose} = useDisclose();
+  const {token} = useAppSelector(state => state.auth);
 
   useEffect(() => {
     if (state === LoginSheetState.LoggedIn) {
@@ -42,13 +43,16 @@ export function PlacesPharmacyCard({
   }, [state]);
 
   return (
-    <Stack my={2} bg="white" rounded={'md'} overflow={'hidden'}>
+    <Stack my={2} bg="white" rounded={'md'}>
       <TouchableOpacity
         onPress={() => {
           dispatch(setStoreId(id));
+          if (token) {
+            navigation.navigate(ScreenNames.PlaceDetails, {id});
+          }
           onOpen();
         }}>
-        <HStack alignItems={'center'} space={4}>
+        <HStack alignItems={'center'} space={4} justifyContent={'flex-start'}>
           <Image
             source={{
               uri: imageUrl,
@@ -58,7 +62,7 @@ export function PlacesPharmacyCard({
             h={87}
             resizeMode={'contain'}
           />
-          <Stack space={1}>
+          <Stack space={1} w={'65%'}>
             <Text style={fonts.subtitle1} numberOfLines={2}>
               {store}
             </Text>
@@ -80,19 +84,6 @@ export function PlacesPharmacyCard({
               <Text style={fonts.caption} numberOfLines={1}>
                 {distance} Away
               </Text>
-              {/* <Divider
-                bg={'#E6E6E6'}
-                thickness="1"
-                mx="1"
-                orientation="vertical"
-              />
-              <Image source={smileYellow} alt="Alternate Text" boxSize={4} />
-              <Text style={fonts.caption} numberOfLines={1}>
-                {rating}
-              </Text>
-              <Text style={fonts.caption} numberOfLines={1}>
-                rating
-              </Text> */}
             </HStack>
           </Stack>
         </HStack>

@@ -1,5 +1,5 @@
 import {StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {useForm, Controller} from 'react-hook-form';
 import {
   Actionsheet,
@@ -15,11 +15,11 @@ import {
   Text,
   useToast,
 } from 'native-base';
-import {GradientButtonSmall} from '../atoms';
+import {GradientButtonSmall, PasswordIcon} from '../atoms';
 import {StoreSheetBody1} from '../molecules';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {LoginSheetState, ScreenNames} from '../../constants';
 import mail from '../../assets/icons/mail.png';
 import passwordVisible from '../../assets/icons/password-visible.png';
@@ -27,9 +27,15 @@ import {GradientButton, LoginBackGround} from '../atoms';
 import {fonts} from '../../theme/fonts';
 import {useLoginMutation} from '../../store/services';
 import {storeSheetState} from './StoreSheet';
+import Context from '../../realm/config';
+import {OnBoarding} from '../../realm/OnBoarding';
+import {rememberMe} from '../../store/features/authSlice';
+
+const {useRealm, useQuery} = Context;
 
 interface Props {
   setState: any;
+  onClose: any;
 }
 
 interface Form {
@@ -37,14 +43,16 @@ interface Form {
   password: string;
 }
 
-export function LoginSheetBody({setState}: Props) {
+export function LoginSheetBody({setState, onClose}: Props) {
+  const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-
   const [login, result] = useLoginMutation();
   const toast = useToast();
   const {token} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
+  const realm = useRealm();
+  const onboarding = useQuery(OnBoarding);
 
   const {
     control,
@@ -56,6 +64,25 @@ export function LoginSheetBody({setState}: Props) {
       password: '',
     },
   });
+
+  const offlineSaveUser = useCallback((): void => {
+    if (onboarding.length === 0) {
+      realm.write(() => {
+        realm.create('OnBoarding', OnBoarding.generate(true, rememberMe));
+      });
+    } else {
+      realm.write(() => {
+        onboarding[0].rememberMe = rememberMe;
+      });
+    }
+  }, [realm, onboarding, rememberMe]);
+
+  const onSubmit = (data: Form) => {
+    login({
+      password: data.password,
+      phone: `251${data?.phoneNo}`,
+    });
+  };
 
   useEffect(() => {
     if (result?.isUninitialized) {
@@ -70,18 +97,15 @@ export function LoginSheetBody({setState}: Props) {
       });
       return;
     }
-    setState(LoginSheetState.LoggedIn);
-  }, [result, token]);
-
-  const onSubmit = (data: Form) => {
-    login({
-      password: data.password,
-      phone: `251${data?.phoneNo}`,
-    });
     if (rememberMe) {
       dispatch(rememberMe());
     }
-  };
+    if (!result?.isSuccess) {
+      offlineSaveUser();
+      setState(LoginSheetState.LoggedIn);
+    }
+  }, [result, token]);
+
   return (
     <Stack bg={colors.pureWhite}>
       <Stack h={'95%'} px={4} space={4} bg={'white'} justifyContent={'center'}>
@@ -107,10 +131,11 @@ export function LoginSheetBody({setState}: Props) {
                   <InputLeftAddon children={'+251'} />
                   <Input
                     w={'87%'}
+                    size={'lg'}
                     InputRightElement={
                       <Image
                         alt={'phone number'}
-                        source={mail}
+                        source={require('../../assets/icons/phone.png')}
                         boxSize={5}
                         mr="2"
                       />
@@ -121,6 +146,7 @@ export function LoginSheetBody({setState}: Props) {
                     onChangeText={onChange}
                     value={value}
                     borderRadius={5}
+                    maxLength={9}
                   />
                 </InputGroup>
               </Stack>
@@ -144,17 +170,13 @@ export function LoginSheetBody({setState}: Props) {
             }}
             render={({field: {onChange, onBlur, value}}) => (
               <Input
+                size={'lg'}
                 borderRadius={5}
                 placeholder="Password"
                 type={show ? 'text' : 'password'}
                 InputRightElement={
                   <Pressable onPress={() => setShow(!show)}>
-                    <Image
-                      alt="password"
-                      source={passwordVisible}
-                      boxSize={5}
-                      mr="2"
-                    />
+                    <PasswordIcon isActive={show} setIsActive={setShow} />
                   </Pressable>
                 }
                 onBlur={onBlur}
@@ -182,9 +204,23 @@ export function LoginSheetBody({setState}: Props) {
               <Checkbox value="one" size={'sm'} onChange={setRememberMe}>
                 Remember me
               </Checkbox>
+              <TouchableOpacity
+                onPress={() => {
+                  onClose();
+                  navigation.navigate(ScreenNames.ForgotPassword);
+                }}>
+                <Text style={styles.forgot}>Forgot Password?</Text>
+              </TouchableOpacity>
             </HStack>
             <HStack justifyContent={'center'}>
               <Text style={styles.notRegistered}>Not Registered Yet? </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  onClose();
+                  navigation.navigate(ScreenNames.CreateAccount);
+                }}>
+                <Text style={styles.forgot}>Create an Account</Text>
+              </TouchableOpacity>
             </HStack>
           </Stack>
         </Stack>
@@ -197,7 +233,7 @@ const styles = StyleSheet.create({
   mainStyle: {marginTop: 15},
   forgot: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '700',
     color: colors.primary,
   },
   notRegistered: {

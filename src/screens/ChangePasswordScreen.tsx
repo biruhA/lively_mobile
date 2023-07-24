@@ -43,44 +43,58 @@ import {ScreenNames} from '../constants';
 import {GradientButton, PasswordIcon} from '../components/atoms';
 import {useAppSelector} from '../store/hooks';
 import {useNavigation} from '@react-navigation/native';
-import {useCreateNewPasswordMutation} from '../store/services';
+import {
+  useChangePasswordMutation,
+  useCreateNewPasswordMutation,
+} from '../store/services';
 
 export function ChangePasswordScreen() {
-  const {verificationPhoneNumber, otp} = useAppSelector(state => state.auth);
-  const navigation = useNavigation();
-  const [show, setShow] = useState(false);
-  const [showCofirm, setShowCofirm] = useState(false);
-  const [CreateNewPassword, result] = useCreateNewPasswordMutation();
   const toast = useToast();
+  const navigation = useNavigation();
+  const {token} = useAppSelector(state => state.auth);
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showCofirm, setShowCofirm] = useState(false);
+  const {isOpen, onOpen, onClose} = useDisclose();
 
-  const handleNext = () => {
-    console.log('====================================');
-    console.log('Next button clicked');
-    console.log('====================================');
-  };
+  const [ChangePassword, result] = useChangePasswordMutation();
+  console.log(
+    '🚀 ~ file: ChangePasswordScreen.tsx:57 ~ ChangePasswordScreen ~ result:',
+    result,
+  );
 
-  const ref_input2 = useRef('');
-  const ref_input3 = useRef('');
-  const ref_input4 = useRef('');
-  const ref_input5 = useRef('');
-
-  const {control, setValue} = useForm({
+  const {
+    control,
+    getValues,
+    handleSubmit,
+    formState: {errors, isValid},
+  } = useForm({
     defaultValues: {
-      code1: Array.from(otp)[0],
-      code2: Array.from(otp)[1],
-      code3: Array.from(otp)[2],
-      code4: Array.from(otp)[3],
-      code5: Array.from(otp)[4],
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
     },
   });
 
+  const onSubmit = data => {
+    ChangePassword({
+      current_password: data?.oldPassword,
+      new_password: data?.newPassword,
+      confirm_new_password: data?.confirmNewPassword,
+      token,
+    });
+  };
+
   useEffect(() => {
-    setValue('code1', Array.from(otp)[0]);
-    setValue('code2', Array.from(otp)[1]);
-    setValue('code3', Array.from(otp)[2]);
-    setValue('code4', Array.from(otp)[3]);
-    setValue('code5', Array.from(otp)[4]);
-  }, [otp]);
+    if (result?.isSuccess) {
+      onOpen();
+    }
+    if (result?.isError) {
+      toast.show({
+        description: 'Something went wrong, please try again',
+      });
+    }
+  }, [result]);
 
   return (
     <Stack bg={'#ffffff'} h={'full'} py={1}>
@@ -109,7 +123,11 @@ export function ChangePasswordScreen() {
               rules={{
                 required: {
                   value: true,
-                  message: 'Old Password is required',
+                  message: 'Confirmed Password is required',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Password min length is 8',
                 },
               }}
               render={({field: {onChange, onBlur, value}}) => (
@@ -117,10 +135,13 @@ export function ChangePasswordScreen() {
                   size={'lg'}
                   borderRadius={5}
                   placeholder="Old Password"
-                  type={show ? 'text' : 'password'}
+                  type={showOld ? 'text' : 'password'}
                   InputRightElement={
-                    <Pressable onPress={() => setShow(!show)}>
-                      <PasswordIcon isActive={show} setIsActive={setShow} />
+                    <Pressable onPress={() => setShowOld(!showOld)}>
+                      <PasswordIcon
+                        isActive={showOld}
+                        setIsActive={setShowOld}
+                      />
                     </Pressable>
                   }
                   onBlur={onBlur}
@@ -128,15 +149,20 @@ export function ChangePasswordScreen() {
                   value={value}
                 />
               )}
-              name="newPassword"
+              name="oldPassword"
             />
+            {errors.oldPassword && <Text>{errors.oldPassword.message}</Text>}
 
             <Controller
               control={control}
               rules={{
                 required: {
                   value: true,
-                  message: 'New Password is required',
+                  message: 'Confirmed Password is required',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Password min length is 8',
                 },
               }}
               render={({field: {onChange, onBlur, value}}) => (
@@ -144,10 +170,13 @@ export function ChangePasswordScreen() {
                   size={'lg'}
                   borderRadius={5}
                   placeholder="New Password"
-                  type={show ? 'text' : 'password'}
+                  type={showNew ? 'text' : 'password'}
                   InputRightElement={
-                    <Pressable onPress={() => setShow(!show)}>
-                      <PasswordIcon isActive={show} setIsActive={setShow} />
+                    <Pressable onPress={() => setShowNew(!showNew)}>
+                      <PasswordIcon
+                        isActive={showNew}
+                        setIsActive={setShowNew}
+                      />
                     </Pressable>
                   }
                   onBlur={onBlur}
@@ -157,12 +186,18 @@ export function ChangePasswordScreen() {
               )}
               name="newPassword"
             />
+            {errors.newPassword && <Text>{errors.newPassword.message}</Text>}
+
             <Controller
               control={control}
               rules={{
                 required: {
                   value: true,
-                  message: 'Confirme Password is required',
+                  message: 'Confirmed Password is required',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Password min length is 8',
                 },
                 validate: value =>
                   value === getValues('newPassword') ||
@@ -172,7 +207,7 @@ export function ChangePasswordScreen() {
                 <Input
                   size={'lg'}
                   borderRadius={5}
-                  placeholder="Confirme New Password"
+                  placeholder="Confirm new password"
                   type={showCofirm ? 'text' : 'password'}
                   InputRightElement={
                     <Pressable onPress={() => setShowCofirm(!showCofirm)}>
@@ -189,11 +224,18 @@ export function ChangePasswordScreen() {
               )}
               name="confirmNewPassword"
             />
-          </Stack>
+            {errors.confirmNewPassword && (
+              <Text>{errors.confirmNewPassword.message}</Text>
+            )}
 
-          <>
-            <LanguagesList />
-          </>
+            <GradientButton
+              title="Submit"
+              text="Continue"
+              onPress={handleSubmit(onSubmit)}
+              mainStyle={styles.mainStyle}
+            />
+          </Stack>
+          <SuccessSheet isOpen={isOpen} onClose={onClose} />
         </Stack>
       </ScrollView>
     </Stack>
@@ -220,24 +262,10 @@ const styles = StyleSheet.create({
   },
 });
 
-function LanguagesList() {
-  const {isOpen, onOpen, onClose} = useDisclose();
+function SuccessSheet({isOpen, onClose}) {
+  const navigation = useNavigation();
   return (
     <Center>
-      <HStack
-        justifyContent="space-between"
-        alignItems="center"
-        w="100%"
-        bg={colors.pureWhite}
-        maxW="350">
-        <GradientButton
-          onPress={onOpen}
-          title="Submit"
-          text="Continue"
-          mainStyle={styles.mainStyle}
-        />
-      </HStack>
-
       <Actionsheet isOpen={isOpen} onClose={onClose} hideDragIndicator={true}>
         <Actionsheet.Content>
           <Box w="100%" justifyContent="center" py={3}>
@@ -270,7 +298,9 @@ function LanguagesList() {
             </Center>
 
             <GradientButton
-              onPress={onOpen}
+              onPress={() => {
+                navigation.navigate(ScreenNames.Home);
+              }}
               title="Go to Home"
               text="Go to Home"
               mainStyle={styles.mainStyle}

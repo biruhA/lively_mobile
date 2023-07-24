@@ -4,12 +4,15 @@ import {HStack, Image, Stack, Text} from 'native-base';
 import {colors} from '../../theme/colors';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {useUploadPrescriptionMutation} from '../../store/services';
+import {useAppSelector} from '../../store/hooks';
 
 export function ImageUploadButton({onClose}) {
+  const {token} = useAppSelector(state => state.auth);
   const [uploadPrescription, res] = useUploadPrescriptionMutation();
   console.log(
     '🚀 ~ file: ImageUploadButton.tsx:10 ~ ImageUploadButton ~ res:',
     res,
+    token,
   );
 
   useEffect(() => {
@@ -39,11 +42,12 @@ export function ImageUploadButton({onClose}) {
           : result?.assets[0]?.uri,
     });
 
-    uploadPrescription(formData);
+    uploadPrescription({formData, token});
   }
 
   async function selectImage() {
     const result = await launchImageLibrary(options);
+
     const formData = new FormData('image', {
       name: result?.assets[0]?.fileName,
       type: result?.assets[0]?.type,
@@ -52,7 +56,7 @@ export function ImageUploadButton({onClose}) {
           ? result?.assets[0]?.uri.replace('file://', '')
           : result?.assets[0]?.uri,
     });
-    uploadPrescription(formData);
+    uploadPrescription({formData, token});
   }
 
   return (

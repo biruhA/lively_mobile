@@ -93,11 +93,13 @@ export function DiscountDetailScreen() {
         mainStyle={{postion: 'absolute', bottom: 0}}
         text="Claim Discount"
         onPress={() => {
+          // setState(LoginSheetState.LoggedIn);
           if (token) {
-            setState(LoginSheetState.LoggedIn);
-          } else {
-            onOpen();
+            navigation.navigate(ScreenNames.ClaimDiscount, {
+              promo_code: route?.params?.promo_code,
+            });
           }
+          onOpen();
         }}
       />
       <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />

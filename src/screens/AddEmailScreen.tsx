@@ -1,23 +1,32 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {StyleSheet, TouchableOpacity} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {HStack, Image, Input, Stack, Text} from 'native-base';
+import {HStack, Image, Input, Stack, Text, useToast} from 'native-base';
 import rightArrow from '../assets/icons/right-arrow.png';
-import mail from '../assets/icons/mail.png';
 import {GoBack, GradientButton, LoginBackGround} from '../components/atoms';
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import {ScreenNames} from '../constants';
 import {SignUpStepper} from '../components/molecules';
 import {useNavigation} from '@react-navigation/native';
-import {useAppDispatch} from '../store/hooks';
-import {setEmail} from '../store/features/authSlice';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {useFinishRegisterMutation} from '../store/services';
+import Context from '../realm/config';
+import {OnBoarding} from '../realm/OnBoarding';
+import {rememberMe} from '../store/features/authSlice';
+
+const {useRealm, useQuery} = Context;
 
 export function AddEmailScreen() {
   const navigation = useNavigation();
-  const [show, setShow] = useState(false);
-  const [showCofirm, setShowCofirm] = useState(false);
   const dispatch = useAppDispatch();
+  const [FinishRegister, result] = useFinishRegisterMutation();
+  const {password, email, token, gender, dob} = useAppSelector(
+    state => state.auth,
+  );
+  const toast = useToast();
+  const realm = useRealm();
+  const onboarding = useQuery(OnBoarding);
 
   const {
     control,
@@ -29,15 +38,57 @@ export function AddEmailScreen() {
     },
   });
 
+  const offlineSaveUser = useCallback((): void => {
+    if (onboarding.length === 0) {
+      realm.write(() => {
+        realm.create('OnBoarding', OnBoarding.generate(true, true));
+      });
+    } else {
+      realm.write(() => {
+        onboarding[0].rememberMe = true;
+      });
+    }
+  }, [realm, onboarding]);
+
   const onSubmit = data => {
-    dispatch(setEmail(data?.email));
-    navigation.navigate(ScreenNames.AdditionalInformation);
+    FinishRegister({
+      password: password,
+      confirm_password: password,
+      email: data?.email,
+      gender: gender,
+      dob: dob,
+      token: token,
+    });
   };
 
   const skipHandler = () => {
-    dispatch(setEmail(''));
-    navigation.navigate(ScreenNames.AdditionalInformation);
+    FinishRegister({
+      password: password,
+      confirm_password: password,
+      email: '',
+      gender: gender,
+      dob: dob,
+      token: token,
+    });
   };
+
+  useEffect(() => {
+    if (result?.isUninitialized) {
+      return;
+    }
+    if (result?.isLoading) {
+      return;
+    }
+    if (!result?.isSuccess) {
+      toast.show({
+        description: 'An error has occurs, please try again',
+      });
+      return;
+    }
+    dispatch(rememberMe());
+    offlineSaveUser();
+    navigation.navigate(ScreenNames.MainBottomTab);
+  }, [result]);
 
   return (
     <Stack
