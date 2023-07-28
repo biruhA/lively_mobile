@@ -11,19 +11,26 @@ import {
   Actionsheet,
   Box,
   Divider,
+  useToast,
+  Button,
+  Pressable,
+  Spinner,
 } from 'native-base';
 import {ProfileScreensHeader} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {ScrollView, TouchableOpacity} from 'react-native';
+import {Linking, ScrollView, TouchableOpacity} from 'react-native';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
+import {useDeleteAccountMutation} from '../store/services';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import {StackActions, useNavigation} from '@react-navigation/native';
+import {logoutUser} from '../store/features/authSlice';
+import {OnBoarding} from '../realm/OnBoarding';
+import Context from '../realm/config';
+
+const {useRealm, useQuery} = Context;
 
 export function PrivacyScreen() {
-  const onSubmit = () => {
-    console.log('====================================');
-    console.log('Mr. Biruh, please do your things here ');
-    console.log('====================================');
-  };
   return (
     <Stack bg={'#ffffff'} h={'full'} py={1}>
       <View w={'full'} h={10}>
@@ -32,7 +39,7 @@ export function PrivacyScreen() {
           screenName="Privacy"
         />
       </View>
-      <ScrollView style={{backgroundColor: '#E3EBEB'}} alignItems={'center'}>
+      <ScrollView style={{backgroundColor: '#E3EBEB', paddingHorizontal: 8}}>
         <Stack py={3} />
         <Stack
           bg={colors.pureWhite}
@@ -42,24 +49,37 @@ export function PrivacyScreen() {
           px={4}
           py={4}
           space={4}>
-          <HStack
-            justifyContent="space-between"
-            alignItems="center"
-            w="100%"
-            bg={colors.pureWhite}>
-            <TouchableOpacity onPress={onSubmit}>
-              <HStack space={'52%'}>
-                <Text fontSize="md" alignSelf="flex-start">
-                  Terms & Conditions
-                </Text>
-                <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
-              </HStack>
-            </TouchableOpacity>
-          </HStack>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://lively-et.com/terms-condition');
+            }}>
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              bg={colors.pureWhite}>
+              <Text fontSize="md" alignSelf="flex-start">
+                Terms & Conditions
+              </Text>
+              <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
+            </HStack>
+          </TouchableOpacity>
           <Divider bg={'#E6E6E6'} thickness="1" />
-          <>
-            <DeleteAccount />
-          </>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('https://lively-et.com/privacy-policy');
+            }}>
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              bg={colors.pureWhite}>
+              <Text fontSize="md" alignSelf="flex-start">
+                Privacy
+              </Text>
+              <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
+            </HStack>
+          </TouchableOpacity>
+          <Divider bg={'#E6E6E6'} thickness="1" />
+          <DeleteAccount />
         </Stack>
       </ScrollView>
     </Stack>
@@ -67,24 +87,43 @@ export function PrivacyScreen() {
 }
 
 function DeleteAccount() {
+  const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const {isOpen, onOpen, onClose} = useDisclose();
+  const {token} = useAppSelector(state => state.auth);
+  const [deleteAccount, result] = useDeleteAccountMutation();
+  const realm = useRealm();
+  const onboarding = useQuery(OnBoarding);
+  const toast = useToast();
+
+  function deleteHandler() {
+    deleteAccount(token)
+      .unwrap()
+      .then(res => {
+        dispatch(logoutUser());
+        realm.write(() => {
+          onboarding[0].rememberMe = false;
+        });
+        navigation.dispatch(StackActions.replace(ScreenNames.AuthStack));
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.message,
+        });
+      });
+  }
 
   return (
-    <Center>
-      <HStack
-        justifyContent="space-between"
-        alignItems="center"
-        w="100%"
-        bg={colors.pureWhite}
-        maxW="350">
-        <TouchableOpacity onPress={onOpen}>
-          <HStack space={'61%'}>
-            <Text fontSize="md">Delete Account</Text>
-
-            <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
-          </HStack>
-        </TouchableOpacity>
-      </HStack>
+    <Stack w={'100%'}>
+      <TouchableOpacity onPress={onOpen}>
+        <HStack
+          justifyContent="space-between"
+          alignItems="center"
+          bg={colors.pureWhite}>
+          <Text fontSize="md">Delete Account</Text>
+          <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
+        </HStack>
+      </TouchableOpacity>
 
       <Actionsheet
         isOpen={isOpen}
@@ -125,19 +164,22 @@ function DeleteAccount() {
                   </Badge>
                 </TouchableOpacity>
               </Box>
-
               <Box w="40%" h={60}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={deleteHandler}>
                   <Badge
-                    bg={colors.error}
+                    bg={result?.isLoading ? colors.unselected : colors.error}
                     alignSelf={'flex-start'}
                     borderRadius={8}
                     width="100%"
                     height={35}
                     colorScheme={colors.pureWhite}>
-                    <Text color={colors.pureWhite} fontSize={16}>
-                      Delete
-                    </Text>
+                    {result?.isLoading ? (
+                      <Spinner size={'sm'} />
+                    ) : (
+                      <Text color={colors.pureWhite} fontSize={16}>
+                        Delete
+                      </Text>
+                    )}
                   </Badge>
                 </TouchableOpacity>
               </Box>
@@ -145,6 +187,6 @@ function DeleteAccount() {
           </ScrollView>
         </Actionsheet.Content>
       </Actionsheet>
-    </Center>
+    </Stack>
   );
 }

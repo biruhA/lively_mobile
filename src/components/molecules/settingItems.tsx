@@ -10,7 +10,12 @@ export function SettingItems({item_icon, title}: any) {
         w="100%"
         maxW="350">
         <HStack space={2}>
-          <Image source={item_icon} alt="Alternate Text" size="24px" />
+          <Image
+            source={item_icon}
+            alt="Alternate Text"
+            size="24px"
+            rounded={'full'}
+          />
           <Text fontSize="md">{title}</Text>
         </HStack>
         <HStack>

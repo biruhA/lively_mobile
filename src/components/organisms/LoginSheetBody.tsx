@@ -29,21 +29,21 @@ import {useLoginMutation} from '../../store/services';
 import {storeSheetState} from './StoreSheet';
 import Context from '../../realm/config';
 import {OnBoarding} from '../../realm/OnBoarding';
-import {rememberMe} from '../../store/features/authSlice';
+import {rememberMe, rememberUser} from '../../store/features/authSlice';
 
 const {useRealm, useQuery} = Context;
 
 interface Props {
-  setState: any;
+  action: any;
+  payload: any;
   onClose: any;
 }
-
 interface Form {
   phoneNo: string;
   password: string;
 }
 
-export function LoginSheetBody({setState, onClose}: Props) {
+export function LoginSheetBody({action, payload, onClose}: Props) {
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -57,6 +57,7 @@ export function LoginSheetBody({setState, onClose}: Props) {
   const {
     control,
     handleSubmit,
+    reset,
     formState: {errors, isValid},
   } = useForm({
     defaultValues: {
@@ -81,30 +82,40 @@ export function LoginSheetBody({setState, onClose}: Props) {
     login({
       password: data.password,
       phone: `251${data?.phoneNo}`,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        dispatch(rememberUser());
+        navigator();
+        reset();
+        if (rememberMe) {
+          offlineSaveUser();
+        }
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
 
-  useEffect(() => {
-    if (result?.isUninitialized) {
-      return;
+  function navigator() {
+    switch (action) {
+      case ScreenNames.ClaimDiscount:
+        navigation.navigate(ScreenNames.ClaimDiscount, {...payload});
+        break;
+      case ScreenNames.PlaceDetails:
+        navigation.navigate(ScreenNames.PlaceDetails, {...payload});
+        break;
+      case ScreenNames.Notification:
+        navigation.navigate(ScreenNames.Notification, {...payload});
+        break;
+
+      default:
+        break;
     }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'Phone No. or password not valid',
-      });
-      return;
-    }
-    if (rememberMe) {
-      dispatch(rememberMe());
-    }
-    if (!result?.isSuccess) {
-      offlineSaveUser();
-      setState(LoginSheetState.LoggedIn);
-    }
-  }, [result, token]);
+    onClose();
+  }
 
   return (
     <Stack bg={colors.pureWhite}>

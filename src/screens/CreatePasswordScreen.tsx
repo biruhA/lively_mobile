@@ -32,10 +32,6 @@ export function CreatePasswordScreen() {
   const [showCofirm, setShowCofirm] = useState(false);
   const dispatch = useAppDispatch();
   const {token} = useAppSelector(state => state.auth);
-  console.log(
-    '🚀 ~ file: CreatePasswordScreen.tsx:30 ~ CreatePasswordScreen ~ token:',
-    token,
-  );
 
   const {
     control,

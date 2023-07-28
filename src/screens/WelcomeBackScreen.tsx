@@ -27,7 +27,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {useLoginMutation} from '../store/services';
-import {rememberMe} from '../store/features/authSlice';
+import {rememberMe, rememberUser} from '../store/features/authSlice';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
 
@@ -40,7 +40,7 @@ interface Form {
 
 export function WelcomeBackScreen() {
   const [show, setShow] = useState(false);
-  const [RememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const navigation = useNavigation();
   const [login, result] = useLoginMutation();
   const toast = useToast();
@@ -52,7 +52,8 @@ export function WelcomeBackScreen() {
   const {
     control,
     handleSubmit,
-    formState: {errors, isValid},
+    reset,
+    formState: {errors},
   } = useForm({
     defaultValues: {
       phoneNo: '',
@@ -63,43 +64,40 @@ export function WelcomeBackScreen() {
   const offlineSaveUser = useCallback((): void => {
     if (onboarding.length === 0) {
       realm.write(() => {
-        realm.create('OnBoarding', OnBoarding.generate(true, RememberMe));
+        realm.create('OnBoarding', OnBoarding.generate(true, rememberMe));
       });
     } else {
       realm.write(() => {
-        onboarding[0].rememberMe = RememberMe;
+        onboarding[0].rememberMe = rememberMe;
       });
     }
-  }, [realm, onboarding, RememberMe]);
-
-  useEffect(() => {
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!token) {
-      toast.show({
-        description: 'Phone No. or password not valid',
-      });
-      return;
-    }
-    if (RememberMe) {
-      dispatch(rememberMe());
-    }
-    offlineSaveUser();
-    if (token) {
-      navigation.navigate(ScreenNames.MainBottomTab);
-    }
-  }, [result, token]);
+  }, [realm, onboarding, rememberMe]);
 
   const onSubmit = (data: Form) => {
     login({
       password: data.password,
       phone: `251${data?.phoneNo}`,
-    });
+    })
+      .unwrap()
+      .then(() => {
+        if (rememberMe) {
+          dispatch(rememberUser());
+          offlineSaveUser();
+        }
+        reset();
+        navigation.navigate(ScreenNames.MainBottomTab);
+      })
+      .catch(err => {
+        console.log(
+          '🚀 ~ file: WelcomeBackScreen.tsx:91 ~ onSubmit ~ err:',
+          err,
+        );
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
+
   return (
     <Stack
       flex={1}
@@ -216,7 +214,7 @@ export function WelcomeBackScreen() {
             <Text style={styles.notRegistered}>Not Registered Yet? </Text>
             <TouchableOpacity
               onPress={() => {
-                navigation.push(ScreenNames.CreateAccount);
+                navigation.navigate(ScreenNames.CreateAccount);
               }}>
               <Text style={styles.forgot}>Create an Account</Text>
             </TouchableOpacity>

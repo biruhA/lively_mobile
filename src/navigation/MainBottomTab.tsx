@@ -39,6 +39,7 @@ export const MainBottomTab = () => {
         name={ScreenNames.Home}
         component={HomeStack}
         options={({navigation}: any) => ({
+          unmountOnBlur: true,
           tabBarButton: () => (
             <CustomBarButton
               navigation={navigation}
@@ -53,6 +54,7 @@ export const MainBottomTab = () => {
         name={ScreenNames.Browse}
         component={BrowseStack}
         options={({navigation}: any) => ({
+          unmountOnBlur: true,
           tabBarButton: () => (
             <CustomBarButton
               navigation={navigation}
@@ -83,6 +85,7 @@ export const MainBottomTab = () => {
         name={ScreenNames.Place}
         component={PlaceStack}
         options={({navigation}: any) => ({
+          unmountOnBlur: true,
           tabBarButton: () => (
             <CustomBarButton
               navigation={navigation}
@@ -97,6 +100,7 @@ export const MainBottomTab = () => {
         name={ScreenNames.Settings}
         component={SettingsStack}
         options={({navigation}: any) => ({
+          unmountOnBlur: true,
           tabBarButton: () => (
             <CustomBarButton
               navigation={navigation}

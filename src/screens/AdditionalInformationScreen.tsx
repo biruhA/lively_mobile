@@ -33,9 +33,15 @@ import {useFinishRegisterMutation} from '../store/services';
 import DatePicker from 'react-native-date-picker';
 
 export function AdditionalInformationScreen() {
+  // Calculate the date 18 years ago
+  let currentDate = new Date();
+  let maxDate = new Date(
+    currentDate.setFullYear(currentDate.getFullYear() - 18),
+  );
+
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(maxDate);
   const [open, setOpen] = useState(false);
 
   const {
@@ -49,10 +55,6 @@ export function AdditionalInformationScreen() {
       gender: '',
     },
   });
-
-  // Calculate the date 18 years ago
-  const minDateForUnder18 = new Date();
-  minDateForUnder18.setFullYear(minDateForUnder18.getFullYear() - 18);
 
   const onSubmit = data => {
     dispatch(SetDob(data?.Dof?.toISOString().split('T')[0]));
@@ -69,7 +71,7 @@ export function AdditionalInformationScreen() {
       bg={'white'}
       justifyContent={'flex-start'}>
       <GoBack />
-      <SignUpStepper step={5} />
+      <SignUpStepper step={4} />
       <Stack pt={24}>
         <Text style={fonts.heading4} pt={3}>
           Additional Information
@@ -116,7 +118,7 @@ export function AdditionalInformationScreen() {
               }}
               theme="auto"
               mode="date"
-              maximumDate={minDateForUnder18}
+              maximumDate={maxDate}
             />
           )}
         />

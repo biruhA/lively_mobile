@@ -30,7 +30,6 @@ export function VerticalArticleCard({
   navTo,
   mainStyle,
 }: Props): JSX.Element {
-  console.log('🚀 ~ file: VerticalArticleCard.tsx:33 ~ title:', title);
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 

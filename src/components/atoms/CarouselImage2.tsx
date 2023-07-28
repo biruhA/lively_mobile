@@ -13,10 +13,6 @@ const ITEM_WIDTH = 236;
 const ITEM_HEIGHT = 236;
 
 export function CarouselImage2({item}) {
-  console.log(
-    '🚀 ~ file: CarouselImage2.tsx:15 ~ CarouselImage2 ~ item:',
-    item?.banner_image?.url,
-  );
   const navigation = useNavigation();
   const dispatch = useDispatch();
 

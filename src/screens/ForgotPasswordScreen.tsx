@@ -54,43 +54,35 @@ export function ForgotPasswordScreen() {
       .then(res => {
         setHash(res[0]);
       })
-      .catch(error => console.log('Error:', error));
-  }, []);
+      .catch(console.log);
 
-  useEffect(() => {
     startOtpListener(message => {
-      const otp = /(\d{5})/g.exec(message)[1];
+      const otp = /(\d{5})/g.exec(message)?.[1];
       dispatch(setOtp(otp));
     });
     return () => removeListener();
   }, []);
 
-  useEffect(() => {
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
-      });
-      return;
-    }
-    dispatch(setToken(result?.data?.data?.token));
-    navigation.navigate(ScreenNames.ConfirmPhone, {
-      prev: ScreenNames.ForgotPassword,
-    });
-  }, [result]);
-
   const onSubmit = data => {
     ResetPassword({
       phone: `251${data?.phoneNo}`,
       appKey: hash,
-    });
-    dispatch(setVerificationPhoneNumber(`251${data?.phoneNo}`));
+    })
+      .unwrap()
+      .then(result => {
+        dispatch(setVerificationPhoneNumber(`251${data?.phoneNo}`));
+        dispatch(setToken(result?.data?.data?.token));
+        navigation.navigate(ScreenNames.ConfirmPhone, {
+          prev: ScreenNames.ForgotPassword,
+        });
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
+
   return (
     <Stack
       flex={1}
@@ -127,8 +119,9 @@ export function ForgotPasswordScreen() {
             },
           }}
           render={({field: {onChange, onBlur, value}}) => (
-            <Stack alignItems="center">
-              <InputGroup w={'100%'}>
+            <Stack alignItems="flex-start">
+              <InputGroup w={'87%'}>
+                <InputLeftAddon children={'+251'} />
                 <Input
                   w={'100%'}
                   size={'lg'}
@@ -146,6 +139,7 @@ export function ForgotPasswordScreen() {
                   onChangeText={onChange}
                   value={value}
                   borderRadius={5}
+                  maxLength={9}
                 />
               </InputGroup>
             </Stack>

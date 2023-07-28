@@ -67,16 +67,18 @@ export function ProductCard({
             </Text>
             <Stack>
               <Text style={fonts.caption}>{volume}</Text>
-              <HStack>
-                <Text fontWeight={'semibold'} style={styles.amount}>
-                  Form{' '}
-                </Text>
-                <Text
-                  fontWeight={'semibold'}
-                  style={{...styles.amount, color: colors.primary}}>
-                  {amount} Birr
-                </Text>
-              </HStack>
+              {amount != 0 && (
+                <HStack>
+                  <Text fontWeight={'semibold'} style={styles.amount}>
+                    From{' '}
+                  </Text>
+                  <Text
+                    fontWeight={'semibold'}
+                    style={{...styles.amount, color: colors.primary}}>
+                    {amount} Birr
+                  </Text>
+                </HStack>
+              )}
             </Stack>
           </Stack>
         </Stack>

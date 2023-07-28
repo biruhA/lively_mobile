@@ -11,17 +11,13 @@ import {useAppSelector} from '../../store/hooks';
 import {LoginSheet} from '../sheets';
 
 export function HomeScreenHeader() {
-  const {token, user} = useAppSelector(state => state.auth);
+  const {token, user, isLoggedIn} = useAppSelector(state => state.auth);
+  console.log(
+    '🚀 ~ file: HomeScreenHeader.tsx:15 ~ HomeScreenHeader ~ user:',
+    user,
+  );
   const navigation = useNavigation();
   const {isOpen, onClose, onOpen} = useDisclose();
-  const [state, setState] = useState(LoginSheetState.notLoggedIn);
-
-  useEffect(() => {
-    if (state === LoginSheetState.LoggedIn) {
-      onClose();
-      navigation.navigate(ScreenNames.Notification);
-    }
-  }, [state]);
 
   return (
     <>
@@ -31,7 +27,7 @@ export function HomeScreenHeader() {
         alignItems={'center'}
         justifyContent={'space-between'}
         py={4}>
-        <Text style={fonts.subtitle1}>HI {token ? user?.name : ''} 👋</Text>
+        <Text style={fonts.subtitle1}>HI {user?.name || ''} 👋</Text>
         <HStack alignItems={'center'} space={5}>
           <TouchableIcon
             image={require('../../assets/icons/language.png')}
@@ -42,10 +38,12 @@ export function HomeScreenHeader() {
             image={require('../../assets/icons/bell.png')}
             boxSize={5}
             onPress={() => {
-              if (token) {
+              if (!isLoggedIn) {
+                onOpen();
+              }
+              if (isLoggedIn) {
                 navigation.navigate(ScreenNames.Notification);
               }
-              onOpen();
             }}
           />
           <TouchableIcon
@@ -55,7 +53,14 @@ export function HomeScreenHeader() {
           />
         </HStack>
       </HStack>
-      <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />
+      {/* {!isLoggedIn && ( */}
+      <LoginSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        action={ScreenNames.Notification}
+        payload=""
+      />
+      {/* )} */}
     </>
   );
 }

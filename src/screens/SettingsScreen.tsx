@@ -14,12 +14,13 @@ import {
   Actionsheet,
   Box,
   Spinner,
+  useToast,
 } from 'native-base';
 import {SettingsScreenHeader} from '../components/organisms';
 import {SettingItems} from '../components/molecules';
 import {colors} from '../theme/colors';
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
@@ -30,21 +31,40 @@ import lang from '../assets/icons/settingIcons/lang.png';
 import logout from '../assets/icons/settingIcons/Logout.png';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
-import {useProfileQuery} from '../store/services';
-import {useAppSelector} from '../store/hooks';
+import {useLogoutMutation, useProfileQuery} from '../store/services';
+import {useAppDispatch, useAppSelector} from '../store/hooks';
+import Context from '../realm/config';
+import {OnBoarding} from '../realm/OnBoarding';
+import {logoutUser} from '../store/features/authSlice';
+
+const {useRealm, useQuery} = Context;
 
 export function SettingsScreen() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
   const {token} = useAppSelector(state => state.auth);
+  const dispatch = useAppDispatch();
   const {data, isLoading} = useProfileQuery(token);
+  const [Logout, result] = useLogoutMutation();
+  const realm = useRealm();
+  const onboarding = useQuery(OnBoarding);
+  const toast = useToast();
 
-  if (isLoading) {
-    return (
-      <Center flex={1}>
-        <Spinner />
-      </Center>
-    );
+  function logoutHandler() {
+    Logout(token)
+      .unwrap()
+      .then(() => {
+        dispatch(logoutUser());
+        realm.write(() => {
+          onboarding[0].rememberMe = false;
+        });
+        navigation.dispatch(StackActions.replace(ScreenNames.AuthStack));
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.message,
+        });
+      });
   }
 
   return (
@@ -53,64 +73,82 @@ export function SettingsScreen() {
         <SettingsScreenHeader />
       </View>
       <ScrollView>
-        <Stack
-          my={2}
-          bg={colors.pureWhite}
-          borderRadius={12}
-          shadow={'0.5'}
-          mx={3}
-          px={4}
-          py={4}
-          space={2}>
-          <Center>
-            <VStack
-              space={2}
-              alignItems={{
-                base: 'center',
-                md: 'flex-start',
-              }}>
-              <HStack paddingLeft={'40%'}>
-                <Avatar
-                  bg="cyan.500"
-                  size="lg"
-                  source={{
-                    uri: data?.data?.profile_photo_url,
-                  }}
-                />
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(ScreenNames.EditProfileScreen)
-                  }>
-                  <Badge
-                    bg={colors.primary}
-                    alignSelf={'flex-start'}
-                    marginLeft={'40%'}
-                    borderRadius={10}
-                    height={7}
-                    colorScheme={colors.pureWhite}>
-                    <HStack style={styles.editButton}>
-                      <Icon name="pencil" size={15} color={colors.pureWhite} />
-                      <Text style={styles.editText}>Edit</Text>
-                    </HStack>
-                  </Badge>
-                </TouchableOpacity>
-              </HStack>
-
-              <Text style={styles.userFullnameText}>{data?.data?.name}</Text>
-
-              <Text style={styles.userInfoText}>{data?.data?.email}</Text>
-              <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
-                <View>
-                  <Text style={styles.userInfoText}>
-                    {isVisible
-                      ? `+${data?.data?.phone}`
-                      : `+251 *******${data?.data?.phone.substring(10, 12)}`}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </VStack>
+        {isLoading ? (
+          <Center
+            my={2}
+            bg={colors.pureWhite}
+            borderRadius={12}
+            shadow={'0.5'}
+            mx={3}
+            px={4}
+            py={16}
+            space={2}>
+            <Spinner />
           </Center>
-        </Stack>
+        ) : (
+          <Stack
+            my={2}
+            bg={colors.pureWhite}
+            borderRadius={12}
+            shadow={'0.5'}
+            mx={3}
+            px={4}
+            py={4}
+            space={2}>
+            <Center>
+              <VStack
+                space={2}
+                alignItems={{
+                  base: 'center',
+                  md: 'flex-start',
+                }}>
+                <HStack paddingLeft={'40%'}>
+                  <Avatar
+                    bg="cyan.500"
+                    size="lg"
+                    source={{
+                      uri: data?.data?.profile_photo_url,
+                    }}
+                  />
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate(ScreenNames.EditProfileScreen)
+                    }>
+                    <Badge
+                      bg={colors.primary}
+                      alignSelf={'flex-start'}
+                      marginLeft={'40%'}
+                      borderRadius={10}
+                      height={7}
+                      colorScheme={colors.pureWhite}>
+                      <HStack style={styles.editButton}>
+                        <Icon
+                          name="pencil"
+                          size={15}
+                          color={colors.pureWhite}
+                        />
+                        <Text style={styles.editText}>Edit</Text>
+                      </HStack>
+                    </Badge>
+                  </TouchableOpacity>
+                </HStack>
+
+                <Text style={styles.userFullnameText}>{data?.data?.name}</Text>
+
+                <Text style={styles.userInfoText}>{data?.data?.email}</Text>
+                <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
+                  <View>
+                    <Text style={styles.userInfoText}>
+                      {isVisible
+                        ? `+${data?.data?.phone}`
+                        : `+251 *******${data?.data?.phone.substring(10, 12)}`}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </VStack>
+            </Center>
+          </Stack>
+        )}
 
         <Stack
           my={2}
@@ -136,7 +174,7 @@ export function SettingsScreen() {
           </TouchableOpacity>
           <SettingItems item_icon={faq} title="FAQ" />
           <SettingItems item_icon={about} title="About" />
-          <>
+          <TouchableOpacity onPress={logoutHandler}>
             <HStack
               justifyContent="space-between"
               alignItems="center"
@@ -144,11 +182,15 @@ export function SettingsScreen() {
               bg={colors.pureWhite}
               maxW="350">
               <HStack space={2}>
-                <Image source={logout} alt="Alternate Text" size="24px" />
+                {result?.isLoading ? (
+                  <Spinner />
+                ) : (
+                  <Image source={logout} alt="Alternate Text" size="24px" />
+                )}
                 <Text fontSize="md">Logout</Text>
               </HStack>
             </HStack>
-          </>
+          </TouchableOpacity>
         </Stack>
 
         <Center paddingTop={20}>

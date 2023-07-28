@@ -8,13 +8,17 @@ import {useSavedAuthData} from '../hooks';
 import {MainBottomTab} from './MainBottomTab';
 import {useGetMedicineNotificationQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
+import {createStackNavigator} from '@react-navigation/stack';
+import {ScreenNames} from '../constants';
+import {Center, Spinner} from 'native-base';
 
 const {useQuery} = Context;
+const Stack = createStackNavigator<any>();
 
 export function Navigation() {
   useSavedAuthData();
   const onboarding = useQuery(OnBoarding);
-  const {token} = useAppSelector(state => state.auth);
+  const {token, isLoggedIn} = useAppSelector(state => state.auth);
   useGetMedicineNotificationQuery(token, {
     pollingInterval: 300000,
   });
@@ -22,9 +26,31 @@ export function Navigation() {
   if (!onboarding[0]?.hasOnBoarded) {
     return <CarouselOnBoarding />;
   }
+
+  if (isLoggedIn === undefined) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <NavigationContainer>
-      {onboarding[0]?.rememberMe ? <MainBottomTab /> : <AuthStack />}
+      <Stack.Navigator
+        initialRouteName={
+          isLoggedIn ? ScreenNames.MainBottomTab : ScreenNames.AuthStack
+        }
+        screenOptions={{
+          headerShown: false,
+          presentation: 'transparentModal',
+        }}>
+        <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
+        <Stack.Screen
+          name={ScreenNames.MainBottomTab}
+          component={MainBottomTab}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

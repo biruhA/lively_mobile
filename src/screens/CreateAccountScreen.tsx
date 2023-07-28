@@ -68,36 +68,25 @@ export function CreateAccountScreen() {
     return () => removeListener();
   }, []);
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: CreateAccountScreen.tsx:73 ~ useEffect ~ result:',
-      result,
-    );
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
-      });
-      return;
-    }
-    toast.show({
-      description: 'Otp sent, Please wait...',
-    });
-    navigation.navigate(ScreenNames.ConfirmPhone);
-  }, [result]);
-
   const onSubmit = (data: RegisterProp) => {
     dispatch(setVerificationPhoneNumber(`251${data?.phoneNo}`));
     Register({
       name: `${data?.firstName} ${data?.lastname}`,
       phone: `251${data?.phoneNo}`,
       appKey: hash,
-    });
+    })
+      .unwrap()
+      .then(result => {
+        toast.show({
+          description: 'Otp sent, Please wait...',
+        });
+        navigation.navigate(ScreenNames.ConfirmPhone);
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
 
   return (
@@ -179,8 +168,9 @@ export function CreateAccountScreen() {
           render={({field: {onChange, onBlur, value}}) => (
             <Stack alignItems="center">
               <InputGroup w={'100%'}>
+                <InputLeftAddon children={'+251'} />
                 <Input
-                  w={'100%'}
+                  w={'87%'}
                   size={'lg'}
                   InputRightElement={
                     <Image
@@ -196,6 +186,7 @@ export function CreateAccountScreen() {
                   onChangeText={onChange}
                   value={value}
                   borderRadius={5}
+                  maxLength={9}
                 />
               </InputGroup>
             </Stack>

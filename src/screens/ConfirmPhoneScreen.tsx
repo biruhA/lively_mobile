@@ -23,7 +23,9 @@ export function ConfirmPhoneScreen() {
   const [isFinished, setIsFinished] = useState(false);
   const [VerifyOtp, result] = useVerifyOtpMutation();
   const [ResendOtp, resultResendOtp] = useResendOtpMutation();
-  const {verificationPhoneNumber, otp} = useAppSelector(state => state.auth);
+  const {verificationPhoneNumber, otp, token} = useAppSelector(
+    state => state.auth,
+  );
   const toast = useToast();
   const ref_input2 = useRef('');
   const ref_input3 = useRef('');
@@ -54,13 +56,6 @@ export function ConfirmPhoneScreen() {
     setValue('code5', Array.from(otp)[4]);
   }, [otp]);
 
-  const onSubmit = data => {
-    VerifyOtp({
-      phone: verificationPhoneNumber,
-      otp: `${data?.code1}${data?.code2}${data?.code3}${data?.code4}${data?.code5}`,
-    });
-  };
-
   useEffect(() => {
     if (resultResendOtp?.isUninitialized) {
       return;
@@ -79,28 +74,30 @@ export function ConfirmPhoneScreen() {
     }
   }, [resultResendOtp]);
 
-  useEffect(() => {
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
+  const onSubmit = data => {
+    VerifyOtp({
+      phone: verificationPhoneNumber,
+      otp: `${data?.code1}${data?.code2}${data?.code3}${data?.code4}${data?.code5}`,
+    })
+      .then(res => {
+        dispatch(setToken(res?.data?.data?.token));
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
       });
-      return;
-    }
+  };
 
-    dispatch(setToken(result?.data?.data?.token));
-
-    if (route?.params?.prev === ScreenNames.ForgotPassword) {
-      navigation.navigate(ScreenNames.ResetPassword);
-    } else {
-      navigation.navigate(ScreenNames.CreatePassword);
+  useEffect(() => {
+    if (token) {
+      if (route?.params?.prev === ScreenNames.ForgotPassword) {
+        navigation.navigate(ScreenNames.ResetPassword);
+      } else {
+        navigation.navigate(ScreenNames.CreatePassword);
+      }
     }
-  }, [result]);
+  }, [token]);
 
   return (
     <Stack

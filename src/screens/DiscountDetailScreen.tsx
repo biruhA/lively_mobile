@@ -18,26 +18,16 @@ import {useProductVariantDetailQuery} from '../store/services';
 import {LoginSheet} from '../components/sheets';
 
 export function DiscountDetailScreen() {
-  const navigation = useNavigation();
   const route = useRoute();
+  const navigation = useNavigation();
+  const {isOpen, onOpen, onClose} = useDisclose();
   const {userLocation} = useAppSelector(state => state.search);
+  const {isLoggedIn} = useAppSelector(state => state.auth);
   const {data, isLoading} = useProductVariantDetailQuery({
     id: route?.params?.id,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
   });
-  const {isOpen, onOpen, onClose} = useDisclose();
-  const {token} = useAppSelector(state => state.auth);
-  const [state, setState] = useState(LoginSheetState.notLoggedIn);
-
-  useEffect(() => {
-    if (state === LoginSheetState.LoggedIn) {
-      onClose();
-      navigation.navigate(ScreenNames.ClaimDiscount, {
-        promo_code: route?.params?.promo_code,
-      });
-    }
-  }, [state]);
 
   if (isLoading) {
     return (
@@ -93,16 +83,24 @@ export function DiscountDetailScreen() {
         mainStyle={{postion: 'absolute', bottom: 0}}
         text="Claim Discount"
         onPress={() => {
-          // setState(LoginSheetState.LoggedIn);
-          if (token) {
+          if (!isLoggedIn) {
+            onOpen();
+          }
+          if (isLoggedIn) {
             navigation.navigate(ScreenNames.ClaimDiscount, {
               promo_code: route?.params?.promo_code,
             });
           }
-          onOpen();
         }}
       />
-      <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />
+      {/* {!isLoggedIn && ( */}
+      <LoginSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        action={ScreenNames.ClaimDiscount}
+        payload={{promo_code: route?.params?.promo_code}}
+      />
+      {/* )} */}
     </Stack>
   );
 }

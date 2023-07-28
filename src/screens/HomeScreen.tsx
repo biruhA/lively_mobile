@@ -60,7 +60,7 @@ export function HomeScreen() {
               </Stack>
               <Catalogue />
               <Prescription />
-              <ProductList label="For Woman" url="for-her" />
+              <ProductList label="For Women" url="for-her" />
               <ProductList label="For Men" url="for-him" />
               <ForYou />
               <TopArticles />

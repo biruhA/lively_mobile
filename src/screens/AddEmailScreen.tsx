@@ -45,7 +45,7 @@ export function AddEmailScreen() {
       });
     } else {
       realm.write(() => {
-        onboarding[0].rememberMe = true;
+        onboarding[0].rememberMe = false;
       });
     }
   }, [realm, onboarding]);
@@ -58,7 +58,17 @@ export function AddEmailScreen() {
       gender: gender,
       dob: dob,
       token: token,
-    });
+    })
+      .unwrap()
+      .then(result => {
+        offlineSaveUser();
+        navigation.navigate(ScreenNames.MainBottomTab);
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
 
   const skipHandler = () => {
@@ -69,26 +79,18 @@ export function AddEmailScreen() {
       gender: gender,
       dob: dob,
       token: token,
-    });
-  };
-
-  useEffect(() => {
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
+    })
+      .unwrap()
+      .then(result => {
+        offlineSaveUser();
+        navigation.navigate(ScreenNames.MainBottomTab);
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
       });
-      return;
-    }
-    dispatch(rememberMe());
-    offlineSaveUser();
-    navigation.navigate(ScreenNames.MainBottomTab);
-  }, [result]);
+  };
 
   return (
     <Stack
@@ -99,7 +101,7 @@ export function AddEmailScreen() {
       bg={'white'}
       justifyContent={'flex-start'}>
       <GoBack />
-      <SignUpStepper step={4} />
+      <SignUpStepper step={5} />
       <Stack pt={24}>
         <Text style={fonts.heading4} pt={3}>
           Add your email

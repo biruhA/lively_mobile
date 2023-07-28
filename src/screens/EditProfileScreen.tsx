@@ -27,11 +27,14 @@ import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
 import {useAppSelector} from '../store/hooks';
 import {useProfileQuery, useUpdateProfileMutation} from '../store/services';
+import {storeProtectedData} from '../util';
+import {useDispatch} from 'react-redux';
+import {updateUser} from '../store/features/authSlice';
 
 export function EditProfileScreen() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-
+  const dispatch = useDispatch();
   const {token} = useAppSelector(state => state.auth);
   const {data, isLoading} = useProfileQuery(token);
 
@@ -44,14 +47,23 @@ export function EditProfileScreen() {
 
   const handleSave = () => {
     UpdateProfile({
-      name: firstName + lastName,
+      name: `${firstName} ${lastName}`,
       email,
       gender,
       token,
-    });
-    toast.show({
-      description: 'Profile updated successfully',
-    });
+    })
+      .unwrap()
+      .then(res => {
+        dispatch(updateUser(res?.data));
+        toast.show({
+          description: 'Profile updated successfully',
+        });
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
 
   const handleResetPAssword = () => {

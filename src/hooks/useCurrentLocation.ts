@@ -13,10 +13,6 @@ import {setCurrentLocation} from '../store/features/searchSlice';
 
 export function useCurrentLocation() {
   const [location, setLocation] = useState(null);
-  console.log(
-    '🚀 ~ file: HomeScreen.tsx:36 ~ HomeScreen ~ getLocation:',
-    location,
-  );
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
 

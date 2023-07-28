@@ -1,22 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import {Actionsheet, Stack} from 'native-base';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
 import {LoginSheetBody} from '../organisms';
-import {LoginSheetState, ScreenNames} from '../../constants';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {ScreenNames} from '../../constants';
 
 interface Props {
   isOpen: any;
   onClose: any;
-  setState: any;
+  action: any;
+  payload: any;
 }
 
-export function LoginSheet({isOpen, onClose, setState}: Props) {
+export function LoginSheet({isOpen, onClose, action, payload}: Props) {
   return (
     <Stack bg={colors.pureWhite}>
-      <Actionsheet isOpen={isOpen} onClose={onClose}>
+      <Actionsheet
+        isOpen={isOpen}
+        onClose={onClose}
+        action={action}
+        payload={payload}>
         <Actionsheet.Content>
-          <LoginSheetBody setState={setState} onClose={onClose} />
+          <LoginSheetBody onClose={onClose} action={action} payload={payload} />
         </Actionsheet.Content>
       </Actionsheet>
     </Stack>

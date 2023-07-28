@@ -31,26 +31,20 @@ export function PlacesPharmacyCard({
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
-  const [state, setState] = useState(LoginSheetState.notLoggedIn);
   const {isOpen, onOpen, onClose} = useDisclose();
-  const {token} = useAppSelector(state => state.auth);
-
-  useEffect(() => {
-    if (state === LoginSheetState.LoggedIn) {
-      onClose();
-      navigation.navigate(ScreenNames.PlaceDetails, {id});
-    }
-  }, [state]);
+  const {isLoggedIn} = useAppSelector(state => state.auth);
 
   return (
     <Stack my={2} bg="white" rounded={'md'}>
       <TouchableOpacity
         onPress={() => {
           dispatch(setStoreId(id));
-          if (token) {
+          if (!isLoggedIn) {
+            onOpen();
+          }
+          if (isLoggedIn) {
             navigation.navigate(ScreenNames.PlaceDetails, {id});
           }
-          onOpen();
         }}>
         <HStack alignItems={'center'} space={4} justifyContent={'flex-start'}>
           <Image
@@ -88,7 +82,14 @@ export function PlacesPharmacyCard({
           </Stack>
         </HStack>
       </TouchableOpacity>
-      <LoginSheet isOpen={isOpen} onClose={onClose} setState={setState} />
+      {/* {!isLoggedIn && ( */}
+      <LoginSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        action={ScreenNames.PlaceDetails}
+        payload={id}
+      />
+      {/* )} */}
     </Stack>
   );
 }

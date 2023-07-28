@@ -1,7 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {authApi} from '../services';
-import {storeProtectedData} from '../../util';
+import {
+  clearProtectedData,
+  removeProtectedData,
+  storeProtectedData,
+} from '../../util';
 import {boolean} from 'yup';
 
 // Define a type for the slice state
@@ -27,7 +31,7 @@ interface AuthData {
 const initialState: authState = {
   token: '',
   user: {},
-  isLoggedIn: false,
+  isLoggedIn: undefined,
   verificationPhoneNumber: '',
   otp: '',
   password: '',
@@ -61,20 +65,29 @@ export const authSlice = createSlice({
     setVerificationPhoneNumber: (state, action: PayloadAction<string>) => {
       state.verificationPhoneNumber = action.payload;
     },
+    setIsLoggedIn: (state, action: PayloadAction<any>) => {
+      state.isLoggedIn = action?.payload;
+    },
     setAuthData: (state, action: PayloadAction<AuthData>) => {
       state.token = action?.payload?.token;
       state.user = action?.payload?.user;
-      state.isLoggedIn = action?.payload?.isLoggedIn;
     },
-    rememberMe: state => {
+    updateUser: (state, action: PayloadAction<AuthData>) => {
+      state.user = action?.payload;
+      storeProtectedData('user', action?.payload);
+    },
+    rememberUser: state => {
       storeProtectedData('user', state.user);
       storeProtectedData('token', state.token);
-      storeProtectedData('isLoggedIn', true);
+      state.isLoggedIn = true;
     },
-    deleteUser: state => {
-      storeProtectedData('user', {});
-      storeProtectedData('token', '');
-      storeProtectedData('isLoggedIn', false);
+    logoutUser: state => {
+      removeProtectedData('user');
+      removeProtectedData('token');
+      removeProtectedData('isLoggedIn');
+      state.token = '';
+      state.user = {};
+      state.isLoggedIn = false;
     },
   },
   extraReducers: builder => {
@@ -83,16 +96,24 @@ export const authSlice = createSlice({
       (state, action) => {
         state.token = action?.payload?.data?.token;
         state.user = action.payload?.data?.user;
-        // storeProtectedData('user', state.user);
-        // storeProtectedData('token', state.token);
-        // storeProtectedData('isLoggedIn', true);
+        state.isLoggedIn = true;
+      },
+    );
+    builder.addMatcher(
+      authApi.endpoints.finishRegister.matchFulfilled,
+      (state, action) => {
+        state.user = action.payload?.data;
+        state.isLoggedIn = true;
+        storeProtectedData('user', action.payload?.data);
+        storeProtectedData('token', state.token);
       },
     );
   },
 });
 
 export const {
-  rememberMe,
+  rememberUser,
+  logoutUser,
   setVerificationPhoneNumber,
   setOtp,
   setPassword,
@@ -102,6 +123,8 @@ export const {
   SetDob,
   SetGender,
   deleteUser,
+  setIsLoggedIn,
+  updateUser,
 } = authSlice.actions;
 
 export default authSlice.reducer;

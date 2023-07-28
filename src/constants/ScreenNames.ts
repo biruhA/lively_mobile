@@ -40,6 +40,7 @@ export enum ScreenNames {
   EventDetail = 'EventDetail',
   SeeAllArticles = 'SeeAllArticles',
   // AuthStack
+  AuthStack = 'AuthStack',
   WelcomeBack = 'WelcomeBack',
   CreateAccount = 'CreateAccount',
   ConfirmPhone = 'ConfirmPhone',

@@ -38,33 +38,23 @@ export function ResetPasswordScreen() {
     },
   });
 
-  useEffect(() => {
-    console.log(
-      '🚀 ~ file: ResetPasswordScreen.tsx:34 ~ useEffect ~ result:',
-      result,
-    );
-    if (result?.isUninitialized) {
-      return;
-    }
-    if (result?.isLoading) {
-      return;
-    }
-    if (!result?.isSuccess) {
-      toast.show({
-        description: 'An error has occurs, please try again',
-      });
-      return;
-    }
-    navigation.navigate(ScreenNames.WelcomeBack);
-  }, [result]);
-
   const onSubmit = data => {
     CreateNewPassword({
       new_password: data?.newPassword,
       confirm_new_password: data?.confirmNewPassword,
       token: token,
-    });
+    })
+      .unwrap()
+      .then(result => {
+        navigation.navigate(ScreenNames.WelcomeBack);
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.data,
+        });
+      });
   };
+
   return (
     <Stack
       flex={1}

@@ -82,19 +82,17 @@ export function ChangePasswordScreen() {
       new_password: data?.newPassword,
       confirm_new_password: data?.confirmNewPassword,
       token,
-    });
-  };
-
-  useEffect(() => {
-    if (result?.isSuccess) {
-      onOpen();
-    }
-    if (result?.isError) {
-      toast.show({
-        description: 'Something went wrong, please try again',
+    })
+      .unwrap()
+      .then(() => {
+        onOpen();
+      })
+      .catch(() => {
+        toast.show({
+          description: err?.data?.data,
+        });
       });
-    }
-  }, [result]);
+  };
 
   return (
     <Stack bg={'#ffffff'} h={'full'} py={1}>
@@ -266,7 +264,7 @@ function SuccessSheet({isOpen, onClose}) {
   const navigation = useNavigation();
   return (
     <Center>
-      <Actionsheet isOpen={isOpen} onClose={onClose} hideDragIndicator={true}>
+      <Actionsheet isOpen={isOpen} onClose={() => {}} hideDragIndicator={true}>
         <Actionsheet.Content>
           <Box w="100%" justifyContent="center" py={3}>
             <HStack
