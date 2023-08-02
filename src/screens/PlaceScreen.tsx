@@ -28,6 +28,10 @@ export function PlaceScreen() {
   const navigation = useNavigation();
 
   const debouncedText = useDebounce(searchedText, 500);
+  console.log(
+    '🚀 ~ file: PlaceScreen.tsx:31 ~ PlaceScreen ~ debouncedText:',
+    debouncedText,
+  );
 
   useEffect(() => {
     RecommendedStores({
@@ -52,14 +56,16 @@ export function PlaceScreen() {
           </Stack>
           <Stack bg={'white'} p={4} space={4}>
             <SearchBarPlaces placeholder="Search for places" />
-            <ButtonTabs
-              buttonOneIcon={pharmacy}
-              buttonOneTitle="Pharmacies"
-              buttonTwoIcon={store}
-              buttonTwoTitle="Store"
-              isPharmacySelected={isPharmacySelected}
-              setIsPharmacySelected={setIsPharmacySelected}
-            />
+            {!debouncedText && (
+              <ButtonTabs
+                buttonOneIcon={pharmacy}
+                buttonOneTitle="Pharmacies"
+                buttonTwoIcon={store}
+                buttonTwoTitle="Store"
+                isPharmacySelected={isPharmacySelected}
+                setIsPharmacySelected={setIsPharmacySelected}
+              />
+            )}
             {result?.isLoading ? (
               <Center flex={1} py={8}>
                 <Spinner />

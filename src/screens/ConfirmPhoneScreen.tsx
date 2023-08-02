@@ -54,6 +54,7 @@ export function ConfirmPhoneScreen() {
     setValue('code3', Array.from(otp)[2]);
     setValue('code4', Array.from(otp)[3]);
     setValue('code5', Array.from(otp)[4]);
+    handleSubmit(onSubmit);
   }, [otp]);
 
   useEffect(() => {

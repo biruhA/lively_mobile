@@ -1,5 +1,4 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {CarouselOnBoarding} from '../components/organisms';
 import {AuthStack} from './AuthStack';
 import Context from '../realm/config';
@@ -35,22 +34,28 @@ export function Navigation() {
     );
   }
 
+  if (isLoggedIn === undefined) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName={
-          isLoggedIn ? ScreenNames.MainBottomTab : ScreenNames.AuthStack
-        }
-        screenOptions={{
-          headerShown: false,
-          presentation: 'transparentModal',
-        }}>
-        <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
-        <Stack.Screen
-          name={ScreenNames.MainBottomTab}
-          component={MainBottomTab}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      initialRouteName={
+        isLoggedIn ? ScreenNames.MainBottomTab : ScreenNames.AuthStack
+      }
+      screenOptions={{
+        headerShown: false,
+        presentation: 'transparentModal',
+      }}>
+      <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
+      <Stack.Screen
+        name={ScreenNames.MainBottomTab}
+        component={MainBottomTab}
+      />
+    </Stack.Navigator>
   );
 }

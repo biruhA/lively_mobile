@@ -40,3 +40,4 @@ export * from './SettingsScreenHeader';
 export * from './MedicineSections';
 export * from './DiscountStoreCard';
 export * from './Carousel1Centered';
+export * from './SettingUerProfile';

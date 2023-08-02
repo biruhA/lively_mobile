@@ -12,10 +12,7 @@ import {LoginSheet} from '../sheets';
 
 export function HomeScreenHeader() {
   const {token, user, isLoggedIn} = useAppSelector(state => state.auth);
-  console.log(
-    '🚀 ~ file: HomeScreenHeader.tsx:15 ~ HomeScreenHeader ~ user:',
-    user,
-  );
+
   const navigation = useNavigation();
   const {isOpen, onClose, onOpen} = useDisclose();
 
@@ -42,7 +39,12 @@ export function HomeScreenHeader() {
                 onOpen();
               }
               if (isLoggedIn) {
-                navigation.navigate(ScreenNames.Notification);
+                if (!isLoggedIn) {
+                  onOpen();
+                }
+                if (isLoggedIn) {
+                  navigation.navigate(ScreenNames.Notification);
+                }
               }
             }}
           />

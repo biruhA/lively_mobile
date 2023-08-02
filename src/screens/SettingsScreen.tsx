@@ -16,19 +16,18 @@ import {
   Spinner,
   useToast,
 } from 'native-base';
-import {SettingsScreenHeader} from '../components/organisms';
+import {SettingUerProfile, SettingsScreenHeader} from '../components/organisms';
 import {SettingItems} from '../components/molecules';
 import {colors} from '../theme/colors';
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
-import help from '../assets/icons/settingIcons/Help.png';
+import help from '../assets/icons/settingIcons/help.png';
 import privacy from '../assets/icons/settingIcons/privacy.png';
 import lively_logo from '../assets/images/lively_logo.png';
 import lang from '../assets/icons/settingIcons/lang.png';
-import logout from '../assets/icons/settingIcons/Logout.png';
+import logout from '../assets/icons/settingIcons/logout.png';
 import {ScreenNames} from '../constants';
 import {fonts} from '../theme/fonts';
 import {useLogoutMutation, useProfileQuery} from '../store/services';
@@ -41,8 +40,7 @@ const {useRealm, useQuery} = Context;
 
 export function SettingsScreen() {
   const navigation = useNavigation();
-  const [isVisible, setIsVisible] = useState(false);
-  const {token} = useAppSelector(state => state.auth);
+  const {token, isLoggedIn} = useAppSelector(state => state.auth);
   const dispatch = useAppDispatch();
   const {data, isLoading} = useProfileQuery(token);
   const [Logout, result] = useLogoutMutation();
@@ -68,88 +66,12 @@ export function SettingsScreen() {
   }
 
   return (
-    <Stack style={{backgroundColor: '#E3EBEB'}} h={'full'}>
+    <Stack style={{backgroundColor: '#E3EBEB'}} flex={1}>
       <View w={'full'}>
         <SettingsScreenHeader />
       </View>
-      <ScrollView>
-        {isLoading ? (
-          <Center
-            my={2}
-            bg={colors.pureWhite}
-            borderRadius={12}
-            shadow={'0.5'}
-            mx={3}
-            px={4}
-            py={16}
-            space={2}>
-            <Spinner />
-          </Center>
-        ) : (
-          <Stack
-            my={2}
-            bg={colors.pureWhite}
-            borderRadius={12}
-            shadow={'0.5'}
-            mx={3}
-            px={4}
-            py={4}
-            space={2}>
-            <Center>
-              <VStack
-                space={2}
-                alignItems={{
-                  base: 'center',
-                  md: 'flex-start',
-                }}>
-                <HStack paddingLeft={'40%'}>
-                  <Avatar
-                    bg="cyan.500"
-                    size="lg"
-                    source={{
-                      uri: data?.data?.profile_photo_url,
-                    }}
-                  />
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate(ScreenNames.EditProfileScreen)
-                    }>
-                    <Badge
-                      bg={colors.primary}
-                      alignSelf={'flex-start'}
-                      marginLeft={'40%'}
-                      borderRadius={10}
-                      height={7}
-                      colorScheme={colors.pureWhite}>
-                      <HStack style={styles.editButton}>
-                        <Icon
-                          name="pencil"
-                          size={15}
-                          color={colors.pureWhite}
-                        />
-                        <Text style={styles.editText}>Edit</Text>
-                      </HStack>
-                    </Badge>
-                  </TouchableOpacity>
-                </HStack>
-
-                <Text style={styles.userFullnameText}>{data?.data?.name}</Text>
-
-                <Text style={styles.userInfoText}>{data?.data?.email}</Text>
-                <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
-                  <View>
-                    <Text style={styles.userInfoText}>
-                      {isVisible
-                        ? `+${data?.data?.phone}`
-                        : `+251 *******${data?.data?.phone.substring(10, 12)}`}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </VStack>
-            </Center>
-          </Stack>
-        )}
-
+      <ScrollView style={{padding: 5}}>
+        <SettingUerProfile />
         <Stack
           my={2}
           bg={colors.pureWhite}
@@ -159,40 +81,28 @@ export function SettingsScreen() {
           px={4}
           py={4}
           space={4}>
-          <>
-            <LanguagesList />
-          </>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate(ScreenNames.PrivacyScreen)}>
-            <SettingItems item_icon={privacy} title="Privacy" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => navigation.navigate(ScreenNames.HelpScreen)}>
-            <SettingItems item_icon={help} title="Help" />
-          </TouchableOpacity>
+          <LanguagesList />
+          <SettingItems
+            item_icon={privacy}
+            title="Privacy"
+            onPress={() => navigation.navigate(ScreenNames.PrivacyScreen)}
+          />
+          <SettingItems
+            item_icon={help}
+            title="Help"
+            onPress={() => navigation.navigate(ScreenNames.HelpScreen)}
+          />
           <SettingItems item_icon={faq} title="FAQ" />
           <SettingItems item_icon={about} title="About" />
-          <TouchableOpacity onPress={logoutHandler}>
-            <HStack
-              justifyContent="space-between"
-              alignItems="center"
-              w="100%"
-              bg={colors.pureWhite}
-              maxW="350">
-              <HStack space={2}>
-                {result?.isLoading ? (
-                  <Spinner />
-                ) : (
-                  <Image source={logout} alt="Alternate Text" size="24px" />
-                )}
-                <Text fontSize="md">Logout</Text>
-              </HStack>
-            </HStack>
-          </TouchableOpacity>
+          {isLoggedIn && (
+            <SettingItems
+              item_icon={logout}
+              title="Logout"
+              onPress={logoutHandler}
+              isLoading={result?.isLoading}
+            />
+          )}
         </Stack>
-
         <Center paddingTop={20}>
           <HStack space={2}>
             <Avatar bg="cyan.500" size="40px" source={lively_logo} />

@@ -1,8 +1,14 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
-import {PlaceDetails, PlacePharmacyDetail, PlaceScreen} from '../screens';
+import {
+  PlaceDetails,
+  PlacePharmacyDetail,
+  PlaceScreen,
+  ProductDetailScreen,
+} from '../screens';
 import {HomeStackParamList} from '../constants/HomeStackParamList';
+import {StoresScreen} from '../screens/StoresScreen';
 
 //TODO change AuthStackParamList
 const Stack = createStackNavigator<HomeStackParamList>();
@@ -19,6 +25,11 @@ export const PlaceStack = () => {
         name={ScreenNames.PlacePharmacyDetail}
         component={PlacePharmacyDetail}
       />
+      {/* <Stack.Screen
+        name={ScreenNames.ProductDetailScreen}
+        component={ProductDetailScreen}
+      />
+      <Stack.Screen name={ScreenNames.StoresScreen} component={StoresScreen} /> */}
     </Stack.Navigator>
   );
 };

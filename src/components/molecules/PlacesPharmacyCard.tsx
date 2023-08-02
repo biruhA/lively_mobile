@@ -43,7 +43,12 @@ export function PlacesPharmacyCard({
             onOpen();
           }
           if (isLoggedIn) {
-            navigation.navigate(ScreenNames.PlaceDetails, {id});
+            if (!isLoggedIn) {
+              onOpen();
+            }
+            if (isLoggedIn) {
+              navigation.navigate(ScreenNames.PlaceDetails, {id});
+            }
           }
         }}>
         <HStack alignItems={'center'} space={4} justifyContent={'flex-start'}>
@@ -82,14 +87,12 @@ export function PlacesPharmacyCard({
           </Stack>
         </HStack>
       </TouchableOpacity>
-      {/* {!isLoggedIn && ( */}
       <LoginSheet
         isOpen={isOpen}
         onClose={onClose}
         action={ScreenNames.PlaceDetails}
         payload={id}
       />
-      {/* )} */}
     </Stack>
   );
 }

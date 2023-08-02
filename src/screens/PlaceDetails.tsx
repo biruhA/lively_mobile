@@ -12,6 +12,7 @@ import {
   Image,
   VStack,
   Badge,
+  Spinner,
 } from 'native-base';
 import {colors} from '../theme/colors';
 import {
@@ -35,9 +36,6 @@ import {usePlaceDetailQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 
-const imageUrl =
-  'https://www.holidify.com/images/cmsuploads/compressed/Bangalore_citycover_20190613234056.jpg';
-
 export function PlaceDetails() {
   const route = useRoute();
   const navigation = useNavigation();
@@ -49,14 +47,17 @@ export function PlaceDetails() {
     longitude: userLocation?.lon,
     token,
   });
-
   console.log(
-    '🚀 ~ file: PlaceDetails.tsx:43 ~ PlaceDetails ~ data:',
+    '🚀 ~ file: PlaceDetails.tsx:50 ~ PlaceDetails ~ data:',
     data?.data?.products?.data,
   );
 
-  function onPressHandler() {
-    navigation.navigate(navTo, {label});
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
   }
 
   return (
@@ -64,51 +65,60 @@ export function PlaceDetails() {
       <Stack p={4} bg={'white'}>
         <PlaceDetailsHeader />
       </Stack>
-      <Stack bg={colors.pureWhite} h={5} w={'100%'} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Box pb={4}>
-          <AspectRatio w="100%" ratio={16 / 9}>
+        <Stack bg={colors.pureWhite} h={5} w={'100%'} />
+        <Stack mb={16}>
+          {data?.data?.cover_image?.url ? (
             <Image
-              source={
-                data?.data?.cover_image
-                  ? {
-                      uri: data?.data?.cover_image,
-                    }
-                  : require('../assets/images/Placeholder.png')
-              }
+              source={{
+                uri: data?.data?.cover_image?.url,
+              }}
+              alt="image"
+              w={'100%'}
+              h={220}
+              resizeMode="cover"
+              bg={'whitesmoke'}
+            />
+          ) : (
+            <Image
+              source={require('../assets/images/Placeholder.png')}
               alt="image"
               w={'100%'}
               h={220}
               resizeMode="cover"
             />
-          </AspectRatio>
-          <HStack>
-            <Center position="absolute" pl={8} bottom="0" py={4}>
-              <AspectRatio ratio={3 / 5}>
-                <Avatar
-                  size={'72px'}
-                  source={
-                    data?.data?.store?.store_logo?.url
-                      ? {
-                          uri: data?.data?.store?.store_logo?.url,
-                        }
-                      : require('../assets/images/Placeholder.png')
-                  }>
-                  AJ
-                </Avatar>
-              </AspectRatio>
-            </Center>
+          )}
+          <HStack
+            alignItems={'center'}
+            space={4}
+            position={'absolute'}
+            bottom={-65}
+            left={4}
+            zIndex={2}>
+            <Image
+              borderColor={'whitesmoke'}
+              borderWidth={1}
+              source={{
+                uri: data?.data?.store?.store_logo?.url,
+              }}
+              w={77}
+              h={77}
+              rounded={'full'}
+              resizeMode="contain"
+              alt="store_logo"
+            />
+            <Stack>
+              <Heading size="md" color={'black'}>
+                {data?.data?.name?.english}
+              </Heading>
+              <HStack space={1}>
+                <Image source={location} alt="Alternate Text" boxSize={4} />
+                <Text>{data?.data?.distance} Away</Text>
+              </HStack>
+            </Stack>
           </HStack>
-          <Stack style={{marginLeft: '30%', paddingTop: 5}}>
-            <Heading size="md" color={'black'}>
-              {data?.data?.name?.english}
-            </Heading>
-            <HStack space={1}>
-              <Image source={location} alt="Alternate Text" boxSize={4} />
-              <Text>{data?.data?.distance} Away</Text>
-            </HStack>
-          </Stack>
-        </Box>
+        </Stack>
+
         <Stack px={4} bg={'white'}>
           <Stack
             mt={4}
@@ -158,104 +168,16 @@ export function PlaceDetails() {
             }}
             renderItem={({item}) => (
               <ProductCard
-                imageUrl={item?.product_images?.[0]?.url}
-                item={item.title?.english}
-                volume={item.additional_information?.Weight}
-                amount={item.from}
+                id={item.id}
+                imageUrl={item?.product_variant?.product_images?.url}
+                item={item?.product_variant?.product?.title?.english}
+                volume={item?.product_variant?.value?.english}
+                amount={item.price}
                 mainStyle={{width: '47%', marginBottom: 12}}
               />
             )}
             keyExtractor={(item: Props) => item.id}
           />
-          {/* <Stack
-          my={1}
-          mr={3}
-          padding={3}
-          bg="white"
-          rounded={'md'}
-          w={'100%'}
-          borderColor={colors.grey}
-          borderWidth={0.1}
-          overflow={'hidden'}>
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <Text style={{color: colors.greyText}}> Rating emojis </Text>
-          </HStack>
-        </Stack> */}
-
-          {/* <Stack
-          my={1}
-          mr={3}
-          padding={3}
-          bg="white"
-          rounded={'md'}
-          w={'100%'}
-          borderColor={colors.grey}
-          borderWidth={0.1}
-          overflow={'hidden'}>
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <HStack space={6}>
-              <Heading
-                size="xs"
-                style={{color: colors.pureBlack, paddingTop: 10}}>
-                4.5
-              </Heading>
-              <VStack>
-                <Image source={faceHappy} alt="search" size="24px" />
-                <Text style={{color: colors.greyText}}>Based on 35 user</Text>
-              </VStack>
-            </HStack>
-          </HStack>
-        </Stack> */}
-
-          {/* <Stack
-          my={1}
-          mr={3}
-          padding={3}
-          bg="white"
-          rounded={'md'}
-          w={'100%'}
-          borderColor={colors.grey}
-          borderWidth={0.1}
-          overflow={'hidden'}>
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <HStack space={4}>
-              <Avatar
-                size={'52px'}
-                source={{
-                  uri: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80',
-                }}>
-                AJ
-              </Avatar>
-              <VStack>
-                <Text style={{color: colors.greyText}}>
-                  Lemma Kebede | 4 emjoi
-                </Text>
-                <Text style={{color: colors.greyText}}>Jul 24/2023</Text>
-                <Text maxW="300" w="80%" style={{color: colors.greyText}}>
-                  The researchers performed eye exams just before & five
-                  minutes....
-                </Text>
-              </VStack>
-            </HStack>
-          </HStack>
-        </Stack> */}
-
-          {/* <Stack
-          my={1}
-          mr={3}
-          padding={1}
-          bg="white"
-          rounded={'md'}
-          w={'100%'}
-          overflow={'hidden'}>
-          <Center>
-            <TouchableOpacity onPress={onPressHandler}>
-              <Text style={{color: colors.primary}}> See More </Text>
-            </TouchableOpacity>
-          </Center>
-        </Stack> */}
-
-          {/* <SearchBar placeholder="Search for products" /> */}
         </Stack>
       </ScrollView>
       <HStack position={'absolute'} bottom={0} p={2} bg={'white'}>

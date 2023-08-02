@@ -1,21 +1,45 @@
 import React from 'react';
-import {ChevronRightIcon, Divider, HStack, Image, Text} from 'native-base';
+import {TouchableOpacity} from 'react-native';
+import {
+  Center,
+  ChevronRightIcon,
+  Divider,
+  HStack,
+  Image,
+  Spinner,
+  Text,
+} from 'native-base';
 
-export function SettingItems({item_icon, title}: any) {
+interface Props {
+  item_icon?: string;
+  title: string;
+  onPress?: any;
+  isLoading?: boolean;
+}
+
+export function SettingItems({item_icon, title, onPress, isLoading}: Props) {
   return (
-    <>
+    <TouchableOpacity onPress={onPress}>
       <HStack
         justifyContent="space-between"
         alignItems="center"
         w="100%"
         maxW="350">
         <HStack space={2}>
-          <Image
-            source={item_icon}
-            alt="Alternate Text"
-            size="24px"
-            rounded={'full'}
-          />
+          {isLoading ? (
+            <Center>
+              <Spinner />
+            </Center>
+          ) : (
+            item_icon && (
+              <Image
+                source={item_icon}
+                alt="Alternate Text"
+                size="24px"
+                rounded={'full'}
+              />
+            )
+          )}
           <Text fontSize="md">{title}</Text>
         </HStack>
         <HStack>
@@ -23,6 +47,6 @@ export function SettingItems({item_icon, title}: any) {
         </HStack>
       </HStack>
       <Divider marginTop={1} bg={'#E6E6E6'} thickness="1" />
-    </>
+    </TouchableOpacity>
   );
 }

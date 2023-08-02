@@ -15,6 +15,7 @@ import {store} from './src/store';
 import {colors} from './src/theme/colors';
 import SplashScreen from 'react-native-splash-screen';
 import {LogBox} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 
 //TODO remove this log before build
 LogBox.ignoreLogs([
@@ -35,9 +36,11 @@ function App(): JSX.Element {
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
       <RealmProvider>
         <Provider store={store}>
-          <NativeBaseProvider>
-            <Navigation />
-          </NativeBaseProvider>
+          <NavigationContainer>
+            <NativeBaseProvider>
+              <Navigation />
+            </NativeBaseProvider>
+          </NavigationContainer>
         </Provider>
       </RealmProvider>
     </SafeAreaView>

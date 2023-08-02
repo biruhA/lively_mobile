@@ -27,7 +27,7 @@ import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {useLoginMutation} from '../store/services';
-import {rememberMe, rememberUser} from '../store/features/authSlice';
+import {rememberUser} from '../store/features/authSlice';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
 
@@ -40,7 +40,7 @@ interface Form {
 
 export function WelcomeBackScreen() {
   const [show, setShow] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const navigation = useNavigation();
   const [login, result] = useLoginMutation();
   const toast = useToast();
@@ -197,6 +197,7 @@ export function WelcomeBackScreen() {
         <Stack space={8} pt={2}>
           <HStack alignItems={'center'} justifyContent={'space-between'}>
             <Checkbox
+              isChecked={rememberMe}
               colorScheme={'green'}
               value="one"
               size={'sm'}
@@ -214,6 +215,7 @@ export function WelcomeBackScreen() {
             <Text style={styles.notRegistered}>Not Registered Yet? </Text>
             <TouchableOpacity
               onPress={() => {
+                navigation.navigate(ScreenNames.CreateAccount);
                 navigation.navigate(ScreenNames.CreateAccount);
               }}>
               <Text style={styles.forgot}>Create an Account</Text>
