@@ -12,7 +12,6 @@ import {LoginSheet} from '../sheets';
 
 export function HomeScreenHeader() {
   const {token, user, isLoggedIn} = useAppSelector(state => state.auth);
-
   const navigation = useNavigation();
   const {isOpen, onClose, onOpen} = useDisclose();
 
