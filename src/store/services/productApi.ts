@@ -13,8 +13,12 @@ export const productApi = createApi({
       }),
     }),
     collectionDetail: build.query({
-      query: id => ({
+      query: ({id, latitude, longitude}) => ({
         url: `collection-detail/${id}`,
+        params: {
+          latitude,
+          longitude,
+        },
       }),
     }),
     productList: build.query({

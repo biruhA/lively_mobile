@@ -42,12 +42,12 @@ export function SettingUerProfile() {
   }
 
   return (
-    <View>
+    <View style={{marginHorizontal: 10, marginTop: 4}}>
       {!isLoggedIn ? (
         <Stack
           my={2}
           bg={colors.pureWhite}
-          borderRadius={12}
+          borderRadius={8}
           shadow={'0.5'}
           mx={3}
           p={4}

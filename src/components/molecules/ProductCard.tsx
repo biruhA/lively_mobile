@@ -34,13 +34,13 @@ export function ProductCard({
 
   return (
     <Stack
-      my={1}
-      ml={1}
+      pb={2}
       mr={3}
-      bg="white"
+      bg={'white'}
       rounded={'md'}
       w={150}
       h={190}
+      overflow={'hidden'}
       style={[styles.main, mainStyle]}>
       <TouchableOpacity
         onPress={() => {
@@ -50,10 +50,10 @@ export function ProductCard({
           }
           navigation.navigate(ScreenNames.ProductDetailScreen);
         }}>
-        <Stack overflow={'hidden'}>
-          <Box position={'absolute'} zIndex={1} top={0} right={0}>
+        <Stack>
+          {/* <Box position={'absolute'} zIndex={1} top={0} right={0}>
             <HeartIcon />
-          </Box>
+          </Box> */}
           <FastImage
             style={{width: '100%', height: 95}}
             source={{

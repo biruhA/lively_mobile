@@ -13,10 +13,10 @@ export function PlaceDetailsHeader() {
       <HStack alignItems={'center'} space={2}>
         <GoBack label="Place Details" />
       </HStack>
-      <HStack alignItems={'center'} space={5}>
+      {/* <HStack alignItems={'center'} space={5}>
         <Image source={heart} alt="searchBlack" size="20px" />
         <Image source={share} alt="Alternate Text" size="24px" />
-      </HStack>
+      </HStack> */}
     </HStack>
   );
 }

@@ -6,13 +6,13 @@ import bell from '../../assets/icons/bell.png';
 import cart from '../../assets/icons/cart.png';
 import TouchableIcon from '../atoms/TouchableIcon';
 import {useNavigation} from '@react-navigation/native';
-import {LoginSheetState, ScreenNames} from '../../constants';
+import {ScreenNames} from '../../constants';
 import {useAppSelector} from '../../store/hooks';
 import {LoginSheet} from '../sheets';
+import {NotificationButton} from '../atoms';
 
 export function HomeScreenHeader() {
-  const {token, user, isLoggedIn} = useAppSelector(state => state.auth);
-  const navigation = useNavigation();
+  const {user} = useAppSelector(state => state.auth);
   const {isOpen, onClose, onOpen} = useDisclose();
 
   return (
@@ -24,44 +24,14 @@ export function HomeScreenHeader() {
         justifyContent={'space-between'}
         py={4}>
         <Text style={fonts.subtitle1}>HI {user?.name || ''} 👋</Text>
-        <HStack alignItems={'center'} space={5}>
-          <TouchableIcon
-            image={require('../../assets/icons/language.png')}
-            boxSize={5}
-            onPress={() => {}}
-          />
-          <TouchableIcon
-            image={require('../../assets/icons/bell.png')}
-            boxSize={5}
-            onPress={() => {
-              if (!isLoggedIn) {
-                onOpen();
-              }
-              if (isLoggedIn) {
-                if (!isLoggedIn) {
-                  onOpen();
-                }
-                if (isLoggedIn) {
-                  navigation.navigate(ScreenNames.Notification);
-                }
-              }
-            }}
-          />
-          <TouchableIcon
-            image={require('../../assets/icons/heart-bold.png')}
-            boxSize={5}
-            onPress={() => {}}
-          />
-        </HStack>
+        <NotificationButton onOpen={onOpen} />
       </HStack>
-      {/* {!isLoggedIn && ( */}
       <LoginSheet
         isOpen={isOpen}
         onClose={onClose}
         action={ScreenNames.Notification}
         payload=""
       />
-      {/* )} */}
     </>
   );
 }

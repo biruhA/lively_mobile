@@ -1,50 +1,69 @@
 import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Stack, Text, Image, VStack} from 'native-base';
+import {
+  Stack,
+  Text,
+  Image,
+  VStack,
+  useToast,
+  Spinner,
+  Center,
+} from 'native-base';
 import {colors} from '../theme/colors';
 import {IconOnlyHeader} from '../components/molecules';
 import {fonts} from '../theme/fonts';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {useCollectionDetailQuery} from '../store/services';
-import {GradientButton} from '../components/atoms';
+import {GoBack, GradientButton} from '../components/atoms';
 import {ScreenNames} from '../constants';
+import {useAppSelector} from '../store/hooks';
+import FastImage from 'react-native-fast-image';
 
 export function CollectionDetailScreen() {
   const route = useRoute();
   const navigation = useNavigation();
-  const {data, isLoading} = useCollectionDetailQuery(route?.params?.id);
+  const {userLocation} = useAppSelector(state => state.search);
+  const {data, isLoading} = useCollectionDetailQuery({
+    id: route?.params?.id,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+  });
+  const toast = useToast();
+
+  console.log(
+    '🚀 ~ file: CollectionDetailScreen.tsx:24 ~ CollectionDetailScreen ~ data:',
+    data,
+  );
+
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
 
   function onBuyPress() {
-    navigation.navigate(ScreenNames.CheckoutScreen);
+    // navigation.navigate(ScreenNames.CheckoutScreen);
+    toast.show({
+      description: 'Coming Soon: Buy Collections on the Lively! Stay tuned!',
+    });
   }
 
   return (
     <Stack flex={1} bg={colors.pureWhite}>
       <Stack p={4} bg={'white'}>
-        <IconOnlyHeader
-          iconL={require('../assets/icons/heart-bold.png')}
-          iconR={require('../assets/icons/share.png')}
-          onPressL={() => {
-            console.log('cat');
-          }}
-          onPressR={() => {}}
-        />
+        <GoBack label="" />
       </Stack>
       <ScrollView>
         <Stack flex={1} space={4} p={4}>
           <Stack>
-            <Image
+            <FastImage
+              style={{width: '100%', height: 200, ...styles.main}}
               source={{
                 uri: data?.data?.collection_image?.url,
               }}
-              alt="Alternate Text"
-              rounded={'lg'}
-              w={'100%'}
-              h={200}
               resizeMode={'cover'}
-              borderWidth={2}
-              borderColor={'white'}
-              style={styles.main}
             />
           </Stack>
           <Stack bg={'white'} space={2} borderRadius={'lg'} px={2} py={4}>
@@ -76,12 +95,11 @@ export function CollectionDetailScreen() {
                     rounded={'md'}
                     bg={'white'}
                     space={2}>
-                    <Image
+                    <FastImage
+                      style={{width: 184, height: 184}}
                       source={{
                         uri: item?.product?.product_image?.url,
                       }}
-                      alt="Alternate Text"
-                      boxSize={184}
                       resizeMode={'cover'}
                     />
                     <Text style={fonts.body1}>
@@ -113,5 +131,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     overflow: 'hidden',
+    borderRadius: 8,
   },
 });

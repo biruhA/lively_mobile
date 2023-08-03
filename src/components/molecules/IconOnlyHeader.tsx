@@ -19,10 +19,10 @@ export function IconOnlyHeader({iconL, iconR, onPressL, onPressR}: Porps) {
   return (
     <HStack justifyContent={'space-between'} alignItems={'center'} pt={2}>
       <GoBack label={route?.params?.label || ''} />
-      <HStack space={4} alignItems={'center'}>
+      {/* <HStack space={4} alignItems={'center'}>
         <TouchableIcon image={iconL} boxSize={5} onPress={onPressL} />
         <TouchableIcon image={iconR} onPress={onPressR} />
-      </HStack>
+      </HStack> */}
     </HStack>
   );
 }

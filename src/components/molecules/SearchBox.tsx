@@ -11,9 +11,10 @@ import {ScreenNames} from '../../constants';
 interface Props {
   mainStyle?: object;
   onCamPress: any;
+  hasCamera?: boolean;
 }
 
-export function SearchBox({mainStyle, onCamPress}: Props) {
+export function SearchBox({mainStyle, onCamPress, hasCamera}: Props) {
   const navigation = useNavigation();
   return (
     <Stack bg={'white'} style={[mainStyle]}>
@@ -28,14 +29,16 @@ export function SearchBox({mainStyle, onCamPress}: Props) {
           <Text style={[fonts.body1, styles.ellipsis]} noOfLines={1}>
             Search for a products, articles, Pharmacies
           </Text>
-          <TouchableOpacity onPress={onCamPress}>
-            <Image
-              source={cameraSearch}
-              alt="camera search"
-              size="24px"
-              ml={1}
-            />
-          </TouchableOpacity>
+          {hasCamera && (
+            <TouchableOpacity onPress={onCamPress}>
+              <Image
+                source={cameraSearch}
+                alt="camera search"
+                size="24px"
+                ml={1}
+              />
+            </TouchableOpacity>
+          )}
         </HStack>
       </TouchableOpacity>
     </Stack>

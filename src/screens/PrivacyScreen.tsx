@@ -108,87 +108,68 @@ function DeleteAccount() {
           <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
         </HStack>
       </TouchableOpacity>
-      <Stack w={'100%'}>
-        <TouchableOpacity onPress={onOpen}>
+      <Actionsheet
+        isOpen={isOpen}
+        onClose={onClose}
+        size="full"
+        hideDragIndicator={true}>
+        <Actionsheet.Content>
           <HStack
             justifyContent="space-between"
             alignItems="center"
+            w="100%"
             bg={colors.pureWhite}>
-            <Text fontSize="md">Delete Account</Text>
-            <ChevronRightIcon size="5" mt="0.5" alignSelf="flex-end" />
+            <Text
+              fontSize="md"
+              style={fonts.heading6}
+              w={'98%'}
+              noOfLines={2}
+              px={2}
+              py={6}>
+              Are you sure do you want to delete your account?
+            </Text>
           </HStack>
-        </TouchableOpacity>
 
-        <Actionsheet
-          isOpen={isOpen}
-          onClose={onClose}
-          size="full"
-          hideDragIndicator={true}>
-          <Actionsheet.Content>
-            <HStack
-              justifyContent="space-between"
-              alignItems="center"
-              w="100%"
-              bg={colors.pureWhite}>
-              <Text
-                fontSize="md"
-                style={fonts.heading6}
-                w={'98%'}
-                noOfLines={2}
-                px={2}
-                py={6}>
-                Are you sure do you want to delete your account?
-              </Text>
-            </HStack>
-
-            <ScrollView style={{width: '96%'}}>
-              <HStack space={5} justifyContent="center">
-                <Box w="40%" h={60}>
-                  <TouchableOpacity onPress={onClose}>
-                    <Badge
-                      bg={colors.unselected}
-                      alignSelf={'flex-start'}
-                      borderRadius={8}
-                      width="100%"
-                      height={35}
-                      colorScheme={colors.pureWhite}>
-                      <Text color={colors.pureBlack} fontSize={16}>
-                        Cancel
+          <ScrollView style={{width: '96%'}}>
+            <HStack space={5} justifyContent="center">
+              <Box w="40%" h={60}>
+                <TouchableOpacity onPress={onClose}>
+                  <Badge
+                    bg={colors.unselected}
+                    alignSelf={'flex-start'}
+                    borderRadius={8}
+                    width="100%"
+                    height={35}
+                    colorScheme={colors.pureWhite}>
+                    <Text color={colors.pureBlack} fontSize={16}>
+                      Cancel
+                    </Text>
+                  </Badge>
+                </TouchableOpacity>
+              </Box>
+              <Box w="40%" h={60}>
+                <TouchableOpacity onPress={deleteHandler}>
+                  <Badge
+                    bg={result?.isLoading ? colors.unselected : colors.error}
+                    alignSelf={'flex-start'}
+                    borderRadius={8}
+                    width="100%"
+                    height={35}
+                    colorScheme={colors.pureWhite}>
+                    {result?.isLoading ? (
+                      <Spinner size={'sm'} />
+                    ) : (
+                      <Text color={colors.pureWhite} fontSize={16}>
+                        Delete
                       </Text>
-                    </Badge>
-                  </TouchableOpacity>
-                </Box>
-                <Box w="40%" h={60}>
-                  <TouchableOpacity onPress={deleteHandler}>
-                    <Badge
-                      bg={result?.isLoading ? colors.unselected : colors.error}
-                      alignSelf={'flex-start'}
-                      borderRadius={8}
-                      width="100%"
-                      height={35}
-                      colorScheme={colors.pureWhite}>
-                      {result?.isLoading ? (
-                        <Spinner size={'sm'} />
-                      ) : (
-                        <Text color={colors.pureWhite} fontSize={16}>
-                          Delete
-                        </Text>
-                      )}
-                      {result?.isLoading ? (
-                        <Spinner size={'sm'} />
-                      ) : (
-                        <Text color={colors.pureWhite} fontSize={16}>
-                          Delete
-                        </Text>
-                      )}
-                    </Badge>
-                  </TouchableOpacity>
-                </Box>
-              </HStack>
-            </ScrollView>
-          </Actionsheet.Content>
-        </Actionsheet>
-      </Stack>
+                    )}
+                  </Badge>
+                </TouchableOpacity>
+              </Box>
+            </HStack>
+          </ScrollView>
+        </Actionsheet.Content>
+      </Actionsheet>
     </Stack>
   );
 }

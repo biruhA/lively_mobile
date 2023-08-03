@@ -17,6 +17,7 @@ import {useStoreDetailByIdQuery} from '../../store/services';
 
 export function StoreSheetBody2() {
   const {isOpen, onOpen, onClose} = useDisclose();
+  const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
   const {selectedProduct} = useAppSelector(state => state.product);
@@ -24,6 +25,7 @@ export function StoreSheetBody2() {
     id: selectedStoreId,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
+    token,
   });
 
   if (isLoading) {
@@ -103,10 +105,6 @@ const Data = [
 ];
 
 function ContactAddress({data}) {
-  console.log(
-    '🚀 ~ file: StoreSheetBody2.tsx:110 ~ ContactAddress ~ data:',
-    data,
-  );
   return (
     <Stack borderWidth={1} borderColor={colors.border} p={2} borderRadius={8}>
       <Text style={[fonts.subtitle2, {color: 'black', paddingBottom: 5}]}>
@@ -139,12 +137,17 @@ function ContactAddress({data}) {
 }
 
 function onPress(item, data) {
+  console.log(
+    '🚀 ~ file: StoreSheetBody2.tsx:144 ~ onPress ~ item, data:',
+    item,
+    data,
+  );
   switch (item) {
     case 'Phone Number':
       let phoneNumber = '';
 
       if (Platform.OS === 'android') {
-        phoneNumber = 'tel:${1234567890}';
+        phoneNumber = 'tel:${data?.phone}';
       } else {
         phoneNumber = 'telprompt:${data?.phone}';
       }

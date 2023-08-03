@@ -25,6 +25,10 @@ export function RecommendedStoresSection() {
     longitude: userLocation?.lon,
   });
 
+  if (!isLoading && data?.data.length === 0) {
+    return <></>;
+  }
+
   return (
     <Stack p={4}>
       <Text style={fonts.subtitle1}>Recommended Stores</Text>

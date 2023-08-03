@@ -45,7 +45,7 @@ export function AddEmailScreen() {
       });
     } else {
       realm.write(() => {
-        onboarding[0].rememberMe = false;
+        onboarding[0].rememberMe = true;
       });
     }
   }, [realm, onboarding]);

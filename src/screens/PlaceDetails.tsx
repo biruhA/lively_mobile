@@ -35,6 +35,7 @@ import call from '../assets/icons/phone.png';
 import {usePlaceDetailQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
+import FastImage from 'react-native-fast-image';
 
 export function PlaceDetails() {
   const route = useRoute();
@@ -47,10 +48,8 @@ export function PlaceDetails() {
     longitude: userLocation?.lon,
     token,
   });
-  console.log(
-    '🚀 ~ file: PlaceDetails.tsx:50 ~ PlaceDetails ~ data:',
-    data?.data?.products?.data,
-  );
+
+  console.log('🚀 ~ file: PlaceDetails.tsx:50 ~ PlaceDetails ~ data:', data);
 
   if (isLoading) {
     return (
@@ -69,15 +68,12 @@ export function PlaceDetails() {
         <Stack bg={colors.pureWhite} h={5} w={'100%'} />
         <Stack mb={16}>
           {data?.data?.cover_image?.url ? (
-            <Image
+            <FastImage
+              style={{width: '100%', height: 220}}
               source={{
                 uri: data?.data?.cover_image?.url,
               }}
-              alt="image"
-              w={'100%'}
-              h={220}
-              resizeMode="cover"
-              bg={'whitesmoke'}
+              resizeMode={'cover'}
             />
           ) : (
             <Image
@@ -109,7 +105,7 @@ export function PlaceDetails() {
             />
             <Stack>
               <Heading size="md" color={'black'}>
-                {data?.data?.name?.english}
+                {data?.data?.store?.name?.english} {data?.data?.name?.english}
               </Heading>
               <HStack space={1}>
                 <Image source={location} alt="Alternate Text" boxSize={4} />
@@ -160,7 +156,7 @@ export function PlaceDetails() {
           </Stack>
 
           <FlatList
-            style={{marginTop: 4}}
+            style={{marginTop: 16}}
             numColumns={2}
             data={data?.data?.products?.data}
             ListEmptyComponent={() => {
@@ -169,7 +165,7 @@ export function PlaceDetails() {
             renderItem={({item}) => (
               <ProductCard
                 id={item.id}
-                imageUrl={item?.product_variant?.product_images?.url}
+                imageUrl={item?.product_variant?.product_image?.url}
                 item={item?.product_variant?.product?.title?.english}
                 volume={item?.product_variant?.value?.english}
                 amount={item.price}
@@ -201,17 +197,15 @@ export function PlaceDetails() {
           mainStyle={{width: '47%'}}
           icon={call}
           variant={'flat'}
-          text={'Cal now'}
+          text={'Call now'}
           onPress={() => {
             let phoneNumber = data?.data?.store?.phone;
 
             if (Platform.OS === 'android') {
-              phoneNumber = 'tel:${phoneNumber}';
+              Linking.openURL(`tel:${phoneNumber}`);
             } else {
-              phoneNumber = 'telprompt:${phoneNumber}';
+              Linking.openURL(`telprompt:${phoneNumber}`);
             }
-
-            Linking.openURL(phoneNumber);
           }}
           isActive={false}
         />

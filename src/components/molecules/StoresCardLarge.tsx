@@ -7,6 +7,7 @@ import {colors} from '../../theme/colors';
 import {StoreSheet} from '../organisms';
 import {useAppDispatch} from '../../store/hooks';
 import {setStoreId} from '../../store/features/storeSlice';
+import FastImage from 'react-native-fast-image';
 
 interface Props {
   id: string;
@@ -29,6 +30,7 @@ export function StoresCardLarge({
   discountPresent,
   discountAmount,
 }: Props): JSX.Element {
+  console.log('🚀 ~ file: StoresCardLarge.tsx:33 ~ imageUrl:', imageUrl);
   const {isOpen, onOpen, onClose} = useDisclose();
   const dispatch = useAppDispatch();
 
@@ -47,13 +49,11 @@ export function StoresCardLarge({
           onOpen();
         }}>
         <HStack px={3} py={4} space={3} alignItems={'center'}>
-          <Image
+          <FastImage
+            style={{width: 121, height: 74}}
             source={{
               uri: imageUrl,
             }}
-            alt="Alternate Text"
-            w={121}
-            h={74}
             resizeMode={'contain'}
           />
           <Stack space={2}>

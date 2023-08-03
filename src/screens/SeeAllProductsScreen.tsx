@@ -80,7 +80,7 @@ export function SeeAllProductsScreen() {
       space={4}
       flex={1}
       bg={colors.pureWhite}
-      px={'16px'}
+      px={4}
       py={2}
       justifyContent={'center'}>
       <IconOnlyHeader
@@ -104,9 +104,9 @@ export function SeeAllProductsScreen() {
           }}
           renderItem={({item}) => (
             <ProductCard
-              imageUrl={item?.product_images?.[0]?.url}
+              imageUrl={item?.thumbnail?.url}
               item={item.title?.english}
-              volume={item.additional_information?.Weight}
+              volume={item.variant_count}
               amount={item.from}
               mainStyle={{width: '47%', marginBottom: 12}}
             />

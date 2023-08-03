@@ -13,11 +13,6 @@ const SLIDER_WIDTH = WIDTH;
 const ITEM_WIDTH = WIDTH;
 const ITEM_HEIGHT = 170;
 
-// const DATA: number[] = [];
-// for (let i = 0; i < 3; i++) {
-//   DATA.push(i);
-// }
-
 interface Props {
   image: string;
   title: string;
@@ -26,14 +21,14 @@ interface Props {
 
 const DATA: Props[] = [
   {
-    image: require('../../assets/images/onboarding1.png'),
-    title: 'No More Medicine Hassle.',
-    body: 'Upload prescriptions and locate near-by pharmacies that meet your needs with ease.',
-  },
-  {
     image: require('../../assets/images/onboarding2.png'),
     title: 'Treat Yourself Well.',
     body: 'Browse and buy curated bundles of personal-care products with exclusive discounts!',
+  },
+  {
+    image: require('../../assets/images/onboarding1.png'),
+    title: 'No More Medicine Hassle.',
+    body: 'Upload prescriptions and locate near-by pharmacies that meet your needs with ease.',
   },
   {
     image: require('../../assets/images/onboarding3.png'),

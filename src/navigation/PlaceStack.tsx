@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
 import {
+  NotificationScreen,
   PlaceDetails,
   PlacePharmacyDetail,
   PlaceScreen,
@@ -24,6 +25,10 @@ export const PlaceStack = () => {
       <Stack.Screen
         name={ScreenNames.PlacePharmacyDetail}
         component={PlacePharmacyDetail}
+      />
+      <Stack.Screen
+        name={ScreenNames.Notification}
+        component={NotificationScreen}
       />
       {/* <Stack.Screen
         name={ScreenNames.ProductDetailScreen}

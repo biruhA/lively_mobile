@@ -5,6 +5,7 @@ import {
   ArticleDetailScreen,
   BrowseScreen,
   EventDetailScreen,
+  NotificationScreen,
   SeeAllArticlesScreen,
   SeeAllPopularArticlesScreen,
   SeeAllTrendingArticlesScreen,
@@ -40,6 +41,10 @@ export const BrowseStack = () => {
       <Stack.Screen
         name={ScreenNames.SeeAllArticles}
         component={SeeAllArticlesScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.Notification}
+        component={NotificationScreen}
       />
     </Stack.Navigator>
   );

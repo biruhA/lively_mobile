@@ -1,9 +1,18 @@
 import React from 'react';
-import {Stack, Image, Pressable, Text} from 'native-base';
+import {Stack, Image, Pressable, Text, useToast} from 'native-base';
 import {fonts} from '../../theme/fonts';
 import rx_card from '../../assets/images/rx_card.png';
 
 export function Prescription() {
+  const toast = useToast();
+
+  function onPress() {
+    toast.show({
+      description:
+        'Coming Soon: Verify your Prescriptions using Lively! Stay tuned!',
+    });
+  }
+
   return (
     <Stack bg={'white'} p={4}>
       <Stack bg={'#E9F4EF'} rounded={'lg'} p={4} h={125}>
@@ -13,7 +22,7 @@ export function Prescription() {
         <Text style={fonts.caption} w={'75%'}>
           Upload your prescription & we will show you the medicines
         </Text>
-        <Pressable pt={2}>
+        <Pressable onPress={onPress} pt={2}>
           {({isPressed}) => {
             return (
               <Text

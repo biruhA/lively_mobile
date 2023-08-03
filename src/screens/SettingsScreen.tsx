@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
 });
 
 function LanguagesList() {
+  const toast = useToast();
   const {isOpen, onOpen, onClose} = useDisclose();
   return (
     <Center>
@@ -164,7 +165,7 @@ function LanguagesList() {
         size="full"
         hideDragIndicator={true}>
         <Actionsheet.Content>
-          <Box w="100%" h={30} px={4}>
+          <Box w="100%" h={60} p={4}>
             <HStack
               justifyContent="space-between"
               alignItems="center"
@@ -176,27 +177,17 @@ function LanguagesList() {
                   Language
                 </Text>
               </HStack>
-              <TouchableOpacity onPress={onClose}>
-                <HStack
-                  shadow={2}
-                  bg={colors.pureWhite}
-                  alignSelf={'flex-start'}
-                  borderRadius={15}
-                  borderColor={colors.error}
-                  width={30}
-                  height={30}
-                  colorScheme={colors.pureWhite}>
-                  <Text fontSize={20} paddingLeft={2}>
-                    X
-                  </Text>
-                </HStack>
-              </TouchableOpacity>
             </HStack>
           </Box>
 
           <ScrollView style={{width: '96%'}}>
             <Box w="100%" h={60} justifyContent="center">
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  toast.show({
+                    description: 'Amharic Coming Soon',
+                  });
+                }}>
                 <Badge
                   bg={colors.unselected}
                   alignSelf={'flex-start'}

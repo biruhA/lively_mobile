@@ -43,10 +43,10 @@ export function ForYouCard({id, name, imageUrl, list}: Props): JSX.Element {
               colors={['transparent', 'black']}
               style={styles.linearGradient}>
               <HStack
-                p={2}
+                p={3}
                 alignItems={'flex-end'}
                 justifyContent={'flex-start'}>
-                <VStack w={240}>
+                <VStack w={'75%'}>
                   <Text
                     color={colors.pureWhite}
                     fontWeight={'semibold'}

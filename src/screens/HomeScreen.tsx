@@ -49,6 +49,7 @@ export function HomeScreen() {
             <Stack space={3}>
               <HomeScreenHeader />
               <SearchBox
+                hasCamera={false}
                 mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
               />
               <Stack bg={'white'} pb={7} px={4}>
@@ -59,11 +60,6 @@ export function HomeScreen() {
                 )}
               </Stack>
               <Catalogue />
-              <Prescription />
-              <ProductList label="For Women" url="for-her" />
-              <ProductList label="For Men" url="for-him" />
-              <ForYou />
-              <TopArticles />
               <Stack bg={'white'} pb={7} px={4} py={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
@@ -90,8 +86,11 @@ export function HomeScreen() {
                   </Stack>
                 )}
               </Stack>
-              <ProductList label="For Mom & Baby" url="mom-and-baby" />
-              <ProductList label="For your Home Care" url="home-care" />
+              {/* <Prescription /> */}
+              <ForYou />
+              <TopArticles />
+              <ProductList label="For Women" url="for-her" />
+              <ProductList label="For Men" url="for-him" />
               <Stack bg={'white'} pb={7} px={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
@@ -99,6 +98,8 @@ export function HomeScreen() {
                   <Carousel2 Data={squareDiscountBanners?.data?.data} />
                 )}
               </Stack>
+              <ProductList label="For Mom & Baby" url="mom-and-baby" />
+              {/* <ProductList label="For your Home Care" url="home-care" /> */}
               <ProductList label="Food & Drinks" url="foods-and-drinks" />
             </Stack>
           );

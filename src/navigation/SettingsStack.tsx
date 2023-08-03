@@ -7,6 +7,7 @@ import {
   HelpScreen,
   ChangePasswordScreen,
   PrivacyScreen,
+  NotificationScreen,
 } from '../screens';
 import {HomeStackParamList} from '../constants/HomeStackParamList';
 
@@ -29,10 +30,13 @@ export const SettingsStack = () => {
         name={ScreenNames.ChangePasswordScreen}
         component={ChangePasswordScreen}
       />
-
       <Stack.Screen
         name={ScreenNames.PrivacyScreen}
         component={PrivacyScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.Notification}
+        component={NotificationScreen}
       />
     </Stack.Navigator>
   );

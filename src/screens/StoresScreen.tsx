@@ -24,7 +24,6 @@ export function StoresScreen() {
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
   });
-  console.log('🚀 ~ file: StoresScreen.tsx:27 ~ StoresScreen ~ data:', data);
 
   return (
     <Stack bg={colors.pureWhite} flex={1} px={4} py={2} space={3}>
@@ -41,7 +40,7 @@ export function StoresScreen() {
               id={item?.id}
               store={item?.store_name?.english}
               distance={item?.distance}
-              rating={item?.rating}
+              rating={item?.rating?.average}
               imageUrl={item?.store_logo?.url}
               price={item?.price}
               discountAmount={null}

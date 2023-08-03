@@ -15,3 +15,4 @@ export * from './PasswordIcon';
 export * from './QRImage';
 export * from './ButtonTabs';
 export * from './CarouselImage2';
+export * from './NotificationButton';

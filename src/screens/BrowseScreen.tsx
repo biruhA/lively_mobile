@@ -23,7 +23,9 @@ export function BrowseScreen() {
         <Stack space={4}>
           <BrowseScreenHeader />
           <SimpleArticleList />
-          <TrendingArticles />
+          <Stack px={4} pb={7} bg={'white'}>
+            <CarouselBrowseBottom Data={editorsPick?.data?.data} />
+          </Stack>
           {isLoading ? (
             <CarouselBrowseSkeleton />
           ) : (
@@ -31,10 +33,8 @@ export function BrowseScreen() {
               <CarouselBrowse Data={data?.data} />
             </Stack>
           )}
-          <PopularArticles />
-          <Stack px={4} pb={7} bg={'white'}>
-            <CarouselBrowseBottom Data={editorsPick?.data?.data} />
-          </Stack>
+          <TrendingArticles />
+          {/* <PopularArticles /> */}
           <LatestArticles />
         </Stack>
       </ScrollView>

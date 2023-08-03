@@ -16,7 +16,7 @@ export function NotificationScreen() {
 
   if (isLoading) {
     return (
-      <Center>
+      <Center flex={1}>
         <Spinner />
       </Center>
     );

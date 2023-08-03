@@ -28,10 +28,6 @@ export function PlaceScreen() {
   const navigation = useNavigation();
 
   const debouncedText = useDebounce(searchedText, 500);
-  console.log(
-    '🚀 ~ file: PlaceScreen.tsx:31 ~ PlaceScreen ~ debouncedText:',
-    debouncedText,
-  );
 
   useEffect(() => {
     RecommendedStores({

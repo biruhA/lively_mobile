@@ -29,7 +29,7 @@ export function CarouselBrowseItem({item}: Props) {
         navigation.navigate(ScreenNames.EventDetail);
       }}
       style={styles.itemContainer}>
-      <TouchableIcon
+      {/* <TouchableIcon
         image={require(`../../assets/icons/bookmark.png`)}
         boxSize={9}
         onPress={() => {
@@ -41,7 +41,7 @@ export function CarouselBrowseItem({item}: Props) {
           top: 10,
           right: 15,
         }}
-      />
+      /> */}
       <FastImage
         style={{width: '100%', height: '100%'}}
         source={{
