@@ -34,7 +34,8 @@ export function CarouselBrowseBottomItem({item}) {
       />
       <Stack position={'absolute'} bottom={0} left={0} right={0} p={4}>
         <Text
-          style={[fonts.heading6, {color: colors.pureWhite, lineHeight: 37}]}>
+          style={[fonts.heading6, {color: colors.pureWhite, lineHeight: 37}]}
+          numberOfLines={2}>
           {item?.title?.english}
         </Text>
         <Text style={fonts.caption}>Emotional Wellness</Text>

@@ -53,7 +53,7 @@ export function ProductDetailScreen() {
                   <BrandSection />
                 </Stack>
                 <RecommendedStoresSection />
-                <ProductDescription />
+                {/* <ProductDescription /> */}
               </Stack>
             );
           }}

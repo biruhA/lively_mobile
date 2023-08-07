@@ -137,7 +137,6 @@ function HostedBy({data}) {
           style={[fonts.normal, {color: colors.greyText, fontSize: 12}]}
           pt={1}>
           {data?.host?.english}
-          Spotlight marketing and communication
         </Text>
       </Stack>
     </HStack>

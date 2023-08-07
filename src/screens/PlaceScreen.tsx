@@ -55,9 +55,9 @@ export function PlaceScreen() {
             {!debouncedText && (
               <ButtonTabs
                 buttonOneIcon={pharmacy}
-                buttonOneTitle="Pharmacies"
+                buttonOneTitle="Store"
                 buttonTwoIcon={store}
-                buttonTwoTitle="Store"
+                buttonTwoTitle="Pharmacies"
                 isPharmacySelected={isPharmacySelected}
                 setIsPharmacySelected={setIsPharmacySelected}
               />

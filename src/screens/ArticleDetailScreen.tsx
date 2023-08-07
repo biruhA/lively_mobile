@@ -23,11 +23,6 @@ export function ArticleDetailScreen() {
   const {selectedArticleId} = useAppSelector(state => state.browse);
   const {data, isLoading} = useArticleDetailQuery(selectedArticleId);
 
-  console.log(
-    '🚀 ~ file: ArticleDetailScreen.tsx:22 ~ ArticleDetailScreen ~ data:',
-    data?.data?.sections,
-  );
-
   const Item = ({item}) => {
     switch (item?.type) {
       case 'Heading':
@@ -119,7 +114,6 @@ export function ArticleDetailScreen() {
         <Stack px={5} pt={4} space={1}>
           <Text style={[fonts.heading6, {fontSize: 24}]} pt={1}>
             {data?.data?.title?.english}
-            Another benefit of exercise: Eye comfort
           </Text>
           <Text style={fonts.caption}>Exercise & Fitness</Text>
           <Text style={fonts.button2}>

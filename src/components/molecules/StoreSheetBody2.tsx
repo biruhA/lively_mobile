@@ -35,9 +35,6 @@ export function StoreSheetBody2() {
   return (
     <Stack bg={colors.pureWhite} w={'100%'} px={2} space={2}>
       <Stack>
-        <Text style={fonts.heading6} pt={1}>
-          {selectedProduct?.title?.english}
-        </Text>
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
       <Image
@@ -69,8 +66,49 @@ export function StoreSheetBody2() {
           <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
         </Stack>
       </HStack>
-      <Stack>
-        <ContactAddress data={data?.data?.contactAddress} />
+      <Stack h={325}>
+        {data?.data?.contactAddress?.phone && (
+          <ContactAddressItem
+            label="Phone Number"
+            item={data?.data?.contactAddress?.phone}
+            url={phone}
+          />
+        )}
+        {data?.data?.contactAddress?.location && (
+          <ContactAddressItem
+            label="Location"
+            item={data?.data?.contactAddress?.location}
+            url={location}
+          />
+        )}
+        {data?.data?.contactAddress?.facebook && (
+          <ContactAddressItem
+            label="Facebook"
+            item={data?.data?.contactAddress?.facebook}
+            url={facebook}
+          />
+        )}
+        {data?.data?.contactAddress?.telegram && (
+          <ContactAddressItem
+            label="Telegram"
+            item={data?.data?.contactAddress?.telegram}
+            url={telegram}
+          />
+        )}
+        {data?.data?.contactAddress?.website && (
+          <ContactAddressItem
+            label="Website"
+            item={data?.data?.contactAddress?.website}
+            url={website}
+          />
+        )}
+        {data?.data?.contactAddress?.whatsApp && (
+          <ContactAddressItem
+            label="WhatsApp"
+            item={data?.data?.contactAddress?.whatsApp}
+            url={whatsup}
+          />
+        )}
       </Stack>
       <Stack space={1}>
         <Text style={[fonts.subtitle2, {color: 'black'}]}>
@@ -95,68 +133,38 @@ export function StoreSheetBody2() {
   );
 }
 
-const Data = [
-  {id: 1, url: phone, name: 'Phone Number'},
-  {id: 2, url: location, name: 'Location'},
-  {id: 3, url: telegram, name: 'Telegram'},
-  {id: 4, url: whatsup, name: 'WhatsApp'},
-  {id: 5, url: facebook, name: 'Facebook'},
-  {id: 6, url: website, name: 'Website'},
-];
-
-function ContactAddress({data}) {
+function ContactAddressItem({item, label, url}) {
   return (
-    <Stack borderWidth={1} borderColor={colors.border} p={2} borderRadius={8}>
-      <Text style={[fonts.subtitle2, {color: 'black', paddingBottom: 5}]}>
-        Contact Address
-      </Text>
-      <FlatList
-        data={Data}
-        renderItem={({item}) => (
-          <HStack
-            py={2}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            borderBottomWidth={1}
-            borderBottomColor={colors.border}>
-            <Text style={fonts.body1}>{item?.name}</Text>
-            <TouchableOpacity onPress={() => onPress(item?.name, data)}>
-              <Image
-                source={item?.url}
-                alt="phone"
-                boxSize={7}
-                borderRadius={6}
-              />
-            </TouchableOpacity>
-          </HStack>
-        )}
-        keyExtractor={item => item.id}
-      />
-    </Stack>
+    <HStack
+      py={2}
+      justifyContent={'space-between'}
+      alignItems={'center'}
+      borderBottomWidth={1}
+      borderBottomColor={colors.border}>
+      <Text style={fonts.body1}>{label}</Text>
+      <TouchableOpacity onPress={() => onPress({label, item})}>
+        <Image source={url} alt="phone" boxSize={7} borderRadius={6} />
+      </TouchableOpacity>
+    </HStack>
   );
 }
 
-function onPress(item, data) {
-  console.log(
-    '🚀 ~ file: StoreSheetBody2.tsx:144 ~ onPress ~ item, data:',
-    item,
-    data,
-  );
-  switch (item) {
+function onPress({label, item}) {
+  switch (label) {
     case 'Phone Number':
       let phoneNumber = '';
 
       if (Platform.OS === 'android') {
-        phoneNumber = 'tel:${data?.phone}';
+        phoneNumber = 'tel:${1234567890}';
       } else {
-        phoneNumber = 'telprompt:${data?.phone}';
+        phoneNumber = 'telprompt:${item?.phone}';
       }
 
       Linking.openURL(phoneNumber);
       break;
     case 'Location':
-      const lat = data?.location?.latitude;
-      const lon = data?.location?.longitude;
+      const lat = item?.latitude;
+      const lon = item?.longitude;
       const url = Platform.select({
         ios: 'maps:' + lat + ',' + lon,
         android: 'geo:' + lat + ',' + lon,
@@ -165,28 +173,28 @@ function onPress(item, data) {
       Linking.openURL(url);
       break;
     case 'Telegram':
-      const url2 = data?.telegram;
+      const url2 = item?.telegram;
       // const url2 = 'tg://+251921429029';
       Linking.openURL(url2).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'WhatsApp':
-      const url3 = data?.whatsApp;
+      const url3 = item?.whatsApp;
       // const url3 = `whatsapp://send?text=${'message'}&phone=${+251921429029}`;
       Linking.openURL(url3).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'Facebook':
-      const url4 = data?.facebook;
+      const url4 = item?.facebook;
       // const url4 = 'fb://+251921429029';
       Linking.openURL(url4).catch(err =>
         console.error('An error occurred', err),
       );
       break;
     case 'Website':
-      const url5 = data?.website;
+      const url5 = item?.website;
       // const url5 = 'https://www.google.com';
       Linking.openURL(url5).catch(err =>
         console.error('An error occurred', err),
