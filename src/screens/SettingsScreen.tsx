@@ -17,7 +17,7 @@ import {
   useToast,
 } from 'native-base';
 import {SettingUerProfile, SettingsScreenHeader} from '../components/organisms';
-import {SettingItems} from '../components/molecules';
+import {BottomTabBar, SettingItems} from '../components/molecules';
 import {colors} from '../theme/colors';
 import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
@@ -113,6 +113,7 @@ export function SettingsScreen() {
           <Text color={colors.greyText}>© Powered by Unravel Technologies</Text>
         </Center>
       </ScrollView>
+      <BottomTabBar />
     </Stack>
   );
 }

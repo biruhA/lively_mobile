@@ -10,6 +10,7 @@ interface Props {
   active: number;
   inactive: number;
   navTo?: string;
+  routeName?: string;
 }
 
 export function CustomBarButton({
@@ -18,6 +19,7 @@ export function CustomBarButton({
   navigation,
   active,
   inactive,
+  routeName,
 }: Props) {
   return (
     <Pressable
@@ -30,7 +32,7 @@ export function CustomBarButton({
         h={'100%'}
         alignItems={'center'}
         justifyContent={'center'}>
-        {navigation.isFocused() ? (
+        {(routeName ? routeName === label : navigation.isFocused()) ? (
           <Image style={styles.img} source={active} />
         ) : (
           <Image style={styles.img} source={inactive} />

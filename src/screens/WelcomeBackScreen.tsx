@@ -85,7 +85,7 @@ export function WelcomeBackScreen() {
           offlineSaveUser();
         }
         reset();
-        navigation.navigate(ScreenNames.MainBottomTab);
+        navigation.navigate(ScreenNames.Stacks);
       })
       .catch(err => {
         console.log(
@@ -226,7 +226,7 @@ export function WelcomeBackScreen() {
       <HStack justifyContent={'center'}>
         <Text style={styles.notRegistered}>Continue as </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate(ScreenNames.MainBottomTab)}>
+          onPress={() => navigation.navigate(ScreenNames.Stacks)}>
           <Text style={styles.forgot}>Guest</Text>
         </TouchableOpacity>
       </HStack>

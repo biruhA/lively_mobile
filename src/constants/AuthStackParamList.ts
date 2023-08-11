@@ -6,5 +6,5 @@ export type AuthStackParamList = {
   AddEmail: undefined;
   AdditionalInformation: undefined;
   ForgotPassword: undefined;
-  MainBottomTab: undefined;
+  Stacks: undefined;
 };

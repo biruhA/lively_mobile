@@ -62,7 +62,7 @@ export function AddEmailScreen() {
       .unwrap()
       .then(result => {
         offlineSaveUser();
-        navigation.navigate(ScreenNames.MainBottomTab);
+        navigation.navigate(ScreenNames.Stacks);
       })
       .catch(err => {
         toast.show({
@@ -83,7 +83,7 @@ export function AddEmailScreen() {
       .unwrap()
       .then(result => {
         offlineSaveUser();
-        navigation.navigate(ScreenNames.MainBottomTab);
+        navigation.navigate(ScreenNames.Stacks);
       })
       .catch(err => {
         toast.show({

@@ -3,42 +3,86 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
 import {
   ArticleDetailScreen,
+  BrowseScreen,
+  ChangePasswordScreen,
+  CheckoutScreen,
   ClaimDiscount,
   CollectionDetailScreen,
-  CheckoutScreen,
-  CollectionScreen,
+  DiscountDetailScreen,
+  DiscountScreen,
   DrugDetailScreen,
   DrugStoresScreen,
+  EditProfileScreen,
   EventDetailScreen,
+  HelpScreen,
   HomeScreen,
   MedicinePerscriptionScreen,
-  NotificationDiscountScreen,
+  MedicinesScreen,
   NotificationScreen,
-  ProductDetailScreen,
+  PharmacyDetailScreen,
   PlaceDetails,
   PlacePharmacyDetail,
+  PlaceScreen,
+  PrivacyScreen,
+  ProductDetailScreen,
   SearchScreen,
+  SeeAllArticlesScreen,
+  SeeAllCollectionScreen,
   SeeAllDealsScreen,
   SeeAllDrugsScreen,
+  SeeAllPopularArticlesScreen,
   SeeAllProductsScreen,
   SeeAllTrendingArticlesScreen,
+  SettingsScreen,
+  ShopScreen,
+  StoresScreen,
 } from '../screens';
-import {DiscountScreen, DiscountDetailScreen} from '../screens/';
-import {StoresScreen} from '../screens/StoresScreen';
-import {SeeAllCollectionScreen} from '../screens/SeeAllCollectionScreen';
-import {MedicinesScreen} from '../screens/MedicinesScreen';
-import {PharmacyDetailScreen} from '../screens/PharmacyDetailScreen';
 
-//TODO change AuthStackParamList
 const Stack = createStackNavigator<any>();
 
-export const HomeStack = () => {
+export const Stacks = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
       <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
+      <Stack.Screen name={ScreenNames.Browse} component={BrowseScreen} />
+      <Stack.Screen name={ScreenNames.Place} component={PlaceScreen} />
+      <Stack.Screen name={ScreenNames.Settings} component={SettingsScreen} />
+      {/* Stack */}
+      <Stack.Screen name={ScreenNames.Shop} component={ShopScreen} />
+      <Stack.Screen
+        name={ScreenNames.SeeAllProductsScreen}
+        component={SeeAllProductsScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.ProductDetailScreen}
+        component={ProductDetailScreen}
+      />
+      <Stack.Screen name={ScreenNames.StoresScreen} component={StoresScreen} />
+      <Stack.Screen
+        name={ScreenNames.EditProfileScreen}
+        component={EditProfileScreen}
+      />
+      <Stack.Screen name={ScreenNames.HelpScreen} component={HelpScreen} />
+      <Stack.Screen
+        name={ScreenNames.ChangePasswordScreen}
+        component={ChangePasswordScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.PrivacyScreen}
+        component={PrivacyScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.Notification}
+        component={NotificationScreen}
+      />
+      <Stack.Screen name={ScreenNames.PlaceDetails} component={PlaceDetails} />
+      <Stack.Screen
+        name={ScreenNames.PlacePharmacyDetail}
+        component={PlacePharmacyDetail}
+      />
       <Stack.Screen name={ScreenNames.Search} component={SearchScreen} />
       <Stack.Screen name={ScreenNames.Discount} component={DiscountScreen} />
       <Stack.Screen
@@ -49,15 +93,6 @@ export const HomeStack = () => {
         name={ScreenNames.SeeAllDeals}
         component={SeeAllDealsScreen}
       />
-      <Stack.Screen
-        name={ScreenNames.SeeAllProductsScreen}
-        component={SeeAllProductsScreen}
-      />
-      <Stack.Screen
-        name={ScreenNames.ProductDetailScreen}
-        component={ProductDetailScreen}
-      />
-      <Stack.Screen name={ScreenNames.StoresScreen} component={StoresScreen} />
       <Stack.Screen
         name={ScreenNames.EventDetail}
         component={EventDetailScreen}
@@ -104,12 +139,16 @@ export const HomeStack = () => {
         component={PharmacyDetailScreen}
       />
       <Stack.Screen
-        name={ScreenNames.Notification}
-        component={NotificationScreen}
-      />
-      <Stack.Screen
         name={ScreenNames.MedicinePerscription}
         component={MedicinePerscriptionScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.SeeAllPopularArticles}
+        component={SeeAllPopularArticlesScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.SeeAllArticles}
+        component={SeeAllArticlesScreen}
       />
     </Stack.Navigator>
   );

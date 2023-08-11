@@ -1,15 +1,11 @@
 export enum ScreenNames {
   // MainBottom
+  Stacks = 'Stacks',
+  Home = 'Home',
   Browse = 'Browse',
   Shop = 'Shop',
   Place = 'Place',
-  MainBottomTab = 'MainBottomTab',
-  HomeStack = 'HomeStack',
-  BrowseStack = 'BrowseStack',
-  ShopStack = 'ShopStack',
-  PlaceStack = 'PlaceStack',
-  //HomeStack
-  Home = 'Home',
+  //Stack
   Search = 'Search',
   Discount = 'Discount',
   DiscountDetail = 'DiscountDetail',
@@ -21,7 +17,6 @@ export enum ScreenNames {
   ChangePasswordScreen = 'ChangePasswordScreen',
   HelpScreen = 'HelpScreen',
   PrivacyScreen = 'PrivacyScreen',
-
   SeeAllCollection = 'SeeAllCollection',
   CollectionDetail = 'CollectionDetail',
   CheckoutScreen = 'CheckoutScreen',

@@ -14,7 +14,12 @@ import {
   ProductList,
   TopArticles,
 } from '../components/organisms';
-import {Prescription, SearchBar, SearchBox} from '../components/molecules';
+import {
+  BottomTabBar,
+  Prescription,
+  SearchBar,
+  SearchBox,
+} from '../components/molecules';
 import {colors} from '../theme/colors';
 import {ScrollView, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {Deals} from '../components/organisms/Deals';
@@ -106,6 +111,7 @@ export function HomeScreen() {
         }}
         keyExtractor={item => item.id}
       />
+      <BottomTabBar />
     </Stack>
   );
 }

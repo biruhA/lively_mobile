@@ -58,3 +58,4 @@ export * from './MedicineSubCategory';
 export * from './PlaceDetailsHeader';
 export * from './PlacesPharmacyCard';
 export * from './SearchBarPlaces';
+export * from './BottomTabBar';

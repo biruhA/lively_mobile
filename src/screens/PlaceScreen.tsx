@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Center, HStack, Spinner, Stack, Text} from 'native-base';
 import {colors} from '../theme/colors';
 import {
+  BottomTabBar,
   PlacesHeader,
   PlacesPharmacyCard,
   SearchBar,
@@ -92,6 +93,7 @@ export function PlaceScreen() {
           </Stack>
         </Stack>
       </ScrollView>
+      <BottomTabBar />
     </Stack>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
-import {MainBottomTab} from './MainBottomTab';
 import {AuthStackParamList} from '../constants/AuthStackParamList';
 import {
   AddEmailScreen,
@@ -13,6 +12,7 @@ import {
   ResetPasswordScreen,
   WelcomeBackScreen,
 } from '../screens';
+import {Stacks} from './Stacks';
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
@@ -52,10 +52,7 @@ export const AuthStack = () => {
         name={ScreenNames.ResetPassword}
         component={ResetPasswordScreen}
       />
-      <Stack.Screen
-        name={ScreenNames.MainBottomTab}
-        component={MainBottomTab}
-      />
+      <Stack.Screen name={ScreenNames.Stacks} component={Stacks} />
     </Stack.Navigator>
   );
 };

@@ -2,7 +2,11 @@ import React from 'react';
 import {ScrollView} from 'react-native';
 import {Stack} from 'native-base';
 import {colors} from '../theme/colors';
-import {BrowseScreenHeader, SimpleArticleList} from '../components/molecules';
+import {
+  BottomTabBar,
+  BrowseScreenHeader,
+  SimpleArticleList,
+} from '../components/molecules';
 import {
   CarouselBrowse,
   CarouselBrowseBottom,
@@ -38,6 +42,7 @@ export function BrowseScreen() {
           <LatestArticles />
         </Stack>
       </ScrollView>
+      <BottomTabBar />
     </Stack>
   );
 }
