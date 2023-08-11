@@ -37,13 +37,14 @@ interface Props {
   action: any;
   payload: any;
   onClose: any;
+  setState?: any;
 }
 interface Form {
   phoneNo: string;
   password: string;
 }
 
-export function LoginSheetBody({action, payload, onClose}: Props) {
+export function LoginSheetBody({action, payload, onClose, setState}: Props) {
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
@@ -109,6 +110,9 @@ export function LoginSheetBody({action, payload, onClose}: Props) {
         break;
       case ScreenNames.Notification:
         navigation.navigate(ScreenNames.Notification, {...payload});
+        break;
+      case ScreenNames.StoresScreen:
+        setState(storeSheetState.LoggedIn);
         break;
 
       default:

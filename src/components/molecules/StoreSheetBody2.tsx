@@ -15,12 +15,15 @@ import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
 import {useStoreDetailByIdQuery} from '../../store/services';
 
-export function StoreSheetBody2() {
-  const {isOpen, onOpen, onClose} = useDisclose();
+interface Props {
+  isOpen: any;
+  onClose: any;
+}
+
+export function StoreSheetBody2({isOpen, onClose}: Props) {
   const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
-  const {selectedProduct} = useAppSelector(state => state.product);
   const {data, isLoading} = useStoreDetailByIdQuery({
     id: selectedStoreId,
     latitude: userLocation?.lat,
@@ -126,7 +129,7 @@ export function StoreSheetBody2() {
         }}
         containerStyle={{paddingVertical: 13}}
         text="Reserve"
-        onPress={onOpen}
+        onPress={() => {}}
       />
       <LoginSheetBody isOpen={isOpen} onClose={onClose} />
     </Stack>

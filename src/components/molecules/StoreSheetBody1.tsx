@@ -3,13 +3,10 @@ import {HStack, Image, Stack, Text, useDisclose} from 'native-base';
 import placeBackground from '../../assets/images/place-background.png';
 import {fonts} from '../../theme/fonts';
 import {GradientButtonSmall} from '../atoms';
-import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
 
 export function StoreSheetBody1({onPress}: any) {
-  const {isOpen, onOpen, onClose} = useDisclose();
-
   return (
     <Stack w={'100%'} p={2} space={2}>
       <Stack>
@@ -50,12 +47,8 @@ export function StoreSheetBody1({onPress}: any) {
         mainStyle={{borderRadius: 8, width: '100%', marginTop: 10}}
         containerStyle={{paddingVertical: 13}}
         text="Login to view"
-        onPress={() => {
-          // onOpen();
-          onPress();
-        }}
+        onPress={onPress}
       />
-      <LoginSheetBody isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }

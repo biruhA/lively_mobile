@@ -1,6 +1,7 @@
 import React from 'react';
 import {CarouselOnBoarding} from '../components/organisms';
 import {AuthStack} from './AuthStack';
+import {Stacks} from './Stacks';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
 import {useSavedAuthData} from '../hooks';
@@ -9,7 +10,6 @@ import {useAppSelector} from '../store/hooks';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
 import {Center, Spinner} from 'native-base';
-import {Stacks} from './Stacks';
 
 const {useQuery} = Context;
 const Stack = createStackNavigator<any>();
@@ -24,14 +24,6 @@ export function Navigation() {
 
   if (!onboarding[0]?.hasOnBoarded) {
     return <CarouselOnBoarding />;
-  }
-
-  if (isLoggedIn === undefined) {
-    return (
-      <Center flex={1}>
-        <Spinner />
-      </Center>
-    );
   }
 
   if (isLoggedIn === undefined) {

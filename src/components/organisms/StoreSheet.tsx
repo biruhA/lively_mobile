@@ -4,6 +4,7 @@ import {StoreSheetBody1, StoreSheetBody2} from '../molecules';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
 import {LoginSheetBody} from './LoginSheetBody';
+import {ScreenNames} from '../../constants';
 
 export enum storeSheetState {
   notLoggedIn = 'notLoggedIn',
@@ -20,6 +21,8 @@ export function StoreSheet({isOpen, onClose}: Props) {
     token ? storeSheetState.LoggedIn : storeSheetState.notLoggedIn,
   );
 
+  console.log('🚀 ~ file: StoreSheet.tsx:23 ~ StoreSheet ~ state:', state);
+
   function onPress() {
     setState(storeSheetState.LoggingIn);
   }
@@ -32,9 +35,16 @@ export function StoreSheet({isOpen, onClose}: Props) {
             <StoreSheetBody1 onPress={onPress} />
           )}
           {state === storeSheetState.LoggingIn && (
-            <LoginSheetBody setState={setState} />
+            <LoginSheetBody
+              setState={setState}
+              onClose={() => {}}
+              action={ScreenNames.StoresScreen}
+              payload=""
+            />
           )}
-          {state === storeSheetState.LoggedIn && <StoreSheetBody2 />}
+          {state === storeSheetState.LoggedIn && (
+            <StoreSheetBody2 isOpen={isOpen} onClose={onClose} />
+          )}
         </Actionsheet.Content>
       </Actionsheet>
     </Stack>

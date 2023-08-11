@@ -30,7 +30,6 @@ export function StoresCardLarge({
   discountPresent,
   discountAmount,
 }: Props): JSX.Element {
-  console.log('🚀 ~ file: StoresCardLarge.tsx:33 ~ imageUrl:', imageUrl);
   const {isOpen, onOpen, onClose} = useDisclose();
   const dispatch = useAppDispatch();
 
