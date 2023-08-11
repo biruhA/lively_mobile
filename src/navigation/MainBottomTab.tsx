@@ -2,18 +2,6 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {MainBottomParamList, ScreenNames} from '../constants/index';
 import {CustomBarButton} from '../components/atoms';
-import home from '../assets/icons/home-active.png';
-import homeIn from '../assets/icons/home-inactive.png';
-import browse from '../assets/icons/browse-active.png';
-import browseIn from '../assets/icons/browse-inactive.png';
-import place from '../assets/icons/place-active.png';
-import placeIn from '../assets/icons/place-inactive.png';
-import shoping from '../assets/icons/shoping-active.png';
-import shopingIn from '../assets/icons/shoping-inactive.png';
-
-import setting from '../assets/icons/setting.png';
-import settingActive from '../assets/icons/setting-active.png';
-
 import {BrowseScreen, PlaceScreen, SettingsScreen} from '../screens';
 import {ShopStack} from './ShopStack';
 import {HomeStack} from './HomeStack';
@@ -22,6 +10,7 @@ import {SettingsStack} from './SettingsStack';
 import {PlaceStack} from './PlaceStack';
 import {Platform} from 'react-native';
 import {colors} from '../theme/colors';
+import {Icons} from '../theme/icons';
 
 const Tab = createBottomTabNavigator<MainBottomParamList>();
 
@@ -44,8 +33,8 @@ export const MainBottomTab = () => {
             <CustomBarButton
               navigation={navigation}
               label={ScreenNames.Home}
-              active={home}
-              inactive={homeIn}
+              active={Icons.home.active}
+              inactive={Icons.home.inactive}
             />
           ),
         })}
@@ -59,28 +48,12 @@ export const MainBottomTab = () => {
             <CustomBarButton
               navigation={navigation}
               label={ScreenNames.Browse}
-              active={browse}
-              inactive={browseIn}
+              active={Icons.browse.active}
+              inactive={Icons.browse.inactive}
             />
           ),
         })}
       />
-
-      {/* <Tab.Screen
-        name={ScreenNames.ShopStack}
-        component={ShopStack}
-        options={({navigation}: any) => ({
-          tabBarButton: () => (
-            <CustomBarButton
-              navigation={navigation}
-              navTo={ScreenNames.ShopStack}
-              label={'Shop'}
-              active={shoping}
-              inactive={shopingIn}
-            />
-          ),
-        })}
-      /> */}
       <Tab.Screen
         name={ScreenNames.Place}
         component={PlaceStack}
@@ -90,8 +63,8 @@ export const MainBottomTab = () => {
             <CustomBarButton
               navigation={navigation}
               label={ScreenNames.Place}
-              active={place}
-              inactive={placeIn}
+              active={Icons.place.active}
+              inactive={Icons.place.inactive}
             />
           ),
         })}
@@ -106,8 +79,8 @@ export const MainBottomTab = () => {
               navigation={navigation}
               navTo={ScreenNames.Settings}
               label={'Settings'}
-              active={settingActive}
-              inactive={setting}
+              active={Icons.setting.active}
+              inactive={Icons.setting.inactive}
             />
           ),
         })}

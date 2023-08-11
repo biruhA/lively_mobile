@@ -21,3 +21,33 @@ export enum colors {
   NormalText = '#262424',
   pagesBackeground = '#f6fbfb',
 }
+
+export const Colors = {
+  primary: '#00ba63',
+  secondary: '#f008579',
+  gradient: {
+    green_elliott: '#00BA63',
+    mystic_tuquoise: '#008579',
+  },
+  Text: {
+    white: '#ffffff',
+    green_elliott: '#00ba63',
+    digital: '#636363',
+    steel: '#7A7A7A',
+    brainstem_grey: '#b4b4b4',
+    nero: '#262424',
+  },
+  unselected: '#f2f2f2',
+  warning: '#ebbc2e',
+  error: '#ed3a3a',
+  info: '#008579',
+  caption: '#b4b4b4',
+  background: {
+    white: '#ffffff',
+    everlasting_ice: '#f6fbfb',
+  },
+  pureBlack: '#181818',
+  pureWhite: '#f6fbfb',
+  grey: '#808080',
+  border: '#F5F5F5',
+};

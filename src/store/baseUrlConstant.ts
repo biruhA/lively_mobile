@@ -1,13 +1,7 @@
 import {fetchBaseQuery} from '@reduxjs/toolkit/dist/query';
+import {BASE_URL} from '@env';
 
-// Cpanel api
-// export const baseUrl = 'https://lively.unravelplc.com/api';
-
-// prod api
-export const baseUrl = 'https://api.lively-et.com/api';
-
-// test api
-// export const baseUrl = 'https://api-test.lively-et.com/api';
+export const baseUrl = BASE_URL;
 
 export const authUrl = fetchBaseQuery({
   baseUrl: `${baseUrl}/`,
