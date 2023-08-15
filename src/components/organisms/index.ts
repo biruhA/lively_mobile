@@ -1,4 +1,3 @@
-export * from './HomeScreenHeader';
 export * from './Carousel1';
 export * from './TopArticles';
 export * from './ForHer';
@@ -36,7 +35,6 @@ export * from './LatestArticles';
 export * from './CarouselBrowse';
 export * from './CarouselBrowseBottom';
 export * from './SearchTags';
-export * from './SettingsScreenHeader';
 export * from './MedicineSections';
 export * from './DiscountStoreCard';
 export * from './Carousel1Centered';

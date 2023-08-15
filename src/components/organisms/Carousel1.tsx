@@ -32,7 +32,7 @@ export class Carousel1 extends Component {
   get pagination() {
     return (
       <Pagination
-        dotsLength={this?.props?.Data?.length}
+        dotsLength={this?.props?.Data?.length ? this?.props?.Data?.length : 0}
         activeDotIndex={this.state.index}
         containerStyle={styles.paginationContainer}
         dotStyle={styles.paginationDot}
@@ -49,7 +49,7 @@ export class Carousel1 extends Component {
       <View>
         <Carousel
           ref={c => (this.carousel = c)}
-          data={Data}
+          data={Data ? Data : []}
           renderItem={this._renderItem}
           sliderWidth={SLIDER_WIDTH}
           itemWidth={ITEM_WIDTH}

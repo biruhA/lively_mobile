@@ -1,10 +1,9 @@
-import {TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import {TouchableOpacity, ScrollView, FlatList, StyleSheet} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Center, HStack, Spinner, Stack, Text} from 'native-base';
 import {colors} from '../theme/colors';
 import {
   BottomTabBar,
-  PlacesHeader,
   PlacesPharmacyCard,
   SearchBar,
   SearchBarPlaces,
@@ -20,6 +19,7 @@ import {fonts} from '../theme/fonts';
 import {useDebounce} from '../hooks';
 import {ScreenNames} from '../constants';
 import {useNavigation} from '@react-navigation/native';
+import {MainScreenHeader} from '../components/headers';
 
 export function PlaceScreen() {
   const Banners = useBannersQuery();
@@ -41,9 +41,11 @@ export function PlaceScreen() {
 
   return (
     <Stack bg={colors.pureWhite} h={'full'} pb={2}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.bottomMargin}>
         <Stack space={4}>
-          <PlacesHeader />
+          <MainScreenHeader label={'Places'} />
           <Stack bg={'white'} px={4} pb={Banners?.isLoading ? 0 : 8}>
             {Banners?.isLoading ? (
               <CarouselBrowseSkeleton />
@@ -97,3 +99,9 @@ export function PlaceScreen() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  bottomMargin: {
+    marginBottom: Platform.OS === 'ios' ? 55 : 75,
+  },
+});

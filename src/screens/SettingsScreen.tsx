@@ -35,6 +35,7 @@ import {useAppDispatch, useAppSelector} from '../store/hooks';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
 import {logoutUser} from '../store/features/authSlice';
+import {MainScreenHeader} from '../components/headers';
 
 const {useRealm, useQuery} = Context;
 
@@ -67,9 +68,7 @@ export function SettingsScreen() {
 
   return (
     <Stack style={{backgroundColor: '#E3EBEB'}} flex={1}>
-      <View w={'full'}>
-        <SettingsScreenHeader />
-      </View>
+      <MainScreenHeader label={'Settings'} />
       <ScrollView style={{padding: 5}}>
         <SettingUerProfile />
         <Stack

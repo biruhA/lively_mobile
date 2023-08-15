@@ -27,10 +27,6 @@ export const useSavedAuthData = () => {
   };
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: useSavedAuthData.ts:31 ~ useEffect ~ onboarding?.[0]?.rememberMe:',
-      onboarding?.[0]?.rememberMe,
-    );
     if (onboarding?.[0]?.rememberMe === undefined) {
       dispatch(setIsLoggedIn(false));
     } else {

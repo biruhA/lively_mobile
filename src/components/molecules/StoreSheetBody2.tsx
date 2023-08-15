@@ -158,7 +158,7 @@ function onPress({label, item}) {
       let phoneNumber = '';
 
       if (Platform.OS === 'android') {
-        phoneNumber = 'tel:${1234567890}';
+        phoneNumber = 'tel:${item?.phone}';
       } else {
         phoneNumber = 'telprompt:${item?.phone}';
       }

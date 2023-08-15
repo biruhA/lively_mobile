@@ -1,12 +1,8 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {Platform, ScrollView, StyleSheet} from 'react-native';
 import {Stack} from 'native-base';
 import {colors} from '../theme/colors';
-import {
-  BottomTabBar,
-  BrowseScreenHeader,
-  SimpleArticleList,
-} from '../components/molecules';
+import {BottomTabBar, SimpleArticleList} from '../components/molecules';
 import {
   CarouselBrowse,
   CarouselBrowseBottom,
@@ -16,16 +12,17 @@ import {
 } from '../components/organisms';
 import {useEditorsPickQuery, useUpcomingEventsQuery} from '../store/services';
 import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkeleton';
+import {MainScreenHeader} from '../components/headers';
 
 export function BrowseScreen() {
   const {data, isLoading} = useUpcomingEventsQuery();
   const editorsPick = useEditorsPickQuery();
 
   return (
-    <Stack bg={colors.pureWhite} pb={2}>
-      <ScrollView>
+    <Stack bg={colors.pureWhite}>
+      <ScrollView style={styles.bottomMargin}>
         <Stack space={4}>
-          <BrowseScreenHeader />
+          <MainScreenHeader label={'Browse'} />
           <SimpleArticleList />
           <Stack px={4} pb={7} bg={'white'}>
             <CarouselBrowseBottom Data={editorsPick?.data?.data} />
@@ -46,3 +43,9 @@ export function BrowseScreen() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  bottomMargin: {
+    marginBottom: Platform.OS === 'ios' ? 55 : 75,
+  },
+});

@@ -46,10 +46,12 @@ export const Stacks = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
-      <Stack.Screen name={ScreenNames.Browse} component={BrowseScreen} />
-      <Stack.Screen name={ScreenNames.Place} component={PlaceScreen} />
-      <Stack.Screen name={ScreenNames.Settings} component={SettingsScreen} />
+      <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
+        <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
+        <Stack.Screen name={ScreenNames.Browse} component={BrowseScreen} />
+        <Stack.Screen name={ScreenNames.Place} component={PlaceScreen} />
+        <Stack.Screen name={ScreenNames.Settings} component={SettingsScreen} />
+      </Stack.Group>
       {/* Stack */}
       <Stack.Screen name={ScreenNames.Shop} component={ShopScreen} />
       <Stack.Screen

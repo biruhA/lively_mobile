@@ -14,15 +14,10 @@ import {Provider} from 'react-redux';
 import {store} from './src/store';
 import {colors} from './src/theme/colors';
 import SplashScreen from 'react-native-splash-screen';
-import {LogBox} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import {LogBox} from 'react-native';
 
-//TODO remove this log before build
-LogBox.ignoreLogs([
-  "exported from 'deprecated-react-native-prop-types'.",
-  'ViewPropTypes will be removed',
-  'ColorPropType will be removed',
-]);
+LogBox.ignoreAllLogs();
 
 const {RealmProvider} = Context;
 

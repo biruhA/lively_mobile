@@ -7,18 +7,11 @@ import {useAppSelector} from '../../store/hooks';
 import {useSubCategoriesByCategoryQuery} from '../../store/services';
 import {setSelectedSubCategoryId} from '../../store/features/productSlice';
 
-interface DataProp {
-  id: string;
-  label: string;
-  icon: string | null;
-}
-
 interface Props {
-  Data: DataProp[];
   variant?: gradientSmallVariant;
 }
 
-export function CatalogList({Data, variant = 'rounded'}: Props) {
+export function CatalogList({variant = 'rounded'}: Props) {
   const dispatch = useDispatch();
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,

@@ -6,6 +6,10 @@ export enum icons {
   liabilities = 'caretdown',
 }
 
+export const Images = {
+  placeholder: require('../assets/images/Placeholder.png'),
+};
+
 export const Icons = {
   bell: require('../assets/icons/bell.png'),
   heart: {

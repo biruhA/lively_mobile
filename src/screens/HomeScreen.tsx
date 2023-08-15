@@ -1,42 +1,30 @@
 import React, {useEffect} from 'react';
-import {Box, Button, HStack, Image, Pressable, Stack, Text} from 'native-base';
+import {Stack, Text} from 'native-base';
 import {
   Carousel1,
   Carousel2,
   CarouselBrowse,
   Catalogue,
-  ForHer,
-  ForHim,
   ForYou,
-  HomeScreenHeader,
-  Makeup,
-  NearbyStores,
   ProductList,
   TopArticles,
 } from '../components/organisms';
-import {
-  BottomTabBar,
-  Prescription,
-  SearchBar,
-  SearchBox,
-} from '../components/molecules';
+import {BottomTabBar, SearchBox} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {ScrollView, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import {Deals} from '../components/organisms/Deals';
+import {FlatList, Platform, StyleSheet} from 'react-native';
 import {useCurrentLocation} from '../hooks';
-import search from '../assets/icons/search.png';
-import {fonts} from '../theme/fonts';
-import {ScreenNames} from '../constants';
-import cameraSearch from '../assets/icons/camera-search.png';
 import {
   useLandscapeDiscountBannersQuery,
   useSquareDiscountBannersQuery,
   useUpcomingEventsQuery,
 } from '../store/services';
 import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkeleton';
+import {MainScreenHeader} from '../components/headers';
+import {useAppSelector} from '../store/hooks';
 
 export function HomeScreen() {
-  const {location, getLocation, error} = useCurrentLocation();
+  const {user} = useAppSelector(state => state.auth);
+  const {getLocation} = useCurrentLocation();
   const {data, isLoading} = useUpcomingEventsQuery();
   const landscapeDiscountBanners = useLandscapeDiscountBannersQuery();
   const squareDiscountBanners = useSquareDiscountBannersQuery();
@@ -48,11 +36,12 @@ export function HomeScreen() {
   return (
     <Stack bg={colors.pureWhite} flex={1}>
       <FlatList
-        data={[{}]}
+        style={styles.bottomMargin}
+        data={[{id: 1}]}
         renderItem={({item}) => {
           return (
             <Stack space={3}>
-              <HomeScreenHeader />
+              <MainScreenHeader label={`HI ${user?.name || ''} 👋`} />
               <SearchBox
                 hasCamera={false}
                 mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
@@ -91,7 +80,6 @@ export function HomeScreen() {
                   </Stack>
                 )}
               </Stack>
-              {/* <Prescription /> */}
               <ForYou />
               <TopArticles />
               <ProductList label="For Women" url="for-her" />
@@ -104,7 +92,6 @@ export function HomeScreen() {
                 )}
               </Stack>
               <ProductList label="For Mom & Baby" url="mom-and-baby" />
-              {/* <ProductList label="For your Home Care" url="home-care" /> */}
               <ProductList label="Food & Drinks" url="foods-and-drinks" />
             </Stack>
           );
@@ -115,3 +102,9 @@ export function HomeScreen() {
     </Stack>
   );
 }
+
+const styles = StyleSheet.create({
+  bottomMargin: {
+    marginBottom: Platform.OS === 'ios' ? 55 : 75,
+  },
+});
