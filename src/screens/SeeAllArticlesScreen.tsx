@@ -15,7 +15,6 @@ import {useAppSelector} from '../store/hooks';
 import {
   useAllTrendingArticlesQuery,
   useArticlesByCategoryQuery,
-  useProductsByCategoryQuery,
   useSubCategoriesByCategoryQuery,
 } from '../store/services';
 import {ProductSkeletonColumn} from '../components/skeletons';

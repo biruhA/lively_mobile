@@ -41,9 +41,12 @@ export const productApi = createApi({
         url: `product-detail/${id}`,
       }),
     }),
-    productsByCategory: build.query({
-      query: id => ({
+    productsByCategory: build.mutation({
+      query: ({id, page}) => ({
         url: `products-by-category/${id}`,
+        params: {
+          page,
+        },
       }),
     }),
     subCategoriesByCategory: build.query({
@@ -88,7 +91,7 @@ export const {
   useProductDetailByIdQuery,
   useSubCategoriesByCategoryQuery,
   useProductBySubCategoryQuery,
-  useProductsByCategoryQuery,
+  useProductsByCategoryMutation,
   useGetTagsQuery,
   useSearchMutation,
 } = productApi;

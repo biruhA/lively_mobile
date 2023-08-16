@@ -1,6 +1,6 @@
 import {TouchableOpacity, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import {Text, Stack, HStack} from 'native-base';
+import {Text, Stack, HStack, Image} from 'native-base';
 import {fonts} from '../../theme/fonts';
 import {colors} from '../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
@@ -32,7 +32,7 @@ export function ProductCard({
 }: Props): JSX.Element {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [hasLoaded, sethasLoaded] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   function onPress() {
     dispatch(setProductId(id));
@@ -48,16 +48,10 @@ export function ProductCard({
         <Stack space={1}>
           <FastImage
             style={styles.img}
-            source={
-              hasLoaded
-                ? {
-                    uri: imageUrl,
-                  }
-                : Images.placeholder
-            }
-            resizeMode={hasLoaded ? 'contain' : 'cover'}
-            onLoad={() => {
-              sethasLoaded(true);
+            source={!hasLoaded ? Images.placeholder : {uri: imageUrl}}
+            resizeMode={!hasLoaded ? 'cover' : 'contain'}
+            onLoadEnd={() => {
+              setHasLoaded(true);
             }}
           />
           <Stack px={2}>
@@ -94,11 +88,30 @@ const styles = StyleSheet.create({
   img: {
     width: '100%',
     height: 95,
+    width: 150,
+    borderRadius: 8,
+    marginRight: 15,
+    marginBottom: 5,
+  },
+  img: {
+    width: '100%',
+    height: 95,
   },
   amount: {
     ...fonts.caption,
     color: colors.pureBlack,
     fontSize: 12,
+    marginBottom: 5,
+  },
+  loader: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    position: 'absolute',
+  },
+  blur: {
+    position: 'absolute',
+    alignSelf: 'center',
     marginBottom: 5,
   },
   loader: {

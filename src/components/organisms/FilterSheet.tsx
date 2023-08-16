@@ -50,7 +50,6 @@ export function FilterSheet({isOpen, onClose, setData}: Props) {
   }
 
   useEffect(() => {
-    console.log('🚀 ~ file: FilterSheet.tsx:56 ~ useEffect ~ result:', result);
     if (result.isSuccess) {
       setData(result?.data);
     }

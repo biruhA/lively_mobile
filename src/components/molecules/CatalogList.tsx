@@ -1,11 +1,12 @@
 import {FlatList} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {HStack, Spinner, Stack} from 'native-base';
 import {GradientButtonSmall, gradientSmallVariant} from '../atoms';
 import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../store/hooks';
 import {useSubCategoriesByCategoryQuery} from '../../store/services';
 import {setSelectedSubCategoryId} from '../../store/features/productSlice';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface Props {
   variant?: gradientSmallVariant;
@@ -17,6 +18,14 @@ export function CatalogList({variant = 'rounded'}: Props) {
     state => state.product,
   );
   const {data, isLoading} = useSubCategoriesByCategoryQuery(selectedCategoryId);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        dispatch(setSelectedSubCategoryId(''));
+      };
+    }, []),
+  );
 
   const onPress = (id: string) => {
     dispatch(setSelectedSubCategoryId(id));

@@ -1,25 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {FlatList} from 'react-native';
-import {GoBack, ListEmptyComponent} from '../components/atoms';
-import {useRoute} from '@react-navigation/native';
-import {Stack, Text, useDisclose} from 'native-base';
-import {Colors, colors} from '../theme/colors';
-import {
-  CatalogList,
-  IconOnlyHeader,
-  ProductCard,
-} from '../components/molecules';
-import TouchableIcon from '../components/atoms/TouchableIcon';
+import {ListEmptyComponent} from '../components/atoms';
+import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {Stack} from 'native-base';
+import {Colors} from '../theme/colors';
+import {CatalogList, ProductCard} from '../components/molecules';
 import {useAppSelector} from '../store/hooks';
 import {
   useProductBySubCategoryQuery,
-  useProductsByCategoryQuery,
-  useSubCategoriesByCategoryQuery,
+  useProductsByCategoryMutation,
 } from '../store/services';
 import {ProductSkeletonColumn} from '../components/skeletons';
-import search from '../assets/icons/search-black.png';
-import filter from '../assets/icons/filter.png';
-import {FilterSheet} from '../components/organisms';
 import {LabeledHeader} from '../components';
 
 interface Props {
@@ -30,27 +21,40 @@ interface Props {
 }
 
 export function SeeAllProductsScreen() {
-  const {isOpen, onOpen, onClose} = useDisclose();
+  const route = useRoute();
+  const [DATA, setData] = useState([]);
+  const [page, setPage] = useState(1);
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,
   );
-  const {data, isLoading} = useProductsByCategoryQuery(selectedCategoryId);
   const ProductBySubCategory = useProductBySubCategoryQuery(
     selectedSubCategoryId,
   );
-  const route = useRoute();
-  const [DATA, setData] = useState(data?.data?.products);
-  const [IsLoading, setIsLoading] = useState(true);
+  const [ProductsByCategory, result] = useProductsByCategoryMutation();
+
+  useFocusEffect(
+    useCallback(() => {
+      ProductsByCategory({
+        id: selectedCategoryId,
+        page,
+      })
+        .unwrap()
+        .then(res => {
+          setData(res?.data?.data?.products?.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }, [selectedCategoryId, page]),
+  );
 
   useEffect(() => {
-    setIsLoading(true);
     if (selectedSubCategoryId !== '') {
-      setData(ProductBySubCategory?.data?.data?.products);
+      setData(ProductBySubCategory?.data?.products);
     } else {
-      setData(data?.data?.products);
+      setData(result?.data?.data?.products?.data);
     }
-    setIsLoading(false);
-  }, [selectedSubCategoryId, isLoading, ProductBySubCategory]);
+  }, [selectedCategoryId, selectedSubCategoryId, ProductBySubCategory]);
 
   return (
     <Stack flex={1} space={2} bg={Colors.background.everlasting_ice}>
@@ -62,7 +66,7 @@ export function SeeAllProductsScreen() {
         p={4}
         justifyContent={'center'}>
         <CatalogList />
-        {IsLoading ? (
+        {result?.isLoading || ProductBySubCategory?.isLoading ? (
           <ProductSkeletonColumn />
         ) : (
           <FlatList
@@ -77,12 +81,17 @@ export function SeeAllProductsScreen() {
                 volume={item.variant_count}
                 amount={item.from}
                 mainStyle={{width: '50%', marginBottom: 12}}
+                onEndReached={() => {
+                  if (result?.data?.data?.products?.next_page_url) {
+                    setPage(page + 1);
+                  }
+                }}
+                onEndReachedThreshold={0.5}
               />
             )}
             keyExtractor={(item: Props) => item.id}
           />
         )}
-        <FilterSheet isOpen={isOpen} onClose={onClose} setData={setData} />
       </Stack>
     </Stack>
   );

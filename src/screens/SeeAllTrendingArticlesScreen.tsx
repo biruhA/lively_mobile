@@ -14,7 +14,6 @@ import TouchableIcon from '../components/atoms/TouchableIcon';
 import {useAppSelector} from '../store/hooks';
 import {
   useAllTrendingArticlesQuery,
-  useProductsByCategoryQuery,
   useSubCategoriesByCategoryQuery,
 } from '../store/services';
 import {ProductSkeletonColumn} from '../components/skeletons';
