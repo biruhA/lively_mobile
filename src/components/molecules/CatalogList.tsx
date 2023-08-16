@@ -1,6 +1,6 @@
 import {FlatList} from 'react-native';
-import React, {useCallback, useState} from 'react';
-import {HStack, Spinner, Stack} from 'native-base';
+import React, {useCallback} from 'react';
+import {Center, HStack, Spinner} from 'native-base';
 import {GradientButtonSmall, gradientSmallVariant} from '../atoms';
 import {useDispatch} from 'react-redux';
 import {useAppSelector} from '../../store/hooks';
@@ -33,18 +33,22 @@ export function CatalogList({variant = 'rounded'}: Props) {
 
   return (
     <HStack>
-      <GradientButtonSmall
-        variant={variant}
-        text={'All'}
-        onPress={() => onPress('')}
-        isActive={selectedSubCategoryId === ''}
-      />
       {isLoading ? (
-        <Spinner />
+        <Center w={'100%'}>
+          <Spinner />
+        </Center>
       ) : (
         <FlatList
           data={data?.data?.sub_categories}
           horizontal={true}
+          ListHeaderComponent={() => (
+            <GradientButtonSmall
+              variant={variant}
+              text={'All'}
+              onPress={() => onPress('')}
+              isActive={selectedSubCategoryId === ''}
+            />
+          )}
           renderItem={({item}) => (
             <GradientButtonSmall
               variant={variant}

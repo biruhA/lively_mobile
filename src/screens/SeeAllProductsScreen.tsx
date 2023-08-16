@@ -1,7 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Platform} from 'react-native';
 import {ListEmptyComponent} from '../components/atoms';
-import {useFocusEffect, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import {Stack} from 'native-base';
 import {Colors} from '../theme/colors';
 import {CatalogList, ProductCard} from '../components/molecules';
@@ -32,32 +32,31 @@ export function SeeAllProductsScreen() {
   );
   const [ProductsByCategory, result] = useProductsByCategoryMutation();
 
-  useFocusEffect(
-    useCallback(() => {
+  useEffect(() => {
+    if (selectedSubCategoryId !== '') {
+      setData(ProductBySubCategory?.data?.products);
+      setData(ProductBySubCategory?.data?.products);
+    } else {
       ProductsByCategory({
         id: selectedCategoryId,
         page,
       })
         .unwrap()
         .then(res => {
-          setData(res?.data?.data?.products?.data);
+          setData(res?.data?.products?.data);
         })
         .catch(err => {
           console.log(err);
         });
-    }, [selectedCategoryId, page]),
-  );
-
-  useEffect(() => {
-    if (selectedSubCategoryId !== '') {
-      setData(ProductBySubCategory?.data?.products);
-    } else {
-      setData(result?.data?.data?.products?.data);
     }
-  }, [selectedCategoryId, selectedSubCategoryId, ProductBySubCategory]);
+  }, [selectedCategoryId, selectedSubCategoryId, ProductBySubCategory, page]);
 
   return (
-    <Stack flex={1} space={2} bg={Colors.background.everlasting_ice}>
+    <Stack
+      flex={1}
+      space={2}
+      bg={Colors.background.everlasting_ice}
+      mb={Platform.OS === 'ios' ? 55 : 75}>
       <LabeledHeader label={route?.params?.label || ''} />
       <Stack
         bg={Colors.background.white}

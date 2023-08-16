@@ -1,4 +1,4 @@
-import {TouchableOpacity, StyleSheet} from 'react-native';
+import {TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import React, {useState} from 'react';
 import {Text, Stack, HStack, Image} from 'native-base';
 import {fonts} from '../../theme/fonts';
