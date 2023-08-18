@@ -3,8 +3,7 @@ import React, {useRef} from 'react';
 import {Text, Stack, HStack} from 'native-base';
 import {colors} from '../../theme/colors';
 import {fonts} from '../../theme/fonts';
-import {useAppDispatch, useAppSelector} from '../../store/hooks';
-import {RichEditor} from 'react-native-pell-rich-editor';
+import {useAppSelector} from '../../store/hooks';
 import {RichText} from './RichText';
 
 interface Props {
@@ -13,10 +12,8 @@ interface Props {
   value: string;
 }
 
-export function ProductDescription() {
-  const {selectedProduct, selectedProductVariantIndex} = useAppSelector(
-    state => state.product,
-  );
+export function ProductDescription({Data}: any) {
+  const {selectedProductVariantIndex} = useAppSelector(state => state.product);
 
   function Item({label, value}: Props) {
     return (
@@ -38,8 +35,8 @@ export function ProductDescription() {
       <Text style={fonts.subtitle1}>Product Description</Text>
       <RichText
         text={
-          selectedProduct?.variants[selectedProductVariantIndex]?.product
-            ?.description?.english
+          Data?.variants[selectedProductVariantIndex]?.product?.description
+            ?.english
         }
       />
       <Stack>
@@ -48,8 +45,7 @@ export function ProductDescription() {
         </Text>
         <FlatList
           data={
-            selectedProduct?.variants[selectedProductVariantIndex]
-              ?.additional_information
+            Data?.variants[selectedProductVariantIndex]?.additional_information
           }
           renderItem={({item}) => <Item label={item.key} value={item.value} />}
           keyExtractor={item => item.key}

@@ -5,11 +5,12 @@ import {Stack} from 'native-base';
 
 interface Props {
   label: string;
+  style?: any;
 }
 
-export function LabeledHeader({label}: Props) {
+export function LabeledHeader({label, style}: Props) {
   return (
-    <Stack p={4} bg={'white'} justifyContent={'space-between'}>
+    <Stack p={4} bg={'white'} justifyContent={'space-between'} style={style}>
       <GoBack label={label} />
     </Stack>
   );

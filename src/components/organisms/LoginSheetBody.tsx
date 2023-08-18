@@ -47,7 +47,7 @@ interface Form {
 export function LoginSheetBody({action, payload, onClose, setState}: Props) {
   const navigation = useNavigation();
   const [show, setShow] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const [login, result] = useLoginMutation();
   const toast = useToast();
   const {token} = useAppSelector(state => state.auth);
@@ -216,7 +216,11 @@ export function LoginSheetBody({action, payload, onClose, setState}: Props) {
           />
           <Stack space={8} pt={2}>
             <HStack alignItems={'center'} justifyContent={'space-between'}>
-              <Checkbox value="one" size={'sm'} onChange={setRememberMe}>
+              <Checkbox
+                value="one"
+                size={'sm'}
+                isChecked={rememberMe}
+                onChange={setRememberMe}>
                 Remember me
               </Checkbox>
               <TouchableOpacity

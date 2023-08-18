@@ -21,15 +21,20 @@ export function StoreSheet({isOpen, onClose}: Props) {
     token ? storeSheetState.LoggedIn : storeSheetState.notLoggedIn,
   );
 
-  console.log('🚀 ~ file: StoreSheet.tsx:23 ~ StoreSheet ~ state:', state);
-
   function onPress() {
     setState(storeSheetState.LoggingIn);
   }
 
   return (
     <Stack bg={colors.pureWhite}>
-      <Actionsheet isOpen={isOpen} onClose={onClose}>
+      <Actionsheet
+        isOpen={isOpen}
+        onClose={() => {
+          if (!token) {
+            setState(storeSheetState.notLoggedIn);
+          }
+          onClose();
+        }}>
         <Actionsheet.Content>
           {state === storeSheetState.notLoggedIn && (
             <StoreSheetBody1 onPress={onPress} />

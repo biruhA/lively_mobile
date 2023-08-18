@@ -14,7 +14,6 @@ export * from './BrandSection';
 export * from './RecommendedStoresSection';
 export * from './ProductDescription';
 export * from './IconOnlyHeader';
-export * from './StoreHeader';
 export * from './StoresCardLarge';
 export * from './BrowseHeader';
 export * from './StoreSheetBody1';

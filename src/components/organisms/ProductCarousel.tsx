@@ -74,7 +74,7 @@ export class ProductCarousel extends Component {
 
 const styles = StyleSheet.create({
   carouselContainer: {
-    marginTop: 20,
+    marginVertical: 16,
   },
   itemContainer: {
     width: ITEM_WIDTH,

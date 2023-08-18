@@ -1,12 +1,12 @@
-import {View, Text, FlatList} from 'react-native';
+import {Text, FlatList} from 'react-native';
 import React from 'react';
 import {HStack, Image, Spinner, Stack} from 'native-base';
 import {fonts} from '../theme/fonts';
-import {StoreHeader, StoresCardLarge} from '../components/molecules';
-import {colors} from '../theme/colors';
+import {StoresCardLarge} from '../components/molecules';
+import {Colors, colors} from '../theme/colors';
 import {useStoresQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
-import {useCurrentLocation} from '../hooks';
+import {LabeledHeader} from '../components';
 
 interface Props {
   id?: string;
@@ -26,30 +26,32 @@ export function StoresScreen() {
   });
 
   return (
-    <Stack bg={colors.pureWhite} flex={1} px={4} py={2} space={3}>
-      <StoreHeader />
-      <SelectedProductCard />
-      <Text style={fonts.subtitle1}>All Available Stores</Text>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <FlatList
-          data={data?.data?.data}
-          renderItem={({item}) => (
-            <StoresCardLarge
-              id={item?.id}
-              store={item?.store_name?.english}
-              distance={item?.distance}
-              rating={item?.rating?.average}
-              imageUrl={item?.store_logo?.url}
-              price={item?.price}
-              discountAmount={null}
-              discountPresent={null}
-            />
-          )}
-          keyExtractor={item => item.id}
-        />
-      )}
+    <Stack bg={Colors.background.everlasting_ice} flex={1}>
+      <LabeledHeader label="Stores" />
+      <Stack px={4} py={2} space={2}>
+        <SelectedProductCard />
+        <Text style={fonts.subtitle1}>All Available Stores</Text>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <FlatList
+            data={data?.data?.data}
+            renderItem={({item}) => (
+              <StoresCardLarge
+                id={item?.id}
+                store={item?.store_name?.english}
+                distance={item?.distance}
+                rating={item?.rating?.average}
+                imageUrl={item?.store_logo?.url}
+                price={item?.price}
+                discountAmount={null}
+                discountPresent={null}
+              />
+            )}
+            keyExtractor={item => item.id}
+          />
+        )}
+      </Stack>
     </Stack>
   );
 }

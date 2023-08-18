@@ -1,5 +1,5 @@
 import {TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, Image, Stack, Divider, HStack, useDisclose} from 'native-base';
 import {fonts} from '../../theme/fonts';
 import smileYellow from '../../assets/icons/smile_yellow.png';
@@ -8,6 +8,7 @@ import {StoreSheet} from '../organisms';
 import {useAppDispatch} from '../../store/hooks';
 import {setStoreId} from '../../store/features/storeSlice';
 import FastImage from 'react-native-fast-image';
+import {Images} from '../../theme/icons';
 
 interface Props {
   id: string;
@@ -30,8 +31,9 @@ export function StoresCardLarge({
   discountPresent,
   discountAmount,
 }: Props): JSX.Element {
-  const {isOpen, onOpen, onClose} = useDisclose();
   const dispatch = useAppDispatch();
+  const {isOpen, onOpen, onClose} = useDisclose();
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   return (
     <Stack
@@ -50,10 +52,11 @@ export function StoresCardLarge({
         <HStack px={3} py={4} space={3} alignItems={'center'}>
           <FastImage
             style={{width: 121, height: 74}}
-            source={{
-              uri: imageUrl,
+            source={!hasLoaded ? Images.placeholder : {uri: imageUrl}}
+            resizeMode={!hasLoaded ? 'cover' : 'contain'}
+            onLoadEnd={() => {
+              setHasLoaded(true);
             }}
-            resizeMode={'contain'}
           />
           <Stack space={2}>
             <Text style={fonts.subtitle1} numberOfLines={2}>

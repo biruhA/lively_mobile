@@ -7,7 +7,7 @@ import {Colors} from '../theme/colors';
 import {CatalogList, ProductCard} from '../components/molecules';
 import {useAppSelector} from '../store/hooks';
 import {
-  useProductBySubCategoryQuery,
+  useProductBySubCategoryMutation,
   useProductsByCategoryMutation,
 } from '../store/services';
 import {ProductSkeletonColumn} from '../components/skeletons';
@@ -24,19 +24,30 @@ export function SeeAllProductsScreen() {
   const route = useRoute();
   const [DATA, setData] = useState([]);
   const [page, setPage] = useState(1);
+  const [IsLoading, setIsLoading] = useState(true);
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,
   );
-  const ProductBySubCategory = useProductBySubCategoryQuery(
-    selectedSubCategoryId,
-  );
+  const [ProductBySubCategory] = useProductBySubCategoryMutation();
   const [ProductsByCategory, result] = useProductsByCategoryMutation();
 
   useEffect(() => {
     if (selectedSubCategoryId !== '') {
-      setData(ProductBySubCategory?.data?.products);
-      setData(ProductBySubCategory?.data?.products);
+      setIsLoading(true);
+      ProductBySubCategory({
+        id: selectedSubCategoryId,
+      })
+        .unwrap()
+        .then(res => {
+          setData(res?.data?.products);
+          setIsLoading(false);
+        })
+        .catch(err => {
+          console.log(err);
+          setIsLoading(false);
+        });
     } else {
+      setIsLoading(true);
       ProductsByCategory({
         id: selectedCategoryId,
         page,
@@ -44,12 +55,20 @@ export function SeeAllProductsScreen() {
         .unwrap()
         .then(res => {
           setData(res?.data?.products?.data);
+          setIsLoading(false);
         })
         .catch(err => {
           console.log(err);
+          setIsLoading(false);
         });
     }
-  }, [selectedCategoryId, selectedSubCategoryId, ProductBySubCategory, page]);
+  }, [
+    selectedCategoryId,
+    selectedSubCategoryId,
+    ProductBySubCategory,
+    ProductsByCategory,
+    page,
+  ]);
 
   return (
     <Stack
@@ -65,7 +84,7 @@ export function SeeAllProductsScreen() {
         p={4}
         justifyContent={'center'}>
         <CatalogList />
-        {result?.isLoading || ProductBySubCategory?.isLoading ? (
+        {IsLoading ? (
           <ProductSkeletonColumn />
         ) : (
           <FlatList

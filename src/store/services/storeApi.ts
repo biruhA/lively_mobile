@@ -15,9 +15,10 @@ export const storeApi = createApi({
         },
       }),
     }),
-    recommendedStores: build.query({
+    recommendedProductStores: build.mutation({
       query: ({id, latitude, longitude}) => ({
         url: `recommended-stores/${id}`,
+        method: 'GET',
         params: {
           latitude,
           longitude,
@@ -43,6 +44,6 @@ export const storeApi = createApi({
 
 export const {
   useStoresQuery,
-  useRecommendedStoresQuery,
+  useRecommendedProductStoresMutation,
   useStoreDetailByIdQuery,
 } = storeApi;

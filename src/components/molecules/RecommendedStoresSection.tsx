@@ -1,68 +1,59 @@
 import {FlatList, ScrollView, Text} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Center, Spinner, Stack} from 'native-base';
 import {fonts} from '../../theme/fonts';
 import {DealsCard} from './DealsCard';
 import {StoresCard} from './StoresCard';
 import {useAppSelector} from '../../store/hooks';
-import {useRecommendedStoresQuery} from '../../store/services';
 import {ProductDescription} from './ProductDescription';
+import {StoresCardLarge} from './StoresCardLarge';
+import {useRecommendedProductStoresMutation} from '../../store/services';
 
-interface Props {
-  id: string;
-  store: string;
-  distance: string;
-  rating: string;
-}
-
-export function RecommendedStoresSection() {
-  const {selectedProduct, selectedProductVariantIndex} = useAppSelector(
-    state => state.product,
-  );
+export function RecommendedStoresSection({Data}: any) {
+  const {selectedProductVariantIndex} = useAppSelector(state => state.product);
   const {userLocation} = useAppSelector(state => state.search);
-  const {data, isLoading} = useRecommendedStoresQuery({
-    id: selectedProduct?.variants[selectedProductVariantIndex]?.id,
-    latitude: userLocation?.lat,
-    longitude: userLocation?.lon,
-  });
+  const [recommendedStores, result] = useRecommendedProductStoresMutation();
 
-  if (isLoading) {
+  useEffect(() => {
+    recommendedStores({
+      id: Data?.variants[selectedProductVariantIndex]?.id,
+      latitude: userLocation?.lat,
+      longitude: userLocation?.lon,
+    });
+  }, [selectedProductVariantIndex]);
+
+  if (result?.isLoading) {
     return (
-      <Center>
+      <Center w={'100%'} h={100}>
         <Spinner />
       </Center>
     );
   }
 
   return (
-    <Stack p={4}>
-      <Text style={fonts.subtitle1}>Recommended Stores</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        directionalLockEnabled={true}
-        alwaysBounceVertical={false}>
+    <Stack px={4} pt={4}>
+      {result?.data?.data?.length > 0 && (
         <FlatList
-          contentContainerStyle={{alignSelf: 'flex-start'}}
-          numColumns={Math.ceil(data?.data?.length / 2)}
-          showsVerticalScrollIndicator={false}
-          showsHorizontalScrollIndicator={false}
-          data={data?.data}
+          data={result?.data?.data}
+          ListEmptyComponent={() => <></>}
+          ListHeaderComponent={() => (
+            <Text style={fonts.subtitle1}>Recommended Stores</Text>
+          )}
           renderItem={({item}) => (
-            <StoresCard
+            <StoresCardLarge
+              id={item?.id}
               store={item?.store_name?.english}
               distance={item?.distance}
               rating={item?.rating?.average}
-              price={item?.price}
               imageUrl={item?.store_logo?.url}
+              price={item?.price}
+              discountAmount={null}
+              discountPresent={null}
             />
           )}
           keyExtractor={(item: Props) => item.id}
         />
-      </ScrollView>
-      <Stack py={2}>
-        <ProductDescription />
-      </Stack>
+      )}
     </Stack>
   );
 }

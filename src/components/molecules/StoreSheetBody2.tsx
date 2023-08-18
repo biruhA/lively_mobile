@@ -69,7 +69,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
           <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
         </Stack>
       </HStack>
-      <Stack h={325}>
+      <Stack>
         {data?.data?.contactAddress?.phone && (
           <ContactAddressItem
             label="Phone Number"
@@ -131,7 +131,6 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         text="Reserve"
         onPress={() => {}}
       />
-      <LoginSheetBody isOpen={isOpen} onClose={onClose} />
     </Stack>
   );
 }
@@ -168,10 +167,12 @@ function onPress({label, item}) {
     case 'Location':
       const lat = item?.latitude;
       const lon = item?.longitude;
-      const url = Platform.select({
-        ios: 'maps:' + lat + ',' + lon,
-        android: 'geo:' + lat + ',' + lon,
-      });
+      // const url = Platform.select({
+      //   ios: 'maps:' + lat + ',' + lon,
+      //   android: 'geo:' + lat + ',' + lon,
+      // });
+
+      const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
 
       Linking.openURL(url);
       break;
