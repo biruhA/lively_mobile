@@ -9,6 +9,7 @@ import {ScreenNames} from '../../constants';
 import {useAppDispatch} from '../../store/hooks';
 import {setProductId} from '../../store/features/productSlice';
 import FastImage from 'react-native-fast-image';
+import {ShadowCard} from '../cards';
 
 interface Props {
   id: string;
@@ -34,15 +35,7 @@ export function DiscountCard({
   const dispatch = useAppDispatch();
 
   return (
-    <Stack
-      my={1}
-      ml={1}
-      mr={3}
-      bg="white"
-      rounded={'md'}
-      p={2}
-      w={150}
-      style={[styles.main, mainStyle]}>
+    <ShadowCard style={[styles.main, mainStyle]}>
       <TouchableOpacity
         onPress={() => {
           dispatch(setProductId(id));
@@ -53,7 +46,7 @@ export function DiscountCard({
             <HeartIcon />
           </Box>
           <FastImage
-            style={{width: '100%', height: 95}}
+            style={{width: '100%', height: 90}}
             source={{
               uri: imageUrl,
             }}
@@ -87,7 +80,7 @@ export function DiscountCard({
           </Text>
         </Stack>
       </TouchableOpacity>
-    </Stack>
+    </ShadowCard>
   );
 }
 
@@ -98,6 +91,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
+    width: 150,
+    borderRadius: 8,
+    marginRight: 15,
+    marginBottom: 5,
+    padding: 4,
   },
   amount: {
     ...fonts.caption,

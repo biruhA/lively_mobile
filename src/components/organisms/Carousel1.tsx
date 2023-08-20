@@ -57,7 +57,7 @@ export class Carousel1 extends Component {
           activeSlideAlignment={'center'}
           onSnapToItem={index => this.setState({index})}
           useScrollView={true}
-          autoplay={true}
+          autoplay={false}
           loop={true}
         />
         {this.pagination}

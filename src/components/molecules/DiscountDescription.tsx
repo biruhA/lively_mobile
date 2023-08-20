@@ -28,7 +28,7 @@ export function DiscountDescription({data}) {
   }
 
   return (
-    <Stack bg={colors.pureWhite} p={4} space={2} mt={2}>
+    <Stack bg={colors.pureWhite} py={4} space={2} mt={2}>
       <Text style={fonts.subtitle1}>Product Description</Text>
       <RichText text={data?.product?.description?.english} />
       <Stack>

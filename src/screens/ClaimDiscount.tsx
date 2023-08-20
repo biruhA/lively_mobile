@@ -3,10 +3,16 @@ import {
   PermissionsAndroid,
   ToastAndroid,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Button, HStack, Image, Pressable, Stack, Text} from 'native-base';
-import {GoBack, GradientButtonSmall, QRImage} from '../components/atoms';
+import {
+  GoBack,
+  GradientButton,
+  GradientButtonSmall,
+  QRImage,
+} from '../components/atoms';
 import {colors} from '../theme/colors';
 import {fonts} from '../theme/fonts';
 import download from '../assets/icons/download.png';
@@ -14,12 +20,27 @@ import {useRoute, useNavigation} from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 import CameraRoll, {useCameraRoll} from '@react-native-camera-roll/camera-roll';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {useAppSelector} from '../store/hooks';
+import {useStoreDetailByIdQuery} from '../store/services';
 
 export function ClaimDiscount() {
   const route = useRoute();
   const navigation = useNavigation();
   const [productQRref, setProductQRref] = useState();
   const [photos, getPhotos, save] = useCameraRoll();
+  const {userLocation} = useAppSelector(state => state.search);
+  const {token} = useAppSelector(state => state.auth);
+  const {data, isLoading} = useStoreDetailByIdQuery({
+    id: route?.params?.id,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+    token,
+  });
+
+  console.log(
+    '🚀 ~ file: ClaimDiscount.tsx:31 ~ ClaimDiscount ~ data:',
+    data?.data?.contactAddress?.location,
+  );
 
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
@@ -59,34 +80,6 @@ export function ClaimDiscount() {
     return status === 'granted';
   };
 
-  function Example() {
-    return (
-      <>
-        <Button
-          title="Get Photos"
-          onPress={() =>
-            getPhotos({
-              first: 1,
-              assetType: 'Photos',
-            })
-          }>
-          Get Photos
-        </Button>
-        {/* {photos?.map(photo => {
-          return (
-            <Image
-              alt="brand"
-              source={photo}
-              boxSize={8}
-              borderRadius={8}
-              resizeMode="contain"
-            />
-          );
-        })} */}
-      </>
-    );
-  }
-
   return (
     <Stack space={4}>
       <Stack p={4} bg={colors.pureWhite}>
@@ -119,7 +112,6 @@ export function ClaimDiscount() {
               getRef={c => setProductQRref(c)}
             />
           </Stack>
-
           <Stack>
             <Text style={fonts.heading5} textAlign={'center'} pt={2}>
               You are successfully
@@ -159,19 +151,18 @@ export function ClaimDiscount() {
             You are reserved this item for 24 hours, so collect your item with
             in the time!
           </Text>
-          <HStack pb={5} pt={2}>
-            <GradientButtonSmall
-              isActive={false}
-              text="Share"
-              variant="flat"
-              mainStyle={{width: '40%'}}
-            />
-            <GradientButtonSmall
-              text="Go to store"
-              variant="flat"
-              mainStyle={{width: '40%'}}
-            />
-          </HStack>
+          <GradientButton
+            text="Go to store"
+            variant="flat"
+            isLoading={isLoading}
+            mainStyle={{width: '85%', marginTop: 8, marginBottom: 16}}
+            onPress={() => {
+              const lat = data?.data?.contactAddress?.location?.latitude;
+              const lon = data?.data?.contactAddress?.location?.longitude;
+              const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
+              Linking.openURL(url);
+            }}
+          />
         </Stack>
       </Stack>
     </Stack>

@@ -8,6 +8,7 @@ import {ScreenNames} from '../constants';
 import {useDiscountBannerDetailQuery} from '../store/services';
 import {useRoute} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
+import {LabeledHeader} from '../components';
 
 export function DiscountScreen() {
   const route = useRoute();
@@ -15,16 +16,19 @@ export function DiscountScreen() {
 
   return (
     <Stack flex={1} bg={'colors.pureWhite'}>
-      <Stack p={4} bg={'white'}>
-        <GoBack label="Deals" />
+      <LabeledHeader label="Deals" />
+      <Stack pb={2} bg={'white'}>
+        <FastImage
+          style={{
+            width: '100%',
+            height: 175,
+          }}
+          source={{
+            uri: data?.data?.banner_image?.url,
+          }}
+          resizeMode={'contain'}
+        />
       </Stack>
-      <FastImage
-        style={{width: '100%', height: 175, backgroundColor: 'white'}}
-        source={{
-          uri: data?.data?.banner_image?.url,
-        }}
-        resizeMode={'contain'}
-      />
       {isLoading ? (
         <Spinner />
       ) : (

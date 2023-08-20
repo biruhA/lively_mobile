@@ -16,6 +16,7 @@ import {LoginSheetState, ScreenNames} from '../constants';
 import {useAppSelector} from '../store/hooks';
 import {useProductVariantDetailQuery} from '../store/services';
 import {LoginSheet} from '../components/sheets';
+import {LabeledHeader} from '../components';
 
 export function DiscountDetailScreen() {
   const route = useRoute();
@@ -38,15 +39,8 @@ export function DiscountDetailScreen() {
   }
 
   return (
-    <Stack flex={1} bg={colors.pureWhite} pt={4} pb={2} px={2}>
-      <Stack px={5}>
-        <IconOnlyHeader
-          iconL={heart}
-          iconR={share}
-          onPressL={() => {}}
-          onPressR={() => {}}
-        />
-      </Stack>
+    <Stack flex={1} bg={colors.pureWhite} pb={2}>
+      <LabeledHeader label="" />
       <FlatList
         data={[{}]}
         style={{paddingHorizontal: 8}}
@@ -80,7 +74,7 @@ export function DiscountDetailScreen() {
         }}
       />
       <GradientButton
-        mainStyle={{postion: 'absolute', bottom: 0}}
+        mainStyle={{postion: 'absolute', bottom: 0, width: '95%'}}
         text="Claim Discount"
         onPress={() => {
           if (!isLoggedIn) {
@@ -89,18 +83,17 @@ export function DiscountDetailScreen() {
           if (isLoggedIn) {
             navigation.navigate(ScreenNames.ClaimDiscount, {
               promo_code: route?.params?.promo_code,
+              id: route?.params?.id,
             });
           }
         }}
       />
-      {/* {!isLoggedIn && ( */}
       <LoginSheet
         isOpen={isOpen}
         onClose={onClose}
         action={ScreenNames.ClaimDiscount}
         payload={{promo_code: route?.params?.promo_code}}
       />
-      {/* )} */}
     </Stack>
   );
 }

@@ -28,7 +28,7 @@ export function CarouselImage({item, variant = 'md'}) {
       ]}
       onPress={() => {
         dispatch(setPromoCode(item?.promo_code));
-        // navigation.navigate(ScreenNames.Discount, {id: item.id});
+        navigation.navigate(ScreenNames.Discount, {id: item.id});
       }}>
       <FastImage
         style={{width: '100%', height: 170}}

@@ -41,7 +41,7 @@ export function HomeScreen() {
         renderItem={({item}) => {
           return (
             <Stack space={3}>
-              <MainScreenHeader label={`HI ${user?.name || ''} 👋`} />
+              <MainScreenHeader label={`Hi ${user?.name || ''} 👋`} />
               <SearchBox
                 hasCamera={false}
                 mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
