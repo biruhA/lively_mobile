@@ -17,7 +17,7 @@ import {
 import {colors} from '../theme/colors';
 import {
   PlaceDetailsHeader,
-  ProductCard,
+  PlacesProductCard,
   SearchBar,
 } from '../components/molecules';
 import {
@@ -48,8 +48,6 @@ export function PlaceDetails() {
     longitude: userLocation?.lon,
     token,
   });
-
-  console.log('🚀 ~ file: PlaceDetails.tsx:50 ~ PlaceDetails ~ data:', data);
 
   if (isLoading) {
     return (
@@ -163,7 +161,7 @@ export function PlaceDetails() {
               return <ListEmptyComponent />;
             }}
             renderItem={({item}) => (
-              <ProductCard
+              <PlacesProductCard
                 id={item.id}
                 imageUrl={item?.product_variant?.product_image?.url}
                 item={item?.product_variant?.product?.title?.english}

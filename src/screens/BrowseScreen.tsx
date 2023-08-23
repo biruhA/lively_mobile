@@ -19,7 +19,7 @@ export function BrowseScreen() {
   const editorsPick = useEditorsPickQuery();
 
   return (
-    <Stack bg={colors.pureWhite}>
+    <Stack flex={1} bg={colors.pureWhite}>
       <ScrollView style={styles.bottomMargin}>
         <Stack space={4}>
           <MainScreenHeader label={'Browse'} />
