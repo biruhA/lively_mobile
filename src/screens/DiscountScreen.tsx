@@ -33,9 +33,13 @@ export function DiscountScreen() {
         <Spinner />
       ) : (
         <FlatList
-          style={{paddingTop: 16, marginHorizontal: 8}}
+          style={{paddingTop: 16}}
           numColumns={2}
-          contentContainerStyle={{paddingBottom: 8}}
+          contentContainerStyle={{
+            paddingBottom: 8,
+            paddingLeft: 10,
+            paddingRight: 5,
+          }}
           data={data?.data?.store_products}
           ListEmptyComponent={() => {
             return <ListEmptyComponent />;

@@ -79,7 +79,7 @@ function Detial({price, discount, current_price, left}) {
         </Text>
       </Stack>
       <Text pt={3} style={{color: '#FFB800'}}>
-        {left.toString()} Days left
+        {left?.toString()} Days left
       </Text>
     </HStack>
   );

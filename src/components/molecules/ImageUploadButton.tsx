@@ -9,11 +9,6 @@ import {useAppSelector} from '../../store/hooks';
 export function ImageUploadButton({onClose}) {
   const {token} = useAppSelector(state => state.auth);
   const [uploadPrescription, res] = useUploadPrescriptionMutation();
-  console.log(
-    '🚀 ~ file: ImageUploadButton.tsx:10 ~ ImageUploadButton ~ res:',
-    res,
-    token,
-  );
 
   useEffect(() => {
     if (!res?.isLoading && !res?.isUninitialized) {
@@ -32,8 +27,8 @@ export function ImageUploadButton({onClose}) {
 
   async function takeImage() {
     const result = await launchCamera(options);
-
-    const formData = new FormData('image', {
+    const formData = new FormData();
+    formData.append('image', {
       name: result?.assets[0]?.fileName,
       type: result?.assets[0]?.type,
       uri:
@@ -41,7 +36,6 @@ export function ImageUploadButton({onClose}) {
           ? result?.assets[0]?.uri.replace('file://', '')
           : result?.assets[0]?.uri,
     });
-
     uploadPrescription({formData, token});
   }
 

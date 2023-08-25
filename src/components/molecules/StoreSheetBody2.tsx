@@ -128,7 +128,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
           marginTop: 5,
         }}
         containerStyle={{paddingVertical: 13}}
-        text="Reserve"
+        text="Get in touch"
         onPress={() => {}}
       />
     </Stack>
@@ -157,9 +157,9 @@ function onPress({label, item}) {
       let phoneNumber = '';
 
       if (Platform.OS === 'android') {
-        phoneNumber = 'tel:${item?.phone}';
+        phoneNumber = `tel:${item?.phone}`;
       } else {
-        phoneNumber = 'telprompt:${item?.phone}';
+        phoneNumber = `telprompt:${item?.phone}`;
       }
 
       Linking.openURL(phoneNumber);
