@@ -1,4 +1,9 @@
-import {TouchableOpacity, StyleSheet, ImageBackground} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+  Platform,
+} from 'react-native';
 import React, {useState} from 'react';
 import {Text, Stack, HStack, Image} from 'native-base';
 import {fonts} from '../../theme/fonts';
@@ -10,6 +15,7 @@ import {setProductId} from '../../store/features/productSlice';
 import FastImage from 'react-native-fast-image';
 import {Icons, Images} from '../../theme/icons';
 import {ShadowCard} from '../cards';
+import {ApiImage} from '..';
 
 interface Props {
   id: string;
@@ -32,7 +38,6 @@ export function ProductCard({
 }: Props): JSX.Element {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [hasLoaded, setHasLoaded] = useState(false);
 
   function onPress() {
     dispatch(setProductId(id));
@@ -46,22 +51,7 @@ export function ProductCard({
     <ShadowCard style={[styles.main, mainStyle]}>
       <TouchableOpacity onPress={onPress}>
         <Stack space={1}>
-          <ImageBackground source={Images.placeholder}>
-            <FastImage
-              style={[
-                styles.img,
-                {backgroundColor: hasLoaded ? 'white' : 'transparent'},
-              ]}
-              source={{uri: imageUrl}}
-              resizeMode={'contain'}
-              onLoadEnd={() => {
-                setHasLoaded(true);
-              }}
-              onError={() => {
-                setHasLoaded(false);
-              }}
-            />
-          </ImageBackground>
+          <ApiImage style={styles.img} imageUrl={imageUrl} />
           <Stack px={2}>
             <Text py={2} style={fonts.body1} numberOfLines={2}>
               {item}

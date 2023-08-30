@@ -44,6 +44,10 @@ export function EditProfileScreen() {
   const [email, setEmail] = useState(data?.data?.email);
   const [UpdateProfile, result] = useUpdateProfileMutation();
   const toast = useToast();
+  console.log(
+    '🚀 ~ file: EditProfileScreen.tsx:46 ~ EditProfileScreen ~ result:',
+    result,
+  );
 
   const handleSave = () => {
     UpdateProfile({

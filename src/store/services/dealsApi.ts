@@ -41,6 +41,21 @@ export const dealsApi = createApi({
         },
       }),
     }),
+
+    claimDiscounts: build.mutation({
+      query: ({token, store_product_id}) => ({
+        url: 'claim-discounts',
+        method: 'POST',
+        body: {
+          store_product_id,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -51,4 +66,5 @@ export const {
   useSquareDiscountBannersQuery,
   useDiscountBannerDetailQuery,
   useProductVariantDetailQuery,
+  useClaimDiscountsMutation,
 } = dealsApi;

@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Linking,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Button, HStack, Image, Pressable, Stack, Text} from 'native-base';
 import {
   GoBack,
@@ -16,20 +16,23 @@ import {
 import {colors} from '../theme/colors';
 import {fonts} from '../theme/fonts';
 import download from '../assets/icons/download.png';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import {useRoute, useFocusEffect} from '@react-navigation/native';
 import RNFS from 'react-native-fs';
 import CameraRoll, {useCameraRoll} from '@react-native-camera-roll/camera-roll';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {useAppSelector} from '../store/hooks';
-import {useStoreDetailByIdQuery} from '../store/services';
+import {
+  useClaimDiscountsMutation,
+  useStoreDetailByIdQuery,
+} from '../store/services';
 
 export function ClaimDiscount() {
   const route = useRoute();
-  const navigation = useNavigation();
   const [productQRref, setProductQRref] = useState();
   const [photos, getPhotos, save] = useCameraRoll();
   const {userLocation} = useAppSelector(state => state.search);
   const {token} = useAppSelector(state => state.auth);
+  const [ClaimDiscounts, result] = useClaimDiscountsMutation();
   const {data, isLoading} = useStoreDetailByIdQuery({
     id: route?.params?.id,
     latitude: userLocation?.lat,
@@ -37,16 +40,25 @@ export function ClaimDiscount() {
     token,
   });
 
-  console.log(
-    '🚀 ~ file: ClaimDiscount.tsx:31 ~ ClaimDiscount ~ data:',
-    data?.data?.contactAddress?.location,
+  useFocusEffect(
+    useCallback(() => {
+      ClaimDiscounts({
+        token,
+        store_product_id: route?.params?.id,
+      });
+    }, []),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      saveQrToDisk();
+    }, [productQRref]),
   );
 
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
       return;
     }
-
     if (productQRref) {
       productQRref.toDataURL(data => {
         let filePath =

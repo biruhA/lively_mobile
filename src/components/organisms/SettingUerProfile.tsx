@@ -94,13 +94,26 @@ export function SettingUerProfile() {
                   source={{
                     uri: data?.data?.profile_photo_url,
                   }}>
-                  {`${data?.data?.name
-                    .split(' ')[0]
-                    .charAt(0)
-                    .toUpperCase()} ${data?.data?.name
-                    .split(' ')[1]
-                    .charAt(0)
-                    .toUpperCase()}`}
+                  <HStack>
+                    {data?.data?.name?.split(' ')[0] && (
+                      <Text
+                        fontWeight={'semibold'}
+                        color={'white'}
+                        fontSize={24}>{`${data?.data?.name
+                        ?.split(' ')[0]
+                        ?.charAt(0)
+                        ?.toUpperCase()}`}</Text>
+                    )}
+                    {data?.data?.name?.split(' ')[1] && (
+                      <Text
+                        fontWeight={'semibold'}
+                        color={'white'}
+                        fontSize={24}>{`${data?.data?.name
+                        ?.split(' ')[1]
+                        ?.charAt(0)
+                        ?.toUpperCase()}`}</Text>
+                    )}
+                  </HStack>
                 </Avatar>
                 <TouchableOpacity
                   onPress={() =>
@@ -129,7 +142,7 @@ export function SettingUerProfile() {
                   <Text style={styles.userInfoText}>
                     {isVisible
                       ? `+${data?.data?.phone}`
-                      : `+251 *******${data?.data?.phone.substring(10, 12)}`}
+                      : `+251 *******${data?.data?.phone?.substring(10, 12)}`}
                   </Text>
                 </View>
               </TouchableOpacity>

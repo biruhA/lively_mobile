@@ -26,7 +26,6 @@ export function DiscountDetail({
     <Stack space={2}>
       <Text fontSize={16} fontWeight={700} mt={4}>
         {data?.product?.title?.english}
-        Royal Moroccan Nourishing Mask Treatment for Thin & Fine Hair
       </Text>
       <Stack
         space={8}
@@ -79,7 +78,7 @@ function Detial({price, discount, current_price, left}) {
         </Text>
       </Stack>
       <Text pt={3} style={{color: '#FFB800'}}>
-        {left?.toString()} Days left
+        {left ? left?.toString() : ' '} Days left
       </Text>
     </HStack>
   );

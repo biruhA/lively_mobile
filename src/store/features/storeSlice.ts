@@ -21,12 +21,7 @@ export const storeSlice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(
       storeApi.endpoints.storeDetailById.matchFulfilled,
-      (state, action) => {
-        console.log(
-          '🚀 ~ file: storeSlice.ts:26 ~ action?.payload:',
-          action?.payload,
-        );
-      },
+      (state, action) => {},
     );
   },
 });

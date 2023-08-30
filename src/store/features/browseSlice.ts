@@ -31,9 +31,7 @@ export const browseSlice = createSlice({
   extraReducers: builder => {
     builder.addMatcher(
       storeApi.endpoints.storeDetailById.matchFulfilled,
-      (state, action) => {
-        console.log('🚀 ~ file: browseSlice.ts:28 ~ action:', action);
-      },
+      (state, action) => {},
     );
   },
 });

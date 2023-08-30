@@ -39,18 +39,23 @@ export function ProductDescription({Data}: any) {
             ?.english
         }
       />
-      <Stack>
-        <Text style={fonts.subtitle1} pt={4}>
-          Additional information
-        </Text>
-        <FlatList
-          data={
-            Data?.variants[selectedProductVariantIndex]?.additional_information
-          }
-          renderItem={({item}) => <Item label={item.key} value={item.value} />}
-          keyExtractor={item => item.key}
-        />
-      </Stack>
+      {Data?.variants[selectedProductVariantIndex]?.additional_information && (
+        <Stack>
+          <Text style={fonts.subtitle1} pt={4}>
+            Additional information
+          </Text>
+          <FlatList
+            data={
+              Data?.variants[selectedProductVariantIndex]
+                ?.additional_information
+            }
+            renderItem={({item}) => (
+              <Item label={item.key} value={item.value} />
+            )}
+            keyExtractor={item => item.key}
+          />
+        </Stack>
+      )}
     </Stack>
   );
 }
