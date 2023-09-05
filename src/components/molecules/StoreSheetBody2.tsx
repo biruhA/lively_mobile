@@ -13,7 +13,11 @@ import website from '../../assets/images/website.png';
 import {GradientButtonSmall} from '../atoms';
 import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
-import {useStoreDetailByIdQuery} from '../../store/services';
+import {
+  useClickSocialMutation,
+  useNotifyStoreMutation,
+  useStoreDetailByIdQuery,
+} from '../../store/services';
 
 interface Props {
   isOpen: any;
@@ -24,6 +28,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
   const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
+  const [NotifyStore] = useNotifyStoreMutation();
   const {data, isLoading} = useStoreDetailByIdQuery({
     id: selectedStoreId,
     latitude: userLocation?.lat,
@@ -41,11 +46,14 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
       <Image
-        source={placeBackground}
+        source={{
+          uri: data?.data?.store_branch?.cover_image?.url,
+        }}
         alt="Alternate Text"
         w={'100%'}
         h={120}
-        resizeMode={'contain'}
+        resizeMode={'cover'}
+        borderRadius={5}
       />
       <HStack alignItems={'flex-start'}>
         <Image
@@ -72,6 +80,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
       <Stack>
         {data?.data?.contactAddress?.phone && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="Phone Number"
             item={data?.data?.contactAddress?.phone}
             url={phone}
@@ -79,6 +88,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         )}
         {data?.data?.contactAddress?.location && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="Location"
             item={data?.data?.contactAddress?.location}
             url={location}
@@ -86,6 +96,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         )}
         {data?.data?.contactAddress?.facebook && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="Facebook"
             item={data?.data?.contactAddress?.facebook}
             url={facebook}
@@ -93,6 +104,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         )}
         {data?.data?.contactAddress?.telegram && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="Telegram"
             item={data?.data?.contactAddress?.telegram}
             url={telegram}
@@ -100,6 +112,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         )}
         {data?.data?.contactAddress?.website && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="Website"
             item={data?.data?.contactAddress?.website}
             url={website}
@@ -107,6 +120,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         )}
         {data?.data?.contactAddress?.whatsApp && (
           <ContactAddressItem
+            id={data?.data?.id}
             label="WhatsApp"
             item={data?.data?.contactAddress?.whatsApp}
             url={whatsup}
@@ -129,13 +143,21 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         }}
         containerStyle={{paddingVertical: 13}}
         text="Get in touch"
-        onPress={() => {}}
+        onPress={() => {
+          NotifyStore({
+            id: selectedStoreId,
+            token,
+          });
+        }}
       />
     </Stack>
   );
 }
 
-function ContactAddressItem({item, label, url}) {
+function ContactAddressItem({id, item, label, url}) {
+  const [ClickSocial, result] = useClickSocialMutation();
+  const {token} = useAppSelector(state => state.auth);
+
   return (
     <HStack
       py={2}
@@ -144,65 +166,88 @@ function ContactAddressItem({item, label, url}) {
       borderBottomWidth={1}
       borderBottomColor={colors.border}>
       <Text style={fonts.body1}>{label}</Text>
-      <TouchableOpacity onPress={() => onPress({label, item})}>
+      <TouchableOpacity
+        onPress={() => onPress({id, label, item, ClickSocial, token})}>
         <Image source={url} alt="phone" boxSize={7} borderRadius={6} />
       </TouchableOpacity>
     </HStack>
   );
 }
 
-function onPress({label, item}) {
+function onPress({id, label, item, ClickSocial, token}) {
   switch (label) {
     case 'Phone Number':
       let phoneNumber = '';
-
       if (Platform.OS === 'android') {
-        phoneNumber = `tel:${item?.phone}`;
+        phoneNumber = `tel:${item}`;
       } else {
-        phoneNumber = `telprompt:${item?.phone}`;
+        phoneNumber = `telprompt:${item}`;
       }
-
       Linking.openURL(phoneNumber);
+      ClickSocial({
+        id,
+        url: 'click-phone',
+        token,
+      });
       break;
     case 'Location':
       const lat = item?.latitude;
       const lon = item?.longitude;
-      // const url = Platform.select({
-      //   ios: 'maps:' + lat + ',' + lon,
-      //   android: 'geo:' + lat + ',' + lon,
-      // });
-
       const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
 
       Linking.openURL(url);
+      ClickSocial({
+        id,
+        url: 'click-map',
+        token,
+      });
       break;
     case 'Telegram':
-      const url2 = item?.telegram;
+      const url2 = item;
       // const url2 = 'tg://+251921429029';
       Linking.openURL(url2).catch(err =>
         console.error('An error occurred', err),
       );
+      ClickSocial({
+        id,
+        url: 'click-telegram',
+        token,
+      });
       break;
     case 'WhatsApp':
-      const url3 = item?.whatsApp;
+      const url3 = item;
       // const url3 = `whatsapp://send?text=${'message'}&phone=${+251921429029}`;
       Linking.openURL(url3).catch(err =>
         console.error('An error occurred', err),
       );
+      ClickSocial({
+        id,
+        url: 'click-whatsapp',
+        token,
+      });
       break;
     case 'Facebook':
-      const url4 = item?.facebook;
+      const url4 = item;
       // const url4 = 'fb://+251921429029';
       Linking.openURL(url4).catch(err =>
         console.error('An error occurred', err),
       );
+      ClickSocial({
+        id,
+        url: 'click-facebook',
+        token,
+      });
       break;
     case 'Website':
-      const url5 = item?.website;
-      // const url5 = 'https://www.google.com';
+      const url5 = item;
       Linking.openURL(url5).catch(err =>
         console.error('An error occurred', err),
       );
+      ClickSocial({
+        id,
+        url: 'click-website',
+        token,
+      });
       break;
     default:
       break;

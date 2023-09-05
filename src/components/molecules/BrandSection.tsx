@@ -5,10 +5,14 @@ import {fonts} from '../../theme/fonts';
 import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {VaiantList} from './VaiantList';
 import {ColorList} from './ColorList';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {setSelectedProductVariantIndex} from '../../store/features/productSlice';
+import {TouchableOpacity} from 'react-native';
+import {Navigation} from '../../navigation';
+import {ScreenNames} from '../../constants';
 
 export function BrandSection({Data}: any) {
+  const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [color, setColor] = useState();
 
@@ -42,9 +46,14 @@ export function BrandSection({Data}: any) {
       )}
       <HStack py={2} justifyContent={'flex-start'} space={1}>
         <Text style={fonts.body1}>Brand:</Text>
-        <Text style={[fonts.subtitle1, {textDecorationLine: 'underline'}]}>
-          {Data?.brand?.name?.english}
-        </Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate(ScreenNames.BrandScreen, {id: Data?.brand?.id});
+          }}>
+          <Text style={[fonts.subtitle1, {textDecorationLine: 'underline'}]}>
+            {Data?.brand?.name?.english}
+          </Text>
+        </TouchableOpacity>
       </HStack>
     </Stack>
   );

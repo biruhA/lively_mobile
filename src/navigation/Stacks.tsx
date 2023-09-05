@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
 import {
   ArticleDetailScreen,
+  BrandScreen,
   BrowseScreen,
   ChangePasswordScreen,
   CheckoutScreen,
@@ -152,6 +153,7 @@ export const Stacks = () => {
         name={ScreenNames.SeeAllArticles}
         component={SeeAllArticlesScreen}
       />
+      <Stack.Screen name={ScreenNames.BrandScreen} component={BrandScreen} />
     </Stack.Navigator>
   );
 };

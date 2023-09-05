@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to allow generating React hooks
 import {createApi} from '@reduxjs/toolkit/query/react';
 import {authUrl} from '../baseUrlConstant';
+import {string} from 'yup';
 
 // Define a service using a base URL and expected endpoints
 export const productApi = createApi({
@@ -55,13 +56,21 @@ export const productApi = createApi({
       }),
     }),
     productBySubCategory: build.mutation({
-      query: ({id}) => ({
+      query: ({id, page}) => ({
         url: `product-by-sub-category/${id}`,
+        params: {
+          page,
+        },
       }),
     }),
     getTags: build.query({
-      query: id => ({
+      query: () => ({
         url: 'get-tags',
+      }),
+    }),
+    filterByBrand: build.query({
+      query: id => ({
+        url: `filter-by-brand/${id}`,
       }),
     }),
     search: build.mutation({
@@ -93,5 +102,6 @@ export const {
   useProductBySubCategoryMutation,
   useProductsByCategoryMutation,
   useGetTagsQuery,
+  useFilterByBrandQuery,
   useSearchMutation,
 } = productApi;

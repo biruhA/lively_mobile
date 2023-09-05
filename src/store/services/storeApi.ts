@@ -25,6 +25,28 @@ export const storeApi = createApi({
         },
       }),
     }),
+    notifyStore: build.mutation({
+      query: ({id, token}) => ({
+        url: `notify-store/${id}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
+    clickSocial: build.mutation({
+      query: ({url, id, token}) => ({
+        url: `${url}/${id}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
     storeDetailById: build.query({
       query: ({id, latitude, longitude, token}) => ({
         url: `store-detail/${id}`,
@@ -45,5 +67,7 @@ export const storeApi = createApi({
 export const {
   useStoresQuery,
   useRecommendedProductStoresMutation,
+  useNotifyStoreMutation,
+  useClickSocialMutation,
   useStoreDetailByIdQuery,
 } = storeApi;

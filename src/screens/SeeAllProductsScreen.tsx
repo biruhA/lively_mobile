@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {FlatList, Platform} from 'react-native';
 import {ListEmptyComponent} from '../components/atoms';
 import {useRoute} from '@react-navigation/native';
-import {Stack} from 'native-base';
+import {Center, Spinner, Stack, Text} from 'native-base';
 import {Colors} from '../theme/colors';
 import {CatalogList, ProductCard} from '../components/molecules';
 import {useAppSelector} from '../store/hooks';
@@ -25,42 +25,84 @@ export function SeeAllProductsScreen() {
   const [DATA, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [IsLoading, setIsLoading] = useState(true);
+  const [IsSubLoading, setIsSubLoading] = useState(false);
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,
   );
   const [ProductBySubCategory] = useProductBySubCategoryMutation();
   const [ProductsByCategory, result] = useProductsByCategoryMutation();
 
+  console.log(
+    '🚀 ~ file: SeeAllProductsScreen.tsx:27 ~ SeeAllProductsScreen ~ page:',
+    page,
+    IsSubLoading,
+  );
+
   useEffect(() => {
     if (selectedSubCategoryId !== '') {
-      setIsLoading(true);
-      ProductBySubCategory({
-        id: selectedSubCategoryId,
-      })
-        .unwrap()
-        .then(res => {
-          setData(res?.data?.products);
-          setIsLoading(false);
+      if (page === 1) {
+        setIsLoading(true);
+        ProductBySubCategory({
+          id: selectedSubCategoryId,
+          page,
         })
-        .catch(err => {
-          console.log(err);
-          setIsLoading(false);
-        });
+          .unwrap()
+          .then(res => {
+            setData(res?.data?.products?.data);
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      } else if (page > 1) {
+        setIsSubLoading(true);
+        ProductBySubCategory({
+          id: selectedSubCategoryId,
+          page,
+        })
+          .unwrap()
+          .then(res => {
+            setData(DATA.concat(res?.data?.products?.data));
+            setIsSubLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsSubLoading(false);
+          });
+      }
     } else {
-      setIsLoading(true);
-      ProductsByCategory({
-        id: selectedCategoryId,
-        page,
-      })
-        .unwrap()
-        .then(res => {
-          setData(res?.data?.products?.data);
-          setIsLoading(false);
+      if (page === 1) {
+        setIsLoading(true);
+        ProductsByCategory({
+          id: selectedCategoryId,
+          page,
         })
-        .catch(err => {
-          console.log(err);
-          setIsLoading(false);
-        });
+          .unwrap()
+          .then(res => {
+            setData(res?.data?.products?.data);
+            setIsLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsLoading(false);
+          });
+      } else if (page > 1) {
+        setIsSubLoading(true);
+        ProductsByCategory({
+          id: selectedCategoryId,
+          page,
+        })
+          .unwrap()
+          .then(res => {
+            setData(DATA.concat(res?.data?.products?.data));
+            setIsSubLoading(false);
+          })
+          .catch(err => {
+            console.log(err);
+            setIsSubLoading(false);
+          });
+      }
     }
   }, [
     selectedCategoryId,
@@ -83,7 +125,7 @@ export function SeeAllProductsScreen() {
         h={'full'}
         p={4}
         justifyContent={'center'}>
-        <CatalogList />
+        <CatalogList setPage={setPage} />
         {IsLoading ? (
           <ProductSkeletonColumn />
         ) : (
@@ -91,6 +133,37 @@ export function SeeAllProductsScreen() {
             numColumns={2}
             data={DATA}
             ListEmptyComponent={() => <ListEmptyComponent />}
+            ListFooterComponent={() => {
+              if (IsSubLoading) {
+                if (result?.data?.data?.products?.next_page_url === null) {
+                  return (
+                    <Center bg={'blue.200'} w={'100%'} p={24}>
+                      <Text>End</Text>
+                    </Center>
+                  );
+                } else {
+                  return (
+                    <Center bg={'blue.200'} w={'100%'} p={24}>
+                      <Spinner />
+                    </Center>
+                  );
+                }
+              }
+            }}
+            onEndReached={() => {
+              console.log(
+                '🚀 ~ next_page_url:',
+                result?.data?.data?.products?.next_page_url,
+                IsSubLoading,
+              );
+              if (
+                result?.data?.data?.products?.next_page_url &&
+                !IsSubLoading
+              ) {
+                setPage(page + 1);
+              }
+            }}
+            onEndReachedThreshold={0.5}
             renderItem={({item}) => (
               <ProductCard
                 id={item?.id}
@@ -99,12 +172,6 @@ export function SeeAllProductsScreen() {
                 volume={item.variant_count}
                 amount={item.from}
                 mainStyle={{width: '50%', marginBottom: 12}}
-                onEndReached={() => {
-                  if (result?.data?.data?.products?.next_page_url) {
-                    setPage(page + 1);
-                  }
-                }}
-                onEndReachedThreshold={0.5}
               />
             )}
             keyExtractor={(item: Props) => item.id}

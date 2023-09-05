@@ -4,5 +4,5 @@ import {BASE_URL} from '@env';
 export const baseUrl = BASE_URL;
 
 export const authUrl = fetchBaseQuery({
-  baseUrl: `${BASE_URL}/`,
+  baseUrl: `${baseUrl}/`,
 });

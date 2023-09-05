@@ -10,9 +10,10 @@ import {useFocusEffect} from '@react-navigation/native';
 
 interface Props {
   variant?: gradientSmallVariant;
+  setPage: any;
 }
 
-export function CatalogList({variant = 'rounded'}: Props) {
+export function CatalogList({variant = 'rounded', setPage}: Props) {
   const dispatch = useDispatch();
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,
@@ -28,6 +29,7 @@ export function CatalogList({variant = 'rounded'}: Props) {
   );
 
   const onPress = (id: string) => {
+    setPage(1);
     dispatch(setSelectedSubCategoryId(id));
   };
 
