@@ -49,11 +49,9 @@ export function ClaimDiscount() {
     }, []),
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      saveQrToDisk();
-    }, [productQRref]),
-  );
+  useEffect(() => {
+    saveQrToDisk();
+  }, [productQRref]);
 
   const saveQrToDisk = async () => {
     if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
