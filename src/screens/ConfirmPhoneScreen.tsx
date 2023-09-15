@@ -1,6 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {HStack, Image, Input, Stack, Text, useToast} from 'native-base';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  HStack,
+  Image,
+  Input,
+  Stack,
+  Text,
+  useToast,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'native-base';
 import {SignUpStepper} from '../components/molecules';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
@@ -101,188 +110,199 @@ export function ConfirmPhoneScreen() {
   }, [token]);
 
   return (
-    <Stack
-      flex={1}
-      px={4}
-      py={12}
-      space={12}
-      bg={'white'}
-      justifyContent={'flex-start'}>
-      <GoBack />
-      {route?.params?.prev !== ScreenNames.ForgotPassword && (
-        <SignUpStepper step={2} />
-      )}
-      <Stack pt={24}>
-        <Text style={fonts.heading4} pt={3}>
-          Confirm your phone
-        </Text>
-        <Text style={fonts.body1}>
-          {`We have sent you a 5 digit OTP code to this number +${verificationPhoneNumber}`}
-        </Text>
-      </Stack>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'flex-end'}}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <Stack
+          px={4}
+          py={12}
+          space={12}
+          bg={'white'}
+          justifyContent={'flex-start'}>
+          <GoBack />
+          {route?.params?.prev !== ScreenNames.ForgotPassword && (
+            <SignUpStepper step={2} />
+          )}
+          <Stack pt={24}>
+            <Text style={fonts.heading4} pt={3}>
+              Confirm your phone
+            </Text>
+            <Text style={fonts.body1}>
+              {`We have sent you a 5 digit OTP code to this number +${verificationPhoneNumber}`}
+            </Text>
+          </Stack>
 
-      <Stack space={3}>
-        <HStack justifyContent={'space-between'}>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                size={'2xl'}
-                maxLength={1}
-                autoFocus={true}
-                returnKeyType="next"
-                onSubmitEditing={() => ref_input2.current.focus()}
-                onChangeText={text => {
-                  onChange(text);
-                  if (text.length === 1) {
-                    ref_input2.current.focus();
-                  }
+          <Stack space={3}>
+            <HStack justifyContent={'space-between'}>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                keyboardType="number-pad"
-                w={'13%'}
-                textAlign={'center'}
-                borderRadius={5}
-                placeholder=" - "
-                onBlur={onBlur}
-                value={value}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <Input
+                    size={'2xl'}
+                    maxLength={1}
+                    autoFocus={true}
+                    returnKeyType="next"
+                    onSubmitEditing={() => ref_input2.current.focus()}
+                    onChangeText={text => {
+                      onChange(text);
+                      if (text.length === 1) {
+                        ref_input2.current.focus();
+                      }
+                    }}
+                    keyboardType="number-pad"
+                    w={'13%'}
+                    textAlign={'center'}
+                    borderRadius={5}
+                    placeholder=" - "
+                    onBlur={onBlur}
+                    value={value}
+                  />
+                )}
+                name="code1"
               />
-            )}
-            name="code1"
-          />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                size={'2xl'}
-                returnKeyType="next"
-                onSubmitEditing={() => ref_input3.current.focus()}
-                ref={ref_input2}
-                keyboardType="number-pad"
-                w={'13%'}
-                textAlign={'center'}
-                borderRadius={5}
-                placeholder=" - "
-                onBlur={onBlur}
-                onChangeText={text => {
-                  onChange(text);
-                  if (text.length === 1) {
-                    ref_input3.current.focus();
-                  }
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                value={value}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <Input
+                    size={'2xl'}
+                    returnKeyType="next"
+                    onSubmitEditing={() => ref_input3.current.focus()}
+                    ref={ref_input2}
+                    keyboardType="number-pad"
+                    w={'13%'}
+                    textAlign={'center'}
+                    borderRadius={5}
+                    placeholder=" - "
+                    onBlur={onBlur}
+                    onChangeText={text => {
+                      onChange(text);
+                      if (text.length === 1) {
+                        ref_input3.current.focus();
+                      }
+                    }}
+                    value={value}
+                  />
+                )}
+                name="code2"
               />
-            )}
-            name="code2"
-          />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                size={'2xl'}
-                returnKeyType="next"
-                onSubmitEditing={() => ref_input4.current.focus()}
-                ref={ref_input3}
-                keyboardType="number-pad"
-                w={'13%'}
-                textAlign={'center'}
-                borderRadius={5}
-                placeholder=" - "
-                onBlur={onBlur}
-                onChangeText={text => {
-                  onChange(text);
-                  if (text.length === 1) {
-                    ref_input4.current.focus();
-                  }
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                value={value}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <Input
+                    size={'2xl'}
+                    returnKeyType="next"
+                    onSubmitEditing={() => ref_input4.current.focus()}
+                    ref={ref_input3}
+                    keyboardType="number-pad"
+                    w={'13%'}
+                    textAlign={'center'}
+                    borderRadius={5}
+                    placeholder=" - "
+                    onBlur={onBlur}
+                    onChangeText={text => {
+                      onChange(text);
+                      if (text.length === 1) {
+                        ref_input4.current.focus();
+                      }
+                    }}
+                    value={value}
+                  />
+                )}
+                name="code3"
               />
-            )}
-            name="code3"
-          />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                size={'2xl'}
-                returnKeyType="next"
-                onSubmitEditing={() => ref_input5.current.focus()}
-                ref={ref_input4}
-                keyboardType="number-pad"
-                w={'13%'}
-                textAlign={'center'}
-                borderRadius={5}
-                placeholder=" - "
-                onBlur={onBlur}
-                onChangeText={text => {
-                  onChange(text);
-                  if (text.length === 1) {
-                    ref_input5.current.focus();
-                  }
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                value={value}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <Input
+                    size={'2xl'}
+                    returnKeyType="next"
+                    onSubmitEditing={() => ref_input5.current.focus()}
+                    ref={ref_input4}
+                    keyboardType="number-pad"
+                    w={'13%'}
+                    textAlign={'center'}
+                    borderRadius={5}
+                    placeholder=" - "
+                    onBlur={onBlur}
+                    onChangeText={text => {
+                      onChange(text);
+                      if (text.length === 1) {
+                        ref_input5.current.focus();
+                      }
+                    }}
+                    value={value}
+                  />
+                )}
+                name="code4"
               />
-            )}
-            name="code4"
-          />
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({field: {onChange, onBlur, value}}) => (
-              <Input
-                size={'2xl'}
-                ref={ref_input5}
-                keyboardType="number-pad"
-                w={'13%'}
-                textAlign={'center'}
-                borderRadius={5}
-                placeholder=" - "
-                onBlur={onBlur}
-                onChangeText={onChange}
-                value={value}
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <Input
+                    size={'2xl'}
+                    ref={ref_input5}
+                    keyboardType="number-pad"
+                    w={'13%'}
+                    textAlign={'center'}
+                    borderRadius={5}
+                    placeholder=" - "
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                  />
+                )}
+                name="code5"
               />
-            )}
-            name="code5"
-          />
-        </HStack>
-        <GradientButton
-          title="Submit"
-          text="Continue"
-          onPress={handleSubmit(onSubmit)}
-          // disabled={!isValid}
-          isLoading={result?.isLoading}
-          mainStyle={styles.mainStyle}
-        />
-      </Stack>
-      <HStack justifyContent={'center'}>
-        <Timer setIsFinished={setIsFinished} initTime={59} />
-        <TouchableOpacity
-          disabled={!isFinished}
-          onPress={() => {
-            ResendOtp(verificationPhoneNumber);
-          }}>
-          <Text
-            style={!isFinished ? styles.forgotInactive : styles.forgotActive}>
-            {' '}
-            Resend
-          </Text>
-        </TouchableOpacity>
-      </HStack>
-      <LoginBackGround />
-    </Stack>
+            </HStack>
+            <GradientButton
+              title="Submit"
+              text="Continue"
+              onPress={handleSubmit(onSubmit)}
+              // disabled={!isValid}
+              isLoading={result?.isLoading}
+              mainStyle={styles.mainStyle}
+            />
+          </Stack>
+          <HStack justifyContent={'center'}>
+            <Timer setIsFinished={setIsFinished} initTime={59} />
+            <TouchableOpacity
+              disabled={!isFinished}
+              onPress={() => {
+                ResendOtp(verificationPhoneNumber);
+              }}>
+              <Text
+                style={
+                  !isFinished ? styles.forgotInactive : styles.forgotActive
+                }>
+                {' '}
+                Resend
+              </Text>
+            </TouchableOpacity>
+          </HStack>
+          <Stack space={1} />
+          <LoginBackGround />
+        </Stack>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

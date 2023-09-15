@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {
   Center,
@@ -9,6 +9,8 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  KeyboardAvoidingView,
+  ScrollView,
   Pressable,
   Stack,
   Text,
@@ -99,139 +101,150 @@ export function WelcomeBackScreen() {
   };
 
   return (
-    <Stack
-      flex={1}
-      px={4}
-      py={12}
-      space={2}
-      bg={'white'}
-      justifyContent={'space-between'}>
-      <Stack pt={24}>
-        <Text style={fonts.subtitle2}>Hello Again!</Text>
-        <Text style={fonts.heading4} pt={3}>
-          Welcome Back
-        </Text>
-      </Stack>
-      <Stack space={3}>
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-            minLength: 9,
-            maxLength: 9,
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <Stack alignItems="center">
-              <InputGroup w={'100%'}>
-                <InputLeftAddon children={'+251'} />
-                <Input
-                  w={'87%'}
-                  size={'lg'}
-                  InputRightElement={
-                    <Image
-                      alt={'phone number'}
-                      source={require('../assets/icons/phone.png')}
-                      boxSize={5}
-                      mr="2"
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'flex-end'}}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <Stack
+          px={4}
+          py={20}
+          space={12}
+          bg={'white'}
+          justifyContent={'flex-start'}>
+          <Stack pt={24}>
+            <Text style={fonts.subtitle2}>Hello Again!</Text>
+            <Text style={fonts.heading4} pt={3}>
+              Welcome Back
+            </Text>
+          </Stack>
+          <Stack space={3}>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+                minLength: 9,
+                maxLength: 9,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Stack alignItems="center">
+                  <InputGroup w={'100%'}>
+                    <InputLeftAddon children={'+251'} />
+                    <Input
+                      w={'87%'}
+                      size={'lg'}
+                      InputRightElement={
+                        <Image
+                          alt={'phone number'}
+                          source={require('../assets/icons/phone.png')}
+                          boxSize={5}
+                          mr="2"
+                        />
+                      }
+                      placeholder="Phone No"
+                      keyboardType={'number-pad'}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      borderRadius={5}
+                      maxLength={9}
                     />
+                  </InputGroup>
+                </Stack>
+              )}
+              name="phoneNo"
+            />
+            {errors.phoneNo?.type === 'required' && (
+              <Text color={'error.500'}>Phone number is required.</Text>
+            )}
+            {errors.phoneNo?.type === 'maxLength' && (
+              <Text color={'error.500'}>Phone number max length is 9</Text>
+            )}
+            {errors.phoneNo?.type === 'minLength' && (
+              <Text color={'error.500'}>Phone number min length is 9</Text>
+            )}
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+                minLength: 8,
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Input
+                  borderRadius={5}
+                  size={'lg'}
+                  placeholder="Password"
+                  type={show ? 'text' : 'password'}
+                  InputRightElement={
+                    <Pressable onPress={() => setShow(!show)}>
+                      <PasswordIcon isActive={show} setIsActive={setShow} />
+                    </Pressable>
                   }
-                  placeholder="Phone No"
-                  keyboardType={'number-pad'}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
-                  borderRadius={5}
-                  maxLength={9}
                 />
-              </InputGroup>
-            </Stack>
-          )}
-          name="phoneNo"
-        />
-        {errors.phoneNo?.type === 'required' && (
-          <Text color={'error.500'}>Phone number is required.</Text>
-        )}
-        {errors.phoneNo?.type === 'maxLength' && (
-          <Text color={'error.500'}>Phone number max length is 9</Text>
-        )}
-        {errors.phoneNo?.type === 'minLength' && (
-          <Text color={'error.500'}>Phone number min length is 9</Text>
-        )}
-        <Controller
-          control={control}
-          rules={{
-            required: true,
-            minLength: 8,
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              borderRadius={5}
-              size={'lg'}
-              placeholder="Password"
-              type={show ? 'text' : 'password'}
-              InputRightElement={
-                <Pressable onPress={() => setShow(!show)}>
-                  <PasswordIcon isActive={show} setIsActive={setShow} />
-                </Pressable>
-              }
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
+              )}
+              name="password"
             />
-          )}
-          name="password"
-        />
-        {errors.password?.type === 'required' && (
-          <Text color={'error.500'}>Password is required.</Text>
-        )}
-        {errors.password?.type === 'minLength' && (
-          <Text color={'error.500'}>Password min length is 8</Text>
-        )}
-        <GradientButton
-          title="Submit"
-          text="Login"
-          onPress={handleSubmit(onSubmit)}
-          mainStyle={styles.mainStyle}
-          isLoading={result?.isLoading}
-        />
-        <Stack space={8} pt={2}>
-          <HStack alignItems={'center'} justifyContent={'space-between'}>
-            <Checkbox
-              isChecked={rememberMe}
-              colorScheme={'green'}
-              value="one"
-              size={'sm'}
-              onChange={setRememberMe}>
-              <Text color={colors.lightgreyText} fontSize={16}>
-                Remember me
-              </Text>
-            </Checkbox>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(ScreenNames.ForgotPassword)}>
-              <Text style={styles.forgot}>Forgot Password?</Text>
-            </TouchableOpacity>
-          </HStack>
+            {errors.password?.type === 'required' && (
+              <Text color={'error.500'}>Password is required.</Text>
+            )}
+            {errors.password?.type === 'minLength' && (
+              <Text color={'error.500'}>Password min length is 8</Text>
+            )}
+            <GradientButton
+              title="Submit"
+              text="Login"
+              onPress={handleSubmit(onSubmit)}
+              mainStyle={styles.mainStyle}
+              isLoading={result?.isLoading}
+            />
+            <Stack space={8} pt={2}>
+              <HStack alignItems={'center'} justifyContent={'space-between'}>
+                <Checkbox
+                  isChecked={rememberMe}
+                  colorScheme={'green'}
+                  value="one"
+                  size={'sm'}
+                  onChange={setRememberMe}>
+                  <Text color={colors.lightgreyText} fontSize={16}>
+                    Remember me
+                  </Text>
+                </Checkbox>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate(ScreenNames.ForgotPassword)
+                  }>
+                  <Text style={styles.forgot}>Forgot Password?</Text>
+                </TouchableOpacity>
+              </HStack>
+              <HStack justifyContent={'center'}>
+                <Text style={styles.notRegistered}>Not Registered Yet? </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(ScreenNames.CreateAccount);
+                    navigation.navigate(ScreenNames.CreateAccount);
+                  }}>
+                  <Text style={styles.forgot}>Create an Account</Text>
+                </TouchableOpacity>
+              </HStack>
+            </Stack>
+          </Stack>
           <HStack justifyContent={'center'}>
-            <Text style={styles.notRegistered}>Not Registered Yet? </Text>
+            <Text style={styles.notRegistered}>Continue as </Text>
             <TouchableOpacity
-              onPress={() => {
-                navigation.navigate(ScreenNames.CreateAccount);
-                navigation.navigate(ScreenNames.CreateAccount);
-              }}>
-              <Text style={styles.forgot}>Create an Account</Text>
+              onPress={() => navigation.navigate(ScreenNames.Stacks)}>
+              <Text style={styles.forgot}>Guest</Text>
             </TouchableOpacity>
           </HStack>
+          <Stack space={1} />
+          <LoginBackGround />
         </Stack>
-      </Stack>
-      <HStack justifyContent={'center'}>
-        <Text style={styles.notRegistered}>Continue as </Text>
-        <TouchableOpacity
-          onPress={() => navigation.navigate(ScreenNames.Stacks)}>
-          <Text style={styles.forgot}>Guest</Text>
-        </TouchableOpacity>
-      </HStack>
-      <LoginBackGround />
-    </Stack>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

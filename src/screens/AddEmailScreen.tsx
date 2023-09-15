@@ -1,7 +1,16 @@
 import React, {useCallback, useEffect} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
-import {HStack, Image, Input, Stack, Text, useToast} from 'native-base';
+import {
+  HStack,
+  Image,
+  Input,
+  Stack,
+  Text,
+  useToast,
+  KeyboardAvoidingView,
+  ScrollView,
+} from 'native-base';
 import rightArrow from '../assets/icons/right-arrow.png';
 import {GoBack, GradientButton, LoginBackGround} from '../components/atoms';
 import {fonts} from '../theme/fonts';
@@ -93,88 +102,97 @@ export function AddEmailScreen() {
   };
 
   return (
-    <Stack
-      flex={1}
-      px={4}
-      py={12}
-      space={8}
-      bg={'white'}
-      justifyContent={'flex-start'}>
-      <GoBack />
-      <SignUpStepper step={5} />
-      <Stack pt={24}>
-        <Text style={fonts.heading4} pt={3}>
-          Add your email
-        </Text>
-        <Text style={fonts.body1}>
-          You can create an account by filling the information below
-        </Text>
-      </Stack>
-
-      <Stack space={3}>
-        <Text style={fonts.caption} pt={3}>
-          (Optional)
-        </Text>
-        <Controller
-          control={control}
-          rules={{
-            required: {
-              value: true,
-              message: 'email is required',
-            },
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email address',
-            },
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <Input
-              size={'lg'}
-              borderRadius={5}
-              placeholder="Email"
-              keyboardType="email-address"
-              InputRightElement={
-                <Image
-                  alt="email"
-                  source={require('../assets/icons/phone.png')}
-                  boxSize={5}
-                  mr="2"
-                />
-              }
-              onBlur={onBlur}
-              onChangeText={onChange}
-              value={value}
-            />
-          )}
-          name="email"
-        />
-        {errors.email && <Text>{errors.email.message}</Text>}
-
-        <GradientButton
-          title="Submit"
-          text="Continue"
-          onPress={handleSubmit(onSubmit)}
-          mainStyle={styles.mainStyle}
-        />
-        <TouchableOpacity onPress={skipHandler}>
-          <HStack
-            alignItems={'center'}
-            justifyContent={'center'}
-            pt={4}
-            space={2}>
-            <Text
-              style={[
-                fonts.subtitle2,
-                {color: colors.primary, fontWeight: '700'},
-              ]}>
-              Or skip
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'flex-end'}}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <Stack
+          px={4}
+          py={6}
+          space={20}
+          bg={'white'}
+          justifyContent={'flex-start'}>
+          <GoBack />
+          <SignUpStepper step={5} />
+          <Stack pt={18}>
+            <Text style={fonts.heading4} pt={3}>
+              Add your email
             </Text>
-            <Image source={rightArrow} alt="rightArrow" w={2} h={3.5} />
-          </HStack>
-        </TouchableOpacity>
-      </Stack>
-      <LoginBackGround />
-    </Stack>
+            <Text style={fonts.body1}>
+              You can create an account by filling the information below
+            </Text>
+          </Stack>
+
+          <Stack space={3}>
+            <Text style={fonts.caption} pt={3}>
+              (Optional)
+            </Text>
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'email is required',
+                },
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Invalid email address',
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Input
+                  size={'lg'}
+                  borderRadius={5}
+                  placeholder="Email"
+                  keyboardType="email-address"
+                  InputRightElement={
+                    <Image
+                      alt="email"
+                      source={require('../assets/icons/phone.png')}
+                      boxSize={5}
+                      mr="2"
+                    />
+                  }
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+              name="email"
+            />
+            {errors.email && <Text>{errors.email.message}</Text>}
+
+            <GradientButton
+              title="Submit"
+              text="Continue"
+              onPress={handleSubmit(onSubmit)}
+              mainStyle={styles.mainStyle}
+            />
+            <TouchableOpacity onPress={skipHandler}>
+              <HStack
+                alignItems={'center'}
+                justifyContent={'center'}
+                pt={4}
+                space={2}>
+                <Text
+                  style={[
+                    fonts.subtitle2,
+                    {color: colors.primary, fontWeight: '700'},
+                  ]}>
+                  Or skip
+                </Text>
+                <Image source={rightArrow} alt="rightArrow" w={2} h={3.5} />
+              </HStack>
+            </TouchableOpacity>
+          </Stack>
+          <Stack space={1} />
+          <LoginBackGround />
+        </Stack>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {
   HStack,
@@ -7,6 +7,8 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  KeyboardAvoidingView,
+  ScrollView,
   Stack,
   Text,
   useToast,
@@ -84,80 +86,90 @@ export function ForgotPasswordScreen() {
   };
 
   return (
-    <Stack
-      flex={1}
-      px={4}
-      py={12}
-      space={8}
-      bg={'white'}
-      justifyContent={'flex-start'}>
-      <GoBack label="Forgot Password" />
-      <Stack pt={24} space={1}>
-        <Text style={fonts.heading4} pt={3}>
-          Forgot Password
-        </Text>
-        <Text style={fonts.body1}>
-          You can create an account by filling the informationbelow
-        </Text>
-      </Stack>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1, backgroundColor: 'white', height: '100%'}}>
+      <ScrollView
+        contentContainerStyle={{flexGrow: 1, justifyContent: 'flex-end'}}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
+        <Stack
+          flex={1}
+          px={4}
+          py={20}
+          space={12}
+          bg={'white'}
+          justifyContent={'flex-start'}>
+          <GoBack label="Forgot Password" />
+          <Stack pt={24} space={1}>
+            <Text style={fonts.heading4} pt={3}>
+              Forgot Password
+            </Text>
+            <Text style={fonts.body1}>
+              You can create an account by filling the informationbelow
+            </Text>
+          </Stack>
 
-      <Stack space={3}>
-        <Controller
-          control={control}
-          rules={{
-            required: {
-              value: true,
-              message: 'Phone number is required.',
-            },
-            minLength: {
-              value: 9,
-              message: 'Phone number min length is 9',
-            },
-            maxLength: {
-              value: 9,
-              message: 'Phone number max length is 9',
-            },
-          }}
-          render={({field: {onChange, onBlur, value}}) => (
-            <Stack alignItems="flex-start">
-              <InputGroup w={'87%'}>
-                <InputLeftAddon children={'+251'} />
-                <Input
-                  w={'100%'}
-                  size={'lg'}
-                  InputRightElement={
-                    <Image
-                      alt={'phone number'}
-                      source={require('../assets/icons/phone.png')}
-                      boxSize={5}
-                      mr="2"
+          <Stack space={3}>
+            <Controller
+              control={control}
+              rules={{
+                required: {
+                  value: true,
+                  message: 'Phone number is required.',
+                },
+                minLength: {
+                  value: 9,
+                  message: 'Phone number min length is 9',
+                },
+                maxLength: {
+                  value: 9,
+                  message: 'Phone number max length is 9',
+                },
+              }}
+              render={({field: {onChange, onBlur, value}}) => (
+                <Stack alignItems="flex-start">
+                  <InputGroup w={'87%'}>
+                    <InputLeftAddon children={'+251'} />
+                    <Input
+                      w={'100%'}
+                      size={'lg'}
+                      InputRightElement={
+                        <Image
+                          alt={'phone number'}
+                          source={require('../assets/icons/phone.png')}
+                          boxSize={5}
+                          mr="2"
+                        />
+                      }
+                      placeholder="Phone No"
+                      keyboardType={'number-pad'}
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                      borderRadius={5}
+                      maxLength={9}
                     />
-                  }
-                  placeholder="Phone No"
-                  keyboardType={'number-pad'}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  borderRadius={5}
-                  maxLength={9}
-                />
-              </InputGroup>
-            </Stack>
-          )}
-          name="phoneNo"
-        />
-        {errors.phoneNo && <Text>{errors.phoneNo.message}</Text>}
-        <GradientButton
-          title="Submit"
-          text="Continue"
-          onPress={handleSubmit(onSubmit)}
-          isLoading={result?.isLoading}
-          // disabled={!isValid}
-          mainStyle={styles.mainStyle}
-        />
-      </Stack>
-      <LoginBackGround />
-    </Stack>
+                  </InputGroup>
+                </Stack>
+              )}
+              name="phoneNo"
+            />
+            {errors.phoneNo && <Text>{errors.phoneNo.message}</Text>}
+            <GradientButton
+              title="Submit"
+              text="Continue"
+              onPress={handleSubmit(onSubmit)}
+              isLoading={result?.isLoading}
+              // disabled={!isValid}
+              mainStyle={styles.mainStyle}
+            />
+          </Stack>
+          <Stack space={1} />
+          <LoginBackGround />
+        </Stack>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
