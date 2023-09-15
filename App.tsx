@@ -16,6 +16,14 @@ import {colors} from './src/theme/colors';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 import {LogBox} from 'react-native';
+import {Mixpanel} from 'mixpanel-react-native';
+import Config from 'react-native-config';
+
+const trackAutomaticEvents = true;
+export const mixpanel = new Mixpanel(
+  Config.MIXPANEL_PROJECT_KEY,
+  trackAutomaticEvents,
+);
 
 LogBox.ignoreAllLogs();
 
@@ -24,7 +32,13 @@ const {RealmProvider} = Context;
 function App(): JSX.Element {
   useEffect(() => {
     SplashScreen.hide();
+    mixpanel.init();
   }, []);
+
+  console.log(
+    '🚀 ~ file: App.tsx:25 ~ Config.MIXPANEL_PROJECT_KEY:',
+    Config.MIXPANEL_PROJECT_KEY,
+  );
 
   return (
     <SafeAreaView style={styles.main}>

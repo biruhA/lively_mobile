@@ -32,6 +32,7 @@ import {useLoginMutation} from '../store/services';
 import {rememberUser} from '../store/features/authSlice';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
+import {mixpanel} from '../../App';
 
 const {useRealm, useQuery} = Context;
 
@@ -87,6 +88,7 @@ export function WelcomeBackScreen() {
           offlineSaveUser();
         }
         reset();
+        mixpanel.track('Login', {'Signup Type': 'user'});
         navigation.navigate(ScreenNames.Stacks);
       })
       .catch(err => {
@@ -226,7 +228,6 @@ export function WelcomeBackScreen() {
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate(ScreenNames.CreateAccount);
-                    navigation.navigate(ScreenNames.CreateAccount);
                   }}>
                   <Text style={styles.forgot}>Create an Account</Text>
                 </TouchableOpacity>
@@ -236,7 +237,10 @@ export function WelcomeBackScreen() {
           <HStack justifyContent={'center'}>
             <Text style={styles.notRegistered}>Continue as </Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate(ScreenNames.Stacks)}>
+              onPress={() => {
+                mixpanel.track('Login', {'Signup Type': 'guest'});
+                navigation.navigate(ScreenNames.Stacks);
+              }}>
               <Text style={styles.forgot}>Guest</Text>
             </TouchableOpacity>
           </HStack>
