@@ -76,12 +76,15 @@ export const authSlice = createSlice({
       state.user = action?.payload;
       storeProtectedData('user', action?.payload);
     },
-    rememberUser: state => {
+    rememberUser: (state, action) => {
       storeProtectedData('user', state.user);
       storeProtectedData('token', state.token);
-      state.isLoggedIn = true;
+      //TODO remove this if statement not accepable
+      if (!action?.payload?.inApp) {
+        state.isLoggedIn = true;
+      }
     },
-    logoutUser: state => {
+    logoutUser: (state, action) => {
       removeProtectedData('user');
       removeProtectedData('token');
       removeProtectedData('isLoggedIn');
@@ -96,7 +99,8 @@ export const authSlice = createSlice({
       (state, action) => {
         state.token = action?.payload?.data?.token;
         state.user = action.payload?.data?.user;
-        state.isLoggedIn = true;
+
+        // state.isLoggedIn = true;
       },
     );
     builder.addMatcher(

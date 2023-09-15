@@ -3,7 +3,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../../theme/colors';
 import {fonts} from '../../theme/fonts';
-import {Center, HStack, Image, Stack} from 'native-base';
+import {Center, HStack, Image, Spinner, Stack} from 'native-base';
 
 export type gradientSmallVariant = 'rounded' | 'flat';
 
@@ -16,6 +16,7 @@ interface Props {
   variant?: gradientSmallVariant;
   mainStyle?: object;
   containerStyle?: object;
+  isLoading?: boolean;
 }
 
 export const GradientButtonSmall = ({
@@ -27,6 +28,7 @@ export const GradientButtonSmall = ({
   variant = 'rounded',
   mainStyle,
   containerStyle,
+  isLoading = false,
 }: Props) => {
   return (
     <TouchableOpacity
@@ -51,7 +53,13 @@ export const GradientButtonSmall = ({
               : [colors.gradient1, colors.gradient2]
           }>
           <HStack alignItems={'center'} justifyContent={'center'} space={2}>
-            {icon && <Image source={icon} alt="icon" boxSize={5} />}
+            {isLoading ? (
+              <Center>
+                <Spinner size="sm" color="grey" />
+              </Center>
+            ) : (
+              icon && <Image source={icon} alt="icon" boxSize={5} />
+            )}
             <Text style={disabled ? styles.txtDisabled : styles.txt}>
               {text}
             </Text>
@@ -65,7 +73,13 @@ export const GradientButtonSmall = ({
           alignItems={'center'}
           justifyContent={'center'}
           space={2}>
-          {icon && <Image source={icon} alt="icon" boxSize={5} />}
+          {isLoading ? (
+            <Center>
+              <Spinner size="sm" color="grey" />
+            </Center>
+          ) : (
+            icon && <Image source={icon} alt="icon" boxSize={5} />
+          )}
           <Text style={fonts.button1}>{text}</Text>
         </HStack>
       )}

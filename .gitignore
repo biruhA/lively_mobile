@@ -42,10 +42,10 @@ yarn-error.log
 
 
 # env file
-.env
-.env.dev
-.env.prod
-.env.staging
+*.env
+*.env.dev
+*.env.prod
+*.env.staging
 
 
 # fastlane

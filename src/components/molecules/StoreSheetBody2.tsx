@@ -1,6 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, Linking, Platform, TouchableOpacity} from 'react-native';
-import {HStack, Image, Spinner, Stack, Text, useDisclose} from 'native-base';
+import {
+  HStack,
+  Image,
+  Spinner,
+  Stack,
+  Text,
+  Toast,
+  useDisclose,
+  useToast,
+} from 'native-base';
 import placeBackground from '../../assets/images/place-background.png';
 import {fonts} from '../../theme/fonts';
 import {colors} from '../../theme/colors';
@@ -25,16 +34,32 @@ interface Props {
 }
 
 export function StoreSheetBody2({isOpen, onClose}: Props) {
+  const toast = useToast();
   const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
-  const [NotifyStore] = useNotifyStoreMutation();
+  const [NotifyStore, result] = useNotifyStoreMutation();
   const {data, isLoading} = useStoreDetailByIdQuery({
     id: selectedStoreId,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
     token,
   });
+
+  useEffect(() => {
+    if (result?.isError) {
+      console.log();
+      toast.show({
+        description: 'Error: ' + result?.error?.data?.message,
+        placement: 'top',
+      });
+    } else if (result?.isSuccess) {
+      toast.show({
+        description: 'Success',
+        placement: 'top',
+      });
+    }
+  }, [result]);
 
   if (isLoading) {
     return <Spinner py={'90%'} size="large" color="red" />;
@@ -136,6 +161,8 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         </Text>
       </Stack>
       <GradientButtonSmall
+        isLoading={result?.isLoading}
+        isActive={!result?.isLoading}
         mainStyle={{
           borderRadius: 8,
           width: '100%',
@@ -155,6 +182,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
 }
 
 function ContactAddressItem({id, item, label, url}) {
+  const toast = useToast();
   const [ClickSocial, result] = useClickSocialMutation();
   const {token} = useAppSelector(state => state.auth);
 

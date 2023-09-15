@@ -37,7 +37,7 @@ export function DiscountDetail({
           price={price}
           discount={discount}
           current_price={current_price}
-          left={left.toString()}
+          left={left && typeof left === 'string' ? left?.toString() : ' '}
         />
         <Stack space={1}>
           <Text fontWeight={'semibold'} fontSize={16}>
@@ -78,7 +78,7 @@ function Detial({price, discount, current_price, left}) {
         </Text>
       </Stack>
       <Text pt={3} style={{color: '#FFB800'}}>
-        {left && typeof left === 'string' ? left?.toString() : ' '} Days left: ;
+        {left && typeof left === 'string' ? left?.toString() : ' '} Days left
       </Text>
     </HStack>
   );

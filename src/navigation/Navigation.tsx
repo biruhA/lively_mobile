@@ -36,15 +36,15 @@ export function Navigation() {
 
   return (
     <Stack.Navigator
-      initialRouteName={isLoggedIn ? ScreenNames.Stacks : ScreenNames.AuthStack}
       screenOptions={{
         headerShown: false,
         presentation: 'transparentModal',
       }}>
-      {!isLoggedIn && (
+      {!isLoggedIn ? (
         <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
+      ) : (
+        <Stack.Screen name={ScreenNames.Stacks} component={Stacks} />
       )}
-      <Stack.Screen name={ScreenNames.Stacks} component={Stacks} />
     </Stack.Navigator>
   );
 }

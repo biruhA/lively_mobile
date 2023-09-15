@@ -29,7 +29,11 @@ import {useLoginMutation} from '../../store/services';
 import {storeSheetState} from './StoreSheet';
 import Context from '../../realm/config';
 import {OnBoarding} from '../../realm/OnBoarding';
-import {rememberMe, rememberUser} from '../../store/features/authSlice';
+import {
+  rememberMe,
+  rememberUser,
+  setIsLoggedIn,
+} from '../../store/features/authSlice';
 
 const {useRealm, useQuery} = Context;
 
@@ -86,12 +90,12 @@ export function LoginSheetBody({action, payload, onClose, setState}: Props) {
     })
       .unwrap()
       .then(() => {
-        dispatch(rememberUser());
-        navigator();
+        dispatch(rememberUser({inApp: true}));
         reset();
         if (rememberMe) {
           offlineSaveUser();
         }
+        navigator();
       })
       .catch(err => {
         toast.show({
