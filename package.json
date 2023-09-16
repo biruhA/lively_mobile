@@ -11,7 +11,7 @@
     "android:staging-release": "cd android && ./gradlew clean && ./gradlew assembleStagingRelease",
     "android:prod": "react-native run-android --variant=prodDebug --appIdSuffix prod",
     "android:prod-release-variant": "react-native run-android --variant=prodRelease --appIdSuffix prod",
-    "android:prod-release": "cd android && ./gradlew clean && ./gradlew assembleProdRelease",
+    "android:prod-release": "cd android && ./gradlew clean && ./gradlew bundleRelease",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"
