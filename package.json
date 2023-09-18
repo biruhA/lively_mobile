@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "ios": "react-native run-ios --scheme dev_lively_mobile",
+    "ios:staging": "react-native run-ios --scheme staging_lively_mobile",
+    "ios:prod": "react-native run-ios --scheme prod_lively_mobile",
     "android": "react-native run-android --variant=devDebug --appIdSuffix dev",
     "android-release-variant": "react-native run-android --variant=devRelease --appIdSuffix dev",
     "android-release": "cd android && ./gradlew clean && ./gradlew assembleDevRelease",

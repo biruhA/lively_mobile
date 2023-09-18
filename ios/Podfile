@@ -21,7 +21,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'lively_mobile' do
+abstract_target 'lively_mobileCommonPods' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -43,6 +43,15 @@ target 'lively_mobile' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  target 'dev_lively_mobile' do
+  end
+  
+  target 'staging_lively_mobile' do
+  end
+    
+  target 'prod_lively_mobile' do
+  end
+  
   target 'lively_mobileTests' do
     inherit! :complete
     # Pods for testing
