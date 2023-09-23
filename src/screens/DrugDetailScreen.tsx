@@ -17,7 +17,7 @@ import {
   StoreSheet,
 } from '../components/organisms';
 import {fonts} from '../theme/fonts';
-import {IconOnlyHeader} from '../components/molecules';
+import {IconOnlyHeader, RichText} from '../components/molecules';
 import share from '../assets/icons/share.png';
 import heart from '../assets/icons/heart.png';
 import {GradientButton} from '../components/atoms';
@@ -44,13 +44,11 @@ export function DrugDetailScreen() {
     <Stack flex={1}>
       <ScrollView>
         <Stack>
-          <Stack px={4} bg={colors.pureWhite} pb={8}>
+          <Stack px={4} bg={'white'} pb={8}>
             <IconOnlyHeader
               iconL={heart}
               iconR={share}
-              onPressL={() => {
-                console.log('cat');
-              }}
+              onPressL={() => {}}
               onPressR={() => {}}
             />
             <Carousel1Centered
@@ -64,15 +62,14 @@ export function DrugDetailScreen() {
             />
           </Stack>
           <Detail data={data?.data} />
-          <Stack pt={6} px={4} space={3} bg={colors.pureWhite} pb={16}>
+          <Stack pt={6} px={4} space={3} bg={'white'} pb={16}>
             <Text style={fonts.subtitle1}>Drug Description </Text>
-            <Text style={fonts.body1}>{data?.data?.description}</Text>
+            <RichText text={data?.data?.description} />
           </Stack>
         </Stack>
       </ScrollView>
       <Stack
-        px={2}
-        pt={3}
+        p={2}
         position={'absolute'}
         bottom={0}
         w={'100%'}
@@ -95,8 +92,13 @@ export function DrugDetailScreen() {
 
 function Detail({data}) {
   return (
-    <Stack mt={7} space={2} bg={colors.pureWhite} p={4} mb={2}>
-      <Text style={fonts.subtitle1}>{data?.name}</Text>
+    <Stack mt={7} space={2} bg={'white'} p={4} mb={2}>
+      <Text style={fonts.subtitle1}>
+        {data?.name} {data?.drug?.scientific_name} {data?.drug?.dossage?.name}
+      </Text>
+      <ListDetail label="Manufacturer" value={data?.drug_brand?.name} />
+      <ListDetail label="Country" value={data?.drug_brand?.country} />
+      <ListDetail label="DOSAGE" value={data?.drug?.dossage?.name} />
       <ListDetail label="Size" value={data?.drug?.size} />
     </Stack>
   );
@@ -107,7 +109,7 @@ function ListDetail({label, value}) {
     <HStack space={2}>
       <Text style={fonts.body1}>{label}:</Text>
       <Text style={[fonts.body1, {color: 'black'}]} underline>
-        {value} Tablet
+        {value}
       </Text>
     </HStack>
   );

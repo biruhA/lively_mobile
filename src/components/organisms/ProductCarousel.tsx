@@ -4,6 +4,7 @@ import Carousel, {Pagination} from 'react-native-snap-carousel';
 import {colors} from '../../theme/colors';
 import {Image, Text} from 'native-base';
 import FastImage from 'react-native-fast-image';
+import {ApiImage} from '..';
 
 const WIDTH = Dimensions.get('window').width;
 const SLIDER_WIDTH = Math.round(WIDTH * 0.92);
@@ -23,12 +24,10 @@ export class ProductCarousel extends Component {
   _renderItem({item}) {
     return (
       <View style={styles.itemContainer}>
-        <FastImage
+        <ApiImage
+          imageUrl={item?.url}
           style={{width: '100%', height: 170}}
-          source={{
-            uri: item?.url,
-          }}
-          resizeMode={'contain'}
+          resizeMode="contain"
         />
       </View>
     );
@@ -54,6 +53,7 @@ export class ProductCarousel extends Component {
         style={{
           backgroundColor: 'white',
           paddingHorizontal: 16,
+          marginTop: 8,
         }}>
         <Carousel
           ref={c => (this.carousel = c)}

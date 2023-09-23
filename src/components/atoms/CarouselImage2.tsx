@@ -6,14 +6,13 @@ import {ScreenNames} from '../../constants';
 import {useDispatch} from 'react-redux';
 import {setPromoCode} from '../../store/features/dealsSlice';
 import FastImage from 'react-native-fast-image';
+import {ApiImage} from '..';
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
-// const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
 const ITEM_WIDTH = 236;
 const ITEM_HEIGHT = 236;
 
 export function CarouselImage2({item}) {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   return (
@@ -21,14 +20,11 @@ export function CarouselImage2({item}) {
       style={styles.itemContainer}
       onPress={() => {
         dispatch(setPromoCode(item?.promo_code));
-        // navigation.navigate(ScreenNames.Discount, {id: item.id});
       }}>
-      <FastImage
+      <ApiImage
+        imageUrl={item?.banner_image?.url}
         style={{width: '100%', height: '100%'}}
-        source={{
-          uri: item?.banner_image?.url,
-        }}
-        resizeMode={'cover'}
+        resizeMode="cover"
       />
     </Pressable>
   );

@@ -1,95 +1,142 @@
 import React from 'react';
-import {Stack, Center, VStack, HStack, View, FormControl} from 'native-base';
+import {
+  Stack,
+  Text,
+  VStack,
+  HStack,
+  View,
+  FormControl,
+  Input,
+  TextArea,
+  useDisclose,
+  useToast,
+} from 'native-base';
 import {ProfileScreensHeader} from '../components/molecules';
-import {colors} from '../theme/colors';
+import {Colors, colors} from '../theme/colors';
 import {ScrollView, StyleSheet, TextInput} from 'react-native';
 import {ScreenNames} from '../constants';
 import {GradientButton} from '../components/atoms';
+import {useForm, Controller} from 'react-hook-form';
+import {LabeledHeader, LoginSheet} from '../components';
+import {useHelpMutation} from '../store/services';
+import {useAppSelector} from '../store/hooks';
 
 export function HelpScreen() {
-  const onSubmit = () => {
-    console.log('====================================');
-    console.log('Mr. Biruh, please o your things here ');
-    console.log('====================================');
+  const {isOpen, onOpen, onClose} = useDisclose();
+  const {token, isLoggedIn} = useAppSelector(state => state.auth);
+  const [Help] = useHelpMutation();
+  const toast = useToast();
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: {errors},
+  } = useForm({
+    defaultValues: {
+      subject: '',
+      message: '',
+      token,
+    },
+  });
+
+  const onSubmit = data => {
+    Help({
+      subject: data.subject,
+      body: data.message,
+      token,
+    })
+      .unwrap()
+      .then(res => {
+        reset();
+      })
+      .catch(err => {
+        toast.show({
+          description: err?.data?.message,
+        });
+      });
   };
+
   return (
-    <Stack bg={'#ffffff'} h={'full'} py={1}>
-      <View w={'full'} h={10}>
-        <ProfileScreensHeader
-          navigationTo={ScreenNames.Settings}
-          screenName="Help"
-        />
-      </View>
-      <ScrollView style={{backgroundColor: '#E3EBEB'}} alignItems={'center'}>
-        <Stack py={2} />
-        <Stack
-          my={2}
-          bg={colors.pureWhite}
-          borderRadius={12}
-          shadow={'0.5'}
-          mx={3}
-          px={4}
-          py={4}
-          space={2}>
-          <Center>
-            <VStack
-              space={2}
-              alignItems={{
-                base: 'center',
-                md: 'flex-start',
-              }}>
-              <HStack space={2}>
-                <VStack w="100%">
-                  <FormControl.Label>Subject</FormControl.Label>
-                  <TextInput
-                    editable
-                    placeholder="Write your subject"
-                    // onChangeText={text => onChangeText(text)}
-                    // value={value}
-                    style={styles.subjectInput}
-                  />
-                </VStack>
-              </HStack>
-              <HStack space={2}>
-                <VStack w="100%">
-                  <FormControl.Label>Your Message</FormControl.Label>
-                  <TextInput
-                    editable
-                    multiline
-                    numberOfLines={10}
-                    maxLength={40}
-                    placeholder="Write your message here"
-                    // onChangeText={text => onChangeText(text)}
-                    // value={value}
-                    style={styles.input}
-                  />
-                </VStack>
-              </HStack>
-            </VStack>
-            <GradientButton
-              title="Submit"
-              text="Submit"
-              onPress={onSubmit()}
-              mainStyle={styles.mainStyle}
-            />
-          </Center>
+    <Stack bg={Colors.background.artemisia} flex={1}>
+      <LabeledHeader label="Help" />
+      <Stack
+        my={6}
+        mx={3}
+        p={4}
+        bg={colors.pureWhite}
+        borderRadius={12}
+        space={2}>
+        <Stack w={'100%'}>
+          <FormControl.Label>Subject</FormControl.Label>
+          <Controller
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'subject is required',
+              },
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <Input
+                w={'100%'}
+                size={'lg'}
+                borderRadius={5}
+                placeholder="Subject"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="subject"
+          />
+          {errors.subject && <Text>{errors.subject.message}</Text>}
         </Stack>
-      </ScrollView>
+        <Stack w={'100%'} mt={3}>
+          <FormControl.Label>Your Message</FormControl.Label>
+          <Controller
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'Message is required',
+              },
+            }}
+            render={({field: {onChange, onBlur, value}}) => (
+              <TextArea
+                w={'100%'}
+                size={'lg'}
+                borderRadius={5}
+                placeholder="Your Message"
+                onBlur={onBlur}
+                onChangeText={onChange}
+                value={value}
+              />
+            )}
+            name="message"
+          />
+          {errors.message && <Text>{errors.message.message}</Text>}
+        </Stack>
+        {!isLoggedIn ? (
+          <GradientButton
+            title="Submit"
+            text="Submit"
+            onPress={onOpen}
+            mainStyle={styles.mainStyle}
+          />
+        ) : (
+          <GradientButton
+            title="Submit"
+            text="Submit"
+            onPress={handleSubmit(onSubmit)}
+            mainStyle={styles.mainStyle}
+          />
+        )}
+      </Stack>
+      <LoginSheet isOpen={isOpen} onClose={onClose} action={''} payload={''} />
     </Stack>
   );
 }
 
 const styles = StyleSheet.create({
   mainStyle: {marginTop: 15},
-  subjectInput: {
-    borderWidth: 1,
-    padding: 10,
-    borderColor: '#B4B4B4',
-  },
-  input: {
-    height: 200,
-    borderWidth: 1,
-    padding: 10,
-    borderColor: '#B4B4B4',
-  },
 });

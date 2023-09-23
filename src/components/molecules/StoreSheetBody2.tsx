@@ -19,7 +19,7 @@ import telegram from '../../assets/images/telegram.png';
 import whatsup from '../../assets/images/whatsup.png';
 import facebook from '../../assets/images/facebook.png';
 import website from '../../assets/images/website.png';
-import {GradientButtonSmall} from '../atoms';
+import {ApiImage, GradientButtonSmall} from '../atoms';
 import {LoginSheetBody} from '../organisms';
 import {useAppSelector} from '../../store/hooks';
 import {
@@ -70,30 +70,23 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
       <Stack>
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
-      <Image
-        source={{
-          uri: data?.data?.store_branch?.cover_image?.url,
-        }}
-        alt="Alternate Text"
-        w={'100%'}
-        h={120}
-        resizeMode={'cover'}
-        borderRadius={5}
+      <ApiImage
+        imageUrl={data?.data?.store_branch?.cover_image?.url}
+        style={{width: '100%', height: 120, borderRadius: 5}}
+        resizeMode="cover"
       />
       <HStack alignItems={'flex-start'}>
-        <Image
-          position={'absolute'}
-          borderRadius={8}
-          top={-20}
-          left={5}
-          bg={'white'}
-          source={{
-            uri: data?.data?.store_logo?.url,
+        <ApiImage
+          imageUrl={data?.data?.store_logo?.url}
+          style={{
+            position: 'absolute',
+            top: -20,
+            left: 20,
+            backgroundColor: 'white',
+            width: 65,
+            height: 60,
+            borderRadius: 8,
           }}
-          alt="Alternate Text"
-          w={65}
-          h={60}
-          resizeMode={'contain'}
         />
         <Stack ml={100}>
           <Text style={fonts.subtitle1} numberOfLines={2}>
@@ -169,7 +162,11 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
           marginTop: 5,
         }}
         containerStyle={{paddingVertical: 13}}
-        text="Get in touch"
+        text={
+          !data?.data?.store_branch?.has_delivery
+            ? 'Get in touch'
+            : 'Request Delivery'
+        }
         onPress={() => {
           NotifyStore({
             id: selectedStoreId,

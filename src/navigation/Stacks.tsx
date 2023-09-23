@@ -15,6 +15,7 @@ import {
   DrugStoresScreen,
   EditProfileScreen,
   EventDetailScreen,
+  FaqScreen,
   HelpScreen,
   HomeScreen,
   MedicinePerscriptionScreen,
@@ -154,6 +155,7 @@ export const Stacks = () => {
         component={SeeAllArticlesScreen}
       />
       <Stack.Screen name={ScreenNames.BrandScreen} component={BrandScreen} />
+      <Stack.Screen name={ScreenNames.Faq} component={FaqScreen} />
     </Stack.Navigator>
   );
 };

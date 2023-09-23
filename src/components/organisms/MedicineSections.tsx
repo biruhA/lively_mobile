@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {colors} from '../../theme/colors';
 import {useAppDispatch} from '../../store/hooks';
 import {setSelectedMedicineId} from '../../store/features/medicineSlice';
+import {ApiImage} from '..';
 
 export function MedicineSections({data}) {
   return (
@@ -65,15 +66,10 @@ function Cards({id, imageUrl, name, size}) {
         rounded={'md'}
         shadow={0}
         overflow={'hidden'}>
-        <Image
-          alignSelf={'flex-end'}
-          source={{
-            uri: imageUrl,
-          }}
-          h={99}
-          w={'100%'}
-          alt="Alternate Text"
+        <ApiImage
+          imageUrl={imageUrl}
           resizeMode="cover"
+          style={{width: '100%', height: 99, alignSelf: 'flex-end'}}
         />
         <Stack p={2} space={1}>
           <Text fontSize={14} color={'black'} fontWeight={'400'}>

@@ -18,6 +18,7 @@ export const RichText = ({text}: Props) => {
     <ScrollView>
       <RichEditor
         ref={richText}
+        disabled={true}
         androidHardwareAccelerationDisabled={true}
         initialContentHTML={textData}
         editable={false}

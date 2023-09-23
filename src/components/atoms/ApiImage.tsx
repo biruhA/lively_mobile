@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import FastImage from 'react-native-fast-image';
 import {Image} from 'native-base';
 import {Images} from '../../theme/icons';
+import Config from 'react-native-config';
 
 interface Props {
   imageUrl: string;
@@ -10,8 +11,7 @@ interface Props {
   resizeMode: 'cover' | 'contain';
 }
 
-const SAS_TOKEN =
-  'sp=r&st=2023-09-08T08:40:20Z&se=2028-09-08T16:40:20Z&spr=https&sv=2022-11-02&sr=c&sig=zzVXtSWmsCeYZizH7CfvILNulqFpTqvip5dj0k6Tl9Q%3D';
+const SAS_TOKEN = Config.SAS_TOKEN;
 
 export function ApiImage({imageUrl, style, resizeMode = 'contain'}: Props) {
   const [hasLoaded, setHasLoaded] = useState(false);

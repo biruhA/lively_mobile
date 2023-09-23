@@ -45,6 +45,7 @@ export const Colors = {
   background: {
     white: '#ffffff',
     everlasting_ice: '#f6fbfb',
+    artemisia: '#E3EBEB',
   },
   pureBlack: '#181818',
   pureWhite: '#f6fbfb',

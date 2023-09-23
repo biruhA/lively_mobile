@@ -28,19 +28,23 @@ export function DiscountDescription({data}) {
   }
 
   return (
-    <Stack bg={colors.pureWhite} py={4} space={2} mt={2}>
+    <Stack bg={'white'} px={4} py={4} space={2} mt={2}>
       <Text style={fonts.subtitle1}>Product Description</Text>
       <RichText text={data?.product?.description?.english} />
-      <Stack>
-        <Text style={fonts.subtitle1} pt={4}>
-          Additional information
-        </Text>
-        <FlatList
-          data={data?.additional_information}
-          renderItem={({item}) => <Item label={item.key} value={item.value} />}
-          keyExtractor={item => item.key}
-        />
-      </Stack>
+      {data?.additional_information && (
+        <Stack>
+          <Text style={fonts.subtitle1} pt={4}>
+            Additional information
+          </Text>
+          <FlatList
+            data={data?.additional_information}
+            renderItem={({item}) => (
+              <Item label={item.key} value={item.value} />
+            )}
+            keyExtractor={item => item.key}
+          />
+        </Stack>
+      )}
     </Stack>
   );
 }

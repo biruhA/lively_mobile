@@ -12,6 +12,7 @@ import {
 } from '../store/services';
 import {ProductSkeletonColumn} from '../components/skeletons';
 import {LabeledHeader} from '../components';
+import {fonts} from '../theme/fonts';
 
 interface Props {
   id: string;
@@ -36,6 +37,7 @@ export function SeeAllProductsScreen() {
     '🚀 ~ file: SeeAllProductsScreen.tsx:27 ~ SeeAllProductsScreen ~ page:',
     page,
     IsSubLoading,
+    result?.data?.data?.products?.next_page_url,
   );
 
   useEffect(() => {
@@ -137,17 +139,23 @@ export function SeeAllProductsScreen() {
               if (IsSubLoading) {
                 if (result?.data?.data?.products?.next_page_url === null) {
                   return (
-                    <Center bg={'blue.200'} w={'100%'} p={24}>
-                      <Text>End</Text>
+                    <Center w={'100%'} p={2}>
+                      <Text style={fonts.caption}>- End -</Text>
                     </Center>
                   );
                 } else {
                   return (
-                    <Center bg={'blue.200'} w={'100%'} p={24}>
+                    <Center w={'100%'} p={2}>
                       <Spinner />
                     </Center>
                   );
                 }
+              } else {
+                return (
+                  <Center w={'100%'} p={2}>
+                    <Text style={fonts.caption}>- End -</Text>
+                  </Center>
+                );
               }
             }}
             onEndReached={() => {

@@ -2,7 +2,7 @@ import {TouchableOpacity, StyleSheet} from 'react-native';
 import React from 'react';
 import {Box, Text, Image, Stack, HStack} from 'native-base';
 import {fonts} from '../../theme/fonts';
-import {HeartIcon} from '../atoms';
+import {ApiImage, HeartIcon} from '../atoms';
 import {colors} from '../../theme/colors';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../../constants';
@@ -43,14 +43,18 @@ export function DiscountCard({
         }}>
         <Stack>
           <Box position={'absolute'} zIndex={1} right={0}>
-            <HeartIcon />
+            {/* <HeartIcon /> */}
           </Box>
           <FastImage
-            style={{width: '100%', height: 90}}
             source={{
               uri: imageUrl,
             }}
             resizeMode={'cover'}
+          />
+          <ApiImage
+            imageUrl={imageUrl}
+            style={{width: '100%', height: 90}}
+            resizeMode="cover"
           />
           <Text pt={2} pb={1} style={fonts.body1} numberOfLines={2}>
             {title}

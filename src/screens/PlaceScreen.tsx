@@ -45,7 +45,7 @@ export function PlaceScreen() {
         showsVerticalScrollIndicator={false}
         style={styles.bottomMargin}>
         <Stack space={4}>
-          <MainScreenHeader label={'Places'} />
+          <MainScreenHeader label="Places" />
           <Stack bg={'white'} px={4} pb={Banners?.isLoading ? 0 : 8}>
             {Banners?.isLoading ? (
               <CarouselBrowseSkeleton />
@@ -72,13 +72,7 @@ export function PlaceScreen() {
             ) : (
               <FlatList
                 data={result?.data?.data?.data}
-                ListEmptyComponent={() => {
-                  return (
-                    <Center flex={1} py={8}>
-                      <Text styles={fonts.caption}>No Places</Text>
-                    </Center>
-                  );
-                }}
+                ListEmptyComponent={ListEmptyComponent}
                 renderItem={({item}) => (
                   <PlacesPharmacyCard
                     id={item?.id}
@@ -97,6 +91,14 @@ export function PlaceScreen() {
       </ScrollView>
       <BottomTabBar />
     </Stack>
+  );
+}
+
+function ListEmptyComponent() {
+  return (
+    <Center flex={1} py={8}>
+      <Text styles={fonts.caption}>No Places</Text>
+    </Center>
   );
 }
 

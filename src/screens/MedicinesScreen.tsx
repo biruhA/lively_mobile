@@ -1,6 +1,6 @@
 import {FlatList, ScrollView} from 'react-native';
 import React from 'react';
-import {GoBack} from '../components/atoms';
+import {ApiImage, GoBack} from '../components/atoms';
 import {Image, Pressable, Stack, Text, useDisclose} from 'native-base';
 import {colors} from '../theme/colors';
 import {
@@ -36,6 +36,7 @@ export function MedicinesScreen() {
                 id={item?.id}
                 name={item?.name}
                 imageurl={item?.disease_image?.url}
+                color={item?.color}
               />
             )}
             keyExtractor={(item: Props) => item.id}
@@ -48,13 +49,13 @@ export function MedicinesScreen() {
   );
 }
 
-function Cards({id, imageurl, name}) {
+function Cards({id, imageurl, name, color}) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   return (
     <Pressable
-      bg={'#DA4167'}
+      bg={color}
       w={95}
       h={95}
       mt={5}
@@ -74,14 +75,9 @@ function Cards({id, imageurl, name}) {
           noOfLines={2}>
           {name}
         </Text>
-        <Image
-          alignSelf={'flex-end'}
-          source={{
-            uri: imageurl,
-          }}
-          alt="Alternate Text"
-          boxSize={10}
-          resizeMode="cover"
+        <ApiImage
+          imageUrl={imageurl}
+          style={{width: 40, height: 40, alignSelf: 'flex-end'}}
         />
       </Stack>
     </Pressable>

@@ -18,11 +18,6 @@ export function CatalogueCard({id, image, label, isLocal = false}: Props) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
-  console.log(
-    '🚀 ~ file: CatalogueCard.tsx:18 ~ CatalogueCard ~ image:',
-    image,
-  );
-
   return (
     <TouchableOpacity
       onPress={() => {

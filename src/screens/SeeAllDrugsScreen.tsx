@@ -7,7 +7,7 @@ import {
   IconOnlyHeader,
   MedicineSubCategory,
 } from '../components/molecules';
-import {ListEmptyComponent} from '../components/atoms';
+import {ApiImage, ListEmptyComponent} from '../components/atoms';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
 import {
@@ -62,9 +62,7 @@ export function SeeAllDrugsScreen() {
       <IconOnlyHeader
         iconL={require('../assets/icons/search.png')}
         iconR={require('../assets/icons/filter.png')}
-        onPressL={() => {
-          console.log('cat');
-        }}
+        onPressL={() => {}}
         onPressR={() => {}}
       />
       {isLoading ? (
@@ -106,15 +104,10 @@ function Card({imageUrl, name, size}) {
       shadow={0}
       overflow={'hidden'}
       onPress={() => navigation.navigate(ScreenNames.DrugDetail)}>
-      <Image
-        alignSelf={'flex-end'}
-        source={{
-          uri: imageUrl,
-        }}
-        h={99}
-        w={'100%'}
-        alt="Alternate Text"
+      <ApiImage
         resizeMode="cover"
+        imageUrl={imageUrl}
+        style={{width: '100%', height: 99, alignSelf: 'flex-end'}}
       />
       <Stack p={2}>
         <Text fontSize={14} color={'black'} fontWeight={'semibold'}>

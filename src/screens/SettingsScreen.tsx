@@ -19,7 +19,7 @@ import {
 import {SettingUerProfile, SettingsScreenHeader} from '../components/organisms';
 import {BottomTabBar, SettingItems} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {ScrollView, StyleSheet, TouchableOpacity, Linking} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import about from '../assets/icons/settingIcons/FAQ.png';
 import faq from '../assets/icons/settingIcons/faq2.png';
@@ -91,8 +91,20 @@ export function SettingsScreen() {
             title="Help"
             onPress={() => navigation.navigate(ScreenNames.HelpScreen)}
           />
-          <SettingItems item_icon={faq} title="FAQ" />
-          <SettingItems item_icon={about} title="About" />
+          <SettingItems
+            item_icon={faq}
+            title="FAQ"
+            onPress={() => navigation.navigate(ScreenNames.Faq)}
+          />
+          <SettingItems
+            item_icon={about}
+            title="About"
+            onPress={() =>
+              Linking.openURL(
+                'https://lively-landing-k0rzdm6be-unravel.vercel.app/',
+              ).catch(err => console.error('An error occurred', err))
+            }
+          />
           {isLoggedIn && (
             <SettingItems
               item_icon={logout}

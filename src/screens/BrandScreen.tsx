@@ -29,7 +29,7 @@ export function BrandScreen() {
       space={2}
       bg={Colors.background.everlasting_ice}
       mb={Platform.OS === 'ios' ? 55 : 75}>
-      <LabeledHeader label={'Filter by brand'} />
+      <LabeledHeader label={data?.data?.name?.english} />
       <Stack
         bg={Colors.background.white}
         space={4}

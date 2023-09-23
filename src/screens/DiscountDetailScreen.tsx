@@ -43,7 +43,6 @@ export function DiscountDetailScreen() {
       <LabeledHeader label="" />
       <FlatList
         data={[{}]}
-        style={{paddingHorizontal: 8}}
         renderItem={({item}) => {
           return (
             <>

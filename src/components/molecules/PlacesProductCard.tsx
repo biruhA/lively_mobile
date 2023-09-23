@@ -39,7 +39,7 @@ export function PlacesProductCard({
     if (navTo) {
       navigation.navigate(navTo);
     }
-    navigation.navigate(ScreenNames.ProductDetailScreen);
+    // navigation.navigate(ScreenNames.ProductDetailScreen);
   }
 
   return (

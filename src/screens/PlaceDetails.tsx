@@ -170,7 +170,7 @@ export function PlaceDetails() {
                 mainStyle={{width: '47%', marginBottom: 12}}
               />
             )}
-            keyExtractor={(item: Props) => item.id}
+            keyExtractor={item => item.id}
           />
         </Stack>
       </ScrollView>

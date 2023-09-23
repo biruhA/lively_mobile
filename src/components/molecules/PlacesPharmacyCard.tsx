@@ -11,6 +11,7 @@ import {setStoreId} from '../../store/features/storeSlice';
 import {LoginSheetState, ScreenNames} from '../../constants';
 import {useNavigation} from '@react-navigation/native';
 import {LoginSheet} from '../sheets';
+import {ApiImage} from '..';
 
 interface Props {
   id: string;
@@ -52,15 +53,7 @@ export function PlacesPharmacyCard({
           }
         }}>
         <HStack alignItems={'center'} space={4} justifyContent={'flex-start'}>
-          <Image
-            source={{
-              uri: imageUrl,
-            }}
-            alt="Alternate Text"
-            w={104}
-            h={87}
-            resizeMode={'contain'}
-          />
+          <ApiImage imageUrl={imageUrl} style={{width: 104, height: 87}} />
           <Stack space={1} w={'65%'}>
             <Text style={fonts.subtitle1} numberOfLines={2}>
               {store}

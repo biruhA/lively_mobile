@@ -22,6 +22,12 @@ export function ProductDetailScreen() {
   const {selectedProductId} = useAppSelector(state => state.product);
   const {data, isLoading} = useProductDetailByIdQuery(selectedProductId);
 
+  console.log(
+    '🚀 ~ file: ProductDetailScreen.tsx:33 ~ ProductDetailScreen ~ data?.data:',
+    data,
+    selectedProductId,
+  );
+
   return (
     <Stack flex={1} bg={Colors.background.everlasting_ice}>
       <LabeledHeader label="" />

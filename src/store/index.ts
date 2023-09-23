@@ -8,6 +8,7 @@ import {
   placeReducer,
   productReducer,
   searchReducer,
+  settingReducer,
   storeReducer,
 } from './features';
 import {
@@ -18,6 +19,7 @@ import {
   medicineApi,
   placeApi,
   productApi,
+  settingApi,
   storeApi,
 } from './services';
 
@@ -32,6 +34,7 @@ export const store = configureStore({
     browse: browseReducer,
     medicine: medicineReducer,
     place: placeReducer,
+    setting: settingReducer,
     [authApi.reducerPath]: authApi.reducer,
     [productApi.reducerPath]: productApi.reducer,
     [storeApi.reducerPath]: storeApi.reducer,
@@ -40,6 +43,7 @@ export const store = configureStore({
     [browseApi.reducerPath]: browseApi.reducer,
     [medicineApi.reducerPath]: medicineApi.reducer,
     [placeApi.reducerPath]: placeApi.reducer,
+    [settingApi.reducerPath]: settingApi.reducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(
@@ -47,6 +51,7 @@ export const store = configureStore({
       productApi.middleware,
       storeApi.middleware,
       filterApi.middleware,
+      settingApi.middleware,
       dealsApi.middleware,
       browseApi.middleware,
       medicineApi.middleware,

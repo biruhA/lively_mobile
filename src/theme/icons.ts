@@ -34,4 +34,5 @@ export const Icons = {
     active: require('../assets/icons/setting-active.png'),
     inactive: require('../assets/icons/setting.png'),
   },
+  downArrow: require('../assets/icons/down_arrow_black.png'),
 };
