@@ -4,7 +4,7 @@ import {AuthStack} from './AuthStack';
 import {Stacks} from './Stacks';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
-import {useSavedAuthData} from '../hooks';
+import {useCurrentLocation, useSavedAuthData} from '../hooks';
 import {useGetMedicineNotificationQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -16,6 +16,7 @@ const Stack = createStackNavigator<any>();
 
 export function Navigation() {
   useSavedAuthData();
+  useCurrentLocation();
   const onboarding = useQuery(OnBoarding);
   const {token, isLoggedIn} = useAppSelector(state => state.auth);
   useGetMedicineNotificationQuery(token, {

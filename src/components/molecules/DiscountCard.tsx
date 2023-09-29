@@ -34,6 +34,8 @@ export function DiscountCard({
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
+  console.log('🚀 ~ file: DiscountCard.tsx:34 ~ disount:', disount);
+
   return (
     <ShadowCard style={[styles.main, mainStyle]}>
       <TouchableOpacity
@@ -69,13 +71,13 @@ export function DiscountCard({
                 fontSize={12}
                 textDecorationLine={'line-through'}
                 color={colors.lightgreyText}>
-                390 Birr
+                {price - (disount / 100) * price} Birr
               </Text>
               <Text
                 fontWeight={'semibold'}
                 textDecoration={'underline'}
                 style={{...styles.amount, color: colors.primary}}>
-                60% Off
+                {disount}% Off
               </Text>
             </HStack>
           )}
@@ -90,11 +92,6 @@ export function DiscountCard({
 
 const styles = StyleSheet.create({
   main: {
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 1},
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 5,
     width: 150,
     borderRadius: 8,
     marginRight: 15,

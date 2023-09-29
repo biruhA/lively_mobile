@@ -45,7 +45,7 @@ export function DiscountScreen() {
               title={item?.product_variant?.product?.title?.english}
               imageUrl={item?.product_variant?.product_image?.url}
               value={item?.product_variant?.value?.english}
-              disount={''}
+              disount={data?.data?.discount}
               price={item?.price}
               mainStyle={{width: '47%', marginBottom: 12}}
               promo_code={data?.data?.promo_code}

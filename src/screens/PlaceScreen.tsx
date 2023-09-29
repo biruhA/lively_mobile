@@ -17,8 +17,6 @@ import {useBannersQuery, useRecommendedStoresMutation} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 import {useDebounce} from '../hooks';
-import {ScreenNames} from '../constants';
-import {useNavigation} from '@react-navigation/native';
 import {MainScreenHeader} from '../components/headers';
 
 export function PlaceScreen() {
@@ -26,7 +24,6 @@ export function PlaceScreen() {
   const {searchedText, userLocation} = useAppSelector(state => state.search);
   const [RecommendedStores, result] = useRecommendedStoresMutation();
   const [isPharmacySelected, setIsPharmacySelected] = useState(true);
-  const navigation = useNavigation();
 
   const debouncedText = useDebounce(searchedText, 500);
 

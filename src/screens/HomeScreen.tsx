@@ -24,14 +24,9 @@ import {useAppSelector} from '../store/hooks';
 
 export function HomeScreen() {
   const {user} = useAppSelector(state => state.auth);
-  const {getLocation} = useCurrentLocation();
   const {data, isLoading} = useUpcomingEventsQuery();
   const landscapeDiscountBanners = useLandscapeDiscountBannersQuery();
   const squareDiscountBanners = useSquareDiscountBannersQuery();
-
-  useEffect(() => {
-    getLocation();
-  }, []);
 
   return (
     <Stack bg={colors.pureWhite} flex={1}>

@@ -12,6 +12,7 @@
     "android:staging-release": "react-native run-android --variant=stagingrelease",
     "android:prod": "react-native run-android --variant=proddebug --active-arch-only",
     "android:prod-release": "react-native run-android --variant=prodrelease",
+    "android:bundle": "./gradlew bundleRelease",
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest"

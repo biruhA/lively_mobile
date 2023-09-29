@@ -16,36 +16,6 @@ export function useCurrentLocation() {
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
 
-  const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      console.log('iOS device Location permission granted');
-    } else {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Location Permission',
-            message: 'This app needs access to your location',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('Location permission granted');
-        } else {
-          console.log('Location permission denied');
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  };
-
-  useEffect(() => {
-    requestLocationPermission();
-  }, []);
-
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
@@ -67,5 +37,36 @@ export function useCurrentLocation() {
     );
   };
 
-  return {location, getLocation, error};
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      console.log('iOS device Location permission granted');
+    } else {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Location Permission',
+            message: 'This app needs access to your location',
+            buttonNeutral: 'Ask Me Later',
+            buttonNegative: 'Cancel',
+            buttonPositive: 'OK',
+          },
+        );
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log('Location permission granted');
+          getLocation();
+        } else {
+          console.log('Location permission denied');
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    }
+  };
+
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
+  return {location, error};
 }

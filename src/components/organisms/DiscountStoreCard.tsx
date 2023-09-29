@@ -10,13 +10,13 @@ export function DiscountStoreCard({imageUrl, name, distance, rating}) {
     <Stack space={1} px={4} bg={'white'} pb={4}>
       <Text style={fonts.body1}>Store</Text>
       <ShadowCard style={{borderRadius: 8}}>
-        <HStack space={4} bg={'white'}>
+        <HStack space={2} bg={'white'}>
           <ApiImage
             imageUrl={imageUrl}
-            style={{width: 80, height: 60}}
+            style={{width: 80, height: '100%'}}
             resizeMode="contain"
           />
-          <Stack space={1}>
+          <Stack space={2} py={2}>
             <Text pt={1} style={fonts.heading6}>
               {name}
             </Text>

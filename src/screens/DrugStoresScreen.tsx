@@ -10,7 +10,6 @@ import {
 import {colors} from '../theme/colors';
 import {useMedicineStoresQuery, useStoresQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
-import {useCurrentLocation} from '../hooks';
 import {GoBack} from '../components/atoms';
 import TouchableIcon from '../components/atoms/TouchableIcon';
 
