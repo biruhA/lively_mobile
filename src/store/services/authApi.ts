@@ -166,6 +166,18 @@ export const authApi = createApi({
         },
       }),
     }),
+    fcmToken: build.mutation({
+      query: ({token, userToken}) => ({
+        url: 'fcm-token',
+        method: 'PATCH',
+        body: {token},
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${userToken}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
     profile: build.query({
       query: token => ({
         url: 'profile',
@@ -190,5 +202,6 @@ export const {
   useDeleteAccountMutation,
   useUpdateProfileMutation,
   useCreateNewPasswordMutation,
+  useFcmTokenMutation,
   useProfileQuery,
 } = authApi;

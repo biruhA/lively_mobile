@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {CarouselOnBoarding} from '../components/organisms';
 import {AuthStack} from './AuthStack';
 import {Stacks} from './Stacks';
 import Context from '../realm/config';
 import {OnBoarding} from '../realm/OnBoarding';
-import {useCurrentLocation, useSavedAuthData} from '../hooks';
-import {useGetMedicineNotificationQuery} from '../store/services';
+import {
+  usePushNotification,
+  useCurrentLocation,
+  useSavedAuthData,
+} from '../hooks';
+import {
+  useFcmTokenMutation,
+  useGetMedicineNotificationQuery,
+} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
@@ -18,10 +25,18 @@ export function Navigation() {
   useSavedAuthData();
   useCurrentLocation();
   const onboarding = useQuery(OnBoarding);
-  const {token, isLoggedIn} = useAppSelector(state => state.auth);
+  usePushNotification();
+  const {token, isLoggedIn, fcmToken} = useAppSelector(state => state.auth);
+  const [FcmToken] = useFcmTokenMutation();
   useGetMedicineNotificationQuery(token, {
     pollingInterval: 300000,
   });
+
+  useEffect(() => {
+    if (fcmToken && token) {
+      FcmToken({token: fcmToken, userToken: token});
+    }
+  }, [fcmToken && token]);
 
   if (!onboarding[0]?.hasOnBoarded) {
     return <CarouselOnBoarding />;

@@ -11,6 +11,7 @@ import {boolean} from 'yup';
 // Define a type for the slice state
 interface authState {
   token: string;
+  fcmToken: string;
   user: any;
   isLoggedIn: boolean;
   verificationPhoneNumber: string;
@@ -68,6 +69,9 @@ export const authSlice = createSlice({
     setIsLoggedIn: (state, action: PayloadAction<any>) => {
       state.isLoggedIn = action?.payload;
     },
+    setFcmToken: (state, action: PayloadAction<any>) => {
+      state.fcmToken = action?.payload;
+    },
     setAuthData: (state, action: PayloadAction<AuthData>) => {
       state.token = action?.payload?.token;
       state.user = action?.payload?.user;
@@ -123,6 +127,7 @@ export const {
   setPassword,
   setEmail,
   setAuthData,
+  setFcmToken,
   setToken,
   SetDob,
   SetGender,
