@@ -23,13 +23,13 @@ export function ButtonTabs({
         <LinearGradient
           style={styles.container}
           colors={
-            !isPharmacySelected
+            isPharmacySelected
               ? [colors.unselected, colors.unselected]
               : [colors.gradient1, colors.gradient2]
           }>
           <HStack space={2} justifyContent="center" alignItems={'center'}>
             <Image source={buttonOneIcon} alt="search" size="24px" />
-            <Text style={!isPharmacySelected ? styles.txtDisabled : styles.txt}>
+            <Text style={isPharmacySelected ? styles.txtDisabled : styles.txt}>
               {buttonOneTitle}
             </Text>
           </HStack>
@@ -40,13 +40,13 @@ export function ButtonTabs({
         <LinearGradient
           style={styles.container}
           colors={
-            isPharmacySelected
+            !isPharmacySelected
               ? [colors.unselected, colors.unselected]
               : [colors.gradient1, colors.gradient2]
           }>
           <HStack space={2} justifyContent="center" alignItems={'center'}>
             <Image source={buttonTwoIcon} alt="search" size="24px" />
-            <Text style={isPharmacySelected ? styles.txtDisabled : styles.txt}>
+            <Text style={!isPharmacySelected ? styles.txtDisabled : styles.txt}>
               {buttonTwoTitle}
             </Text>
           </HStack>
