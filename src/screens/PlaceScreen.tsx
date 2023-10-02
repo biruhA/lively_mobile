@@ -58,7 +58,7 @@ export function PlaceScreen() {
                 buttonOneTitle="Store"
                 buttonTwoIcon={store}
                 buttonTwoTitle="Pharmacies"
-                isPharmacySelected={isPharmacySelected}
+                isPharmacySelected={!isPharmacySelected}
                 setIsPharmacySelected={setIsPharmacySelected}
               />
             )}

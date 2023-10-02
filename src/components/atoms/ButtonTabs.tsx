@@ -19,7 +19,7 @@ export function ButtonTabs({
 
   return (
     <HStack space={3} w={'100%'}>
-      <TouchableOpacity style={styles.main} onPress={() => onPress(true)}>
+      <TouchableOpacity style={styles.main} onPress={() => onPress(false)}>
         <LinearGradient
           style={styles.container}
           colors={
@@ -36,7 +36,7 @@ export function ButtonTabs({
         </LinearGradient>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.main} onPress={() => onPress(false)}>
+      <TouchableOpacity style={styles.main} onPress={() => onPress(true)}>
         <LinearGradient
           style={styles.container}
           colors={
