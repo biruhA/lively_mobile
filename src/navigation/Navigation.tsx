@@ -27,16 +27,16 @@ export function Navigation() {
   const onboarding = useQuery(OnBoarding);
   usePushNotification();
   const {token, isLoggedIn, fcmToken} = useAppSelector(state => state.auth);
-  const [FcmToken] = useFcmTokenMutation();
-  useGetMedicineNotificationQuery(token, {
-    pollingInterval: 300000,
-  });
+  const [FcmToken, result] = useFcmTokenMutation();
+  // useGetMedicineNotificationQuery(token, {
+  //   pollingInterval: 300000,
+  // });
 
   useEffect(() => {
     if (fcmToken && token) {
       FcmToken({token: fcmToken, userToken: token});
     }
-  }, [fcmToken && token]);
+  }, [fcmToken, token]);
 
   if (!onboarding[0]?.hasOnBoarded) {
     return <CarouselOnBoarding />;

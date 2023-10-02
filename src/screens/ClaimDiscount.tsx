@@ -31,9 +31,9 @@ export function ClaimDiscount() {
   const [productQRref, setProductQRref] = useState();
   const [photos, getPhotos, save] = useCameraRoll();
   const {userLocation} = useAppSelector(state => state.search);
-  const {token} = useAppSelector(state => state.auth);
-  const [ClaimDiscounts, result] = useClaimDiscountsMutation();
-  const {data, isLoading} = useStoreDetailByIdQuery({
+  const {token, user} = useAppSelector(state => state.auth);
+  const [ClaimDiscounts] = useClaimDiscountsMutation();
+  const {data, isLoading, error} = useStoreDetailByIdQuery({
     id: route?.params?.id,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
@@ -118,7 +118,10 @@ export function ClaimDiscount() {
           </Pressable>
           <Stack p={4}>
             <QRImage
-              value={JSON.stringify(route?.params?.promo_code)}
+              value={JSON.stringify({
+                user_id: user?.id,
+                store_product_id: data?.data?.id,
+              })}
               getRef={c => setProductQRref(c)}
             />
           </Stack>

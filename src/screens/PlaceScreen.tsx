@@ -23,7 +23,7 @@ export function PlaceScreen() {
   const Banners = useBannersQuery();
   const {searchedText, userLocation} = useAppSelector(state => state.search);
   const [RecommendedStores, result] = useRecommendedStoresMutation();
-  const [isPharmacySelected, setIsPharmacySelected] = useState(true);
+  const [isPharmacySelected, setIsPharmacySelected] = useState(false);
 
   const debouncedText = useDebounce(searchedText, 500);
 

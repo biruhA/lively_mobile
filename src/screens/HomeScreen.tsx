@@ -23,10 +23,17 @@ import {MainScreenHeader} from '../components/headers';
 import {useAppSelector} from '../store/hooks';
 
 export function HomeScreen() {
-  const {user} = useAppSelector(state => state.auth);
+  const {user, fcmToken} = useAppSelector(state => state.auth);
   const {data, isLoading} = useUpcomingEventsQuery();
   const landscapeDiscountBanners = useLandscapeDiscountBannersQuery();
   const squareDiscountBanners = useSquareDiscountBannersQuery();
+  const {userLocation} = useAppSelector(state => state.search);
+
+  console.log(
+    '🚀 ~ file: HomeScreen.tsx:31 ~ HomeScreen ~ fcmToken:',
+    fcmToken,
+    userLocation,
+  );
 
   return (
     <Stack bg={colors.pureWhite} flex={1}>

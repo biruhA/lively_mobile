@@ -20,12 +20,15 @@ import {useForm, Controller} from 'react-hook-form';
 import {LabeledHeader, LoginSheet} from '../components';
 import {useHelpMutation} from '../store/services';
 import {useAppSelector} from '../store/hooks';
+import {Navigation} from '../navigation';
+import {useNavigation} from '@react-navigation/native';
 
 export function HelpScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const {token, isLoggedIn} = useAppSelector(state => state.auth);
   const [Help] = useHelpMutation();
   const toast = useToast();
+  const navigation = useNavigation();
   const {
     control,
     handleSubmit,
@@ -47,10 +50,16 @@ export function HelpScreen() {
     })
       .unwrap()
       .then(res => {
+        toast.show({
+          placement: 'top',
+          description: 'Your message has been sent',
+        });
         reset();
+        navigation.goBack();
       })
       .catch(err => {
         toast.show({
+          placement: 'top',
           description: err?.data?.message,
         });
       });

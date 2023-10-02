@@ -16,26 +16,12 @@ export function useCurrentLocation() {
   const [error, setError] = useState(null);
   const dispatch = useAppDispatch();
 
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setLocation(position);
-        dispatch(
-          setCurrentLocation({
-            lat: position?.coords?.latitude,
-            lon: position?.coords?.longitude,
-          }),
-        );
-      },
-      error => {
-        setError({
-          code: error.code,
-          message: error.message,
-        });
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+  useEffect(() => {
+    console.log(
+      '🚀 ~ file: useCurrentLocation.ts:70 ~ useEffect ~ requestLocationPermission:',
     );
-  };
+    requestLocationPermission();
+  }, []);
 
   const requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
@@ -64,9 +50,26 @@ export function useCurrentLocation() {
     }
   };
 
-  useEffect(() => {
-    requestLocationPermission();
-  }, []);
+  const getLocation = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        setLocation(position);
+        dispatch(
+          setCurrentLocation({
+            lat: position?.coords?.latitude,
+            lon: position?.coords?.longitude,
+          }),
+        );
+      },
+      error => {
+        setError({
+          code: error.code,
+          message: error.message,
+        });
+      },
+      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+    );
+  };
 
   return {location, error};
 }
