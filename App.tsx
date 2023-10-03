@@ -18,6 +18,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {LogBox} from 'react-native';
 import {Mixpanel} from 'mixpanel-react-native';
 import Config from 'react-native-config';
+import RNUxcam from 'react-native-ux-cam';
+
+const userAppKey = Config.UX_CAM_USERAPPKEY;
+
+RNUxcam.optIntoSchematicRecordings();
+
+const configuration = {
+  userAppKey,
+  enableAutomaticScreenNameTagging: false,
+  enableAdvancedGestureRecognition: true,
+  enableImprovedScreenCapture: true,
+};
+
+RNUxcam.startWithConfiguration(configuration);
 
 const trackAutomaticEvents = true;
 export const mixpanel = new Mixpanel(
@@ -34,11 +48,6 @@ function App(): JSX.Element {
     SplashScreen.hide();
     mixpanel.init();
   }, []);
-
-  console.log(
-    '🚀 ~ file: App.tsx:25 ~ Config.MIXPANEL_PROJECT_KEY:',
-    Config.MIXPANEL_PROJECT_KEY,
-  );
 
   return (
     <SafeAreaView style={styles.main}>
