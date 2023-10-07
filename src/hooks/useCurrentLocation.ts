@@ -17,9 +17,6 @@ export function useCurrentLocation() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    console.log(
-      '🚀 ~ file: useCurrentLocation.ts:70 ~ useEffect ~ requestLocationPermission:',
-    );
     requestLocationPermission();
   }, []);
 

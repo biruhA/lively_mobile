@@ -1,45 +1,56 @@
 import React from 'react';
-import {HStack, Image, Stack, Text, useDisclose} from 'native-base';
+import {HStack, Image, Spinner, Stack, Text, useDisclose} from 'native-base';
 import placeBackground from '../../assets/images/place-background.png';
 import {fonts} from '../../theme/fonts';
-import {GradientButtonSmall} from '../atoms';
+import {ApiImage, GradientButtonSmall} from '../atoms';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
+import {useStoreDetailByIdQuery} from '../../store/services';
 
 export function StoreSheetBody1({onPress}: any) {
+  const {token} = useAppSelector(state => state.auth);
+  const {userLocation} = useAppSelector(state => state.search);
+  const {selectedStoreId} = useAppSelector(state => state.store);
+  const {data, isLoading} = useStoreDetailByIdQuery({
+    id: selectedStoreId,
+    latitude: userLocation?.lat,
+    longitude: userLocation?.lon,
+    token,
+  });
+
+  if (isLoading) {
+    return <Spinner py={'90%'} size="large" color="red" />;
+  }
+
   return (
     <Stack w={'100%'} p={2} space={2}>
       <Stack>
         <Text style={fonts.heading6}>Yardley Loose Powder</Text>
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
-      <Image
-        source={placeBackground}
-        alt="Alternate Text"
-        w={'100%'}
-        h={120}
-        resizeMode={'contain'}
+      <ApiImage
+        imageUrl={data?.data?.store_branch?.cover_image?.url}
+        style={{width: '100%', height: 120, borderRadius: 5}}
+        resizeMode="cover"
       />
       <HStack alignItems={'flex-start'}>
-        <Image
-          position={'absolute'}
-          borderRadius={8}
-          top={-15}
-          left={5}
-          bg={'white'}
-          source={{
-            uri: 'https://saspharmacies.com/assets/images/sas-multi-ln-logo.png',
+        <ApiImage
+          imageUrl={data?.data?.store_logo?.url}
+          style={{
+            position: 'absolute',
+            top: -20,
+            left: 20,
+            backgroundColor: 'white',
+            width: 65,
+            height: 60,
+            borderRadius: 8,
           }}
-          alt="Alternate Text"
-          w={65}
-          h={60}
-          resizeMode={'contain'}
         />
         <Stack ml={100}>
           <Text style={fonts.subtitle1} numberOfLines={2}>
-            SAS Pharmacy
+            {data?.data?.store_name?.english}
           </Text>
-          <Text>Addis Ababa, Ethiopia</Text>
+          <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
         </Stack>
       </HStack>
       <SelectedProductCard />
@@ -60,17 +71,12 @@ function SelectedProductCard() {
 
   return (
     <HStack space={3} pt={6} pb={3}>
-      <Image
-        source={{uri: selectedProduct?.thumbnail?.url}}
-        alt="thumbnail"
-        w={94}
-        h={54}
+      <ApiImage
+        imageUrl={selectedProduct?.thumbnail?.url}
+        style={{width: 94, height: 54}}
       />
       <Stack w={'70%'} space={1}>
-        <Text style={fonts.subtitle1}>
-          {selectedProduct?.title?.english}
-          Philosophy Renewed Hope in a Jar Moisturizer
-        </Text>
+        <Text style={fonts.subtitle1}>{selectedProduct?.title?.english}</Text>
         <Text style={[fonts.body2, {color: colors.primary}]}>
           Selected Size:{' '}
           {

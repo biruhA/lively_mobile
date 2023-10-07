@@ -12,7 +12,6 @@ export function NotificationDiscountScreen() {
   const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedNotificationId} = useAppSelector(state => state.medicine);
-
   const {data, isLoading} = useGetClaimedDetailQuery({
     id: selectedNotificationId,
     token,

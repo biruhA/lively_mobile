@@ -6,15 +6,6 @@ export const medicineApi = createApi({
   reducerPath: 'medicineApi',
   baseQuery: authUrl,
   endpoints: build => ({
-    getMedicineNotification: build.query({
-      query: token => ({
-        url: 'get-medicine-notification',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      }),
-    }),
     getDiseases: build.query({
       query: () => ({
         url: 'get-diseases',
@@ -75,15 +66,7 @@ export const medicineApi = createApi({
         },
       }),
     }),
-    notifications: build.query({
-      query: token => ({
-        url: 'notifications',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${token}`,
-        },
-      }),
-    }),
+
     medicineNotificationDetail: build.query({
       query: ({id, token}) => ({
         url: `medicine-notification-detail/${id}`,
@@ -124,8 +107,6 @@ export const medicineApi = createApi({
 export const {
   useGetMedicinesBySymptomQuery,
   useMedicineNotificationDetailQuery,
-  useNotificationsQuery,
-  useGetMedicineNotificationQuery,
   useGetDiseasesQuery,
   useGetAllMedicinesQuery,
   useMedicineDetailQuery,

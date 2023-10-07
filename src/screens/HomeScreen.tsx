@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Stack, Text} from 'native-base';
 import {
   Carousel1,
@@ -21,18 +21,26 @@ import {
 import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkeleton';
 import {MainScreenHeader} from '../components/headers';
 import {useAppSelector} from '../store/hooks';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 
 export function HomeScreen() {
-  const {user, fcmToken} = useAppSelector(state => state.auth);
+  const {user, inAppLoggedIn} = useAppSelector(state => state.auth);
   const {data, isLoading} = useUpcomingEventsQuery();
   const landscapeDiscountBanners = useLandscapeDiscountBannersQuery();
   const squareDiscountBanners = useSquareDiscountBannersQuery();
   const {userLocation} = useAppSelector(state => state.search);
+  const navigation = useNavigation();
 
-  console.log(
-    '🚀 ~ file: HomeScreen.tsx:31 ~ HomeScreen ~ fcmToken:',
-    fcmToken,
-    userLocation,
+  useFocusEffect(
+    useCallback(() => {
+      navigation.addListener('beforeRemove', e => {
+        if (inAppLoggedIn) {
+          return;
+        }
+        // Prevent default behavior of leaving the screen
+        e.preventDefault();
+      });
+    }, [inAppLoggedIn]),
   );
 
   return (

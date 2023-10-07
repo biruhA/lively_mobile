@@ -11,7 +11,6 @@ export const Images = {
 };
 
 export const Icons = {
-  bell: require('../assets/icons/bell.png'),
   heart: {
     black: require('../assets/icons/heart-black.png'),
     bold: require('../assets/icons/heart-bold.png'),
@@ -35,4 +34,8 @@ export const Icons = {
     inactive: require('../assets/icons/setting.png'),
   },
   downArrow: require('../assets/icons/down_arrow_black.png'),
+  bell: {
+    active: require('../assets/icons/bell-active.png'),
+    inactive: require('../assets/icons/bell.png'),
+  },
 };

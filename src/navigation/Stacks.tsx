@@ -20,6 +20,7 @@ import {
   HomeScreen,
   MedicinePerscriptionScreen,
   MedicinesScreen,
+  NotificationDiscountScreen,
   NotificationScreen,
   PharmacyDetailScreen,
   PlaceDetails,
@@ -145,6 +146,10 @@ export const Stacks = () => {
       <Stack.Screen
         name={ScreenNames.MedicinePerscription}
         component={MedicinePerscriptionScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.NotificationDiscount}
+        component={NotificationDiscountScreen}
       />
       <Stack.Screen
         name={ScreenNames.SeeAllPopularArticles}

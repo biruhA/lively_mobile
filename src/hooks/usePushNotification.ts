@@ -3,9 +3,13 @@ import {useDispatch} from 'react-redux';
 import {setFcmToken} from '../store/features/authSlice';
 import messaging from '@react-native-firebase/messaging';
 import {PermissionsAndroid, Platform} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {ScreenNames} from '../constants';
+import {setHasNotification} from '../store/features/notificationSlice';
 
 export function usePushNotification() {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     requestUserPermission();
@@ -46,19 +50,17 @@ export function usePushNotification() {
   const notificationListner = () => {
     // Foreground message listener
     messaging().onMessage(async remoteMessage => {
+      // console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
       console.log(
         '🚀 ~ file: usePushNotification.ts:50 ~ messaging ~ remoteMessage:',
-        remoteMessage?.notification,
+        remoteMessage,
       );
-      // console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      dispatch(setHasNotification(true));
     });
 
     // Called when a message is delivered and app is in the background
     messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log(
-        'Notification caused app to open from background state:',
-        remoteMessage.notification,
-      );
+      onMessageReceived(remoteMessage);
     });
 
     // Called when a message is delivered and app is closed
@@ -66,11 +68,28 @@ export function usePushNotification() {
       .getInitialNotification()
       .then(remoteMessage => {
         if (remoteMessage) {
-          console.log(
-            'Notification caused app to open from quit state:',
-            remoteMessage.notification,
-          );
+          onMessageReceived(remoteMessage);
         }
       });
   };
+
+  function onMessageReceived(remoteMessage: any) {
+    console.log(
+      '🚀 ~ file: usePushNotification.ts:80 ~ onMessageReceived ~ notification:',
+      remoteMessage?.notification,
+    );
+
+    switch (remoteMessage?.notification?.title) {
+      case 'Discount Claimed!':
+        navigation.navigate(ScreenNames.NotificationDiscount);
+        break;
+      case 'Your prescription has been verified!':
+        navigation.navigate(ScreenNames.NotificationDiscount);
+        break;
+
+      default:
+        navigation.navigate(ScreenNames.Notification);
+        break;
+    }
+  }
 }

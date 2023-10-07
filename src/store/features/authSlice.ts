@@ -14,6 +14,7 @@ interface authState {
   fcmToken: string;
   user: any;
   isLoggedIn: boolean;
+  inAppLoggedIn: boolean;
   verificationPhoneNumber: string;
   otp: string;
   password: string;
@@ -33,6 +34,7 @@ const initialState: authState = {
   token: '',
   user: {},
   isLoggedIn: undefined,
+  inAppLoggedIn: undefined,
   verificationPhoneNumber: '',
   otp: '',
   password: '',
@@ -84,8 +86,8 @@ export const authSlice = createSlice({
       storeProtectedData('user', state.user);
       storeProtectedData('token', state.token);
       //TODO remove this if statement not accepable
-      if (!action?.payload?.inApp) {
-        state.isLoggedIn = true;
+      if (action?.payload?.inApp) {
+        state.inAppLoggedIn = true;
       }
     },
     logoutUser: (state, action) => {

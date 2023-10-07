@@ -1,18 +1,27 @@
 import {TouchableOpacity, FlatList, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Text, Avatar, HStack, Stack, Box, Center, Spinner} from 'native-base';
 import {colors} from '../theme/colors';
 import {GoBack, ListEmptyComponent} from '../components/atoms';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
-import {useNotificationsQuery} from '../store/services';
 import {useAppDispatch, useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 import {setSelectedNotificationId} from '../store/features/medicineSlice';
+import {useNotificationsQuery} from '../store/services';
+import {useDispatch} from 'react-redux';
+import {setHasNotification} from '../store/features/notificationSlice';
 
 export function NotificationScreen() {
+  const dispatch = useDispatch();
   const {token} = useAppSelector(state => state.auth);
   const {data, isLoading} = useNotificationsQuery(token);
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setHasNotification(false));
+    }, []),
+  );
 
   if (isLoading) {
     return (

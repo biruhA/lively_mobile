@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
-import {medicineApi} from '../services';
 
 interface medicineState {
   selectedMedicineId: string;
@@ -34,10 +33,10 @@ export const medicineSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder.addMatcher(
-      medicineApi.endpoints.getMedicineNotification.matchFulfilled,
-      (state, action) => {},
-    );
+    // builder.addMatcher(
+    //   medicineApi.endpoints.getMedicineNotification.matchFulfilled,
+    //   (state, action) => {},
+    // );
   },
 });
 

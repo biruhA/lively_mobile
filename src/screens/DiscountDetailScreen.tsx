@@ -23,7 +23,7 @@ export function DiscountDetailScreen() {
   const navigation = useNavigation();
   const {isOpen, onOpen, onClose} = useDisclose();
   const {userLocation} = useAppSelector(state => state.search);
-  const {isLoggedIn} = useAppSelector(state => state.auth);
+  const {isLoggedIn, inAppLoggedIn} = useAppSelector(state => state.auth);
   const {data, isLoading} = useProductVariantDetailQuery({
     id: route?.params?.id,
     latitude: userLocation?.lat,
@@ -76,14 +76,22 @@ export function DiscountDetailScreen() {
         mainStyle={{postion: 'absolute', bottom: 0, width: '95%'}}
         text="Claim Discount"
         onPress={() => {
-          if (!isLoggedIn) {
-            onOpen();
-          }
           if (isLoggedIn) {
             navigation.navigate(ScreenNames.ClaimDiscount, {
               promo_code: route?.params?.promo_code,
               id: route?.params?.id,
             });
+          }
+          if (!isLoggedIn) {
+            if (inAppLoggedIn) {
+              navigation.navigate(ScreenNames.ClaimDiscount, {
+                promo_code: route?.params?.promo_code,
+                id: route?.params?.id,
+              });
+            }
+            if (!inAppLoggedIn) {
+              onOpen();
+            }
           }
         }}
       />

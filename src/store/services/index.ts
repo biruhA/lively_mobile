@@ -7,3 +7,4 @@ export * from './browseApi';
 export * from './medicineApi';
 export * from './placeApi';
 export * from './settingApi';
+export * from './notificationApi';
