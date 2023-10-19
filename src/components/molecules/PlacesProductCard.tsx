@@ -10,6 +10,7 @@ import {setProductId} from '../../store/features/productSlice';
 import FastImage from 'react-native-fast-image';
 import {Images} from '../../theme/icons';
 import {ShadowCard} from '../cards';
+import {ApiImage} from '..';
 
 interface Props {
   id: string;
@@ -32,7 +33,6 @@ export function PlacesProductCard({
 }: Props): JSX.Element {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
-  const [hasLoaded, setHasLoaded] = useState(false);
 
   function onPress() {
     dispatch(setProductId(id));
@@ -46,14 +46,7 @@ export function PlacesProductCard({
     <ShadowCard style={[styles.main, mainStyle]}>
       <TouchableOpacity onPress={onPress}>
         <Stack space={1}>
-          <FastImage
-            style={styles.img}
-            source={!hasLoaded ? Images.placeholder : {uri: imageUrl}}
-            resizeMode={!hasLoaded ? 'cover' : 'contain'}
-            onLoadEnd={() => {
-              setHasLoaded(true);
-            }}
-          />
+          <ApiImage style={styles.img} imageUrl={imageUrl} />
           <Stack px={2}>
             <Text py={2} style={fonts.body1} numberOfLines={2}>
               {item}

@@ -10,6 +10,7 @@ interface productState {
   selectedCategoryId: string;
   selectedCategory: any;
   searchedProducts: any;
+  selectedRate: number;
 }
 
 const initialState: productState = {
@@ -20,6 +21,7 @@ const initialState: productState = {
   selectedCategory: {},
   searchedProducts: [],
   selectedProductVariantIndex: 0,
+  selectedRate: 0,
 };
 
 export const productSlice = createSlice({
@@ -38,6 +40,9 @@ export const productSlice = createSlice({
     setSelectedSubCategoryId: (state, action: PayloadAction<string>) => {
       state.selectedSubCategoryId = action.payload;
     },
+    setSelectedRate: (state, action: PayloadAction<number>) => {
+      state.selectedRate = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(
@@ -54,5 +59,6 @@ export const {
   setSelectedSubCategoryId,
   setCategoryId,
   setSelectedProductVariantIndex,
+  setSelectedRate,
 } = productSlice.actions;
 export default productSlice.reducer;

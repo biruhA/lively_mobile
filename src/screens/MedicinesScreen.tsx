@@ -1,5 +1,5 @@
-import {FlatList, ScrollView} from 'react-native';
-import React from 'react';
+import {RefreshControl, FlatList, ScrollView} from 'react-native';
+import React, {useState} from 'react';
 import {ApiImage, GoBack} from '../components/atoms';
 import {Image, Pressable, Stack, Text, useDisclose} from 'native-base';
 import {colors} from '../theme/colors';
@@ -20,10 +20,23 @@ export function MedicinesScreen() {
   const {isOpen, onOpen, onClose} = useDisclose();
   const getDiseases = useGetDiseasesQuery();
   const getAllMedicines = useGetAllMedicinesQuery();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getDiseases.refetch();
+    getAllMedicines
+      .refetch()
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   return (
     <Stack flex={1} p={4} space={6} bg={'white'}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <Stack space={4}>
           <GoBack label="Medicines" />
           <SearchBox onCamPress={onOpen} />

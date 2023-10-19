@@ -54,4 +54,8 @@ export enum ScreenNames {
   // Place
   PlaceDetails = 'PlaceDetails',
   PlacePharmacyDetail = 'PlacePharmacyDetail',
+  //Others
+  WishList = 'WishList',
+  Rating = 'Rating',
+  ReviewStore = 'ReviewStore',
 }

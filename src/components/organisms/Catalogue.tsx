@@ -1,5 +1,5 @@
 import {View, FlatList} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {CatalogueCard} from '../molecules';
 import {Center, Text, Stack, HStack} from 'native-base';
 import {
@@ -9,8 +9,14 @@ import {
 import {CatalogueSkeleton} from '../skeletons';
 import {fonts} from '../../theme/fonts';
 
-export function Catalogue() {
-  const {data, isLoading} = useProductCategoriesQuery();
+export function Catalogue({refreshing}) {
+  const {data, isLoading, refetch} = useProductCategoriesQuery();
+
+  useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+  }, [refreshing]);
 
   return (
     <HStack pt={4} bg={'white'} px={4} py={4}>

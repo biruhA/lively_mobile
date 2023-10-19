@@ -175,6 +175,7 @@ export function SeeAllProductsScreen() {
             renderItem={({item}) => (
               <ProductCard
                 id={item?.id}
+                isWishlist={item?.is_wishlist}
                 imageUrl={item?.thumbnail?.url}
                 item={item.title?.english}
                 volume={item.variant_count}

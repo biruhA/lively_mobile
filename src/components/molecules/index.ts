@@ -58,3 +58,4 @@ export * from './SearchBarPlaces';
 export * from './BottomTabBar';
 export * from './PlacesProductCard';
 export * from './AccordionItem';
+export * from './Rating';

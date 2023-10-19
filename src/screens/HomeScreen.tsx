@@ -11,7 +11,7 @@ import {
 } from '../components/organisms';
 import {BottomTabBar, SearchBox} from '../components/molecules';
 import {colors} from '../theme/colors';
-import {FlatList, Platform, StyleSheet} from 'react-native';
+import {FlatList, Platform, StyleSheet, RefreshControl} from 'react-native';
 import {useCurrentLocation} from '../hooks';
 import {
   useLandscapeDiscountBannersQuery,
@@ -30,24 +30,24 @@ export function HomeScreen() {
   const squareDiscountBanners = useSquareDiscountBannersQuery();
   const {userLocation} = useAppSelector(state => state.search);
   const navigation = useNavigation();
+  const [refreshing, setRefreshing] = React.useState(false);
 
-  useFocusEffect(
-    useCallback(() => {
-      navigation.addListener('beforeRemove', e => {
-        if (inAppLoggedIn) {
-          return;
-        }
-        // Prevent default behavior of leaving the screen
-        e.preventDefault();
-      });
-    }, [inAppLoggedIn]),
-  );
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    landscapeDiscountBanners.refetch();
+    squareDiscountBanners
+      .refetch()
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   return (
     <Stack bg={colors.pureWhite} flex={1}>
       <FlatList
         style={styles.bottomMargin}
         data={[{id: 1}]}
+        onRefresh={onRefresh}
+        refreshing={refreshing}
         renderItem={({item}) => {
           return (
             <Stack space={3}>
@@ -63,7 +63,7 @@ export function HomeScreen() {
                   <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
                 )}
               </Stack>
-              <Catalogue />
+              <Catalogue refreshing={refreshing} />
               <Stack bg={'white'} pb={7} px={4} py={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
@@ -92,8 +92,16 @@ export function HomeScreen() {
               </Stack>
               <ForYou />
               <TopArticles />
-              <ProductList label="For Women" url="for-her" />
-              <ProductList label="For Men" url="for-him" />
+              <ProductList
+                label="For Women"
+                url="for-her"
+                refreshing={refreshing}
+              />
+              <ProductList
+                label="For Men"
+                url="for-him"
+                refreshing={refreshing}
+              />
               <Stack bg={'white'} pb={7} px={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
@@ -101,8 +109,16 @@ export function HomeScreen() {
                   <Carousel2 Data={squareDiscountBanners?.data?.data} />
                 )}
               </Stack>
-              <ProductList label="For Mom & Baby" url="mom-and-baby" />
-              <ProductList label="Food & Drinks" url="foods-and-drinks" />
+              <ProductList
+                label="For Mom & Baby"
+                url="mom-and-baby"
+                refreshing={refreshing}
+              />
+              <ProductList
+                label="Food & Drinks"
+                url="foods-and-drinks"
+                refreshing={refreshing}
+              />
             </Stack>
           );
         }}

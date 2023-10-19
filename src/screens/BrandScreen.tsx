@@ -47,6 +47,7 @@ export function BrandScreen() {
               <ProductCard
                 id={item?.id}
                 imageUrl={item?.thumbnail?.url}
+                isWishlist={item?.is_wishlist}
                 item={item.title?.english}
                 volume={item.variant_count}
                 amount={item.from}

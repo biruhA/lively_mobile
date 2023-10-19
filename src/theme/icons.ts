@@ -38,4 +38,31 @@ export const Icons = {
     active: require('../assets/icons/bell-active.png'),
     inactive: require('../assets/icons/bell.png'),
   },
+  smileFace: {
+    black: require('../assets/icons/smile_face.png'),
+    yellow: require('../assets/icons/smile_yellow.png'),
+    smallYellow: require('../assets/icons/system-uicons-face-happy.png'),
+  },
+  rating: {
+    very_happy: {
+      light: require('../assets/icons/ratingFaces/very_happy_light.png'),
+      dark: require('../assets/icons/ratingFaces/very_happy_dark.png'),
+    },
+    happy: {
+      light: require('../assets/icons/ratingFaces/happy_light.png'),
+      dark: require('../assets/icons/ratingFaces/happy_dark.png'),
+    },
+    neutral: {
+      light: require('../assets/icons/ratingFaces/neutral_light.png'),
+      dark: require('../assets/icons/ratingFaces/neutral_dark.png'),
+    },
+    sad: {
+      light: require('../assets/icons/ratingFaces/sad_light.png'),
+      dark: require('../assets/icons/ratingFaces/sad_dark.png'),
+    },
+    very_sad: {
+      light: require('../assets/icons/ratingFaces/very_sad_light.png'),
+      dark: require('../assets/icons/ratingFaces/very_sad_dark.png'),
+    },
+  },
 };

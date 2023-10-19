@@ -76,11 +76,13 @@ export function DiscountDetailScreen() {
         mainStyle={{postion: 'absolute', bottom: 0, width: '95%'}}
         text="Claim Discount"
         onPress={() => {
-          if (isLoggedIn) {
+          if (isLoggedIn || (!isLoggedIn && inAppLoggedIn)) {
             navigation.navigate(ScreenNames.ClaimDiscount, {
               promo_code: route?.params?.promo_code,
               id: route?.params?.id,
             });
+          } else {
+            onOpen();
           }
           if (!isLoggedIn) {
             if (inAppLoggedIn) {

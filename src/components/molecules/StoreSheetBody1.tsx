@@ -5,17 +5,18 @@ import {fonts} from '../../theme/fonts';
 import {ApiImage, GradientButtonSmall} from '../atoms';
 import {useAppSelector} from '../../store/hooks';
 import {colors} from '../../theme/colors';
-import {useStoreDetailByIdQuery} from '../../store/services';
+import {
+  useNaStoreDetailQuery,
+  useStoreDetailByIdQuery,
+} from '../../store/services';
 
 export function StoreSheetBody1({onPress}: any) {
-  const {token} = useAppSelector(state => state.auth);
   const {userLocation} = useAppSelector(state => state.search);
   const {selectedStoreId} = useAppSelector(state => state.store);
-  const {data, isLoading} = useStoreDetailByIdQuery({
+  const {data, error, isLoading} = useNaStoreDetailQuery({
     id: selectedStoreId,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
-    token,
   });
 
   if (isLoading) {
@@ -25,7 +26,6 @@ export function StoreSheetBody1({onPress}: any) {
   return (
     <Stack w={'100%'} p={2} space={2}>
       <Stack>
-        <Text style={fonts.heading6}>Yardley Loose Powder</Text>
         <Text style={fonts.body1}>You can find the product in this store</Text>
       </Stack>
       <ApiImage
@@ -38,9 +38,10 @@ export function StoreSheetBody1({onPress}: any) {
           imageUrl={data?.data?.store_logo?.url}
           style={{
             position: 'absolute',
-            top: -20,
+            top: -25,
             left: 20,
             backgroundColor: 'white',
+            zIndex: 2,
             width: 65,
             height: 60,
             borderRadius: 8,
@@ -48,7 +49,7 @@ export function StoreSheetBody1({onPress}: any) {
         />
         <Stack ml={100}>
           <Text style={fonts.subtitle1} numberOfLines={2}>
-            {data?.data?.store_name?.english}
+            {data?.data?.store_branch?.store?.name?.english}
           </Text>
           <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
         </Stack>

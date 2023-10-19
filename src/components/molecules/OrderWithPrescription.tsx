@@ -8,7 +8,7 @@ import {ScreenNames} from '../../constants';
 import {useAppSelector} from '../../store/hooks';
 
 export function OrderWithPrescription({onCamPress}) {
-  const {isLoggedIn} = useAppSelector(state => state.auth);
+  const {isLoggedIn, inAppLoggedIn} = useAppSelector(state => state.auth);
   const {isOpen, onOpen, onClose} = useDisclose();
 
   return (
@@ -22,7 +22,7 @@ export function OrderWithPrescription({onCamPress}) {
       <GradientButtonSmall
         text={'Upload now'}
         onPress={() => {
-          if (isLoggedIn) {
+          if (isLoggedIn || (!isLoggedIn && inAppLoggedIn)) {
             onCamPress();
           } else {
             onOpen();

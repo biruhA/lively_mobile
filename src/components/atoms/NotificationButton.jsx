@@ -8,7 +8,7 @@ import {Icons} from '../../theme/icons';
 
 export function NotificationButton({onOpen}: any) {
   const navigation = useNavigation();
-  const {isLoggedIn} = useAppSelector(state => state.auth);
+  const {isLoggedIn, inAppLoggedIn} = useAppSelector(state => state.auth);
   const {hasNotification} = useAppSelector(state => state.notification);
   const [isActive, setIsActive] = useState(hasNotification);
 
@@ -17,17 +17,10 @@ export function NotificationButton({onOpen}: any) {
   }, [hasNotification]);
 
   function onPress() {
-    console.log('cat');
-    if (!isLoggedIn) {
+    if (isLoggedIn || (!isLoggedIn && inAppLoggedIn)) {
+      navigation.navigate(ScreenNames.Notification);
+    } else {
       onOpen();
-    }
-    if (isLoggedIn) {
-      if (!isLoggedIn) {
-        onOpen();
-      }
-      if (isLoggedIn) {
-        navigation.navigate(ScreenNames.Notification);
-      }
     }
   }
 

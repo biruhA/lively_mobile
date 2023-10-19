@@ -33,23 +33,17 @@ export function PlacesPharmacyCard({
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const {isOpen, onOpen, onClose} = useDisclose();
-  const {isLoggedIn} = useAppSelector(state => state.auth);
+  const {isLoggedIn, inAppLoggedIn} = useAppSelector(state => state.auth);
 
   return (
     <Stack my={2} bg="white" rounded={'md'}>
       <TouchableOpacity
         onPress={() => {
           dispatch(setStoreId(id));
-          if (!isLoggedIn) {
+          if (isLoggedIn || (!isLoggedIn && inAppLoggedIn)) {
+            navigation.navigate(ScreenNames.PlaceDetails, {id});
+          } else {
             onOpen();
-          }
-          if (isLoggedIn) {
-            if (!isLoggedIn) {
-              onOpen();
-            }
-            if (isLoggedIn) {
-              navigation.navigate(ScreenNames.PlaceDetails, {id});
-            }
           }
         }}>
         <HStack alignItems={'center'} space={4} justifyContent={'flex-start'}>

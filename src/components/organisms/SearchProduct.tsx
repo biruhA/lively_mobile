@@ -20,6 +20,7 @@ export function SearchProduct() {
           <ProductCard
             id={item.id}
             imageUrl={item?.product_images?.[0]?.url}
+            isWishlist={item?.is_wishlist}
             item={item.title?.english}
             volume={item.additional_information?.[0]?.value}
             amount={item.from}

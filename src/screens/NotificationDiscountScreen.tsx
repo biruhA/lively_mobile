@@ -20,6 +20,10 @@ export function NotificationDiscountScreen() {
   });
 
   console.log(
+    '🚀 ~ file: NotificationDiscountScreen.tsx:15 ~ NotificationDiscountScreen ~ selectedNotificationId:',
+    selectedNotificationId,
+  );
+  console.log(
     '🚀 ~ file: NotificationDiscountScreen.tsx:14 ~ NotificationDiscountScreen ~ data:',
     data?.data,
   );

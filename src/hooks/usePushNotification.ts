@@ -6,6 +6,7 @@ import {PermissionsAndroid, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
 import {setHasNotification} from '../store/features/notificationSlice';
+import {setSelectedNotificationId} from '../store/features/medicineSlice';
 
 export function usePushNotification() {
   const dispatch = useDispatch();
@@ -78,6 +79,8 @@ export function usePushNotification() {
       '🚀 ~ file: usePushNotification.ts:80 ~ onMessageReceived ~ notification:',
       remoteMessage?.notification,
     );
+
+    dispatch(setSelectedNotificationId(remoteMessage?.data?.id));
 
     switch (remoteMessage?.notification?.title) {
       case 'Discount Claimed!':

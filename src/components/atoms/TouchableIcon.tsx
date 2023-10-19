@@ -17,7 +17,12 @@ export default function TouchableIcon({
 }: Props) {
   return (
     <TouchableOpacity onPress={onPress} style={style}>
-      <Image source={image} alt="filter" boxSize={boxSize} />
+      <Image
+        source={image}
+        alt="filter"
+        boxSize={boxSize}
+        resizeMode={'contain'}
+      />
     </TouchableOpacity>
   );
 }

@@ -27,6 +27,7 @@ export function SearchAll() {
           renderItem={({item}) => (
             <ProductCard
               id={item.id}
+              isWishlist={item?.is_wishlist}
               imageUrl={item?.product_images?.[0]?.url}
               item={item.title?.english}
               volume={item.additional_information?.[0]?.value}

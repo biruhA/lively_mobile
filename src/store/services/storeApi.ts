@@ -61,6 +61,30 @@ export const storeApi = createApi({
         },
       }),
     }),
+    naStoreDetail: build.query({
+      query: ({id, latitude, longitude}) => ({
+        url: `na-store-detail/${id}`,
+        params: {
+          latitude,
+          longitude,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
+        },
+      }),
+    }),
+    storeWishlist: build.mutation({
+      query: ({id, token}) => ({
+        url: `store-wishlist/${id}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
   }),
 });
 
@@ -70,4 +94,6 @@ export const {
   useNotifyStoreMutation,
   useClickSocialMutation,
   useStoreDetailByIdQuery,
+  useNaStoreDetailQuery,
+  useStoreWishlistMutation,
 } = storeApi;

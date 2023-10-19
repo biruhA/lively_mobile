@@ -6,8 +6,12 @@ import {NotificationButton} from '../atoms';
 import {ScreenNames} from '../../constants';
 import {fonts} from '../../theme/fonts';
 import {LoginSheet} from '../sheets';
+import TouchableIcon from '../atoms/TouchableIcon';
+import {Icons} from '../../theme/icons';
+import {useNavigation} from '@react-navigation/native';
 
 export function MainScreenHeader({label}: string) {
+  const navigation = useNavigation();
   const {isOpen, onClose, onOpen} = useDisclose();
 
   return (
@@ -19,7 +23,16 @@ export function MainScreenHeader({label}: string) {
         justifyContent={'space-between'}
         py={4}>
         <Text style={fonts.subtitle1}>{label}</Text>
-        <NotificationButton onOpen={onOpen} />
+        <HStack alignItems={'center'} space={4} px={3}>
+          <NotificationButton onOpen={onOpen} />
+          <TouchableIcon
+            image={Icons.heart.bold}
+            onPress={() => {
+              navigation.navigate(ScreenNames.WishList);
+            }}
+            boxSize={4}
+          />
+        </HStack>
       </HStack>
       <LoginSheet
         isOpen={isOpen}

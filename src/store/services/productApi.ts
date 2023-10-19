@@ -73,6 +73,26 @@ export const productApi = createApi({
         url: `filter-by-brand/${id}`,
       }),
     }),
+    myWishlists: build.query({
+      query: token => ({
+        url: 'my-wishlists',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
+    myStoreWishlists: build.query({
+      query: token => ({
+        url: 'my-store-wishlists',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
+        },
+      }),
+    }),
     search: build.mutation({
       query: ({type, search, lat, lon}) => ({
         url: `search`,
@@ -85,6 +105,17 @@ export const productApi = createApi({
         },
         headers: {
           'Content-Type': 'application/json',
+        },
+      }),
+    }),
+    productWishlist: build.mutation({
+      query: ({id, token}) => ({
+        url: `wishlist/${id}`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${token}`,
+          accept: 'application/json',
         },
       }),
     }),
@@ -103,5 +134,8 @@ export const {
   useProductsByCategoryMutation,
   useGetTagsQuery,
   useFilterByBrandQuery,
+  useMyWishlistsQuery,
+  useMyStoreWishlistsQuery,
   useSearchMutation,
+  useProductWishlistMutation,
 } = productApi;

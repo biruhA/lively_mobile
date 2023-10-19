@@ -1,4 +1,10 @@
-import {TouchableOpacity, ScrollView, FlatList, StyleSheet} from 'react-native';
+import {
+  RefreshControl,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Center, HStack, Spinner, Stack, Text} from 'native-base';
 import {colors} from '../theme/colors';
@@ -22,8 +28,24 @@ import {MainScreenHeader} from '../components/headers';
 export function PlaceScreen() {
   const Banners = useBannersQuery();
   const {searchedText, userLocation} = useAppSelector(state => state.search);
+  const {storeList, pharmacieList} = useAppSelector(state => state.place);
   const [RecommendedStores, result] = useRecommendedStoresMutation();
   const [isPharmacySelected, setIsPharmacySelected] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    RecommendedStores({
+      latitude: userLocation?.lat,
+      longitude: userLocation?.lon,
+      is_pharmacy: isPharmacySelected,
+      search: debouncedText,
+    })
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   const debouncedText = useDebounce(searchedText, 500);
 
@@ -33,12 +55,22 @@ export function PlaceScreen() {
       longitude: userLocation?.lon,
       is_pharmacy: isPharmacySelected,
       search: debouncedText,
-    });
-  }, [debouncedText, isPharmacySelected]);
+      page,
+    })
+      .unwrap()
+      .then(res => {
+        setHasMore(
+          res?.data?.total / res?.data?.per_page > res?.data?.current_page,
+        );
+      });
+  }, [debouncedText, isPharmacySelected, page]);
 
   return (
     <Stack bg={colors.pureWhite} h={'full'} pb={2}>
       <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         showsVerticalScrollIndicator={false}
         style={styles.bottomMargin}>
         <Stack space={4}>
@@ -68,8 +100,21 @@ export function PlaceScreen() {
               </Center>
             ) : (
               <FlatList
-                data={result?.data?.data?.data}
+                data={isPharmacySelected ? pharmacieList : storeList}
                 ListEmptyComponent={ListEmptyComponent}
+                onEndReachedThreshold={0.5}
+                onEndReached={() => {
+                  if (hasMore) {
+                    setPage(page + 1);
+                  }
+                }}
+                ListFooterComponent={() => {
+                  return (
+                    <Center flex={1} py={1}>
+                      {hasMore ? <Spinner /> : <Text>- End -</Text>}
+                    </Center>
+                  );
+                }}
                 renderItem={({item}) => (
                   <PlacesPharmacyCard
                     id={item?.id}

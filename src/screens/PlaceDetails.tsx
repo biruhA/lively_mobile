@@ -1,5 +1,11 @@
-import {FlatList, Linking, Platform, ScrollView} from 'react-native';
-import React from 'react';
+import {
+  TouchableOpacity,
+  FlatList,
+  Linking,
+  Platform,
+  ScrollView,
+} from 'react-native';
+import React, {useState} from 'react';
 import {
   AspectRatio,
   Avatar,
@@ -13,21 +19,25 @@ import {
   VStack,
   Badge,
   Spinner,
+  Button,
+  Divider,
 } from 'native-base';
 import {colors} from '../theme/colors';
 import {
   PlaceDetailsHeader,
   PlacesProductCard,
+  Rating,
   SearchBar,
 } from '../components/molecules';
 import {
+  ApiImage,
   ButtonTabs,
   GradientButtonSmall,
   ListEmptyComponent,
+  ToggleIcon,
 } from '../components/atoms';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import faceHappy from '../assets/icons/system-uicons-face-happy.png';
 import location from '../assets/icons/location_regular.png';
 import locationWhite from '../assets/icons/location_white.png';
@@ -36,6 +46,9 @@ import {usePlaceDetailQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 import FastImage from 'react-native-fast-image';
+import {Icons, icons} from '../theme/icons';
+import TouchableIcon from '../components/atoms/TouchableIcon';
+import {UserReviewCard} from '../components';
 
 export function PlaceDetails() {
   const route = useRoute();
@@ -57,31 +70,23 @@ export function PlaceDetails() {
     );
   }
 
+  console.log('is_wishlist: ', data?.data?.is_wishlist);
+
   return (
     <Stack flex={1} bg={'white'}>
       <Stack p={4} bg={'white'}>
-        <PlaceDetailsHeader />
+        <PlaceDetailsHeader
+          id={route?.params?.id}
+          isWishlist={data?.data?.is_wishlist}
+        />
       </Stack>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Stack bg={colors.pureWhite} h={5} w={'100%'} />
         <Stack mb={16}>
-          {data?.data?.cover_image?.url ? (
-            <FastImage
-              style={{width: '100%', height: 220}}
-              source={{
-                uri: data?.data?.cover_image?.url,
-              }}
-              resizeMode={'cover'}
-            />
-          ) : (
-            <Image
-              source={require('../assets/images/Placeholder.png')}
-              alt="image"
-              w={'100%'}
-              h={220}
-              resizeMode="cover"
-            />
-          )}
+          <ApiImage
+            imageUrl={data?.data?.cover_image?.url}
+            style={{backgroundColor: 'white', width: '100%', height: 220}}
+          />
           <HStack
             alignItems={'center'}
             space={4}
@@ -89,17 +94,10 @@ export function PlaceDetails() {
             bottom={-65}
             left={4}
             zIndex={2}>
-            <Image
-              borderColor={'whitesmoke'}
-              borderWidth={1}
-              source={{
-                uri: data?.data?.store?.store_logo?.url,
-              }}
-              w={77}
-              h={77}
-              rounded={'full'}
+            <ApiImage
+              imageUrl={data?.data?.store?.store_logo?.url}
+              style={{width: 77, height: 77, borderRadius: 200}}
               resizeMode="contain"
-              alt="store_logo"
             />
             <Stack>
               <Heading size="md" color={'black'}>
@@ -113,46 +111,28 @@ export function PlaceDetails() {
           </HStack>
         </Stack>
 
-        <Stack px={4} bg={'white'}>
-          <Stack
-            mt={4}
-            p={3}
-            bg="white"
-            rounded={'xs'}
-            borderColor={colors.grey}
-            borderWidth={0.1}>
-            <HStack alignItems={'center'} justifyContent={'space-between'}>
-              <HStack space={2} alignItems={'center'}>
-                {data?.data?.is_open ? (
-                  <Heading size="xs" style={{color: colors.primary}}>
-                    Open now
-                  </Heading>
-                ) : (
-                  <Heading size="xs" style={{color: colors.error}}>
-                    Closed
-                  </Heading>
-                )}
-                <Heading size="md" style={{color: colors.error}}>
-                  .
-                </Heading>
-                <Text style={{color: colors.greyText}}>
-                  Closes at{' '}
-                  {data?.data?.opening_hours?.[0]?.closing_time.substr(0, 5)}
-                </Text>
-              </HStack>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(ScreenNames.PlacePharmacyDetail, {
-                    Data: data?.data,
-                  })
-                }>
-                <Badge rounded={'md'} colorScheme="#e2fff1">
-                  <Text style={{color: colors.primary}}>More Info</Text>
-                </Badge>
-              </TouchableOpacity>
-            </HStack>
-          </Stack>
+        <Stack px={4} bg={'white'} space={2}>
+          <MoreInfo data={data} />
+          <Rating data={data} />
+          <UsersRating data={data?.data?.rating} />
+          {data?.data?.rating?.review && (
+            <>
+              <UserReviewCard
+                data={data?.data?.rating?.review}
+                hasReadMoreButton={false}
+              />
+              <Button
+                variant={'ghost'}
+                colorScheme={'coolGray'}
+                size={'lg'}
+                onPress={() => navigation.navigate(ScreenNames.Rating)}>
+                See More
+              </Button>
+            </>
+          )}
+        </Stack>
 
+        <Stack px={4} bg={'white'}>
           <FlatList
             style={{marginTop: 16}}
             numColumns={2}
@@ -209,5 +189,79 @@ export function PlaceDetails() {
         />
       </HStack>
     </Stack>
+  );
+}
+
+function MoreInfo({data}) {
+  const navigation = useNavigation();
+  return (
+    <Stack
+      mt={4}
+      p={3}
+      bg="white"
+      rounded={'xs'}
+      borderColor={colors.grey}
+      borderWidth={0.1}>
+      <HStack alignItems={'center'} justifyContent={'space-between'}>
+        <HStack space={2} alignItems={'center'}>
+          {data?.data?.is_open ? (
+            <Heading size="xs" color={colors.primary}>
+              Open now
+            </Heading>
+          ) : (
+            <Heading size="xs" color={colors.error}>
+              Closed
+            </Heading>
+          )}
+          <Heading size="md" color={colors.error}>
+            .
+          </Heading>
+          <Text color={colors.greyText}>
+            Closes at{' '}
+            {data?.data?.opening_hours?.[0]?.closing_time.substr(0, 5)}
+          </Text>
+        </HStack>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(ScreenNames.PlacePharmacyDetail, {
+              Data: data?.data,
+            })
+          }>
+          <Badge rounded={'md'} colorScheme="#e2fff1">
+            <Text style={{color: colors.primary}}>More Info</Text>
+          </Badge>
+        </TouchableOpacity>
+      </HStack>
+    </Stack>
+  );
+}
+
+function UsersRating({data}) {
+  if (data?.average === 0) {
+    return;
+  }
+
+  return (
+    <HStack
+      alignItems={'center'}
+      p={3}
+      pl={5}
+      bg="white"
+      rounded={'xs'}
+      borderColor={colors.grey}
+      borderWidth={0.1}
+      space={5}>
+      <Heading size={'2xl'} style={fonts.heading2}>
+        {data?.average}
+      </Heading>
+      <Stack space={1}>
+        <Image
+          source={Icons.smileFace.yellow}
+          boxSize={4}
+          resizeMode={'contain'}
+        />
+        <Text style={fonts.button2}>Based on {data?.users_count} users</Text>
+      </Stack>
+    </HStack>
   );
 }

@@ -34,8 +34,6 @@ export function DiscountCard({
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
-  console.log('🚀 ~ file: DiscountCard.tsx:34 ~ disount:', disount);
-
   return (
     <ShadowCard style={[styles.main, mainStyle]}>
       <TouchableOpacity
@@ -45,7 +43,7 @@ export function DiscountCard({
         }}>
         <Stack>
           <Box position={'absolute'} zIndex={1} right={0}>
-            {/* <HeartIcon /> */}
+            <HeartIcon />
           </Box>
           <FastImage
             source={{

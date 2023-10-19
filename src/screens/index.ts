@@ -44,3 +44,6 @@ export * from './PrivacyScreen';
 export * from './PharmacyDetailScreen';
 export * from './BrandScreen';
 export * from './FaqScreen';
+export * from './WishListScreen';
+export * from './RatingScreen';
+export * from './ReviewStoreScreen';

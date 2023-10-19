@@ -28,6 +28,8 @@ import {
   PlaceScreen,
   PrivacyScreen,
   ProductDetailScreen,
+  RatingScreen,
+  ReviewStoreScreen,
   SearchScreen,
   SeeAllArticlesScreen,
   SeeAllCollectionScreen,
@@ -39,6 +41,7 @@ import {
   SettingsScreen,
   ShopScreen,
   StoresScreen,
+  WishListScreen,
 } from '../screens';
 
 const Stack = createStackNavigator<any>();
@@ -161,6 +164,12 @@ export const Stacks = () => {
       />
       <Stack.Screen name={ScreenNames.BrandScreen} component={BrandScreen} />
       <Stack.Screen name={ScreenNames.Faq} component={FaqScreen} />
+      <Stack.Screen name={ScreenNames.WishList} component={WishListScreen} />
+      <Stack.Screen name={ScreenNames.Rating} component={RatingScreen} />
+      <Stack.Screen
+        name={ScreenNames.ReviewStore}
+        component={ReviewStoreScreen}
+      />
     </Stack.Navigator>
   );
 };
