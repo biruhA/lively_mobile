@@ -14,7 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1450446C054D4C438BD43A5B /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E229E6DD7A4B7A9894864D /* Poppins-ExtraBold.ttf */; };
 		1DC79EF7A046476386F833D9 /* Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F97B1B4A99224D2A93DACB71 /* Poppins-SemiBoldItalic.ttf */; };
-		4C12A5E912023A30A0C83561 /* libPods-lively_mobileCommonPods-prod_lively_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 82F1EEC83B42795D7007D2E9 /* libPods-lively_mobileCommonPods-prod_lively_mobile.a */; };
+		4FB236A03FB805AA39454C1C /* Pods_lively_mobileCommonPods_prod_lively_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13F228FFFC1A8DF6F4526A78 /* Pods_lively_mobileCommonPods_prod_lively_mobile.framework */; };
 		5DC9B8E2977D493989A409A4 /* Poppins-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F7F0BE0DE7E49D5BC19E2A1 /* Poppins-BlackItalic.ttf */; };
 		6D74F995DB81403DAE4D2CCF /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 957046D51F854D49B8C9BB29 /* Poppins-SemiBold.ttf */; };
 		737E944F89D74B6AB2002D74 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 822BA11F88A84D169CE1B180 /* Poppins-ExtraLight.ttf */; };
@@ -22,6 +22,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		85E1D9FB79B54EB1ADD00F89 /* Poppins-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F01CA50F8814828BE74F2D5 /* Poppins-Italic.ttf */; };
 		9649232FE8FC4415B3178AFF /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597B105574884BC98351E7FF /* Poppins-Light.ttf */; };
+		9F712EF9FC1DEEDC1E3CB7B2 /* Pods_lively_mobileCommonPods_dev_lively_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3008FE66FC32DACC61F9495A /* Pods_lively_mobileCommonPods_dev_lively_mobile.framework */; };
 		A3F9F882937247CCBF7C5AAE /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E5D7EFFA7154E17828F3FF6 /* Poppins-Thin.ttf */; };
 		A9144B372A48A34A00947A1D /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = A9144B362A48A34A00947A1D /* Fonts */; };
 		A9144B392A48C11100947A1D /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9144B382A48C11100947A1D /* WebKit.framework */; };
@@ -98,16 +99,15 @@
 		A995B2522AAB40310098FC2A /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E5D7EFFA7154E17828F3FF6 /* Poppins-Thin.ttf */; };
 		A995B2532AAB40310098FC2A /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CC9C3667184B95BE0A9B8C /* Poppins-ThinItalic.ttf */; };
 		B4D8E2409F644B399F88E149 /* Poppins-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C263697B192F4F7FAA5E8865 /* Poppins-BoldItalic.ttf */; };
+		B8DBDDFC194D15D20B724B2D /* Pods_lively_mobileCommonPods_staging_lively_mobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF203F2348BDAD82DD9BD72 /* Pods_lively_mobileCommonPods_staging_lively_mobile.framework */; };
 		BF0F82FF55E04E73BA0B3106 /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 70740F7FE8504C5EA7DB669B /* Poppins-Black.ttf */; };
-		C311523B433ED3A211DB0DAF /* libPods-lively_mobileCommonPods-dev_lively_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAA8078EB37D99567966654 /* libPods-lively_mobileCommonPods-dev_lively_mobile.a */; };
 		C72E81A91216479CAEB2B7B9 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA533BE1B95148CE9B876CD4 /* Poppins-LightItalic.ttf */; };
+		C74CD900E1396D95CBD03614 /* Pods_lively_mobileCommonPods_lively_mobileTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0CBFC42C85A41B69899C11 /* Pods_lively_mobileCommonPods_lively_mobileTests.framework */; };
 		CA62E0D6BA3244F68CEEC5F4 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3AB2D3FD3344198A22074E0 /* Poppins-Medium.ttf */; };
 		CA8A4AE77214491895D86B5D /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 03CC9C3667184B95BE0A9B8C /* Poppins-ThinItalic.ttf */; };
-		CC459F1990C6751C874010A4 /* libPods-lively_mobileCommonPods-staging_lively_mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44208DB2FBFD37FE07CB5D0 /* libPods-lively_mobileCommonPods-staging_lively_mobile.a */; };
 		CD6862DADAFF437D892D46E1 /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB357EA56E594672BEAB74BC /* Poppins-ExtraLightItalic.ttf */; };
 		CFF7A3D9D21344BC9D230A2E /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD4089CCC6A6481F98140F6A /* Poppins-Regular.ttf */; };
 		DC8E17B0999D4AE6A0E25E0D /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA9D93CC9C95485DB73C4C2B /* Poppins-MediumItalic.ttf */; };
-		ED33B556B1BC1B456249631C /* libPods-lively_mobileCommonPods-lively_mobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A157692759F2E35464A7420E /* libPods-lively_mobileCommonPods-lively_mobileTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,33 +125,34 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* lively_mobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = lively_mobileTests.m; sourceTree = "<group>"; };
 		03CC9C3667184B95BE0A9B8C /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ThinItalic.ttf"; path = "../src/assets/fonts/Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
-		06B25C33387335680A880298 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* lively_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lively_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = lively_mobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = lively_mobile/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = lively_mobile/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = lively_mobile/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = lively_mobile/main.m; sourceTree = "<group>"; };
+		13F228FFFC1A8DF6F4526A78 /* Pods_lively_mobileCommonPods_prod_lively_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lively_mobileCommonPods_prod_lively_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		22E229E6DD7A4B7A9894864D /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../src/assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
-		3F78657156F38E5BD84819E5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
+		3008FE66FC32DACC61F9495A /* Pods_lively_mobileCommonPods_dev_lively_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lively_mobileCommonPods_dev_lively_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3EF203F2348BDAD82DD9BD72 /* Pods_lively_mobileCommonPods_staging_lively_mobile.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lively_mobileCommonPods_staging_lively_mobile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C0CBFC42C85A41B69899C11 /* Pods_lively_mobileCommonPods_lively_mobileTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_lively_mobileCommonPods_lively_mobileTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		555EE06B596BE0C5DFAF561A /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		597B105574884BC98351E7FF /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-lively_mobile-lively_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobile-lively_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobile-lively_mobileTests/Pods-lively_mobile-lively_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5F01CA50F8814828BE74F2D5 /* Poppins-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.ttf"; path = "../src/assets/fonts/Poppins-Italic.ttf"; sourceTree = "<group>"; };
 		6A50176D9C6F4EA98215F272 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		70740F7FE8504C5EA7DB669B /* Poppins-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.ttf"; path = "../src/assets/fonts/Poppins-Black.ttf"; sourceTree = "<group>"; };
-		7FC0E53BBE289A2EB4530D03 /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = lively_mobile/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		822BA11F88A84D169CE1B180 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLight.ttf"; path = "../src/assets/fonts/Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
-		82F1EEC83B42795D7007D2E9 /* libPods-lively_mobileCommonPods-prod_lively_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lively_mobileCommonPods-prod_lively_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-lively_mobile-lively_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobile-lively_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lively_mobile-lively_mobileTests/Pods-lively_mobile-lively_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
-		8AB69E1A734B2C5DB675DEB4 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		8820941DCDB964AD40E5C156 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		8E5D7EFFA7154E17828F3FF6 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.ttf"; path = "../src/assets/fonts/Poppins-Thin.ttf"; sourceTree = "<group>"; };
 		957046D51F854D49B8C9BB29 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		95B41E5AD5D8C8C51BAEE350 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		9640C2AE0C1B43C48E6537D0 /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		9F7F0BE0DE7E49D5BC19E2A1 /* Poppins-BlackItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BlackItalic.ttf"; path = "../src/assets/fonts/Poppins-BlackItalic.ttf"; sourceTree = "<group>"; };
-		A0C7DE7EBF1B4DD84A3B7E59 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
-		A157692759F2E35464A7420E /* libPods-lively_mobileCommonPods-lively_mobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lively_mobileCommonPods-lively_mobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A769D6E86116487048359AC2 /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A607E023964C028CAB8F7EEC /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		A908419D2AD7CE60007EA69E /* dev_lively_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dev_lively_mobile.entitlements; sourceTree = "<group>"; };
+		A908419E2AD7CE6A007EA69E /* staging_lively_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = staging_lively_mobile.entitlements; sourceTree = "<group>"; };
+		A908419F2AD7CE71007EA69E /* prod_lively_mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = prod_lively_mobile.entitlements; sourceTree = "<group>"; };
 		A9144B362A48A34A00947A1D /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Fonts; path = "../node_modules/react-native-vector-icons/Fonts"; sourceTree = "<group>"; };
 		A9144B382A48C11100947A1D /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A995B20C2AAB3FAE0098FC2A /* dev_lively_mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dev_lively_mobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,16 +163,16 @@
 		A995B25B2AAB40310098FC2A /* lively_mobile prod-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "lively_mobile prod-Info.plist"; path = "/Users/andi/Documents/GitHub/lively-mobile/ios/lively_mobile prod-Info.plist"; sourceTree = "<absolute>"; };
 		AB357EA56E594672BEAB74BC /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraLightItalic.ttf"; path = "../src/assets/fonts/Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
 		AD4089CCC6A6481F98140F6A /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
-		BBAA8078EB37D99567966654 /* libPods-lively_mobileCommonPods-dev_lively_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lively_mobileCommonPods-dev_lively_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C263697B192F4F7FAA5E8865 /* Poppins-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-BoldItalic.ttf"; path = "../src/assets/fonts/Poppins-BoldItalic.ttf"; sourceTree = "<group>"; };
 		C3AB2D3FD3344198A22074E0 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		D27CCA83AF894880867634BF /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
-		D44208DB2FBFD37FE07CB5D0 /* libPods-lively_mobileCommonPods-staging_lively_mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lively_mobileCommonPods-staging_lively_mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D67C266C24763D285ED989A6 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig"; sourceTree = "<group>"; };
+		E0D8231C47290F3A3B87EA60 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
+		E310E41CBDCA7C1F0D905D2B /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig"; sourceTree = "<group>"; };
+		E5DDF038F9F11DF2BB3E1DB1 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig"; sourceTree = "<group>"; };
 		EA533BE1B95148CE9B876CD4 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../src/assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		EA9D93CC9C95485DB73C4C2B /* Poppins-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-MediumItalic.ttf"; path = "../src/assets/fonts/Poppins-MediumItalic.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F97B1B4A99224D2A93DACB71 /* Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		FDE6AD215E2E20E2DB7FEFB5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig"; path = "Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,7 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED33B556B1BC1B456249631C /* libPods-lively_mobileCommonPods-lively_mobileTests.a in Frameworks */,
+				C74CD900E1396D95CBD03614 /* Pods_lively_mobileCommonPods_lively_mobileTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,7 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A995B1EE2AAB3FAE0098FC2A /* WebKit.framework in Frameworks */,
-				C311523B433ED3A211DB0DAF /* libPods-lively_mobileCommonPods-dev_lively_mobile.a in Frameworks */,
+				9F712EF9FC1DEEDC1E3CB7B2 /* Pods_lively_mobileCommonPods_dev_lively_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +206,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A995B2152AAB40150098FC2A /* WebKit.framework in Frameworks */,
-				CC459F1990C6751C874010A4 /* libPods-lively_mobileCommonPods-staging_lively_mobile.a in Frameworks */,
+				B8DBDDFC194D15D20B724B2D /* Pods_lively_mobileCommonPods_staging_lively_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +215,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A995B23C2AAB40310098FC2A /* WebKit.framework in Frameworks */,
-				4C12A5E912023A30A0C83561 /* libPods-lively_mobileCommonPods-prod_lively_mobile.a in Frameworks */,
+				4FB236A03FB805AA39454C1C /* Pods_lively_mobileCommonPods_prod_lively_mobile.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,10 +257,10 @@
 			children = (
 				A9144B382A48C11100947A1D /* WebKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				BBAA8078EB37D99567966654 /* libPods-lively_mobileCommonPods-dev_lively_mobile.a */,
-				A157692759F2E35464A7420E /* libPods-lively_mobileCommonPods-lively_mobileTests.a */,
-				82F1EEC83B42795D7007D2E9 /* libPods-lively_mobileCommonPods-prod_lively_mobile.a */,
-				D44208DB2FBFD37FE07CB5D0 /* libPods-lively_mobileCommonPods-staging_lively_mobile.a */,
+				3008FE66FC32DACC61F9495A /* Pods_lively_mobileCommonPods_dev_lively_mobile.framework */,
+				4C0CBFC42C85A41B69899C11 /* Pods_lively_mobileCommonPods_lively_mobileTests.framework */,
+				13F228FFFC1A8DF6F4526A78 /* Pods_lively_mobileCommonPods_prod_lively_mobile.framework */,
+				3EF203F2348BDAD82DD9BD72 /* Pods_lively_mobileCommonPods_staging_lively_mobile.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -274,6 +275,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A908419F2AD7CE71007EA69E /* prod_lively_mobile.entitlements */,
+				A908419E2AD7CE6A007EA69E /* staging_lively_mobile.entitlements */,
+				A908419D2AD7CE60007EA69E /* dev_lively_mobile.entitlements */,
 				A9144B362A48A34A00947A1D /* Fonts */,
 				13B07FAE1A68108700A75B9A /* lively_mobile */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -306,16 +310,14 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				5B7EB9410499542E8C5724F5 /* Pods-lively_mobile-lively_mobileTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-lively_mobile-lively_mobileTests.release.xcconfig */,
-				7FC0E53BBE289A2EB4530D03 /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */,
-				06B25C33387335680A880298 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */,
-				A769D6E86116487048359AC2 /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */,
-				3F78657156F38E5BD84819E5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */,
-				8AB69E1A734B2C5DB675DEB4 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */,
-				D27CCA83AF894880867634BF /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */,
-				D67C266C24763D285ED989A6 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */,
-				A0C7DE7EBF1B4DD84A3B7E59 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */,
+				A607E023964C028CAB8F7EEC /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */,
+				E0D8231C47290F3A3B87EA60 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */,
+				E310E41CBDCA7C1F0D905D2B /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */,
+				FDE6AD215E2E20E2DB7FEFB5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */,
+				95B41E5AD5D8C8C51BAEE350 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */,
+				555EE06B596BE0C5DFAF561A /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */,
+				8820941DCDB964AD40E5C156 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */,
+				E5DDF038F9F11DF2BB3E1DB1 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -352,12 +354,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "lively_mobileTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				21D4CE9C56CB3B36AAC81FD4 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				D514652880F281E087E75051 /* [CP] Embed Pods Frameworks */,
+				4B7B3B33AB27DD723496802C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -392,14 +394,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A995B2092AAB3FAE0098FC2A /* Build configuration list for PBXNativeTarget "dev_lively_mobile" */;
 			buildPhases = (
-				A995B1E82AAB3FAE0098FC2A /* [CP] Check Pods Manifest.lock */,
+				CE4E7F99C19E21868CE081B8 /* [CP] Check Pods Manifest.lock */,
 				A995B1E92AAB3FAE0098FC2A /* Start Packager */,
 				A995B1EA2AAB3FAE0098FC2A /* Sources */,
 				A995B1ED2AAB3FAE0098FC2A /* Frameworks */,
 				A995B1F02AAB3FAE0098FC2A /* Resources */,
 				A995B2062AAB3FAE0098FC2A /* Bundle React Native code and images */,
-				A995B2072AAB3FAE0098FC2A /* [CP] Embed Pods Frameworks */,
-				A995B2082AAB3FAE0098FC2A /* [CP] Copy Pods Resources */,
+				2A21CE0EED07EA31466DAA2F /* [CP] Embed Pods Frameworks */,
+				031E1368943C520A7F599CD3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -414,14 +416,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A995B2302AAB40150098FC2A /* Build configuration list for PBXNativeTarget "staging_lively_mobile" */;
 			buildPhases = (
-				A995B20F2AAB40150098FC2A /* [CP] Check Pods Manifest.lock */,
+				C7FB8F8E0797A9CBB0125497 /* [CP] Check Pods Manifest.lock */,
 				A995B2102AAB40150098FC2A /* Start Packager */,
 				A995B2112AAB40150098FC2A /* Sources */,
 				A995B2142AAB40150098FC2A /* Frameworks */,
 				A995B2172AAB40150098FC2A /* Resources */,
 				A995B22D2AAB40150098FC2A /* Bundle React Native code and images */,
-				A995B22E2AAB40150098FC2A /* [CP] Embed Pods Frameworks */,
-				A995B22F2AAB40150098FC2A /* [CP] Copy Pods Resources */,
+				A7DBBFD32D002843FADF74C3 /* [CP] Embed Pods Frameworks */,
+				CE67BAB712959615EAF7A70C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -436,14 +438,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A995B2572AAB40310098FC2A /* Build configuration list for PBXNativeTarget "prod_lively_mobile" */;
 			buildPhases = (
-				A995B2362AAB40310098FC2A /* [CP] Check Pods Manifest.lock */,
+				8D32490748BFFD59723D9FBD /* [CP] Check Pods Manifest.lock */,
 				A995B2372AAB40310098FC2A /* Start Packager */,
 				A995B2382AAB40310098FC2A /* Sources */,
 				A995B23B2AAB40310098FC2A /* Frameworks */,
 				A995B23E2AAB40310098FC2A /* Resources */,
 				A995B2542AAB40310098FC2A /* Bundle React Native code and images */,
-				A995B2552AAB40310098FC2A /* [CP] Embed Pods Frameworks */,
-				A995B2562AAB40310098FC2A /* [CP] Copy Pods Resources */,
+				7EED42172AA8D70A86328847 /* [CP] Embed Pods Frameworks */,
+				61A7D78B6A91AE01652E7BA5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -461,7 +463,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -633,7 +635,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		031E1368943C520A7F599CD3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		21D4CE9C56CB3B36AAC81FD4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -655,7 +674,75 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A995B1E82AAB3FAE0098FC2A /* [CP] Check Pods Manifest.lock */ = {
+		2A21CE0EED07EA31466DAA2F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4B7B3B33AB27DD723496802C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		61A7D78B6A91AE01652E7BA5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7EED42172AA8D70A86328847 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D32490748BFFD59723D9FBD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -670,11 +757,28 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-dev_lively_mobile-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-prod_lively_mobile-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7DBBFD32D002843FADF74C3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A995B1E92AAB3FAE0098FC2A /* Start Packager */ = {
@@ -712,62 +816,6 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		A995B2072AAB3FAE0098FC2A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A995B2082AAB3FAE0098FC2A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-dev_lively_mobile/Pods-lively_mobileCommonPods-dev_lively_mobile-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A995B20F2AAB40150098FC2A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-staging_lively_mobile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		A995B2102AAB40150098FC2A /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -802,62 +850,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
-		};
-		A995B22E2AAB40150098FC2A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A995B22F2AAB40150098FC2A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A995B2362AAB40310098FC2A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-prod_lively_mobile-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		A995B2372AAB40310098FC2A /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -894,41 +886,68 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		A995B2552AAB40310098FC2A /* [CP] Embed Pods Frameworks */ = {
+		C7FB8F8E0797A9CBB0125497 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-staging_lively_mobile-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A995B2562AAB40310098FC2A /* [CP] Copy Pods Resources */ = {
+		CE4E7F99C19E21868CE081B8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-lively_mobileCommonPods-dev_lively_mobile-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE67BAB712959615EAF7A70C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-prod_lively_mobile/Pods-lively_mobileCommonPods-prod_lively_mobile-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-staging_lively_mobile/Pods-lively_mobileCommonPods-staging_lively_mobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
+		D514652880F281E087E75051 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -943,23 +962,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-lively_mobileCommonPods-lively_mobileTests/Pods-lively_mobileCommonPods-lively_mobileTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -1041,7 +1043,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A769D6E86116487048359AC2 /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */;
+			baseConfigurationReference = E310E41CBDCA7C1F0D905D2B /* Pods-lively_mobileCommonPods-lively_mobileTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1070,7 +1072,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F78657156F38E5BD84819E5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */;
+			baseConfigurationReference = FDE6AD215E2E20E2DB7FEFB5 /* Pods-lively_mobileCommonPods-lively_mobileTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1185,6 +1187,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1201,7 +1204,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1257,6 +1260,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1266,7 +1270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -1291,13 +1295,15 @@
 		};
 		A995B20A2AAB3FAE0098FC2A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7FC0E53BBE289A2EB4530D03 /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */;
+			baseConfigurationReference = A607E023964C028CAB8F7EEC /* Pods-lively_mobileCommonPods-dev_lively_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dev_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1322,12 +1328,14 @@
 		};
 		A995B20B2AAB3FAE0098FC2A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 06B25C33387335680A880298 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */;
+			baseConfigurationReference = E0D8231C47290F3A3B87EA60 /* Pods-lively_mobileCommonPods-dev_lively_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = dev_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile dev-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1351,13 +1359,15 @@
 		};
 		A995B2312AAB40150098FC2A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D67C266C24763D285ED989A6 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */;
+			baseConfigurationReference = 8820941DCDB964AD40E5C156 /* Pods-lively_mobileCommonPods-staging_lively_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = staging_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile staging-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively Staging";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1366,7 +1376,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.5.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1382,12 +1392,14 @@
 		};
 		A995B2322AAB40150098FC2A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A0C7DE7EBF1B4DD84A3B7E59 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */;
+			baseConfigurationReference = E5DDF038F9F11DF2BB3E1DB1 /* Pods-lively_mobileCommonPods-staging_lively_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = staging_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile staging-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively Staging";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1396,7 +1408,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.5.7;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1411,13 +1423,15 @@
 		};
 		A995B2582AAB40310098FC2A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8AB69E1A734B2C5DB675DEB4 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */;
+			baseConfigurationReference = 95B41E5AD5D8C8C51BAEE350 /* Pods-lively_mobileCommonPods-prod_lively_mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = prod_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
 				ENABLE_BITCODE = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile prod-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively: A Better Living";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1426,7 +1440,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.5.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1442,12 +1456,14 @@
 		};
 		A995B2592AAB40310098FC2A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D27CCA83AF894880867634BF /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */;
+			baseConfigurationReference = 555EE06B596BE0C5DFAF561A /* Pods-lively_mobileCommonPods-prod_lively_mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = prod_lively_mobile.entitlements;
 				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = GGJ5V3ZZHB;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "lively_mobile prod-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Lively: A Better Living";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
@@ -1456,7 +1472,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.5.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
