@@ -8,6 +8,7 @@ import {fonts} from '../../theme/fonts';
 import {ListEmptyComponent} from '../atoms';
 import {ProductSkeleton} from '../skeletons';
 import {useFocusEffect} from '@react-navigation/native';
+import {useSelector} from 'react-redux';
 
 interface Props {
   label: string;
@@ -16,7 +17,11 @@ interface Props {
 }
 
 export function ProductList({label, url, refreshing}: Props) {
-  const {data, isLoading, refetch} = useProductListQuery(url);
+  const {token} = useSelector(state => state.auth);
+  const {data, isLoading, refetch} = useProductListQuery({
+    url,
+    token: token ? `Bearer ${token}` : null,
+  });
 
   useEffect(() => {
     if (refreshing) {
