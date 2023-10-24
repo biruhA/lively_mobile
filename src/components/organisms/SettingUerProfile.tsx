@@ -22,10 +22,12 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export function SettingUerProfile() {
   const navigation = useNavigation();
   const [isVisible, setIsVisible] = useState(false);
-  const {token, isLoggedIn} = useAppSelector(state => state.auth);
+  const {token, isLoggedIn, inAppLoggedIn} = useAppSelector(
+    state => state.auth,
+  );
   const {data, isLoading} = useProfileQuery(token);
 
-  if (isLoggedIn && isLoading) {
+  if ((isLoggedIn || inAppLoggedIn) && isLoading) {
     return (
       <Center
         my={2}
@@ -43,7 +45,7 @@ export function SettingUerProfile() {
 
   return (
     <View style={{marginHorizontal: 10, marginTop: 4}}>
-      {!isLoggedIn ? (
+      {!isLoggedIn && !inAppLoggedIn ? (
         <Stack
           my={2}
           bg={colors.pureWhite}

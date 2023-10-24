@@ -41,7 +41,10 @@ const {useRealm, useQuery} = Context;
 
 export function SettingsScreen() {
   const navigation = useNavigation();
-  const {token, isLoggedIn} = useAppSelector(state => state.auth);
+  const {token, isLoggedIn, inAppLoggedIn} = useAppSelector(
+    state => state.auth,
+  );
+  const {currentVersion} = useAppSelector(state => state.setting);
   const dispatch = useAppDispatch();
   const {data, isLoading} = useProfileQuery(token);
   const [Logout, result] = useLogoutMutation();
@@ -105,7 +108,7 @@ export function SettingsScreen() {
               ).catch(err => console.error('An error occurred', err))
             }
           />
-          {isLoggedIn && (
+          {(isLoggedIn || inAppLoggedIn) && (
             <SettingItems
               item_icon={logout}
               title="Logout"
@@ -122,6 +125,7 @@ export function SettingsScreen() {
             </Text>
           </HStack>
           <Text color={colors.greyText}>© Powered by Unravel Technologies</Text>
+          <Text color={colors.greyText}>v {currentVersion}</Text>
         </Center>
       </ScrollView>
       <BottomTabBar />

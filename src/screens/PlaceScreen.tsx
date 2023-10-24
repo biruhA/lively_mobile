@@ -65,6 +65,10 @@ export function PlaceScreen() {
       });
   }, [debouncedText, isPharmacySelected, page]);
 
+  useEffect(() => {
+    setPage(1);
+  }, [isPharmacySelected]);
+
   return (
     <Stack bg={colors.pureWhite} h={'full'} pb={2}>
       <ScrollView

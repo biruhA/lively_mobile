@@ -16,7 +16,8 @@ import {
 import {useAppSelector} from '../store/hooks';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ScreenNames} from '../constants';
-import {Center, Spinner} from 'native-base';
+import {Center, Spinner, Text} from 'native-base';
+import {UpdateSheet} from '../components';
 
 const {useQuery} = Context;
 const Stack = createStackNavigator<any>();
@@ -28,9 +29,6 @@ export function Navigation() {
   usePushNotification();
   const {token, isLoggedIn, fcmToken} = useAppSelector(state => state.auth);
   const [FcmToken, result] = useFcmTokenMutation();
-  // useGetMedicineNotificationQuery(token, {
-  //   pollingInterval: 300000,
-  // });
 
   useEffect(() => {
     if (fcmToken && token) {
@@ -51,16 +49,18 @@ export function Navigation() {
   }
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerShown: false,
-        presentation: 'transparentModal',
-      }}>
-      {!isLoggedIn ? (
-        <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
-      ) : (
-        <Stack.Screen name={ScreenNames.Stacks} component={Stacks} />
-      )}
-    </Stack.Navigator>
+    <>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          presentation: 'transparentModal',
+        }}>
+        {!isLoggedIn ? (
+          <Stack.Screen name={ScreenNames.AuthStack} component={AuthStack} />
+        ) : (
+          <Stack.Screen name={ScreenNames.Stacks} component={Stacks} />
+        )}
+      </Stack.Navigator>
+    </>
   );
 }

@@ -2,20 +2,25 @@ import {createSlice} from '@reduxjs/toolkit';
 import type {PayloadAction} from '@reduxjs/toolkit';
 import {settingApi, storeApi} from '../services';
 
-interface settingSlice {
+interface settingState {
   selectedStoreId: string;
+  currentVersion: string;
 }
 
-const initialState: settingSlice = {
+const initialState: settingState = {
   selectedStoreId: '',
+  currentVersion: '',
 };
 
-export const storeSlice = createSlice({
+export const settingSlice = createSlice({
   name: 'setting',
   initialState,
   reducers: {
     setStoreId: (state, action: PayloadAction<string>) => {
       state.selectedStoreId = action.payload;
+    },
+    setCurrentVersion: (state, action: PayloadAction<string>) => {
+      state.currentVersion = action.payload;
     },
   },
   extraReducers: builder => {
@@ -28,5 +33,5 @@ export const storeSlice = createSlice({
   },
 });
 
-export const {setStoreId} = storeSlice.actions;
-export default storeSlice.reducer;
+export const {setStoreId, setCurrentVersion} = settingSlice.actions;
+export default settingSlice.reducer;

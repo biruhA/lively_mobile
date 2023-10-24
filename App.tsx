@@ -5,12 +5,12 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NativeBaseProvider} from 'native-base';
 import {Navigation} from './src/navigation';
 import Context from './src/realm/config';
-import {Provider} from 'react-redux';
+import {Provider, useDispatch} from 'react-redux';
 import {store} from './src/store';
 import {colors} from './src/theme/colors';
 import SplashScreen from 'react-native-splash-screen';
@@ -19,6 +19,9 @@ import {LogBox} from 'react-native';
 import {Mixpanel} from 'mixpanel-react-native';
 import Config from 'react-native-config';
 import RNUxcam from 'react-native-ux-cam';
+import VersionCheck from 'react-native-version-check';
+import {UpdateSheet} from './src/components';
+import {setCurrentVersion} from './src/store/features/settingSlice';
 
 const userAppKey = Config.UX_CAM_USERAPPKEY;
 
@@ -44,9 +47,18 @@ LogBox.ignoreAllLogs();
 const {RealmProvider} = Context;
 
 function App(): JSX.Element {
+  const [versionData, setVersionData] = useState();
+
+  function CheckVersion() {
+    VersionCheck.needUpdate().then(async res => {
+      setVersionData(res);
+    });
+  }
+
   useEffect(() => {
     SplashScreen.hide();
     mixpanel.init();
+    CheckVersion();
   }, []);
 
   return (
@@ -57,6 +69,7 @@ function App(): JSX.Element {
           <NavigationContainer>
             <NativeBaseProvider>
               <Navigation />
+              {true && <UpdateSheet versionData={versionData} />}
             </NativeBaseProvider>
           </NavigationContainer>
         </Provider>
