@@ -23,8 +23,13 @@ export const productApi = createApi({
       }),
     }),
     productList: build.query({
-      query: url => ({
-        url,
+      query: ({url, token}) => ({
+        url: url,
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: token,
+          accept: 'application/json',
+        },
       }),
     }),
     categories: build.query({

@@ -1,5 +1,6 @@
 import {
   RefreshControl,
+  Platform,
   TouchableOpacity,
   ScrollView,
   FlatList,
@@ -50,6 +51,10 @@ export function PlaceScreen() {
   const debouncedText = useDebounce(searchedText, 500);
 
   useEffect(() => {
+    setPage(1);
+  }, [isPharmacySelected]);
+
+  useEffect(() => {
     RecommendedStores({
       latitude: userLocation?.lat,
       longitude: userLocation?.lon,
@@ -64,10 +69,6 @@ export function PlaceScreen() {
         );
       });
   }, [debouncedText, isPharmacySelected, page]);
-
-  useEffect(() => {
-    setPage(1);
-  }, [isPharmacySelected]);
 
   return (
     <Stack bg={colors.pureWhite} h={'full'} pb={2}>
@@ -106,7 +107,7 @@ export function PlaceScreen() {
               <FlatList
                 data={isPharmacySelected ? pharmacieList : storeList}
                 ListEmptyComponent={ListEmptyComponent}
-                onEndReachedThreshold={0.5}
+                onEndReachedThreshold={1}
                 onEndReached={() => {
                   if (hasMore) {
                     setPage(page + 1);
@@ -143,7 +144,7 @@ export function PlaceScreen() {
 function ListEmptyComponent() {
   return (
     <Center flex={1} py={8}>
-      <Text styles={fonts.caption}>No Places</Text>
+      <Text style={fonts.caption}>No Places</Text>
     </Center>
   );
 }

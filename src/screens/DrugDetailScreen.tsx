@@ -30,6 +30,11 @@ export function DrugDetailScreen() {
   const navigation = useNavigation();
   const {selectedMedicineId} = useAppSelector(state => state.medicine);
   const {data, isLoading} = useMedicineDetailQuery(selectedMedicineId);
+  console.log(
+    '🚀 ~ file: DrugDetailScreen.tsx:33 ~ DrugDetailScreen ~ data:',
+    data,
+    selectedMedicineId,
+  );
   const {isOpen, onOpen, onClose} = useDisclose();
 
   if (isLoading) {

@@ -30,11 +30,11 @@ export function WishListScreen() {
   const ProductWishlists = useMyWishlistsQuery(token);
   const StoreWishlists = useMyStoreWishlistsQuery(token);
 
-  console.log('🚀 ~ file: WishListScreen.tsx:10 ~ WishListScreen:', {
-    activeId: activeId,
-    ProductWishlists: ProductWishlists?.data?.data?.products,
-    StoreWishlists: StoreWishlists?.data?.data?.stores,
-  });
+  // console.log('🚀 ~ file: WishListScreen.tsx:10 ~ WishListScreen:', {
+  //   activeId: activeId,
+  //   ProductWishlists: ProductWishlists?.data?.data?.products,
+  //   StoreWishlists: StoreWishlists?.data?.data?.stores,
+  // });
 
   return (
     <Stack bg={colors.pureWhite} flex={1} space={2}>

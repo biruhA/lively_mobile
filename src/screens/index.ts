@@ -33,6 +33,7 @@ export * from './SeeAllCollectionScreen';
 export * from './CollectionDetailScreen';
 export * from './MedicinesScreen';
 export * from './DrugDetailScreen';
+export * from './DrugDetailScreen2';
 export * from './SeeAllDrugsScreen';
 export * from './DrugStoresScreen';
 export * from './StoresScreen';
