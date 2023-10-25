@@ -34,6 +34,10 @@ export const Icons = {
     inactive: require('../assets/icons/setting.png'),
   },
   downArrow: require('../assets/icons/down_arrow_black.png'),
+  arrow: {
+    up: require('../assets/icons/up_arrow_grey.png'),
+    right: require('../assets/icons/right_arrow_grey.png'),
+  },
   bell: {
     active: require('../assets/icons/bell-active.png'),
     inactive: require('../assets/icons/bell.png'),

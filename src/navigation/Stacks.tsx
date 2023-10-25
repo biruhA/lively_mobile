@@ -12,6 +12,7 @@ import {
   DiscountDetailScreen,
   DiscountScreen,
   DrugDetailScreen,
+  DrugDetailScreen2,
   DrugStoresScreen,
   EditProfileScreen,
   EventDetailScreen,
@@ -130,6 +131,7 @@ export const Stacks = () => {
         name={ScreenNames.DrugDetail}
         component={DrugDetailScreen}
       />
+      <Stack.Screen name={'DrugDetailScreen2'} component={DrugDetailScreen2} />
       <Stack.Screen
         name={ScreenNames.ClaimDiscount}
         component={ClaimDiscount}

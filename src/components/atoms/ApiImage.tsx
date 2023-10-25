@@ -29,7 +29,7 @@ export function ApiImage({imageUrl, style, resizeMode = 'contain'}: Props) {
       }}>
       <Image
         source={Images.placeholder}
-        style={[style, {display: hasLoaded ? 'none' : 'flex'}]}
+        style={{...style, display: hasLoaded ? 'none' : 'flex'}}
         alt="placeholder"
       />
     </FastImage>
