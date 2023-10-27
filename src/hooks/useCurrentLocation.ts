@@ -17,7 +17,9 @@ export function useCurrentLocation() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    requestLocationPermission();
+    (async () => {
+      requestLocationPermission();
+    })();
   }, []);
 
   const requestLocationPermission = async () => {

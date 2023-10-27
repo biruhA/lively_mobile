@@ -25,6 +25,7 @@ import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 import {useDebounce} from '../hooks';
 import {MainScreenHeader} from '../components/headers';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function PlaceScreen() {
   const Banners = useBannersQuery();
@@ -99,39 +100,42 @@ export function PlaceScreen() {
                 setIsPharmacySelected={setIsPharmacySelected}
               />
             )}
+            <EnableLocation />
             {result?.isLoading ? (
               <Center flex={1} py={8}>
                 <Spinner />
               </Center>
             ) : (
-              <FlatList
-                data={isPharmacySelected ? pharmacieList : storeList}
-                ListEmptyComponent={ListEmptyComponent}
-                onEndReachedThreshold={1}
-                onEndReached={() => {
-                  if (hasMore) {
-                    setPage(page + 1);
-                  }
-                }}
-                ListFooterComponent={() => {
-                  return (
-                    <Center flex={1} py={1}>
-                      {hasMore ? <Spinner /> : <Text>- End -</Text>}
-                    </Center>
-                  );
-                }}
-                renderItem={({item}) => (
-                  <PlacesPharmacyCard
-                    id={item?.id}
-                    store={`${item.store_name?.english} ${item?.store_branch_name?.english}`}
-                    distance={item?.distance}
-                    rating={item?.rating?.average}
-                    imageUrl={item.store_logo?.url}
-                    isOpenNow={item?.is_open}
-                  />
-                )}
-                keyExtractor={item => item.id}
-              />
+              Object.keys(userLocation).length > 0 && (
+                <FlatList
+                  data={isPharmacySelected ? pharmacieList : storeList}
+                  ListEmptyComponent={ListEmptyComponent}
+                  onEndReachedThreshold={1}
+                  onEndReached={() => {
+                    if (hasMore) {
+                      setPage(page + 1);
+                    }
+                  }}
+                  ListFooterComponent={() => {
+                    return (
+                      <Center flex={1} py={1}>
+                        {hasMore ? <Spinner /> : <Text>- End -</Text>}
+                      </Center>
+                    );
+                  }}
+                  renderItem={({item}) => (
+                    <PlacesPharmacyCard
+                      id={item?.id}
+                      store={`${item.store_name?.english} ${item?.store_branch_name?.english}`}
+                      distance={item?.distance}
+                      rating={item?.rating?.average}
+                      imageUrl={item.store_logo?.url}
+                      isOpenNow={item?.is_open}
+                    />
+                  )}
+                  keyExtractor={item => item.id}
+                />
+              )
             )}
           </Stack>
         </Stack>
