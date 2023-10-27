@@ -8,6 +8,7 @@ import {
   usePushNotification,
   useCurrentLocation,
   useSavedAuthData,
+  useDeepLinkForegrounded,
 } from '../hooks';
 import {
   useFcmTokenMutation,
@@ -23,6 +24,7 @@ const {useQuery} = Context;
 const Stack = createStackNavigator<any>();
 
 export function Navigation() {
+  useDeepLinkForegrounded();
   useSavedAuthData();
   useCurrentLocation();
   const onboarding = useQuery(OnBoarding);
