@@ -54,7 +54,7 @@ function App(): JSX.Element {
 
   function CheckVersion() {
     VersionCheck.needUpdate().then(async res => {
-      setVersionData(res);
+      setVersionData(await res);
     });
   }
 
@@ -72,7 +72,7 @@ function App(): JSX.Element {
           <NavigationContainer>
             <NativeBaseProvider>
               <Navigation />
-              {true && <UpdateSheet versionData={versionData} />}
+              <UpdateSheet versionData={versionData} />
             </NativeBaseProvider>
           </NavigationContainer>
         </Provider>
