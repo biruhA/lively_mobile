@@ -1,43 +1,74 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {HStack, Heading, Image, Progress, Stack, Text} from 'native-base';
+import {
+  Center,
+  FlatList,
+  HStack,
+  Heading,
+  Image,
+  Progress,
+  Spinner,
+  Stack,
+  Text,
+} from 'native-base';
 import {GradientButton, LabeledHeader, UserReviewCard} from '../components';
 import {Colors} from '../theme/colors';
 import {fonts} from '../theme/fonts';
 import {Icons} from '../theme/icons';
 import {ScreenNames} from '../constants';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRatingDetailQuery} from '../store/services';
+import {useAppSelector} from '../store/hooks';
 
 export function RatingScreen() {
+  const route = useRoute();
+  const {token} = useAppSelector(state => state.auth);
   const navigation = useNavigation();
+  const {data, isLoading} = useRatingDetailQuery({
+    id: route?.params?.data?.data?.id,
+    token,
+  });
+
   return (
     <Stack flex={1} space={2} bg={Colors.background.everlasting_ice}>
       <LabeledHeader label={'Rating'} />
-      <OverallRating />
+      <OverallRating data={data?.data} />
       <Stack bg={'white'} py={4} px={2} space={2}>
-        <UserReviewCard />
-        <UserReviewCard />
-        <UserReviewCard />
+        {isLoading ? (
+          <Center py={24}>
+            <Spinner />
+          </Center>
+        ) : (
+          <FlatList
+            data={data?.data?.review?.data}
+            renderItem={({item}) => <UserReviewCard data={item} />}
+            keyExtractor={item => item.id}
+          />
+        )}
       </Stack>
       <GradientButton
         disabled={false}
         text="Write a Review"
         mainStyle={styles.mainStyle}
         onPress={() => {
-          navigation.navigate(ScreenNames.ReviewStore);
+          navigation.navigate(ScreenNames.ReviewStore, {
+            rate: '0',
+            data: route?.params?.data,
+          });
         }}
       />
     </Stack>
   );
 }
 
-function OverallRating() {
+function OverallRating({data}) {
+  console.log('🚀 ~ file: RatingScreen.tsx:67 ~ OverallRating ~ data:', data);
   return (
     <Stack bg={'white'} py={3} px={6} space={4}>
       <Text style={fonts.body1}>Overall Rating</Text>
       <HStack space={4}>
         <Heading size={'2xl'} style={fonts.heading2}>
-          4.5
+          {data?.average}
         </Heading>
         <Stack space={2}>
           <Image
@@ -45,7 +76,7 @@ function OverallRating() {
             boxSize={4}
             resizeMode={'contain'}
           />
-          <Text style={fonts.button2}>Based on 35 users</Text>
+          <Text style={fonts.button2}>Based on {data?.users_count} users</Text>
         </Stack>
       </HStack>
       <Stack space={2} mt={1}>

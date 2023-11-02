@@ -13,13 +13,13 @@ import {colors} from '../../theme/colors';
 import {fonts} from '../../theme/fonts';
 import {Icons} from '../../theme/icons';
 import {setSelectedRate} from '../../store/features/productSlice';
+import {ApiImage} from '..';
 
 export function UserReviewCard({hasReadMoreButton = true, data}) {
   const [readMore, setReadMore] = useState(true);
-
   console.log(
-    '🚀 ~ file: UserReviewCard.tsx:17 ~ UserReviewCard ~ data:',
-    data,
+    '🚀 ~ file: UserReviewCard.tsx:20 ~ UserReviewCard ~ readMore:',
+    readMore,
   );
 
   return (
@@ -30,17 +30,16 @@ export function UserReviewCard({hasReadMoreButton = true, data}) {
       borderColor={colors.grey}
       borderWidth={0.1}
       space={3}>
-      <Avatar
-        size={'lg'}
-        source={{
-          uri: 'https://pbs.twimg.com/profile_images/1309797238651060226/18cm6VhQ_400x400.jpg',
-        }}
+      <ApiImage
+        imageUrl={data?.user?.profile_image}
+        style={{width: 65, height: 65, borderRadius: 200}}
+        resizeMode="cover"
       />
       <Stack space={1} w={'75%'}>
         <HStack space={2} alignItems={'center'}>
-          <Heading size={'md'}>Lema Kebede</Heading>
+          <Heading size={'md'}>{data?.user?.name}</Heading>
           <Divider orientation="vertical" h={4} />
-          <Text fontSize={'md'}>4</Text>
+          <Text fontSize={'md'}>{data?.rating}</Text>
           <Image
             source={Icons.smileFace.yellow}
             boxSize={4}
@@ -48,17 +47,15 @@ export function UserReviewCard({hasReadMoreButton = true, data}) {
           />
         </HStack>
         <Text color={'#B4B4B4'} style={fonts.button2}>
-          Jul 24/2023
+          {new Date(data?.created_at).toDateString()}
         </Text>
         <Text numberOfLines={readMore ? 2 : 0} style={fonts.body1}>
-          The researchers performed eye exams just before & five minutes,The
-          researchers performed eye exams just before & five minutes ,The
-          researchers performed eye exams just before & five minutes
+          {data?.review}
         </Text>
-        {hasReadMoreButton && (
+        {hasReadMoreButton && readMore && (
           <TouchableOpacity
             onPress={() => {
-              setReadMore(pre => !pre);
+              setReadMore(false);
             }}>
             <Text style={fonts.body1}>read more</Text>
           </TouchableOpacity>

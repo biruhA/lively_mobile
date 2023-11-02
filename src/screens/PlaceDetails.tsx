@@ -125,7 +125,7 @@ export function PlaceDetails() {
                 variant={'ghost'}
                 colorScheme={'coolGray'}
                 size={'lg'}
-                onPress={() => navigation.navigate(ScreenNames.Rating)}>
+                onPress={() => navigation.navigate(ScreenNames.Rating, {data})}>
                 See More
               </Button>
             </>

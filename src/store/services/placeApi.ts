@@ -39,6 +39,16 @@ export const placeApi = createApi({
         },
       }),
     }),
+    ratingDetail: build.query({
+      query: ({id, token}) => ({
+        url: `rating-detail/${id}`,
+        headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+      }),
+    }),
     placeDetail: build.query({
       query: ({id, latitude, longitude, token}) => ({
         url: `place-detail/${id}`,
@@ -58,5 +68,6 @@ export const {
   useBannersQuery,
   useRecommendedStoresMutation,
   useRateMutation,
+  useRatingDetailQuery,
   usePlaceDetailQuery,
 } = placeApi;

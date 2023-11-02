@@ -44,7 +44,7 @@ export function ReviewStoreScreen() {
     result,
     route?.params,
     {
-      store_branch_id: route?.params?.data?.data?.store?.id,
+      store_branch_id: route?.params?.data?.data?.id,
       rating: route?.params?.rate,
       review: data?.review,
       token,
@@ -53,7 +53,7 @@ export function ReviewStoreScreen() {
 
   const onSubmit = data => {
     Rate({
-      store_branch_id: route?.params?.data?.data?.store?.id,
+      store_branch_id: route?.params?.data?.data?.id,
       rating: route?.params?.rate,
       review: data?.review,
       token,
