@@ -33,6 +33,8 @@ export const placeApi = createApi({
           review,
         },
         headers: {
+          'Content-Type': 'application/json',
+          accept: 'application/json',
           authorization: `Bearer ${token}`,
         },
       }),
