@@ -11,6 +11,12 @@ export const Images = {
 };
 
 export const Icons = {
+  language: require('../assets/icons/language.png'),
+  livelyText: require('../assets/images/lively_text.png'),
+  appIcon: {
+    round: require('../assets/images/lively_logo.png'),
+    square: require('../assets/images/app_Icon.png'),
+  },
   noInternet: require('../assets/icons/Address.png'),
   share: require('../assets/icons/solar_share-outline.png'),
   heart: {
@@ -22,6 +28,10 @@ export const Icons = {
   home: {
     active: require('../assets/icons/home-active.png'),
     inactive: require('../assets/icons/home-inactive.png'),
+  },
+  wishlist: {
+    active: require('../assets/icons/heart-active.png'),
+    inactive: require('../assets/icons/heart-inactive.png'),
   },
   browse: {
     active: require('../assets/icons/browse-active.png'),

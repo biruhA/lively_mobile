@@ -55,8 +55,9 @@ export const Stacks = () => {
       }}>
       <Stack.Group screenOptions={{presentation: 'transparentModal'}}>
         <Stack.Screen name={ScreenNames.Home} component={HomeScreen} />
-        <Stack.Screen name={ScreenNames.Browse} component={BrowseScreen} />
-        <Stack.Screen name={ScreenNames.Place} component={PlaceScreen} />
+        {/* <Stack.Screen name={ScreenNames.Browse} component={BrowseScreen} /> */}
+        {/* <Stack.Screen name={ScreenNames.Place} component={PlaceScreen} /> */}
+        <Stack.Screen name={ScreenNames.WishList} component={WishListScreen} />
         <Stack.Screen name={ScreenNames.Settings} component={SettingsScreen} />
       </Stack.Group>
       {/* Stack */}
@@ -166,7 +167,7 @@ export const Stacks = () => {
       />
       <Stack.Screen name={ScreenNames.BrandScreen} component={BrandScreen} />
       <Stack.Screen name={ScreenNames.Faq} component={FaqScreen} />
-      <Stack.Screen name={ScreenNames.WishList} component={WishListScreen} />
+      {/* <Stack.Screen name={ScreenNames.WishList} component={WishListScreen} /> */}
       <Stack.Screen name={ScreenNames.Rating} component={RatingScreen} />
       <Stack.Screen
         name={ScreenNames.ReviewStore}

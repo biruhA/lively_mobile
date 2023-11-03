@@ -29,6 +29,21 @@ export function BottomTabBar() {
       <CustomBarButton
         navigation={navigation}
         routeName={route?.name}
+        label={ScreenNames.WishList}
+        active={Icons.wishlist.active}
+        inactive={Icons.wishlist.inactive}
+      />
+      <CustomBarButton
+        navigation={navigation}
+        routeName={route?.name}
+        navTo={ScreenNames.Settings}
+        label={'Settings'}
+        active={Icons.setting.active}
+        inactive={Icons.setting.inactive}
+      />
+      {/* <CustomBarButton
+        navigation={navigation}
+        routeName={route?.name}
         label={ScreenNames.Browse}
         active={Icons.browse.active}
         inactive={Icons.browse.inactive}
@@ -39,15 +54,7 @@ export function BottomTabBar() {
         label={ScreenNames.Place}
         active={Icons.place.active}
         inactive={Icons.place.inactive}
-      />
-      <CustomBarButton
-        navigation={navigation}
-        routeName={route?.name}
-        navTo={ScreenNames.Settings}
-        label={'Settings'}
-        active={Icons.setting.active}
-        inactive={Icons.setting.inactive}
-      />
+      /> */}
     </HStack>
   );
 }

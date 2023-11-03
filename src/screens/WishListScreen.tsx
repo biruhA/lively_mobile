@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {HStack, Spinner, Stack} from 'native-base';
 import {colors} from '../theme/colors';
 import {
+  BottomTabBar,
   GradientButtonSmall,
   LabeledHeader,
   ListEmptyComponent,
@@ -53,6 +54,7 @@ export function WishListScreen() {
           />
         )}
       </Stack>
+      <BottomTabBar />
     </Stack>
   );
 }

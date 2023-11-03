@@ -1,136 +1,111 @@
-import React, {useCallback, useEffect} from 'react';
-import {Stack, Text} from 'native-base';
-import {
-  Carousel1,
-  Carousel2,
-  CarouselBrowse,
-  Catalogue,
-  ForYou,
-  ProductList,
-  TopArticles,
-} from '../components/organisms';
-import {BottomTabBar, SearchBox} from '../components/molecules';
-import {colors} from '../theme/colors';
-import {FlatList, Platform, StyleSheet, RefreshControl} from 'react-native';
-import {useCurrentLocation} from '../hooks';
-import {
-  useLandscapeDiscountBannersQuery,
-  useSquareDiscountBannersQuery,
-  useUpcomingEventsQuery,
-} from '../store/services';
-import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkeleton';
-import {MainScreenHeader} from '../components/headers';
-import {useAppSelector} from '../store/hooks';
-import {useNavigation, useFocusEffect} from '@react-navigation/native';
+import {StyleSheet} from 'react-native';
+import {HStack, Image, Stack, Text} from 'native-base';
+import React from 'react';
+import {BottomTabBar, HomeHeader} from '../components';
+import {fonts} from '../theme/fonts';
 
 export function HomeScreen() {
-  const {user, inAppLoggedIn} = useAppSelector(state => state.auth);
-  const {data, isLoading} = useUpcomingEventsQuery();
-  const landscapeDiscountBanners = useLandscapeDiscountBannersQuery();
-  const squareDiscountBanners = useSquareDiscountBannersQuery();
-  const {userLocation} = useAppSelector(state => state.search);
-  const navigation = useNavigation();
-  const [refreshing, setRefreshing] = React.useState(false);
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    landscapeDiscountBanners.refetch();
-    squareDiscountBanners
-      .refetch()
-      .unwrap()
-      .then(() => setRefreshing(false));
-  }, []);
-
   return (
-    <Stack bg={colors.pureWhite} flex={1}>
-      <FlatList
-        style={styles.bottomMargin}
-        data={[{id: 1}]}
-        onRefresh={onRefresh}
-        refreshing={refreshing}
-        renderItem={({item}) => {
-          return (
-            <Stack space={3}>
-              <MainScreenHeader label={`Hi ${user?.name || ''} 👋`} />
-              <SearchBox
-                hasCamera={false}
-                mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
-              />
-              <Stack bg={'white'} pb={7} px={4}>
-                {landscapeDiscountBanners?.isLoading ? (
-                  <CarouselBrowseSkeleton />
-                ) : (
-                  <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
-                )}
-              </Stack>
-              <Catalogue refreshing={refreshing} />
-              <Stack bg={'white'} pb={7} px={4} py={4}>
-                {isLoading ? (
-                  <CarouselBrowseSkeleton />
-                ) : (
-                  <Stack space={1}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-Regular',
-                        fontWeight: '700',
-                        fontSize: 18,
-                      }}>
-                      Upcoming Events
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-Regular',
-                        fontWeight: '400',
-                        fontSize: 14,
-                        color: '#AFAFAF',
-                      }}>
-                      Swipe left to change cards
-                    </Text>
-                    <CarouselBrowse Data={data?.data} />
-                  </Stack>
-                )}
-              </Stack>
-              <ForYou />
-              <TopArticles />
-              <ProductList
-                label="For Women"
-                url="for-her"
-                refreshing={refreshing}
-              />
-              <ProductList
-                label="For Men"
-                url="for-him"
-                refreshing={refreshing}
-              />
-              <Stack bg={'white'} pb={7} px={4}>
-                {isLoading ? (
-                  <CarouselBrowseSkeleton />
-                ) : (
-                  <Carousel2 Data={squareDiscountBanners?.data?.data} />
-                )}
-              </Stack>
-              <ProductList
-                label="For Mom & Baby"
-                url="mom-and-baby"
-                refreshing={refreshing}
-              />
-              <ProductList
-                label="Food & Drinks"
-                url="foods-and-drinks"
-                refreshing={refreshing}
-              />
-            </Stack>
-          );
-        }}
-        keyExtractor={item => item.id}
-      />
+    <>
+      <Stack flex={1} bg={'white'} py={4}>
+        <HomeHeader />
+        <Stack pt={8} px={4}>
+          <Text style={styles.headerTxt}>Hey , What would you like</Text>
+          <Text style={styles.headerTxt}>to do today?</Text>
+          <Text pt={2} style={styles.subHeaderTxt}>
+            we use this information to make user experience easy and enjoyable.
+          </Text>
+          <Image
+            position={'absolute'}
+            right={-8}
+            top={'20%'}
+            source={require('../assets/images/home_top.png')}
+            w={240}
+            h={240}
+            zIndex={-1}
+            resizeMode="contain"
+          />
+        </Stack>
+        <Stack
+          borderTopRadius={25}
+          style={styles.dropShadow}
+          bg={'white'}
+          px={6}
+          py={6}
+          mt={4}>
+          <MedicinalCard />
+          <ProductsCard />
+          <PlacesCard />
+        </Stack>
+      </Stack>
       <BottomTabBar />
-    </Stack>
+    </>
   );
 }
 
+function MedicinalCard() {
+  return (
+    <HStack
+      space={2}
+      alignItems={'center'}
+      bg={'blue.100'}
+      rounded={'2xl'}
+      p={3}
+      borderWidth={1}
+      borderColor={'#D0D0D0'}>
+      <Image
+        source={require('../assets/images/Google-Play-Logo.png')}
+        boxSize={124}
+        resizeMode="contain"
+      />
+      <Stack bg={'blue.100'} flex={1}>
+        <Text style={styles.cardHeaderTxt}>Medicinal</Text>
+        <Text style={styles.cardSubTxt}>
+          Upload your prescription & we will show you the medicines.
+        </Text>
+      </Stack>
+    </HStack>
+  );
+}
+
+function ProductsCard() {
+  return <Stack></Stack>;
+}
+
+function PlacesCard() {
+  return <Stack></Stack>;
+}
+
 const styles = StyleSheet.create({
-  bottomMargin: {
-    marginBottom: Platform.OS === 'ios' ? 55 : 75,
+  headerTxt: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 24,
+    lineHeight: 36,
+    color: 'black',
+  },
+  subHeaderTxt: {
+    ...fonts.normal,
+    fontSize: 16,
+    fontWeight: '400',
+    color: '#5F5D5D',
+  },
+  cardHeaderTxt: {
+    fontFamily: 'Poppins-Medium',
+    fontWeight: '500',
+    fontSize: 20,
+    lineHeight: 36,
+    color: '#282334',
+  },
+  cardSubTxt: {
+    fontFamily: 'Poppins-Regular',
+    fontWeight: '400',
+    fontSize: 14,
+    color: '#00000080',
+  },
+  dropShadow: {
+    borderWidth: 1,
+    borderColor: '#E5E5E5',
+    flex: 1,
+    // boxShadow: '0px -4px 4px 0px #0000000A',
   },
 });
