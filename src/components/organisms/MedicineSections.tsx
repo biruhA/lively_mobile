@@ -57,7 +57,7 @@ function Cards({id, imageUrl, name, size}) {
       style={styles.container}
       onPress={() => {
         dispatch(setSelectedMedicineId(id));
-        navigation.navigate('DrugDetailScreen2');
+        navigation.navigate(ScreenNames.DrugDetail2);
       }}>
       <Stack
         w={'100%'}

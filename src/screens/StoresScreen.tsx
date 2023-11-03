@@ -6,7 +6,8 @@ import {StoresCardLarge} from '../components/molecules';
 import {Colors, colors} from '../theme/colors';
 import {useStoresQuery} from '../store/services';
 import {useAppSelector} from '../store/hooks';
-import {LabeledHeader} from '../components';
+import {ApiImage, LabeledHeader} from '../components';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 interface Props {
   id?: string;
@@ -31,6 +32,7 @@ export function StoresScreen() {
       <Stack px={4} py={2} space={2}>
         <SelectedProductCard />
         <Text style={fonts.subtitle1}>All Available Stores</Text>
+        <EnableLocation />
         {isLoading ? (
           <Spinner />
         ) : (
@@ -62,11 +64,9 @@ function SelectedProductCard() {
   );
   return (
     <HStack space={3} pb={2}>
-      <Image
-        source={{uri: selectedProduct?.thumbnail?.url}}
-        alt="thumbnail"
-        w={94}
-        h={54}
+      <ApiImage
+        imageUrl={selectedProduct?.thumbnail?.url}
+        style={{width: 94, height: 54}}
       />
       <Stack w={'70%'} space={1}>
         <Text style={fonts.subtitle1}>

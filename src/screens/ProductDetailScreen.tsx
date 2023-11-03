@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../store/hooks';
 import {useProductDetailByIdQuery} from '../store/services';
 import {LabeledHeader} from '../components';
+import {DeepLinkPath} from '../hooks';
 
 export function ProductDetailScreen() {
   const navigation = useNavigation();
@@ -24,7 +25,12 @@ export function ProductDetailScreen() {
 
   return (
     <Stack flex={1} bg={Colors.background.everlasting_ice}>
-      <LabeledHeader label="" />
+      <LabeledHeader
+        label=""
+        hasShare={true}
+        path="product"
+        id={data?.data?.id}
+      />
       {isLoading ? (
         <Spinner flex={1} size={'lg'} accessibilityLabel="Loading posts" />
       ) : (

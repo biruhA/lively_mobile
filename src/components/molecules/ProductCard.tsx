@@ -3,6 +3,8 @@ import {
   StyleSheet,
   ImageBackground,
   Platform,
+  Button,
+  Share,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Text, Stack, HStack, Image, Box} from 'native-base';

@@ -13,6 +13,7 @@ import website from '../assets/images/website.png';
 import {PharmacyCardLarge} from '../components/molecules';
 import {useAppSelector} from '../store/hooks';
 import {useStoreDetailByIdQuery} from '../store/services';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function PharmacyDetailScreen() {
   const {userLocation} = useAppSelector(state => state.search);
@@ -38,6 +39,7 @@ export function PharmacyDetailScreen() {
         <Stack mt={5} mb={2}>
           <GoBack label="Pharmacy" />
         </Stack>
+        <EnableLocation />
         <Image
           source={require('../assets/images/place-background.png')}
           alt="Alternate Text"

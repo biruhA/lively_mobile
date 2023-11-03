@@ -11,6 +11,8 @@ export const Images = {
 };
 
 export const Icons = {
+  noInternet: require('../assets/images/enable_location.png'),
+  share: require('../assets/icons/solar_share-outline.png'),
   heart: {
     black: require('../assets/icons/heart-black.png'),
     bold: require('../assets/icons/heart-bold.png'),

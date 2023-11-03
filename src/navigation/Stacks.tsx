@@ -38,6 +38,7 @@ import {
   SeeAllDrugsScreen,
   SeeAllPopularArticlesScreen,
   SeeAllProductsScreen,
+  SeeAllRelatedDrugsScreen,
   SeeAllTrendingArticlesScreen,
   SettingsScreen,
   ShopScreen,
@@ -133,6 +134,10 @@ export const Stacks = () => {
       />
       <Stack.Screen name={'DrugDetailScreen2'} component={DrugDetailScreen2} />
       <Stack.Screen
+        name={ScreenNames.DrugDetail2}
+        component={DrugDetailScreen2}
+      />
+      <Stack.Screen
         name={ScreenNames.ClaimDiscount}
         component={ClaimDiscount}
       />
@@ -171,6 +176,10 @@ export const Stacks = () => {
       <Stack.Screen
         name={ScreenNames.ReviewStore}
         component={ReviewStoreScreen}
+      />
+      <Stack.Screen
+        name={ScreenNames.SeeAllRelatedDrugs}
+        component={SeeAllRelatedDrugsScreen}
       />
     </Stack.Navigator>
   );

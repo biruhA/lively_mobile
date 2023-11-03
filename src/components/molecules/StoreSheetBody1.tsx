@@ -81,7 +81,7 @@ function SelectedProductCard() {
         <Text style={[fonts.body2, {color: colors.primary}]}>
           Selected Size:{' '}
           {
-            selectedProduct?.variants[selectedProductVariantIndex]?.value
+            selectedProduct?.variants?.[selectedProductVariantIndex]?.value
               ?.english
           }
         </Text>

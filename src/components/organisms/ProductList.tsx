@@ -18,16 +18,10 @@ interface Props {
 
 export function ProductList({label, url, refreshing}: Props) {
   const {token} = useSelector(state => state.auth);
-  const {data, isLoading, refetch} = useProductListQuery({
+  const {data, isLoading} = useProductListQuery({
     url,
     token: token ? `Bearer ${token}` : null,
   });
-
-  useEffect(() => {
-    if (refreshing) {
-      refetch();
-    }
-  }, [refreshing]);
 
   return (
     <Stack bg={'white'} px={4} py={3} space={2}>
@@ -41,9 +35,6 @@ export function ProductList({label, url, refreshing}: Props) {
       ) : (
         <FlatList
           horizontal={true}
-          refreshControl={
-            <RefreshControl refreshing={isLoading} onRefresh={refetch} />
-          }
           showsHorizontalScrollIndicator={false}
           data={data?.data?.products}
           ListEmptyComponent={<ListEmptyComponent />}

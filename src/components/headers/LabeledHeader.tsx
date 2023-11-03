@@ -1,17 +1,29 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 import {GoBack} from '../atoms';
-import {Stack} from 'native-base';
+import {HStack, Stack} from 'native-base';
+import {DeepLinkPath} from '../../hooks';
+import ShareButton from '../atoms/ShareButton';
 
 interface Props {
   label: string;
   style?: any;
+  hasShare?: boolean;
+  path?: DeepLinkPath;
+  id?: string;
 }
 
-export function LabeledHeader({label, style}: Props) {
+export function LabeledHeader({
+  label,
+  style,
+  hasShare = false,
+  path,
+  id,
+}: Props) {
   return (
-    <Stack p={4} bg={'white'} justifyContent={'space-between'} style={style}>
+    <HStack p={4} bg={'white'} justifyContent={'space-between'} style={style}>
       <GoBack label={label} />
-    </Stack>
+      {hasShare && <ShareButton path={path} id={id} />}
+    </HStack>
   );
 }

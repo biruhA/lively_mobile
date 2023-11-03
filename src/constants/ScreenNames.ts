@@ -58,4 +58,6 @@ export enum ScreenNames {
   WishList = 'WishList',
   Rating = 'Rating',
   ReviewStore = 'ReviewStore',
+  SeeAllRelatedDrugs = 'SeeAllRelatedDrugs',
+  DrugDetail2 = 'DrugDetail2',
 }

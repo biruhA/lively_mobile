@@ -25,6 +25,7 @@ import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
 import {useDebounce} from '../hooks';
 import {MainScreenHeader} from '../components/headers';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function PlaceScreen() {
   const Banners = useBannersQuery();
@@ -64,9 +65,7 @@ export function PlaceScreen() {
     })
       .unwrap()
       .then(res => {
-        setHasMore(
-          res?.data?.total / res?.data?.per_page > res?.data?.current_page,
-        );
+        setHasMore(!!res?.data?.next_page_url);
       });
   }, [debouncedText, isPharmacySelected, page]);
 
@@ -99,24 +98,27 @@ export function PlaceScreen() {
                 setIsPharmacySelected={setIsPharmacySelected}
               />
             )}
-            {result?.isLoading ? (
-              <Center flex={1} py={8}>
-                <Spinner />
-              </Center>
-            ) : (
+            <EnableLocation />
+            {Object.keys(userLocation).length > 0 && (
               <FlatList
                 data={isPharmacySelected ? pharmacieList : storeList}
-                ListEmptyComponent={ListEmptyComponent}
+                ListEmptyComponent={() => {
+                  !result?.isLoading && <ListEmptyComponent />;
+                }}
                 onEndReachedThreshold={1}
                 onEndReached={() => {
                   if (hasMore) {
-                    setPage(page + 1);
+                    setPage(prev => prev + 1);
                   }
                 }}
                 ListFooterComponent={() => {
                   return (
                     <Center flex={1} py={1}>
-                      {hasMore ? <Spinner /> : <Text>- End -</Text>}
+                      {hasMore || result?.isLoading ? (
+                        <Spinner />
+                      ) : (
+                        <Text>- End -</Text>
+                      )}
                     </Center>
                   );
                 }}

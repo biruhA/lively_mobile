@@ -1,7 +1,15 @@
 import {RefreshControl, FlatList, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import {ApiImage, GoBack} from '../components/atoms';
-import {Image, Pressable, Stack, Text, useDisclose} from 'native-base';
+import {
+  Center,
+  Image,
+  Pressable,
+  Spinner,
+  Stack,
+  Text,
+  useDisclose,
+} from 'native-base';
 import {colors} from '../theme/colors';
 import {
   OrderWithPrescription,
@@ -41,20 +49,32 @@ export function MedicinesScreen() {
           <GoBack label="Medicines" />
           <SearchBox onCamPress={onOpen} />
           <OrderWithPrescription onCamPress={onOpen} />
-          <FlatList
-            horizontal={true}
-            data={getDiseases?.data?.data}
-            renderItem={({item}) => (
-              <Cards
-                id={item?.id}
-                name={item?.name}
-                imageurl={item?.disease_image?.url}
-                color={item?.color}
-              />
-            )}
-            keyExtractor={(item: Props) => item.id}
-          />
-          <MedicineSections data={getAllMedicines?.data?.data?.data} />
+          {getDiseases?.isLoading ? (
+            <Center py={24}>
+              <Spinner />
+            </Center>
+          ) : (
+            <FlatList
+              horizontal={true}
+              data={getDiseases?.data?.data}
+              renderItem={({item}) => (
+                <Cards
+                  id={item?.id}
+                  name={item?.name}
+                  imageurl={item?.disease_image?.url}
+                  color={item?.color}
+                />
+              )}
+              keyExtractor={(item: Props) => item.id}
+            />
+          )}
+          {getAllMedicines?.isLoading ? (
+            <Center py={24}>
+              <Spinner />
+            </Center>
+          ) : (
+            <MedicineSections data={getAllMedicines?.data?.data?.data} />
+          )}
         </Stack>
       </ScrollView>
       <PrescriptionUploadSheet isOpen={isOpen} onClose={onClose} />

@@ -6,7 +6,7 @@
  */
 
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {Text, Linking, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NativeBaseProvider} from 'native-base';
 import {Navigation} from './src/navigation';
 import Context from './src/realm/config';
@@ -22,6 +22,7 @@ import RNUxcam from 'react-native-ux-cam';
 import VersionCheck from 'react-native-version-check';
 import {UpdateSheet} from './src/components';
 import {setCurrentVersion} from './src/store/features/settingSlice';
+import {useDeepLinkForegrounded} from './src/hooks';
 
 const userAppKey = Config.UX_CAM_USERAPPKEY;
 
@@ -49,9 +50,11 @@ const {RealmProvider} = Context;
 function App(): JSX.Element {
   const [versionData, setVersionData] = useState();
 
+  // useDeepLinkForegrounded();
+
   function CheckVersion() {
     VersionCheck.needUpdate().then(async res => {
-      setVersionData(res);
+      setVersionData(await res);
     });
   }
 
@@ -69,7 +72,7 @@ function App(): JSX.Element {
           <NavigationContainer>
             <NativeBaseProvider>
               <Navigation />
-              {true && <UpdateSheet versionData={versionData} />}
+              <UpdateSheet versionData={versionData} />
             </NativeBaseProvider>
           </NavigationContainer>
         </Provider>

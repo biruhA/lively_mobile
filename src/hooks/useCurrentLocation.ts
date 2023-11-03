@@ -6,6 +6,8 @@ import {
   Button,
   PermissionsAndroid,
   Platform,
+  Linking,
+  Alert,
 } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import {useAppDispatch} from '../store/hooks';
@@ -17,12 +19,38 @@ export function useCurrentLocation() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    requestLocationPermission();
+    (async () => {
+      requestLocationPermission();
+    })();
   }, []);
 
   const requestLocationPermission = async () => {
     if (Platform.OS === 'ios') {
-      console.log('iOS device Location permission granted');
+      const openSetting = () => {
+        Linking.openSettings().catch(() => {
+          Alert.alert('Unable to open settings');
+        });
+      };
+      const status = await Geolocation.requestAuthorization('whenInUse');
+
+      if (status === 'granted') {
+        return true;
+      }
+
+      if (status === 'denied') {
+        Alert.alert('Location permission denied');
+      }
+
+      if (status === 'disabled') {
+        Alert.alert(
+          'Turn on Location Services to allow Lively to determine your location.',
+          '',
+          [
+            {text: 'Go to Settings', onPress: openSetting},
+            {text: "Don't Use Location", onPress: () => {}},
+          ],
+        );
+      }
     } else {
       try {
         const granted = await PermissionsAndroid.request(

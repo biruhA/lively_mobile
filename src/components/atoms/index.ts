@@ -18,3 +18,5 @@ export * from './CarouselImage2';
 export * from './NotificationButton';
 export * from './ApiImage';
 export * from './ToggleIcon';
+export * from './ShareButton';
+export * from './EnableLocation';

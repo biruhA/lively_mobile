@@ -22,6 +22,14 @@ export const medicineApi = createApi({
         },
       }),
     }),
+    relatedMedicines: build.query({
+      query: id => ({
+        url: `related-medicines/${id}`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }),
+    }),
     medicineDetail: build.query({
       query: id => ({
         url: `medicine-detail/${id}`,
@@ -115,4 +123,5 @@ export const {
   useGetSymptomsQuery,
   useGetClaimedDetailQuery,
   useUploadPrescriptionMutation,
+  useRelatedMedicinesQuery,
 } = medicineApi;

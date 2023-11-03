@@ -28,7 +28,7 @@ export function ReviewStoreScreen() {
   const toast = useToast();
   const [data, setData] = useState(route?.params?.data);
   const {token} = useAppSelector(state => state.auth);
-  const [Rate] = useRateMutation();
+  const [Rate, result] = useRateMutation();
   const {
     control,
     handleSubmit,
@@ -39,9 +39,21 @@ export function ReviewStoreScreen() {
     },
   });
 
+  console.log(
+    '🚀 ~ file: ReviewStoreScreen.tsx:32 ~ ReviewStoreScreen ~ result:',
+    result,
+    route?.params,
+    {
+      store_branch_id: route?.params?.data?.data?.id,
+      rating: route?.params?.rate,
+      review: data?.review,
+      token,
+    },
+  );
+
   const onSubmit = data => {
     Rate({
-      store_branch_id: route?.params?.data?.data?.store?.id,
+      store_branch_id: route?.params?.data?.data?.id,
       rating: route?.params?.rate,
       review: data?.review,
       token,

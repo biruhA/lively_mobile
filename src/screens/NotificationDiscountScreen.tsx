@@ -12,6 +12,7 @@ import {
 import {fonts} from '../theme/fonts';
 import {colors} from '../theme/colors';
 import FastImage from 'react-native-fast-image';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function NotificationDiscountScreen() {
   const {token} = useAppSelector(state => state.auth);
@@ -29,6 +30,7 @@ export function NotificationDiscountScreen() {
       <Stack p={4} bg={'white'}>
         <GoBack label="Discount Claimed" />
       </Stack>
+      <EnableLocation />
       <Stack style={styles.main} alignItems={'center'} space={4}>
         <SelectedProductCard Data={data?.data} />
         <Stack p={4}>

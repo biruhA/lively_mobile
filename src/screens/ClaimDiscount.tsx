@@ -25,6 +25,7 @@ import {
   useClaimDiscountsMutation,
   useStoreDetailByIdQuery,
 } from '../store/services';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function ClaimDiscount() {
   const route = useRoute();
@@ -96,6 +97,7 @@ export function ClaimDiscount() {
         <GoBack label="" />
       </Stack>
       <Stack py={4} px={5}>
+        <EnableLocation />
         <Stack
           alignItems={'center'}
           shadow={2}
