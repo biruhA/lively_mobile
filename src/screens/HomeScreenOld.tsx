@@ -51,7 +51,8 @@ export function HomeScreenOld() {
         renderItem={({item}) => {
           return (
             <Stack space={3}>
-              <MainScreenHeader label={`Hi ${user?.name || ''} 👋`} />
+              {/* <MainScreenHeader label={`Hi ${user?.name || ''} 👋`} /> */}
+              <MainScreenHeader label={'Products'} />
               <SearchBox
                 hasCamera={false}
                 mainStyle={{paddingHorizontal: 16, paddingVertical: 12}}
@@ -64,7 +65,7 @@ export function HomeScreenOld() {
                 )}
               </Stack>
               <Catalogue refreshing={refreshing} />
-              <Stack bg={'white'} pb={7} px={4} py={4}>
+              {/* <Stack bg={'white'} pb={7} px={4} py={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
                 ) : (
@@ -89,9 +90,9 @@ export function HomeScreenOld() {
                     <CarouselBrowse Data={data?.data} />
                   </Stack>
                 )}
-              </Stack>
-              <ForYou />
-              <TopArticles />
+              </Stack> */}
+              {/* <ForYou /> */}
+              {/* <TopArticles /> */}
               <ProductList
                 label="For Women"
                 url="for-her"
@@ -102,13 +103,13 @@ export function HomeScreenOld() {
                 url="for-him"
                 refreshing={refreshing}
               />
-              <Stack bg={'white'} pb={7} px={4}>
+              {/* <Stack bg={'white'} pb={7} px={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />
                 ) : (
                   <Carousel2 Data={squareDiscountBanners?.data?.data} />
                 )}
-              </Stack>
+              </Stack> */}
               <ProductList
                 label="For Mom & Baby"
                 url="mom-and-baby"
@@ -124,13 +125,12 @@ export function HomeScreenOld() {
         }}
         keyExtractor={item => item.id}
       />
-      <BottomTabBar />
     </Stack>
   );
 }
 
 const styles = StyleSheet.create({
   bottomMargin: {
-    marginBottom: Platform.OS === 'ios' ? 55 : 75,
+    // marginBottom: Platform.OS === 'ios' ? 55 : 75,
   },
 });

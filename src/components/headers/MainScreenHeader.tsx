@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {HStack, useDisclose} from 'native-base';
 import {useAppSelector} from '../../store/hooks';
-import {NotificationButton} from '../atoms';
+import {GoBack, NotificationButton} from '../atoms';
 import {ScreenNames} from '../../constants';
 import {fonts} from '../../theme/fonts';
 import {LoginSheet} from '../sheets';
@@ -22,7 +22,7 @@ export function MainScreenHeader({label}: string) {
         alignItems={'center'}
         justifyContent={'space-between'}
         py={4}>
-        <Text style={fonts.subtitle1}>{label}</Text>
+        <GoBack label={label} />
         <HStack alignItems={'center'} space={4} px={3}>
           <NotificationButton onOpen={onOpen} />
           <TouchableIcon
