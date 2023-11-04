@@ -18,6 +18,7 @@ import {GoBack, GradientButton} from '../components/atoms';
 import {ScreenNames} from '../constants';
 import {useAppSelector} from '../store/hooks';
 import FastImage from 'react-native-fast-image';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function CollectionDetailScreen() {
   const route = useRoute();
@@ -80,6 +81,7 @@ export function CollectionDetailScreen() {
             <Text style={fonts.subtitle1}>Product Description</Text>
             <Text style={fonts.body1}>{data?.data?.description?.english}</Text>
             <Text style={fonts.subtitle1}>Inside the collection</Text>
+            <EnableLocation />
             <Stack
               borderWidth={1}
               borderColor={'#F5F5F5'}

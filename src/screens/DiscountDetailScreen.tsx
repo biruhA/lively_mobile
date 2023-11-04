@@ -17,6 +17,7 @@ import {useAppSelector} from '../store/hooks';
 import {useProductVariantDetailQuery} from '../store/services';
 import {LoginSheet} from '../components/sheets';
 import {LabeledHeader} from '../components';
+import EnableLocation from '../components/atoms/EnableLocation';
 
 export function DiscountDetailScreen() {
   const route = useRoute();
@@ -41,6 +42,7 @@ export function DiscountDetailScreen() {
   return (
     <Stack flex={1} bg={colors.pureWhite} pb={2}>
       <LabeledHeader label="" />
+      <EnableLocation />
       <FlatList
         data={[{}]}
         renderItem={({item}) => {

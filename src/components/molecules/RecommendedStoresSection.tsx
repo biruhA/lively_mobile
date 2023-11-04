@@ -9,6 +9,7 @@ import {ProductDescription} from './ProductDescription';
 import {StoresCardLarge} from './StoresCardLarge';
 import {useRecommendedProductStoresMutation} from '../../store/services';
 import {useFocusEffect} from '@react-navigation/native';
+import EnableLocation from '../atoms/EnableLocation';
 
 export function RecommendedStoresSection({Data}: any) {
   const {selectedProductVariantIndex} = useAppSelector(state => state.product);
@@ -54,6 +55,7 @@ export function RecommendedStoresSection({Data}: any) {
         )}
         keyExtractor={(item: Props) => item.id}
       />
+      <EnableLocation />
     </Stack>
   );
 }

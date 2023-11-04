@@ -17,7 +17,7 @@ export const Icons = {
     round: require('../assets/images/lively_logo.png'),
     square: require('../assets/images/app_Icon.png'),
   },
-  noInternet: require('../assets/icons/Address.png'),
+  noInternet: require('../assets/images/enable_location.png'),
   share: require('../assets/icons/solar_share-outline.png'),
   heart: {
     black: require('../assets/icons/heart-black.png'),

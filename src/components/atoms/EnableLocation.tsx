@@ -79,29 +79,34 @@ export default function EnableLocation() {
   return (
     <>
       {!has && (
-        <Stack>
-          <Image source={Icons.noInternet} w={'100%'} h={300} />
-          <Text
-            textAlign={'center'}
-            fontFamily={'Poppins-Regular'}
-            color={'#5F5D5D'}>
-            Please allow location access. We need
-          </Text>
-          <Text
-            textAlign={'center'}
-            fontFamily={'Poppins-Regular'}
-            color={'#5F5D5D'}>
-            your location in order to provide you with
-          </Text>
-          <Text
-            textAlign={'center'}
-            fontFamily={'Poppins-Regular'}
-            color={'#5F5D5D'}>
-            a better experience.
-          </Text>
+        <Stack justifyContent={'center'} bg={'white'} rounded={'2xl'} p={4}>
+          <Image
+            source={Icons.noInternet}
+            w={'100%'}
+            h={98}
+            resizeMode="center"
+          />
+          <Stack py={5}>
+            <Text
+              textAlign={'center'}
+              fontFamily={'Poppins-Regular'}
+              color={'#5F5D5D'}>
+              Please allow location access. We need your location
+            </Text>
+            <Text
+              textAlign={'center'}
+              fontFamily={'Poppins-Regular'}
+              color={'#5F5D5D'}>
+              in order to provide you with a better experience.
+            </Text>
+          </Stack>
           <GradientButton
             text="Enable Location"
-            mainStyle={{marginTop: 15}}
+            mainStyle={{
+              borderRadius: 7,
+              overflow: 'hidden',
+              width: '100%',
+            }}
             onPress={async () => {
               await requestLocationPermission();
             }}

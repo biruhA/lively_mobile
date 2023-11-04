@@ -42,19 +42,19 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to use your camera</string>
+	<string>Lively would like to use your camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires GPS to show you the nearest service providers</string>
+	<string>Lively requires GPS to show you the nearest service providers</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires GPS to show you the nearest service providers</string>
+	<string>Lively requires GPS to show you the nearest service providers</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) requires GPS to show you the nearest service providers</string>
+	<string>Lively requires GPS to show you the nearest service providers</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
+	<string>Lively would like to your microphone (for videos)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like to save photos to your photo library</string>
+	<string>Lively would like to save photos to your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your photo library</string>
+	<string>Lively would like access to your photo library</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Black.ttf</string>

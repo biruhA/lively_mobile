@@ -49,3 +49,4 @@ export * from './FaqScreen';
 export * from './WishListScreen';
 export * from './RatingScreen';
 export * from './ReviewStoreScreen';
+export * from './SeeAllRelatedDrugsScreen';

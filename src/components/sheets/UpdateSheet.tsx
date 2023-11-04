@@ -29,7 +29,7 @@ export function UpdateSheet({versionData = false}) {
   return (
     <Actionsheet isOpen={isOpen} onClose={onClose}>
       <Actionsheet.Content>
-        <Stack w={'100%'} px={4}>
+        <Stack w={'100%'} px={4} pt={3} pb={6} space={1}>
           <Image
             source={require('../../assets/images/Google-Play-Logo.png')}
             w={102}
@@ -40,7 +40,7 @@ export function UpdateSheet({versionData = false}) {
           <Text pt={1} style={fonts.heading6} mt={5}>
             Update Available
           </Text>
-          <Text style={fonts.body1}>
+          <Text style={[fonts.body1, {color: '#A4A4A4', fontWeight: 400}]}>
             To use this app, download the latest version.
           </Text>
           <HStack space={3} alignItems={'center'} my={6}>
@@ -63,13 +63,22 @@ export function UpdateSheet({versionData = false}) {
                   fonts.normal,
                   {fontSize: 14, fontWeight: 400, color: '#6B6B6B'},
                 ]}>
-                Unravel Technologies {versionData?.currentVersion}
+                Unravel Technologies
+              </Text>
+              <Text
+                style={[
+                  fonts.normal,
+                  {fontSize: 14, fontWeight: 400, color: '#6B6B6B'},
+                ]}>
+                Version {versionData?.currentVersion}
               </Text>
             </Stack>
           </HStack>
           <HStack space={2} alignItems={'center'}>
             <Button
               h={45}
+              borderWidth={1.5}
+              borderColor={'#00BA63'}
               rounded={'full'}
               variant={'outline'}
               w={'50%'}
@@ -77,7 +86,14 @@ export function UpdateSheet({versionData = false}) {
               onPress={() => {
                 Linking.openURL(versionData?.storeUrl);
               }}>
-              More info.
+              <Text
+                style={{
+                  fontFamily: 'Poppins-Medium',
+                  fontSize: 16,
+                  color: '#00BA63',
+                }}>
+                More info.
+              </Text>
             </Button>
             <GradientButton
               text="Update"

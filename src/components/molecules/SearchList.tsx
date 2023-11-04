@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../store/hooks';
 import {setSelectedFilter} from '../../store/features/searchSlice';
 import {useSearchMutation} from '../../store/services';
 import {filterLabel} from '../../screens';
+import EnableLocation from '../atoms/EnableLocation';
 
 const Data = [
   {
@@ -58,6 +59,7 @@ export function SearchList() {
         )}
         keyExtractor={item => item.id}
       />
+      <EnableLocation />
     </Stack>
   );
 }
