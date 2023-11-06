@@ -55,66 +55,113 @@ function MedicinalCard() {
   const navigation = useNavigation();
 
   return (
-    <HStack
-      space={4}
-      alignItems={'center'}
-      bg={'#D7EFCC'}
-      rounded={'2xl'}
-      p={4}
-      borderWidth={1}
-      borderColor={'#D0D0D0'}>
-      <Image
-        source={require('../assets/images/home-medicinal.png')}
-        boxSize={124}
-        resizeMode="contain"
-      />
-      <Stack flex={1}>
-        <Text style={styles.cardHeaderTxt}>Medicinal</Text>
-        <Text style={styles.cardSubTxt}>
-          Upload your prescription & we will show you the medicines.
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(ScreenNames.Medicines);
-          }}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate(ScreenNames.Medicines);
+      }}>
+      <HStack
+        overflow={'hidden'}
+        space={4}
+        alignItems={'center'}
+        bg={'#D7EFCC'}
+        rounded={'2xl'}
+        p={4}
+        justifyContent={'center'}
+        alignSelf={'center'}
+        borderWidth={1}
+        borderColor={'#D0D0D0'}>
+        <Image
+          position={'absolute'}
+          bottom={-40}
+          left={0}
+          source={require('../assets/images/Ellipse-87.png')}
+          boxSize={124}
+          // bg={'blue.300'}
+          resizeMode="contain"
+        />
+        <Image
+          source={require('../assets/images/home-medicinal.png')}
+          boxSize={124}
+          resizeMode="contain"
+        />
+        <Image
+          position={'absolute'}
+          top={-35}
+          right={-10}
+          source={require('../assets/images/Ellipse-86.png')}
+          boxSize={124}
+          // bg={'blue.200'}
+          resizeMode="contain"
+        />
+        <Stack flex={1}>
+          <Text style={styles.cardHeaderTxt}>Medicinal</Text>
+          <Text style={styles.cardSubTxt}>
+            Upload your prescription & we will show you the medicines.
+          </Text>
           <Image
             alignSelf={'flex-end'}
             source={require('../assets/images/home-nav.png')}
             boxSize={7}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-      </Stack>
-    </HStack>
+        </Stack>
+        <Image
+          position={'absolute'}
+          bottom={-25}
+          right={-5}
+          source={require('../assets/images/Ellipse-88.png')}
+          boxSize={124}
+          // bg={'blue.100'}
+          resizeMode="contain"
+        />
+      </HStack>
+    </TouchableOpacity>
   );
 }
 
 function ProductsCard() {
   const navigation = useNavigation();
   return (
-    <HStack
-      space={4}
-      alignItems={'center'}
-      bg={'#FFE4D4'}
-      rounded={'2xl'}
-      p={4}
-      borderWidth={1}
-      borderColor={'#D0D0D0'}>
-      <Image
-        source={require('../assets/images/home-products.png')}
-        boxSize={124}
-        resizeMode="contain"
-      />
-      <Stack flex={1}>
-        <Text style={styles.cardHeaderTxt}>Products</Text>
-        <Text style={styles.cardSubTxt}>
-          We provide a wide variety of products for infants, women, men, and
-          families.
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(ScreenNames.Homeold);
-          }}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate(ScreenNames.Homeold);
+      }}>
+      <HStack
+        overflow={'hidden'}
+        space={4}
+        alignItems={'center'}
+        bg={'#FFE4D4'}
+        rounded={'2xl'}
+        p={4}
+        borderWidth={1}
+        borderColor={'#D0D0D0'}>
+        <Image
+          position={'absolute'}
+          bottom={-52}
+          left={0}
+          source={require('../assets/images/Vector-29.png')}
+          boxSize={124}
+          resizeMode="contain"
+        />
+        <Image
+          source={require('../assets/images/home-products.png')}
+          boxSize={124}
+          resizeMode="contain"
+        />
+        <Image
+          position={'absolute'}
+          top={-5}
+          right={-30}
+          source={require('../assets/images/Vector-27.png')}
+          boxSize={124}
+          resizeMode="contain"
+        />
+        <Stack flex={1}>
+          <Text style={styles.cardHeaderTxt}>Products</Text>
+          <Text style={styles.cardSubTxt}>
+            We provide a wide variety of products for infants, women, men, and
+            families.
+          </Text>
           <Image
             mt={1}
             alignSelf={'flex-end'}
@@ -122,9 +169,9 @@ function ProductsCard() {
             boxSize={7}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-      </Stack>
-    </HStack>
+        </Stack>
+      </HStack>
+    </TouchableOpacity>
   );
 }
 
@@ -132,28 +179,40 @@ function PlacesCard() {
   const navigation = useNavigation();
 
   return (
-    <HStack
-      space={4}
-      alignItems={'center'}
-      bg={'#C9E7FD'}
-      rounded={'2xl'}
-      p={4}
-      borderWidth={1}
-      borderColor={'#D0D0D0'}>
-      <Image
-        source={require('../assets/images/home-places.png')}
-        boxSize={124}
-        resizeMode="contain"
-      />
-      <Stack flex={1}>
-        <Text style={styles.cardHeaderTxt}>Places</Text>
-        <Text style={styles.cardSubTxt}>
-          You can find different store locations and details here.
-        </Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate(ScreenNames.Place);
-          }}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate(ScreenNames.Place);
+      }}>
+      <HStack
+        overflow={'hidden'}
+        space={4}
+        alignItems={'center'}
+        bg={'#C9E7FD'}
+        rounded={'2xl'}
+        p={4}
+        borderWidth={1}
+        borderColor={'#D0D0D0'}>
+        <Image
+          position={'absolute'}
+          top={-5}
+          right={0}
+          source={require('../assets/images/Vector-12.png')}
+          w={'110%'}
+          h={50}
+          resizeMode="contain"
+        />
+        <Image
+          position={'relative'}
+          zIndex={2}
+          source={require('../assets/images/home-places.png')}
+          boxSize={124}
+          resizeMode="contain"
+        />
+        <Stack flex={1}>
+          <Text style={styles.cardHeaderTxt}>Places</Text>
+          <Text style={styles.cardSubTxt}>
+            You can find different store locations and details here.
+          </Text>
           <Image
             mt={4}
             alignSelf={'flex-end'}
@@ -161,9 +220,17 @@ function PlacesCard() {
             boxSize={7}
             resizeMode="contain"
           />
-        </TouchableOpacity>
-      </Stack>
-    </HStack>
+        </Stack>
+        <Image
+          position={'absolute'}
+          bottom={-7}
+          source={require('../assets/images/Vector-13.png')}
+          w={'110%'}
+          h={50}
+          resizeMode="contain"
+        />
+      </HStack>
+    </TouchableOpacity>
   );
 }
 
