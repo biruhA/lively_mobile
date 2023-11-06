@@ -60,8 +60,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     SplashScreen.hide();
-    mixpanel.init();
     CheckVersion();
+    mixpanel.init();
   }, []);
 
   return (

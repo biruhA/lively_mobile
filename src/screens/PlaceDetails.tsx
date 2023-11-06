@@ -70,8 +70,6 @@ export function PlaceDetails() {
     );
   }
 
-  console.log('is_wishlist: ', data?.data?.is_wishlist);
-
   return (
     <Stack flex={1} bg={'white'}>
       <Stack p={4} bg={'white'}>
@@ -113,7 +111,7 @@ export function PlaceDetails() {
 
         <Stack px={4} bg={'white'} space={2}>
           <MoreInfo data={data} />
-          <Rating data={data} />
+          <Rating data={data} initalActive={data?.data?.rating?.average} />
           <UsersRating data={data?.data?.rating} />
           {data?.data?.rating?.review && (
             <>

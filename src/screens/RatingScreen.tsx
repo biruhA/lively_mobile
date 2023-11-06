@@ -29,22 +29,24 @@ export function RatingScreen() {
     token,
   });
 
+  if (isLoading) {
+    return (
+      <Center flex={1}>
+        <Spinner />
+      </Center>
+    );
+  }
+
   return (
     <Stack flex={1} space={2} bg={Colors.background.everlasting_ice}>
       <LabeledHeader label={'Rating'} />
       <OverallRating data={data?.data} />
       <Stack bg={'white'} py={4} px={2} space={2}>
-        {isLoading ? (
-          <Center py={24}>
-            <Spinner />
-          </Center>
-        ) : (
-          <FlatList
-            data={data?.data?.review?.data}
-            renderItem={({item}) => <UserReviewCard data={item} />}
-            keyExtractor={item => item.id}
-          />
-        )}
+        <FlatList
+          data={data?.data?.review?.data}
+          renderItem={({item}) => <UserReviewCard data={item} />}
+          keyExtractor={item => item.id}
+        />
       </Stack>
       <GradientButton
         disabled={false}
@@ -62,7 +64,6 @@ export function RatingScreen() {
 }
 
 function OverallRating({data}) {
-  console.log('🚀 ~ file: RatingScreen.tsx:67 ~ OverallRating ~ data:', data);
   return (
     <Stack bg={'white'} py={3} px={6} space={4}>
       <Text style={fonts.body1}>Overall Rating</Text>
@@ -80,11 +81,23 @@ function OverallRating({data}) {
         </Stack>
       </HStack>
       <Stack space={2} mt={1}>
-        <ProgressBar label="Excellent" bg="#008579" value={90} />
-        <ProgressBar label="Good" bg="#00BA63" value={75} />
-        <ProgressBar label="Average" bg="#D8C200" value={50} />
-        <ProgressBar label="Below Average" bg="#DC7700" value={35} />
-        <ProgressBar label="Excellent" bg="#CD1616" value={15} />
+        <ProgressBar
+          label="Excellent"
+          bg="#008579"
+          value={data?.overall?.excellent}
+        />
+        <ProgressBar label="Good" bg="#00BA63" value={data?.overall?.good} />
+        <ProgressBar
+          label="Average"
+          bg="#D8C200"
+          value={data?.overall?.average}
+        />
+        <ProgressBar
+          label="Below Average"
+          bg="#DC7700"
+          value={data?.overall?.below_average}
+        />
+        <ProgressBar label="Bad" bg="#CD1616" value={data?.overall?.bad} />
       </Stack>
     </Stack>
   );
