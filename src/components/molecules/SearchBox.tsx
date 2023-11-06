@@ -5,6 +5,7 @@ import {Text, HStack, Image, Stack} from 'native-base';
 import {colors} from '../../theme/colors';
 import search from '../../assets/icons/search.png';
 import cameraSearch from '../../assets/icons/camera-search.png';
+import searchIcon from '../../assets/icons/search_icon.png';
 import {fonts} from '../../theme/fonts';
 import {ScreenNames} from '../../constants';
 
@@ -22,6 +23,7 @@ export function SearchBox({mainStyle, onCamPress, hasCamera}: Props) {
         <HStack
           alignItems={'center'}
           space={2}
+          justifyContent={'space-between'}
           bg={colors.unselected}
           py={3}
           rounded={40}>
@@ -29,7 +31,7 @@ export function SearchBox({mainStyle, onCamPress, hasCamera}: Props) {
           <Text style={[fonts.body1, styles.ellipsis]} noOfLines={1}>
             Search for a products, articles, Pharmacies
           </Text>
-          {hasCamera && (
+          {hasCamera ? (
             <TouchableOpacity onPress={onCamPress}>
               <Image
                 source={cameraSearch}
@@ -38,6 +40,8 @@ export function SearchBox({mainStyle, onCamPress, hasCamera}: Props) {
                 ml={1}
               />
             </TouchableOpacity>
+          ) : (
+            <Image source={searchIcon} alt="camera search" size="30px" mr={3} />
           )}
         </HStack>
       </TouchableOpacity>

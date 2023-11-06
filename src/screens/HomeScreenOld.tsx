@@ -64,7 +64,7 @@ export function HomeScreenOld() {
                   <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
                 )}
               </Stack>
-              <Catalogue refreshing={refreshing} />
+              {/* <Catalogue refreshing={refreshing} /> */}
               {/* <Stack bg={'white'} pb={7} px={4} py={4}>
                 {isLoading ? (
                   <CarouselBrowseSkeleton />

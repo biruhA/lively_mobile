@@ -23,15 +23,15 @@ export function MainScreenHeader({label}: string) {
         justifyContent={'space-between'}
         py={4}>
         <GoBack label={label} />
-        <HStack alignItems={'center'} space={4} px={3}>
-          <NotificationButton onOpen={onOpen} />
+        <HStack alignItems={'center'} space={2}>
           <TouchableIcon
-            image={Icons.heart.bold}
+            image={Icons.language}
             onPress={() => {
-              navigation.navigate(ScreenNames.WishList);
+              // navigation.navigate(ScreenNames.WishList);
             }}
-            boxSize={4}
+            boxSize={6}
           />
+          <NotificationButton onOpen={onOpen} />
         </HStack>
       </HStack>
       <LoginSheet
