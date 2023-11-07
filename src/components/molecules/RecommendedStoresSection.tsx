@@ -10,8 +10,13 @@ import {StoresCardLarge} from './StoresCardLarge';
 import {useRecommendedProductStoresMutation} from '../../store/services';
 import {useFocusEffect} from '@react-navigation/native';
 import EnableLocation from '../atoms/EnableLocation';
+import {useCurrentLocation} from '../../hooks';
 
-export function RecommendedStoresSection({Data}: any) {
+export function RecommendedStoresSection({
+  Data,
+  res,
+  handleLocationPermission,
+}: any) {
   const {selectedProductVariantIndex} = useAppSelector(state => state.product);
   const {userLocation} = useAppSelector(state => state.search);
   const [recommendedStores, result] = useRecommendedProductStoresMutation();
@@ -55,7 +60,10 @@ export function RecommendedStoresSection({Data}: any) {
         )}
         keyExtractor={(item: Props) => item.id}
       />
-      <EnableLocation />
+      <EnableLocation
+        result={res}
+        requestLocationPermission={handleLocationPermission}
+      />
     </Stack>
   );
 }

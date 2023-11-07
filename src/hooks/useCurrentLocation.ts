@@ -12,16 +12,33 @@ import {
 import Geolocation from 'react-native-geolocation-service';
 import {useAppDispatch} from '../store/hooks';
 import {setCurrentLocation} from '../store/features/searchSlice';
+import {PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 
 export function useCurrentLocation() {
   const [location, setLocation] = useState(null);
   const [error, setError] = useState(null);
+  const [res, setResult] = useState(null);
   const dispatch = useAppDispatch();
 
+  function handleLocationPermission() {
+    try {
+      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(res => {
+        console.log(
+          '🚀 ~ file: useCurrentLocation.ts:26 ~ request ~ res:',
+          res,
+        );
+        setResult(res);
+        if (res !== RESULTS.GRANTED) {
+          requestLocationPermission();
+        }
+      });
+    } catch (error) {
+      console.log('location set error:', error);
+    }
+  }
+
   useEffect(() => {
-    (async () => {
-      requestLocationPermission();
-    })();
+    handleLocationPermission();
   }, []);
 
   const requestLocationPermission = async () => {
@@ -32,6 +49,7 @@ export function useCurrentLocation() {
         });
       };
       const status = await Geolocation.requestAuthorization('whenInUse');
+      setResult(status);
 
       if (status === 'granted') {
         return true;
@@ -64,6 +82,7 @@ export function useCurrentLocation() {
           },
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          setResult('granted');
           console.log('Location permission granted');
           getLocation();
         } else {
@@ -96,5 +115,11 @@ export function useCurrentLocation() {
     );
   };
 
-  return {location, error};
+  return {
+    res,
+    location,
+    error,
+    requestLocationPermission,
+    handleLocationPermission,
+  };
 }

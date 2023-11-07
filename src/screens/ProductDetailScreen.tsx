@@ -16,17 +16,18 @@ import {useNavigation} from '@react-navigation/native';
 import {useAppSelector} from '../store/hooks';
 import {useProductDetailByIdQuery} from '../store/services';
 import {LabeledHeader} from '../components';
-import {DeepLinkPath} from '../hooks';
+import {DeepLinkPath, useCurrentLocation} from '../hooks';
 
 export function ProductDetailScreen() {
   const navigation = useNavigation();
   const {selectedProductId} = useAppSelector(state => state.product);
   const {data, isLoading} = useProductDetailByIdQuery(selectedProductId);
+  const {res, handleLocationPermission} = useCurrentLocation();
 
   return (
     <Stack flex={1} bg={Colors.background.everlasting_ice}>
       <LabeledHeader
-        label=""
+        label="Product Detail"
         hasShare={true}
         path="product"
         id={data?.data?.id}
@@ -42,7 +43,11 @@ export function ProductDetailScreen() {
               <Stack pt={2}>
                 <ProductCarousel images={data?.data?.product_images} />
                 <BrandSection Data={data?.data} />
-                <RecommendedStoresSection Data={data?.data} />
+                <RecommendedStoresSection
+                  Data={data?.data}
+                  res={res}
+                  handleLocationPermission={handleLocationPermission}
+                />
                 <ProductDescription Data={data?.data} />
               </Stack>
             );
@@ -50,7 +55,7 @@ export function ProductDetailScreen() {
         />
       )}
       <GradientButton
-        disabled={isLoading}
+        disabled={isLoading || res !== 'granted'}
         text="Visit All stores"
         mainStyle={styles.mainStyle}
         onPress={() => {
