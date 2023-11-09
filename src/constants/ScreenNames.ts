@@ -6,6 +6,7 @@ export enum ScreenNames {
   Shop = 'Shop',
   Place = 'Place',
   //Stack
+  Homeold = 'Homeold',
   Search = 'Search',
   Discount = 'Discount',
   DiscountDetail = 'DiscountDetail',

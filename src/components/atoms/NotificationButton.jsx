@@ -32,11 +32,7 @@ export function NotificationButton({onOpen}: any) {
 }
 
 function ActiveImage() {
-  return (
-    <Stack bg={'amber.700'} rounded="full" p={1}>
-      <Image source={Icons.bell.active} alt="Alternate Text" boxSize={4} />
-    </Stack>
-  );
+  return <Image source={Icons.bell.active} alt="Alternate Text" boxSize={4} />;
 }
 
 function InactiveImage() {

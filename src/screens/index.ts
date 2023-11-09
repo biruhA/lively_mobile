@@ -5,6 +5,7 @@ export * from './ConfirmPhoneScreen';
 export * from './CreateAccountScreen';
 export * from './CreatePasswordScreen';
 export * from './ForgotPasswordScreen';
+export * from './HomeScreenOld';
 export * from './HomeScreen';
 export * from './PlaceScreen';
 export * from './PlaceDetails';

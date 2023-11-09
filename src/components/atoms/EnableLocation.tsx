@@ -1,84 +1,44 @@
 import {PermissionsAndroid, Platform} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Image, Stack, Text} from 'native-base';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import {PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {Icons} from '../../theme/icons';
 import {GradientButton} from '..';
 import Geolocation from 'react-native-geolocation-service';
 import {useAppDispatch} from '../../store/hooks';
 import {setCurrentLocation} from '../../store/features/searchSlice';
+import {useFocus} from 'native-base/lib/typescript/components/primitives';
+import {useFocusEffect} from '@react-navigation/native';
 
-export default function EnableLocation() {
-  const [has, setHas] = useState(false);
-  const [error, setError] = useState(null);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    try {
-      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(res => {
-        console.log('🚀 ~ file: EnableLocation.tsx:17 ~ useEffect ~ res:', res);
-        if (res == 'granted') {
-          setHas(true);
-        } else {
-          setHas(false);
-        }
-      });
-    } catch (error) {
-      console.log('location set error:', error);
-    }
-  }, []);
-
-  const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
-      console.log('iOS device Location permission granted');
-    } else {
-      try {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-          {
-            title: 'Location Permission',
-            message: 'This app needs access to your location',
-            buttonNeutral: 'Ask Me Later',
-            buttonNegative: 'Cancel',
-            buttonPositive: 'OK',
-          },
-        );
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('Location permission granted');
-          getLocation();
-        } else {
-          console.log('Location permission denied');
-        }
-      } catch (err) {
-        console.warn(err);
-      }
-    }
-  };
-
-  const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      position => {
-        setLocation(position);
-        dispatch(
-          setCurrentLocation({
-            lat: position?.coords?.latitude,
-            lon: position?.coords?.longitude,
-          }),
-        );
-      },
-      error => {
-        setError({
-          code: error.code,
-          message: error.message,
-        });
-      },
-      {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-    );
-  };
-
+export default function EnableLocation({result, requestLocationPermission}) {
   return (
     <>
-      {!has && (
+      {result === RESULTS.GRANTED && <></>}
+      {result === RESULTS.BLOCKED && (
+        <Stack justifyContent={'center'} bg={'white'} rounded={'2xl'} p={4}>
+          <Image
+            source={Icons.noInternet}
+            w={'100%'}
+            h={98}
+            resizeMode="center"
+          />
+          <Stack space={1} py={5}>
+            <Text
+              textAlign={'center'}
+              fontFamily={'Poppins-Medium'}
+              color={'#5F5D5D'}>
+              Denied Need to Enable Location
+            </Text>
+            <Text
+              textAlign={'center'}
+              fontFamily={'Poppins-Regular'}
+              color={'#5F5D5D'}>
+              Go to Setting > Location > Enable Location
+            </Text>
+          </Stack>
+        </Stack>
+      )}
+      {result === RESULTS.DENIED && (
         <Stack justifyContent={'center'} bg={'white'} rounded={'2xl'} p={4}>
           <Image
             source={Icons.noInternet}
@@ -107,9 +67,7 @@ export default function EnableLocation() {
               overflow: 'hidden',
               width: '100%',
             }}
-            onPress={async () => {
-              await requestLocationPermission();
-            }}
+            onPress={requestLocationPermission}
           />
         </Stack>
       )}

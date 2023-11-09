@@ -23,7 +23,7 @@ import {CarouselBrowseSkeleton} from '../components/skeletons/CarouselBrowseSkel
 import {useBannersQuery, useRecommendedStoresMutation} from '../store/services';
 import {useAppSelector} from '../store/hooks';
 import {fonts} from '../theme/fonts';
-import {useDebounce} from '../hooks';
+import {useCurrentLocation, useDebounce} from '../hooks';
 import {MainScreenHeader} from '../components/headers';
 import EnableLocation from '../components/atoms/EnableLocation';
 
@@ -36,6 +36,7 @@ export function PlaceScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
+  const {res, handleLocationPermission} = useCurrentLocation();
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -67,16 +68,15 @@ export function PlaceScreen() {
       .then(res => {
         setHasMore(!!res?.data?.next_page_url);
       });
-  }, [debouncedText, isPharmacySelected, page]);
+  }, [debouncedText, isPharmacySelected, page, userLocation]);
 
   return (
-    <Stack bg={colors.pureWhite} h={'full'} pb={2}>
+    <Stack bg={colors.pureWhite} flex={1} pb={2}>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        showsVerticalScrollIndicator={false}
-        style={styles.bottomMargin}>
+        showsVerticalScrollIndicator={false}>
         <Stack space={4}>
           <MainScreenHeader label="Places" />
           <Stack bg={'white'} px={4} pb={Banners?.isLoading ? 0 : 8}>
@@ -86,7 +86,7 @@ export function PlaceScreen() {
               <Carousel1 Data={Banners?.data?.data} />
             )}
           </Stack>
-          <Stack bg={'white'} p={4} space={4}>
+          <Stack bg={'white'} p={4} space={4} flex={1}>
             <SearchBarPlaces placeholder="Search for places" />
             {!debouncedText && (
               <ButtonTabs
@@ -98,7 +98,10 @@ export function PlaceScreen() {
                 setIsPharmacySelected={setIsPharmacySelected}
               />
             )}
-            <EnableLocation />
+            <EnableLocation
+              result={res}
+              requestLocationPermission={handleLocationPermission}
+            />
             {Object.keys(userLocation).length > 0 && (
               <FlatList
                 data={isPharmacySelected ? pharmacieList : storeList}
@@ -138,7 +141,6 @@ export function PlaceScreen() {
           </Stack>
         </Stack>
       </ScrollView>
-      <BottomTabBar />
     </Stack>
   );
 }
@@ -151,8 +153,4 @@ function ListEmptyComponent() {
   );
 }
 
-const styles = StyleSheet.create({
-  bottomMargin: {
-    marginBottom: Platform.OS === 'ios' ? 55 : 75,
-  },
-});
+const styles = StyleSheet.create({});

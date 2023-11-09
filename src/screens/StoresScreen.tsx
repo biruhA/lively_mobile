@@ -1,6 +1,6 @@
 import {Text, FlatList} from 'react-native';
-import React from 'react';
-import {HStack, Image, Spinner, Stack} from 'native-base';
+import React, {useState} from 'react';
+import {Center, HStack, Image, Spinner, Stack} from 'native-base';
 import {fonts} from '../theme/fonts';
 import {StoresCardLarge} from '../components/molecules';
 import {Colors, colors} from '../theme/colors';
@@ -20,10 +20,12 @@ export function StoresScreen() {
   const {selectedProduct, selectedProductVariantIndex} = useAppSelector(
     state => state.product,
   );
+  const [page, setPage] = useState(1);
   const {data, isLoading} = useStoresQuery({
     id: selectedProduct?.variants[selectedProductVariantIndex]?.id,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
+    page: page,
   });
 
   return (
@@ -38,6 +40,23 @@ export function StoresScreen() {
         ) : (
           <FlatList
             data={data?.data?.data}
+            ListFooterComponent={() => {
+              return (
+                <Center flex={1} py={1}>
+                  {data?.data?.next_page_url || isLoading ? (
+                    <Spinner />
+                  ) : (
+                    <Text>- End -</Text>
+                  )}
+                </Center>
+              );
+            }}
+            onEndReachedThreshold={1}
+            onEndReached={() => {
+              if (data?.data?.next_page_url) {
+                setPage(prev => prev + 1);
+              }
+            }}
             renderItem={({item}) => (
               <StoresCardLarge
                 id={item?.id}
@@ -69,10 +88,7 @@ function SelectedProductCard() {
         style={{width: 94, height: 54}}
       />
       <Stack w={'70%'} space={1}>
-        <Text style={fonts.subtitle1}>
-          {selectedProduct?.title?.english}
-          Philosophy Renewed Hope in a Jar Moisturizer
-        </Text>
+        <Text style={fonts.subtitle1}>{selectedProduct?.title?.english}</Text>
         <Text style={[fonts.body2, {color: colors.primary}]}>
           Selected Size:{' '}
           {

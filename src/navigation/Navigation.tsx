@@ -26,11 +26,17 @@ const Stack = createStackNavigator<any>();
 export function Navigation() {
   useDeepLinkForegrounded();
   useSavedAuthData();
-  useCurrentLocation();
+  const {requestLocationPermission} = useCurrentLocation();
   const onboarding = useQuery(OnBoarding);
   usePushNotification();
   const {token, isLoggedIn, fcmToken} = useAppSelector(state => state.auth);
   const [FcmToken, result] = useFcmTokenMutation();
+
+  useEffect(() => {
+    (async () => {
+      requestLocationPermission();
+    })();
+  }, []);
 
   useEffect(() => {
     if (fcmToken && token) {

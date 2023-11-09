@@ -9,6 +9,7 @@ import {useAppDispatch} from '../../store/hooks';
 import {setStoreId} from '../../store/features/storeSlice';
 import FastImage from 'react-native-fast-image';
 import {Images} from '../../theme/icons';
+import {ApiImage} from '..';
 
 interface Props {
   id: string;
@@ -50,14 +51,7 @@ export function StoresCardLarge({
           onOpen();
         }}>
         <HStack px={3} py={4} space={3} alignItems={'center'}>
-          <FastImage
-            style={{width: 121, height: 74}}
-            source={!hasLoaded ? Images.placeholder : {uri: imageUrl}}
-            resizeMode={!hasLoaded ? 'cover' : 'contain'}
-            onLoadEnd={() => {
-              setHasLoaded(true);
-            }}
-          />
+          <ApiImage style={{width: 121, height: 74}} imageUrl={imageUrl} />
           <Stack space={2}>
             <Text style={fonts.subtitle1} numberOfLines={2}>
               {store}
