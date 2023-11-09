@@ -17,10 +17,6 @@ import {ApiImage} from '..';
 
 export function UserReviewCard({hasReadMoreButton = true, data}) {
   const [readMore, setReadMore] = useState(true);
-  console.log(
-    '🚀 ~ file: UserReviewCard.tsx:20 ~ UserReviewCard ~ readMore:',
-    readMore,
-  );
 
   return (
     <HStack
