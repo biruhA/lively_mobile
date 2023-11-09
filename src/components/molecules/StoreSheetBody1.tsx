@@ -20,7 +20,7 @@ export function StoreSheetBody1({onPress}: any) {
   });
 
   if (isLoading) {
-    return <Spinner py={'90%'} size="large" color="red" />;
+    return <Spinner py={24} size="large" color="red" />;
   }
 
   return (

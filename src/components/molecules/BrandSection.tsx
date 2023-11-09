@@ -15,6 +15,7 @@ export function BrandSection({Data}: any) {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
   const [color, setColor] = useState();
+  const {selectedProductVariantIndex} = useAppSelector(state => state.product);
 
   useFocusEffect(
     useCallback(() => {
@@ -30,7 +31,7 @@ export function BrandSection({Data}: any) {
           <>
             <Text style={fonts.body1}>Selected Size:</Text>
             <Text style={{...fonts.subtitle2, color: colors.pureBlack}}>
-              {Data?.variants?.[0]?.value?.english}
+              {Data?.variants?.[selectedProductVariantIndex]?.value?.english}
             </Text>
           </>
         ) : (

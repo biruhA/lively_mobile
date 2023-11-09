@@ -7,11 +7,12 @@ export const storeApi = createApi({
   baseQuery: authUrl,
   endpoints: build => ({
     stores: build.query({
-      query: ({id, latitude, longitude}) => ({
+      query: ({id, latitude, longitude, page}) => ({
         url: `stores/${id}`,
         params: {
           latitude,
           longitude,
+          page,
         },
       }),
     }),

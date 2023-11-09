@@ -33,13 +33,6 @@ export function SeeAllProductsScreen() {
   const [ProductBySubCategory] = useProductBySubCategoryMutation();
   const [ProductsByCategory, result] = useProductsByCategoryMutation();
 
-  console.log(
-    '🚀 ~ file: SeeAllProductsScreen.tsx:27 ~ SeeAllProductsScreen ~ page:',
-    page,
-    IsSubLoading,
-    result?.data?.data?.products?.next_page_url,
-  );
-
   useEffect(() => {
     if (selectedSubCategoryId !== '') {
       if (page === 1) {
@@ -125,7 +118,7 @@ export function SeeAllProductsScreen() {
         bg={Colors.background.white}
         space={4}
         h={'full'}
-        p={4}
+        p={3}
         justifyContent={'center'}>
         <CatalogList setPage={setPage} />
         {IsLoading ? (
@@ -159,11 +152,6 @@ export function SeeAllProductsScreen() {
               }
             }}
             onEndReached={() => {
-              console.log(
-                '🚀 ~ next_page_url:',
-                result?.data?.data?.products?.next_page_url,
-                IsSubLoading,
-              );
               if (
                 result?.data?.data?.products?.next_page_url &&
                 !IsSubLoading
@@ -180,7 +168,7 @@ export function SeeAllProductsScreen() {
                 item={item.title?.english}
                 volume={item.variant_count}
                 amount={item.from}
-                mainStyle={{width: '50%', marginBottom: 12}}
+                mainStyle={{width: '49%', marginBottom: 12}}
               />
             )}
             keyExtractor={(item: Props) => item.id}
