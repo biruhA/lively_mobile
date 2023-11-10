@@ -97,7 +97,7 @@ export function DrugDetailScreen2() {
         bg={'white'}>
         {data?.data?.has_store && (
           <GradientButton
-            text="Visit All stores"
+            text="Visit All pharmacies"
             onPress={() => {
               onOpen();
             }}
