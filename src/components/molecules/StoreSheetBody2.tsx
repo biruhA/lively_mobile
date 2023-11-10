@@ -46,6 +46,8 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
     token,
   });
 
+  console.log('data?.data: ', data?.data);
+
   useEffect(() => {
     if (result?.isError) {
       console.log();
@@ -55,9 +57,12 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
       });
     } else if (result?.isSuccess) {
       toast.show({
-        description: 'Success',
+        description: !data?.data?.store_branch?.has_delivery
+          ? 'Thank you for your request, someone will reach out to you'
+          : 'Thank you for your request, your request is being processed',
         placement: 'top',
       });
+      onClose();
     }
   }, [result]);
 
@@ -90,9 +95,10 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
         />
         <Stack ml={100}>
           <Text style={fonts.subtitle1} numberOfLines={2}>
+            {data?.data?.store_branch?.store?.name?.english}
             {data?.data?.store_name?.english}
           </Text>
-          <Text>{data?.data?.store_branch?.address?.cityOrTown}</Text>
+          <Text>{data?.data?.store_branch?.store?.address?.cityOrTown}</Text>
         </Stack>
       </HStack>
       <Stack>
