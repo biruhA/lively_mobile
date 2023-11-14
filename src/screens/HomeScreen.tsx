@@ -17,7 +17,7 @@ export function HomeScreen() {
         <ScrollView>
           <Stack pt={8} px={4}>
             <Text style={styles.headerTxt}>
-              Hey {user?.name.split(' ')[0] || ''}, What would you like
+              Hey {user?.name?.split(' ')[0] || ''}, What would you like
             </Text>
             <Text style={styles.headerTxt}>to do today?</Text>
             <Text pt={2} style={styles.subHeaderTxt}>

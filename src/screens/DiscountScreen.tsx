@@ -12,7 +12,17 @@ import {ApiImage, LabeledHeader} from '../components';
 
 export function DiscountScreen() {
   const route = useRoute();
-  const {data, isLoading} = useDiscountBannerDetailQuery(route?.params?.id);
+  const {data, isLoading, refetch} = useDiscountBannerDetailQuery(
+    route?.params?.id,
+  );
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch()
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   return (
     <Stack flex={1} bg={Colors.background.white}>
@@ -29,6 +39,8 @@ export function DiscountScreen() {
       ) : (
         <FlatList
           style={{paddingTop: 16}}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
           numColumns={2}
           contentContainerStyle={{
             paddingBottom: 8,
