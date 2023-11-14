@@ -21,8 +21,17 @@ import {DeepLinkPath, useCurrentLocation} from '../hooks';
 export function ProductDetailScreen() {
   const navigation = useNavigation();
   const {selectedProductId} = useAppSelector(state => state.product);
-  const {data, isLoading} = useProductDetailByIdQuery(selectedProductId);
+  const {data, isLoading, refetch} =
+    useProductDetailByIdQuery(selectedProductId);
   const {res, handleLocationPermission} = useCurrentLocation();
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch()
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   return (
     <Stack flex={1} bg={Colors.background.everlasting_ice}>
@@ -37,6 +46,8 @@ export function ProductDetailScreen() {
       ) : (
         <FlatList
           data={[data?.data]}
+          onRefresh={onRefresh}
+          refreshing={refreshing}
           keyExtractor={item => item.id}
           renderItem={({item}) => {
             return (

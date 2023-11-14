@@ -61,6 +61,10 @@ export function PlaceDetails() {
     longitude: userLocation?.lon,
     token,
   });
+  console.log(
+    '🚀 ~ file: PlaceDetails.tsx:64 ~ PlaceDetails ~ data:',
+    data?.data,
+  );
 
   if (isLoading) {
     return (

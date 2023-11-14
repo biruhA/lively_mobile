@@ -51,7 +51,6 @@ export function HomeScreenOld() {
         renderItem={({item}) => {
           return (
             <Stack space={3}>
-              {/* <MainScreenHeader label={`Hi ${user?.name || ''} 👋`} /> */}
               <MainScreenHeader label={'Products'} />
               <SearchBox
                 hasCamera={false}
@@ -64,35 +63,6 @@ export function HomeScreenOld() {
                   <Carousel1 Data={landscapeDiscountBanners?.data?.data} />
                 )}
               </Stack>
-              {/* <Catalogue refreshing={refreshing} /> */}
-              {/* <Stack bg={'white'} pb={7} px={4} py={4}>
-                {isLoading ? (
-                  <CarouselBrowseSkeleton />
-                ) : (
-                  <Stack space={1}>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-Regular',
-                        fontWeight: '700',
-                        fontSize: 18,
-                      }}>
-                      Upcoming Events
-                    </Text>
-                    <Text
-                      style={{
-                        fontFamily: 'Poppins-Regular',
-                        fontWeight: '400',
-                        fontSize: 14,
-                        color: '#AFAFAF',
-                      }}>
-                      Swipe left to change cards
-                    </Text>
-                    <CarouselBrowse Data={data?.data} />
-                  </Stack>
-                )}
-              </Stack> */}
-              {/* <ForYou /> */}
-              {/* <TopArticles /> */}
               <ProductList
                 label="For Women"
                 url="for-her"
@@ -103,13 +73,6 @@ export function HomeScreenOld() {
                 url="for-him"
                 refreshing={refreshing}
               />
-              {/* <Stack bg={'white'} pb={7} px={4}>
-                {isLoading ? (
-                  <CarouselBrowseSkeleton />
-                ) : (
-                  <Carousel2 Data={squareDiscountBanners?.data?.data} />
-                )}
-              </Stack> */}
               <ProductList
                 label="For Mom & Baby"
                 url="mom-and-baby"

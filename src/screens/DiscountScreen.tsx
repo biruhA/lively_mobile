@@ -1,7 +1,7 @@
 import {FlatList, SafeAreaView, StatusBar} from 'react-native';
 import React from 'react';
 import {Image, Text, Stack, Spinner} from 'native-base';
-import {colors} from '../theme/colors';
+import {Colors, colors} from '../theme/colors';
 import {GoBack, ListEmptyComponent} from '../components/atoms';
 import {DiscountCard, ProductCard} from '../components/molecules';
 import {ScreenNames} from '../constants';
@@ -15,7 +15,7 @@ export function DiscountScreen() {
   const {data, isLoading} = useDiscountBannerDetailQuery(route?.params?.id);
 
   return (
-    <Stack flex={1} bg={'colors.pureWhite'}>
+    <Stack flex={1} bg={Colors.background.white}>
       <LabeledHeader label="Deals" />
       <Stack pb={2} bg={'white'}>
         <ApiImage
