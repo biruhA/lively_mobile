@@ -35,7 +35,7 @@ export function StoreSheet({isOpen, onClose}: Props) {
           }
           onClose();
         }}>
-        <Actionsheet.Content borderTopWidth={2} borderColor={'amber.400'}>
+        <Actionsheet.Content>
           {state === storeSheetState.notLoggedIn && (
             <StoreSheetBody1 onPress={onPress} />
           )}

@@ -27,11 +27,39 @@ export function SeeAllProductsScreen() {
   const [page, setPage] = useState(1);
   const [IsLoading, setIsLoading] = useState(true);
   const [IsSubLoading, setIsSubLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const {selectedCategoryId, selectedSubCategoryId} = useAppSelector(
     state => state.product,
   );
   const [ProductBySubCategory] = useProductBySubCategoryMutation();
   const [ProductsByCategory, result] = useProductsByCategoryMutation();
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setIsLoading(true);
+
+    if (selectedSubCategoryId !== '') {
+      ProductBySubCategory({
+        id: selectedSubCategoryId,
+        page,
+      })
+        .unwrap()
+        .then(() => {
+          setRefreshing(false);
+          setIsLoading(false);
+        });
+    } else {
+      ProductsByCategory({
+        id: selectedCategoryId,
+        page,
+      })
+        .unwrap()
+        .then(() => {
+          setRefreshing(false);
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedSubCategoryId !== '') {
@@ -126,6 +154,8 @@ export function SeeAllProductsScreen() {
         ) : (
           <FlatList
             numColumns={2}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
             data={DATA}
             ListEmptyComponent={() => <ListEmptyComponent />}
             ListFooterComponent={() => {

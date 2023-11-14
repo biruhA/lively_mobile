@@ -58,7 +58,7 @@ export function StoreSheetBody2({isOpen, onClose}: Props) {
     } else if (result?.isSuccess) {
       toast.show({
         description: !data?.data?.store_branch?.has_delivery
-          ? 'Thank you for your request, someone will reach out to you'
+          ? 'Thank you for your request, our customer service will reach out to you'
           : 'Thank you for your request, your request is being processed',
         placement: 'top',
       });

@@ -115,7 +115,7 @@ android {
         applicationId "com.lively_mobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 20
+        versionCode 22
         versionName "0.6.0"
     }
 

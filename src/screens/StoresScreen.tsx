@@ -21,12 +21,20 @@ export function StoresScreen() {
     state => state.product,
   );
   const [page, setPage] = useState(1);
-  const {data, isLoading} = useStoresQuery({
+  const [refreshing, setRefreshing] = useState(false);
+  const {data, isLoading, refetch} = useStoresQuery({
     id: selectedProduct?.variants[selectedProductVariantIndex]?.id,
     latitude: userLocation?.lat,
     longitude: userLocation?.lon,
     page: page,
   });
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    refetch()
+      .unwrap()
+      .then(() => setRefreshing(false));
+  }, []);
 
   return (
     <Stack bg={Colors.background.everlasting_ice} flex={1}>
@@ -40,6 +48,8 @@ export function StoresScreen() {
         ) : (
           <FlatList
             data={data?.data?.data}
+            onRefresh={onRefresh}
+            refreshing={refreshing}
             ListFooterComponent={() => {
               return (
                 <Center flex={1} py={1}>

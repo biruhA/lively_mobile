@@ -6,15 +6,19 @@ import {fonts} from '../theme/fonts';
 import TouchableIcon from '../components/atoms/TouchableIcon';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNames} from '../constants';
+import {useAppSelector} from '../store/hooks';
 
 export function HomeScreen() {
+  const {user} = useAppSelector(state => state.auth);
   return (
     <>
       <Stack flex={1} bg={'white'} py={4}>
         <HomeHeader />
         <ScrollView>
           <Stack pt={8} px={4}>
-            <Text style={styles.headerTxt}>Hey , What would you like</Text>
+            <Text style={styles.headerTxt}>
+              Hey {user?.name.split(' ')[0] || ''}, What would you like
+            </Text>
             <Text style={styles.headerTxt}>to do today?</Text>
             <Text pt={2} style={styles.subHeaderTxt}>
               we use this information to make user experience easy and
